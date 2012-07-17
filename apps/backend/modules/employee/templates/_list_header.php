@@ -1,0 +1,1 @@
+<a href="<?php echo url_for('employee/add'); ?>"  class="external_link" target="_self" style="text-decoration:none;">Create New</a>

@@ -1,0 +1,12 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      User
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    list:
+      display: [name, email, password, role, is_super_user, created_at]
+      fields : 
+        created_at: { params: date_format='dd-MM-yyyy' }
+      object_actions:
+        _edit: ~

@@ -1,0 +1,17 @@
+fields:
+  handsets{brand_name}:
+    required:
+      msg:              The brand name cannot be left blank.
+  handsets{model_name}:
+    required:
+      msg:              The model name cannot be left blank.  
+  handsets{auto_reboot}:
+    required:
+      msg:              The auto reboot cannot be left blank.
+  handsets{dialer_mode}:
+    required:
+      msg:              The dialer mode cannot be left blank.
+  handsets{tested_by}:
+    required:
+      msg:              The tested by cannot be left blank.
+  

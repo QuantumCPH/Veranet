@@ -1,0 +1,21 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      AgentCompany
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    fields:
+        cvr_number: {name: NIF/NIE Number}
+        name: {name: Company Name}
+        kimarin_agent_id: {kimarin_agent_id: Kimarin Agent Id}
+    edit:
+      display: [name,first_name,middle_name,last_name,cvr_number,kimarin_agent_id,address,post_code,province_id,nationality_id,contact_name,email, mobile_number,head_phone_number,sms_code,fax_number,website,status_id,company_type_id,account_manager_id,agent_commission_package_id,is_prepaid,comments]
+    list:
+      title: Agent Company List
+      filters: [id, name, cvr_number ]
+      display: [id, name, cvr_number, first_name, head_phone_number, status , registration_revenue_commissision ,refill_revenue_commissision,revenue_at_shop, registration_revenue,refill_revenue,revenue_at_shop,sms_code]
+      max_per_page: 500
+      object_actions:
+        _edit: ~
+      
+        #viewDetail : {label: view details, action: view}

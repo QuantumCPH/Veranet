@@ -1,0 +1,18 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      SimTypes
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    list:
+      title:            Sim Type List
+      display:        [id,title]
+      
+    edit:
+      title:          Sim Type
+      actions:
+        _list: ~
+        _save: ~
+        _save_and_add: ~
+    create:
+      title:          Add Sim Type 

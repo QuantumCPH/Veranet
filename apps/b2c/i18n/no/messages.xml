@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd"[]>
+<xliff version="1.0">
+    <file source-language="EN" target-language="no" datatype="plaintext" original="messages" date="2010-07-22T17:23:11Z" product-name="messages" xml:space="default">
+        <header />
+        <body>
+            <trans-unit id="1" translate="yes" reformat="yes" xml:space="default">
+                <source>Login</source>
+                <target>Logg inn</target>
+            </trans-unit>
+            <trans-unit id="2" translate="yes" reformat="yes" xml:space="default">
+                <source>Log on on my side</source>
+                <target>Logg on on min side</target>
+            </trans-unit>
+            <trans-unit id="3" translate="yes" reformat="yes" xml:space="default">
+                <source>Email</source>
+                <target>E-post</target>
+            </trans-unit>
+            <trans-unit id="4" translate="yes" reformat="yes" xml:space="default">
+                <source>Password</source>
+                <target>Passord</target>
+            </trans-unit>
+            <trans-unit id="5" translate="yes" reformat="yes" xml:space="default">
+                <source>Log in</source>
+                <target>Logg inn</target>
+            </trans-unit>
+            <trans-unit id="6" translate="yes" reformat="yes" xml:space="default">
+                <source>Forgot password?</source>
+                <target>Glemt passord?</target>
+            </trans-unit>
+            <trans-unit id="7" translate="yes" reformat="yes" xml:space="default">
+                <source>Close window</source>
+                <target>Lukk vindu</target>
+            </trans-unit>
+            <trans-unit id="8" translate="yes" reformat="yes" xml:space="default">
+                <source>Email/password dont exist.</source>
+                <target>Epost / passord dont eksisterer.</target>
+            </trans-unit>
+            <trans-unit id="9" translate="yes" reformat="yes" xml:space="default">
+                <source>Unable to perform your request, make sure your email address exists.</source>
+                <target>Kan ikke utføre forespørselen din, sørg for at e-postadressen finnes.</target>
+            </trans-unit>
+            <trans-unit id="10" translate="yes" reformat="yes" xml:space="default">
+                <source>Password is sent to your email address.</source>
+                <target>Passord blir sendt til din e-postadresse..</target>
+            </trans-unit>
+            <trans-unit id="11" translate="yes" reformat="yes" xml:space="default">
+                <source>Dear Customer</source>
+                <target>Kjære kunde</target>
+            </trans-unit>
+            <trans-unit id="12" translate="yes" reformat="yes" xml:space="default">
+                <source>Order No.</source>
+                <target>Varenummer</target>
+            </trans-unit>
+            <trans-unit id="13" translate="yes" reformat="yes" xml:space="default">
+                <source>US Mobile Number</source>
+                <target>USA Mobilnummer</target>
+            </trans-unit>
+            <trans-unit id="14" translate="yes" reformat="yes" xml:space="default">
+                <source>Date</source>
+                <target>Dato</target>
+            </trans-unit>
+            <trans-unit id="15" translate="yes" reformat="yes" xml:space="default">
+                <source>Description</source>
+                <target>Beskrivelse</target>
+            </trans-unit>
+            <trans-unit id="16" translate="yes" reformat="yes" xml:space="default">
+                <source>Quantity</source>
+                <target>Antall</target>
+            </trans-unit>
+            <trans-unit id="17" translate="yes" reformat="yes" xml:space="default">
+                <source>Amount</source>
+                <target>Beløp</target>
+            </trans-unit>
+            <trans-unit id="18" translate="yes" reformat="yes" xml:space="default">
+                <source>Subtotal</source>
+                <target>Delsum</target>
+            </trans-unit>
+            <trans-unit id="19" translate="yes" reformat="yes" xml:space="default">
+                <source>VAT</source>
+                <target>MVA</target>
+            </trans-unit>
+            <trans-unit id="20" translate="yes" reformat="yes" xml:space="default">
+                <source>Total</source>
+                <target>Total</target>
+            </trans-unit>
+            <trans-unit id="21" translate="yes" reformat="yes" xml:space="default">
+                <source>If you have any questions please feel free to contact our customer support center at</source>
+                <target>Hvis du har spørsmål kan du gjerne kontakte vårt kundesenter på</target>
+            </trans-unit>
+            <trans-unit id="22" translate="yes" reformat="yes" xml:space="default">
+                <source>Cheers</source>
+                <target>Skål</target>
+            </trans-unit>
+            <trans-unit id="23" translate="yes" reformat="yes" xml:space="default">
+                <source>Support</source>
+                <target>Støtte</target>
+            </trans-unit>
+            <trans-unit id="24" translate="yes" reformat="yes" xml:space="default">
+                <source>Send SMS worldwide at the best prices of market</source>
+                <target>Send SMS over hele verden til de beste prisene i markedet</target>
+            </trans-unit>
+            <trans-unit id="25" translate="yes" reformat="yes" xml:space="default">
+                <source>International calls from 0 cents * With Zapna, you can call the whole world.</source>
+                <target>Internasjonale samtaler fra 0 cents * Med Zapna, kan du ringe hele verden.</target>
+            </trans-unit>
+            
+            <trans-unit id="26" translate="yes" reformat="yes" xml:space="default">
+                <source>Tell a friend</source>
+                <target>Tips en venn</target>
+            </trans-unit>
+      
+            <trans-unit id="27" translate="yes" reformat="yes" xml:space="default">
+                <source>Payment</source>
+                <target>Betaling</target>
+            </trans-unit>
+            <trans-unit id="28" translate="yes" reformat="yes" xml:space="default">
+                <source>Mobile number</source>
+                <target>Mobilnummer</target>
+            </trans-unit>
+            <trans-unit id="29" translate="yes" reformat="yes" xml:space="default">
+                <source>Product</source>
+                <target>Produkt</target>
+            </trans-unit>
+            <trans-unit id="30" translate="yes" reformat="yes" xml:space="default">
+                <source>First name</source>
+                <target>Fornavn</target>
+            </trans-unit>
+            <trans-unit id="31" translate="yes" reformat="yes" xml:space="default">
+                <source>last name</source>
+                <target>Etternavn</target>
+            </trans-unit>
+            <trans-unit id="32" translate="yes" reformat="yes" xml:space="default">
+                <source>address</source>
+                <target>Adresse</target>
+            </trans-unit>
+            <trans-unit id="33" translate="yes" reformat="yes" xml:space="default">
+                <source>po box number</source>
+                <target>Postboks nummer</target>
+            </trans-unit>
+            <trans-unit id="34" translate="yes" reformat="yes" xml:space="default">
+                <source>city</source>
+                <target>by</target>
+            </trans-unit>
+            <trans-unit id="35" translate="yes" reformat="yes" xml:space="default">
+                <source>country id</source>
+                <target>land id</target>
+            </trans-unit>
+            <trans-unit id="36" translate="yes" reformat="yes" xml:space="default">
+                <source>date of birth</source>
+                <target>Fødselsdato</target>
+            </trans-unit>
+            <trans-unit id="37" translate="yes" reformat="yes" xml:space="default">
+                <source>password</source>
+                <target>Passord</target>
+            </trans-unit>
+            <trans-unit id="38" translate="yes" reformat="yes" xml:space="default">
+                <source>password confirm</source>
+                <target>Bekreftet passord</target>
+            </trans-unit>
+            <trans-unit id="39" translate="yes" reformat="yes" xml:space="default">
+                <source>email</source>
+                <target>E-post</target>
+            </trans-unit>
+            <trans-unit id="40" translate="yes" reformat="yes" xml:space="default">
+                <source>telecom operator id</source>
+                <target>Teleoperatør id</target>
+            </trans-unit>
+            <trans-unit id="41" translate="yes" reformat="yes" xml:space="default">
+                <source>terms conditions</source>
+                <target>vilkår betingelser</target>
+            </trans-unit>
+            <trans-unit id="42" translate="yes" reformat="yes" xml:space="default">
+                <source>is newsletter subscriber</source>
+                <target>er nyhetsbrevet abonnent</target>
+            </trans-unit>
+            <trans-unit id="43" translate="yes" reformat="yes" xml:space="default">
+                <source>Call history is updated after every 5-10 minutes.</source>
+                <target>Samtalelogg blir oppdatert etter hvert 5-10 minutt.</target>
+            </trans-unit>
+            <trans-unit id="44" translate="yes" reformat="yes" xml:space="default">
+                <source>Phone Number</source>
+                <target>Telefonnummer</target>
+            </trans-unit>
+            <trans-unit id="45" translate="yes" reformat="yes" xml:space="default">
+                <source>Duration</source>
+                <target>Varighet</target>
+            </trans-unit>
+            <trans-unit id="46" translate="yes" reformat="yes" xml:space="default">
+                <source>Total amount</source>
+                <target>Totalt beløp</target>
+            </trans-unit>
+            <trans-unit id="47" translate="yes" reformat="yes" xml:space="default">
+                <source>Subtotal</source>
+                <target>Delsum</target>
+            </trans-unit>
+            <trans-unit id="48" translate="yes" reformat="yes" xml:space="default">
+                <source>Customer Number</source>
+                <target>Kundenummer</target>
+            </trans-unit>
+            <trans-unit id="49" translate="yes" reformat="yes" xml:space="default">
+                <source>Your account balance is</source>
+                <target>Din saldo er</target>
+            </trans-unit>
+            <trans-unit id="50" translate="yes" reformat="yes" xml:space="default">
+                <source>Active mobile number</source>
+                <target>Aktiv mobilnummer</target>
+            </trans-unit>
+            <trans-unit id="51" translate="yes" reformat="yes" xml:space="default">
+                <source>Your status:</source>
+                <target>Din status:</target>
+            </trans-unit>
+            <trans-unit id="52" translate="yes" reformat="yes" xml:space="default">
+                <source>Services</source>
+                <target>Services</target>
+            </trans-unit>
+            <trans-unit id="53" translate="yes" reformat="yes" xml:space="default">
+                <source>Choose</source>
+                <target>Velg</target>
+            </trans-unit>
+            <trans-unit id="54" translate="yes" reformat="yes" xml:space="default">
+                <source>Resenumber</source>
+                <target>Resenumber</target>
+            </trans-unit>
+            <trans-unit id="55" translate="yes" reformat="yes" xml:space="default">
+                <source>Enable</source>
+                <target>Aktiver</target>
+            </trans-unit>
+            <trans-unit id="56" translate="yes" reformat="yes" xml:space="default">
+                <source>Login to your account</source>
+                <target>Logg på kontoen din</target>
+            </trans-unit>
+            <trans-unit id="57" translate="yes" reformat="yes" xml:space="default">
+                <source>send password message</source>
+                <target>Send passord meldingen</target>
+            </trans-unit>
+            <trans-unit id="58" translate="yes" reformat="yes" xml:space="default">
+                <source>Hello and welcome to Smartsim - my pages. To log in, use your customer number which is your mobile number and password. On my pages you can see what calls you made, fill the pot, and more.</source>
+                <target>Hei og velkommen til SmartSim - sidene mine. For å logge på, bruk ditt kundenummer som er ditt mobilnummer og passord. På mine sider kan du se hva kaller du gjorde, fyll potten, og mer.</target>
+            </trans-unit>
+            <trans-unit id="59" translate="yes" reformat="yes" xml:space="default">
+                <source>Log into your pages</source>
+                <target>Logg inn på sidene dine</target>
+            </trans-unit>
+            <trans-unit id="60" translate="yes" reformat="yes" xml:space="default">
+                <source>In mobile number</source>
+                <target>I mobilnummer</target>
+            </trans-unit>
+            <trans-unit id="61" translate="yes" reformat="yes" xml:space="default">
+                <source>Password</source>
+                <target>Passord</target>
+            </trans-unit>
+            <trans-unit id="62" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid mobile number.</source>
+                <target>Skriv inn et gyldig mobilnummer.</target>
+            </trans-unit>
+            <trans-unit id="63" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a password.</source>
+                <target>Skriv inn et passord.</target>
+            </trans-unit>
+            <trans-unit id="64" translate="yes" reformat="yes" xml:space="default">
+                <source>Forgot password?</source>
+                <target>Glemt passord?</target>
+            </trans-unit>
+            <trans-unit id="65" translate="yes" reformat="yes" xml:space="default">
+                <source>Write e-mail address you used for registration.&lt;br /&gt;Your password will be sent to you via this email.</source>
+                <target>Skriv e-post adresse du brukte for registrering. &lt;br /&gt;Ditt passord vil bli sendt til deg via denne e-posten.</target>
+            </trans-unit>
+            <trans-unit id="66" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid email address.</source>
+                <target>Skriv inn en gyldig e-postadresse.</target>
+            </trans-unit>
+            <trans-unit id="67" translate="yes" reformat="yes" xml:space="default">
+                <source>Settings</source>
+                <target>innstillinger</target>
+            </trans-unit>
+            <trans-unit id="68" translate="yes" reformat="yes" xml:space="default">
+                <source>Old Password</source>
+                <target>Gammelt Passord</target>
+            </trans-unit>
+            <trans-unit id="69" translate="yes" reformat="yes" xml:space="default">
+                <source>Old Password Is not Correct.</source>
+                <target>Gammelt passord er ikke riktig.</target>
+            </trans-unit>
+            <trans-unit id="70" translate="yes" reformat="yes" xml:space="default">
+                <source>password</source>
+                <target>passord</target>
+            </trans-unit>
+            <trans-unit id="71" translate="yes" reformat="yes" xml:space="default">
+                <source>password confirm</source>
+                <target>Bekreftet passord</target>
+            </trans-unit>
+            <trans-unit id="72" translate="yes" reformat="yes" xml:space="default">
+                <source>other history</source>
+                <target>annen historie</target>
+            </trans-unit>
+            <trans-unit id="73" translate="yes" reformat="yes" xml:space="default">
+                <source>Call History</source>
+                <target>Samtalelogg</target>
+            </trans-unit>
+            <trans-unit id="74" translate="yes" reformat="yes" xml:space="default">
+                <source>Order Nubmer</source>
+                <target>Bestill Nummer</target>
+            </trans-unit>
+            <trans-unit id="75" translate="yes" reformat="yes" xml:space="default">
+                <source>Date &amp; time</source>
+                <target>Dato og tid</target>
+            </trans-unit>
+            <trans-unit id="76" translate="yes" reformat="yes" xml:space="default">
+                <source>Description</source>
+                <target>Beskrivelse</target>
+            </trans-unit>
+            <trans-unit id="77" translate="yes" reformat="yes" xml:space="default">
+                <source>There are currently no transactions to show.</source>
+                <target>Det er ingen transaksjoner som skal vises.</target>
+            </trans-unit>
+            <trans-unit id="78" translate="yes" reformat="yes" xml:space="default">
+                <source>Payment History</source>
+                <target>Betalingslogg</target>
+            </trans-unit>
+
+            <trans-unit id="79" translate="yes" reformat="yes" xml:space="default">
+                <source>Order Numer</source>
+                <target>Betalingslogg</target>
+            </trans-unit>
+
+            <trans-unit id="80" translate="yes" reformat="yes" xml:space="default">
+                <source>Automatic replenishment is:</source>
+                <target>Automatisk etterfylling er:</target>
+            </trans-unit>
+            <trans-unit id="81" translate="yes" reformat="yes" xml:space="default">
+                <source>If your credit card that is registered for the service of any reason is no longer active, you can disable service and then activate it again with another credit card.</source>
+                <target>Hvis kredittkortet som er registrert for tjenesten av en eller annen grunn ikke lenger er aktiv, kan du deaktivere tjenesten, og så aktivere den igjen med et annet kredittkort.</target>
+            </trans-unit>
+
+            <trans-unit id="82" translate="yes" reformat="yes" xml:space="default">
+                <source>You have selected automatic replenishment when the pot is below:</source>
+                <target>Du har valgt automatisk påfylling når potten er under:</target>
+            </trans-unit>
+            <trans-unit id="83" translate="yes" reformat="yes" xml:space="default">
+                <source>Type</source>
+                <target>Type</target>
+            </trans-unit>
+            <trans-unit id="84" translate="yes" reformat="yes" xml:space="default">
+                <source>The pot is filled in with:</source>
+                <target>Potten er fylt på med:</target>
+            </trans-unit>
+            <trans-unit id="85" translate="yes" reformat="yes" xml:space="default">
+                <source>The most convenient way to fill the pot is to enable automatic refilling (below), then you do not need to worry about the pot running out. Especially important is such trip abroad where it can be difficult to fill in in any other way.</source>
+                <target>Den mest praktiske måten å fylle potten er å aktivere automatisk etterfylling (under), så du trenger ikke å bekymre potten går ut. Spesielt viktig er en slik tur i utlandet der det kan være vanskelig å fylle på noen annen måte.</target>
+            </trans-unit>
+            <trans-unit id="86" translate="yes" reformat="yes" xml:space="default">
+                <source>Automatic Replenishment is: Inactive</source>
+                <target>Automatisk påfylling er: Inaktiv</target>
+            </trans-unit>
+
+            <trans-unit id="87" translate="yes" reformat="yes" xml:space="default">
+                <source>There are currently no SMS records to show.</source>
+                <target>Det er foreløpig ingen SMS-poster å vise.</target>
+            </trans-unit>
+            <trans-unit id="88" translate="yes" reformat="yes" xml:space="default">
+                <source>Tell your friends about Zapna and earn extra balance!</source>
+                <target>Fortell vennene dine om Zapna and tjene ekstra balanse!</target>
+            </trans-unit>
+            <trans-unit id="89" translate="yes" reformat="yes" xml:space="default">
+                <source>Tell your friends about Zapna and earn 10 NOK as soon as your friends have made their first payment with Zapna! Spread the word about Zapna and let your friends know about Zapna services.</source>
+                <target>Fortell vennene dine om Zapna og tjene 10 NOK så snart dine venner har gjort sin første innbetaling med Zapna! Spre ordet om Zapna og la vennene dine om Zapna tjenester.</target>
+            </trans-unit>
+            <trans-unit id="90" translate="yes" reformat="yes" xml:space="default">
+                <source>You can tell your friends about Zapna in two simple ways:</source>
+                <target>Du kan fortelle dine venner om Zapna i to enkle måter:</target>
+            </trans-unit>
+            <trans-unit id="91" translate="yes" reformat="yes" xml:space="default">
+                <source>Fill out the fields below and click the Send Email button - your friend will receive an Email</source>
+                <target>Fyll ut feltene nedenfor og klikk på Send knappen E-post - din venn vil motta en e-post</target>
+            </trans-unit>
+            <trans-unit id="92" translate="yes" reformat="yes" xml:space="default">
+                <source>What you'll get from this?</source>
+                <target>Hva får du av dette?</target>
+            </trans-unit>
+            <trans-unit id="93" translate="yes" reformat="yes" xml:space="default">
+                <source>As soon as your friends have made their first payment with Zapna, you will automatically receive 10 NOK in your Zapna balance - so if 10 of your friends register on Zapna, youll gain 100 NOK in your account. Just share the news and enjoy this great new treat from Zapna.</source>
+                <target>Så snart dine venner har gjort sin første innbetaling med Zapna, vil du automatisk motta 10 NOK i din Zapna balanse - så hvis 10 av vennene dine registrerer seg på Zapna, youll få 100 NOK på kontoen din. Bare dele nyhetene og nyte denne flotte nye godbiten fra Zapna.</target>
+            </trans-unit>
+      
+            <trans-unit id="94" translate="yes" reformat="yes" xml:space="default">
+                <source>Your Friend's Name</source>
+                <target>Din venns navn</target>
+            </trans-unit>
+            <trans-unit id="95" translate="yes" reformat="yes" xml:space="default">
+                <source>Your Friend's Phone Number</source>
+                <target>Din venn telefonnummer</target>
+            </trans-unit>
+            <trans-unit id="96" translate="yes" reformat="yes" xml:space="default">
+                <source>Your Friend's Email</source>
+                <target>Din venns e-post</target>
+            </trans-unit>
+            <trans-unit id="97" translate="yes" reformat="yes" xml:space="default">
+                <source>Your Message</source>
+                <target>Din Melding</target>
+            </trans-unit>
+            <trans-unit id="98" translate="yes" reformat="yes" xml:space="default">
+                <source>Smartsim use to make extremely cheap international calls (save up to 90%) and to cut prices when you are abroad (you'll save 30-80%). Right now costing Smartsim 99 NOK and you can call for the full amount. Smartsim has no monthly fee or hidden charges.</source>
+                <target>SmartSim bruke til å lage ekstremt billige internasjonale samtaler (lagre opptil 90%) og å kutte prisene når du er i utlandet (du vil spare 30-80%). Akkurat nå koster SmartSim 99 NOK, og du kan ringe for hele beløpet. SmartSim har ingen månedspris eller skjulte kostnader.</target>
+            </trans-unit>
+            <trans-unit id="99" translate="yes" reformat="yes" xml:space="default">
+                <source>Send Email to join Smartsim</source>
+                <target>Send e-post til å delta SmartSim</target>
+            </trans-unit>
+      
+            <trans-unit id="100" translate="yes" reformat="yes" xml:space="default">
+                <source>Enable Resenummer</source>
+                <target>Aktiver Resenummer</target>
+            </trans-unit>
+            <trans-unit id="101" translate="yes" reformat="yes" xml:space="default">
+                <source>Payment Confirmation</source>
+                <target>Betaling Bekreftelse</target>
+            </trans-unit>
+            <trans-unit id="102" translate="yes" reformat="yes" xml:space="default">
+                <source>Thank For Using our services. VoIP unsubscribed successfully.</source>
+                <target>Takk for bruk av våre tjenester. VoIP stoppet vellykket.</target>
+            </trans-unit>
+            <trans-unit id="103" translate="yes" reformat="yes" xml:space="default">
+                <source>For any questions please feel free to contact us at</source>
+                <target>For eventuelle spørsmål kan du gjerne kontakte oss på</target>
+            </trans-unit>
+            <trans-unit id="104" translate="yes" reformat="yes" xml:space="default">
+                <source>Your Current Balance is:</source>
+                <target>Din nåværende saldo er:</target>
+            </trans-unit>
+            <trans-unit id="105" translate="yes" reformat="yes" xml:space="default">
+                <source>1 SMS constitutes 142 characters</source>
+                <target>1 SMS utgjør 142 tegn</target>
+            </trans-unit>
+            <trans-unit id="106" translate="yes" reformat="yes" xml:space="default">
+                <source>Message upto 302 characters will be considered as 2 sms</source>
+                <target>Melding opptil 302 tegn vil bli vurdert som 2 sms</target>
+            </trans-unit>
+            <trans-unit id="107" translate="yes" reformat="yes" xml:space="default">
+                <source>Message upto 432 characters will be considered as 3 SMS</source>
+                <target>Melding opptil 432 tegn vil bli betraktet som 3 SMS</target>
+            </trans-unit>
+            <trans-unit id="108" translate="yes" reformat="yes" xml:space="default">
+                <source>Any Text written above character limit will be automatically truncated</source>
+                <target>All tekst er skrevet ovenfor tegn vil bli automatisk avkortet</target>
+            </trans-unit>
+            <trans-unit id="109" translate="yes" reformat="yes" xml:space="default">
+                <source>SMS charges may apply</source>
+                <target>SMS kan påløpe</target>
+            </trans-unit>
+            <trans-unit id="110" translate="yes" reformat="yes" xml:space="default">
+                <source>Message has been sent</source>
+                <target>Meldingen er sendt</target>
+            </trans-unit>
+            <trans-unit id="111" translate="yes" reformat="yes" xml:space="default">
+                <source>Your message unfortunately not sent, try again</source>
+                <target>Din melding dessverre ikke sendt, prøv igjen</target>
+            </trans-unit>
+            <trans-unit id="112" translate="yes" reformat="yes" xml:space="default">
+                <source>Destination Number&lt;br /&gt;(without leading 0)</source>
+                <target>Destinasjon Antall &lt;br /&gt; (uten ledende 0)</target>
+            </trans-unit>
+            <trans-unit id="113" translate="yes" reformat="yes" xml:space="default">
+                <source>Characters</source>
+                <target>Tegn</target>
+            </trans-unit>
+            <trans-unit id="114" translate="yes" reformat="yes" xml:space="default">
+                <source>Message:</source>
+                <target>Melding:</target>
+            </trans-unit>
+            <trans-unit id="115" translate="yes" reformat="yes" xml:space="default">
+                <source>Send SMS</source>
+                <target>Send SMS</target>
+            </trans-unit>
+            <trans-unit id="116" translate="yes" reformat="yes" xml:space="default">
+                <source>Dashboard</source>
+                <target>Dashbord</target>
+            </trans-unit>
+            <trans-unit id="117" translate="yes" reformat="yes" xml:space="default">
+                <source>Buy credit</source>
+                <target>Kjøp kreditt</target>
+            </trans-unit>
+            <trans-unit id="118" translate="yes" reformat="yes" xml:space="default">
+                <source>Register</source>
+                <target>Registrer</target>
+            </trans-unit>
+            <trans-unit id="119" translate="yes" reformat="yes" xml:space="default">
+                <source>Required to fill</source>
+                <target>Kreves for å fylle</target>
+            </trans-unit>
+            <trans-unit id="120" translate="yes" reformat="yes" xml:space="default">
+                <source>Payment details:</source>
+                <target>Betaling Detaljer:</target>
+            </trans-unit>
+            <trans-unit id="121" translate="yes" reformat="yes" xml:space="default">
+                <source>Step 1</source>
+                <target>Trinn 1</target>
+            </trans-unit>
+            <trans-unit id="122" translate="yes" reformat="yes" xml:space="default">
+                <source>Step 2</source>
+                <target>Trinn 2</target>
+            </trans-unit>
+            <trans-unit id="123" translate="yes" reformat="yes" xml:space="default">
+                <source>Become a Customer</source>
+                <target>Bli kunde</target>
+            </trans-unit>
+            <trans-unit id="124" translate="yes" reformat="yes" xml:space="default">
+                <source>Extra refill amount</source>
+                <target>Ekstra påfyll beløp</target>
+            </trans-unit>
+            <trans-unit id="125" translate="yes" reformat="yes" xml:space="default">
+                <source>Mobile number</source>
+                <target>Mobilnummer</target>
+            </trans-unit>
+            <trans-unit id="126" translate="yes" reformat="yes" xml:space="default">
+                <source>Product</source>
+                <target>produkt</target>
+            </trans-unit>
+               <trans-unit id="127" translate="yes" reformat="yes" xml:space="default">
+                <source>First name</source>
+                <target>Fornavn</target>
+            </trans-unit>
+               <trans-unit id="128" translate="yes" reformat="yes" xml:space="default">
+                <source>Last name</source>
+                <target>Etternavn</target>
+            </trans-unit>
+               <trans-unit id="129" translate="yes" reformat="yes" xml:space="default">
+                <source>Address</source>
+                <target>Adresse</target>
+            </trans-unit>
+               <trans-unit id="130" translate="yes" reformat="yes" xml:space="default">
+                <source>Post code</source>
+                <target>Postnummer</target>
+            </trans-unit>
+               <trans-unit id="131" translate="yes" reformat="yes" xml:space="default">
+                <source>City</source>
+                <target>by</target>
+            </trans-unit>
+               <trans-unit id="132" translate="yes" reformat="yes" xml:space="default">
+                <source>Birth date &lt;br /&gt;(dd-mm-yyyy)</source>
+                <target>Fødselsdato &lt;br /&gt;(dd-mm-åååå)</target>
+            </trans-unit>
+               <trans-unit id="133" translate="yes" reformat="yes" xml:space="default">
+                <source>Retype password</source>
+                <target>Skriv passord</target>
+            </trans-unit>
+               <trans-unit id="134" translate="yes" reformat="yes" xml:space="default">
+                <source>Telecom operator</source>
+                <target>Teleoperatør</target>
+            </trans-unit>
+               <trans-unit id="135" translate="yes" reformat="yes" xml:space="default">
+                <source>I accept all terms and conditions</source>
+                <target>Jeg aksepterer alle betingelser og vilkår</target>
+            </trans-unit>
+               <trans-unit id="136" translate="yes" reformat="yes" xml:space="default">
+                <source>Next</source>
+                <target>Neste</target>
+            </trans-unit>
+               <trans-unit id="137" translate="yes" reformat="yes" xml:space="default">
+                <source>We are sorry we have difficulties in our database, please try again in 2 hours</source>
+                <target>Vi beklager vi har vanskeligheter i vår database, prøv igjen om 2 timer</target>
+            </trans-unit>
+               <trans-unit id="138" translate="yes" reformat="yes" xml:space="default">
+                <source>Minimum 6 digits</source>
+                <target>Minimum 6 siffer</target>
+            </trans-unit>
+               <trans-unit id="139" translate="yes" reformat="yes" xml:space="default">
+                <source>Pay</source>
+                <target>Betal</target>
+            </trans-unit>
+            <trans-unit id="140" translate="yes" reformat="yes" xml:space="default">
+                <source>Delivery and Returns</source>
+                <target>Levering og retur</target>
+            </trans-unit>
+             <trans-unit id="141" translate="yes" reformat="yes" xml:space="default">
+                <source>Auto refill details:</source>
+                <target>Auto refill detaljer:</target>
+            </trans-unit>
+             <trans-unit id="142" translate="yes" reformat="yes" xml:space="default">
+                <source>I want to activate auto refill feature</source>
+                <target>Jeg ønsker å aktivere automatisk refill-funksjon</target>
+            </trans-unit>
+             <trans-unit id="143" translate="yes" reformat="yes" xml:space="default">
+                <source>Auto refill minimum balance:</source>
+                <target>Automatisk påfyll minimum balanse:</target>
+            </trans-unit>
+             <trans-unit id="144" translate="yes" reformat="yes" xml:space="default">
+                <source>Auto refill amount:</source>
+                <target>Auto refill beløp:</target>
+            </trans-unit>
+             <trans-unit id="145" translate="yes" reformat="yes" xml:space="default">
+                <source>Zapna recommends to activate this service so you &lt;br /&gt; do not have to manually  refill when your account&lt;br /&gt;  balance runs low. 100 or 200 NOK each  when the &lt;br /&gt; balances reaches 25 or 50 NOK. This facility is &lt;br /&gt; added to your account in minutes.</source>
+                <target>Zapna to anbefaler å aktivere denne tjenesten slik at du &lt;br /&gt; trenger ikke å manuelt fylle når kontoen &lt;br /&gt;balanse kjører lav. 100 eller 200 NOK hver da &lt;br /&gt; saldo når 25 eller 50 NOK. Dette anlegget er &lt;br /&gt; lagt til kontoen din på minutter</target>
+            </trans-unit>
+             <trans-unit id="146" translate="yes" reformat="yes" xml:space="default">
+                <source>Enter cell phone number</source>
+                <target>Tast mobiltelefonnummer</target>
+            </trans-unit>
+             <trans-unit id="147" translate="yes" reformat="yes" xml:space="default">
+                <source>Send</source>
+                <target>Send</target>
+            </trans-unit>
+              <trans-unit id="148" translate="yes" reformat="yes" xml:space="default">
+                <source>Active</source>
+                <target>Aktiv</target>
+            </trans-unit>
+              <trans-unit id="149" translate="yes" reformat="yes" xml:space="default">
+                <source>Your status:</source>
+                <target>Din status:</target>
+            </trans-unit>
+              <trans-unit id="150" translate="yes" reformat="yes" xml:space="default">
+                <source>Refill</source>
+                <target>Refill</target>
+            </trans-unit>
+              <trans-unit id="151" translate="yes" reformat="yes" xml:space="default">
+                <source>Send Invitation</source>
+                <target>Send invitasjon</target>
+            </trans-unit>
+              <trans-unit id="152" translate="yes" reformat="yes" xml:space="default">
+                <source>Most convenient way to fill the pot call is To enable automatic &lt;br /&gt; filling (below). then you need Do not worry about the pot runs out. &lt;br /&gt; Especially important in such trip abroad when it can be difficult to fill in any other way.</source>
+                <target>Mest praktisk måte å fylle potten samtalen er å muliggjøre automatisk &lt;br /&gt; fylling (nedenfor). Da trenger du ikke bry deg om potten går ut. &lt;br /&gt; Spesielt viktig i en slik tur i utlandet når det kan være vanskelig å fylle på annen måte.</target>
+            </trans-unit>
+              <trans-unit id="153" translate="yes" reformat="yes" xml:space="default">
+                <source>Manual filling:</source>
+                <target>Manuell fylling:</target>
+            </trans-unit>
+            <trans-unit id="154" translate="yes" reformat="yes" xml:space="default">
+                <source>Select amount to be loaded:</source>
+                <target>Velg beløp som skal lastes:</target>
+            </trans-unit>
+              <trans-unit id="147" translate="yes" reformat="yes" xml:space="default">
+                <source>Load</source>
+                <target>Laste</target>
+            </trans-unit>
+              <trans-unit id="155" translate="yes" reformat="yes" xml:space="default">
+                <source>Load automatically &lt;br /&gt; when the pot is below:</source>
+                <target>Lastes automatiskh &lt;br /&gt; når potten er under:</target>
+            </trans-unit>
+              <trans-unit id="156" translate="yes" reformat="yes" xml:space="default">
+                <source>Automatic replenishment</source>
+                <target>automatisk Etterfylling</target>
+            </trans-unit>
+              <trans-unit id="157" translate="yes" reformat="yes" xml:space="default">
+                <source>If your credit card that is registered for the service of any reason is no longer active, you can disable service and then activate it again with another credit card.</source>
+                <target>Hvis kredittkortet som er registrert for tjenesten av en eller annen grunn ikke lenger er aktiv, kan du deaktivere tjenesten, og så aktivere den igjen med et annet kredittkort.</target>
+            </trans-unit>
+              <trans-unit id="158" translate="yes" reformat="yes" xml:space="default">
+                <source>You have selected automatic replenishment when the pot is below:</source>
+                <target>Du har valgt automatisk påfylling når potten er under:</target>
+            </trans-unit>
+              <trans-unit id="159" translate="yes" reformat="yes" xml:space="default">
+                <source>The pot is filled in with:</source>
+                <target>Potten er fylt på med :</target>
+            </trans-unit>
+            <trans-unit id="160" translate="yes" reformat="yes" xml:space="default">
+                <source>Disable</source>
+                <target>Deaktiver</target>
+            </trans-unit>
+            <trans-unit id="161" translate="yes" reformat="yes" xml:space="default">
+                <source>Enable</source>
+                <target>Aktiver</target>
+            </trans-unit>
+            <trans-unit id="162" translate="yes" reformat="yes" xml:space="default">
+                <source>Cost &lt;small&gt;(Incl. VAT)&lt;/small&gt;</source>
+                <target>Kostnad &lt;small&gt;(Inkl. mva)&lt;/small&gt;</target>
+            </trans-unit>
+            <trans-unit id="163" translate="yes" reformat="yes" xml:space="default">
+                <source>Call Type</source>
+                <target>Ring Type</target>
+            </trans-unit>
+            <trans-unit id="164" translate="yes" reformat="yes" xml:space="default">
+                <source>International calls</source>
+                <target>Internasjonale samtaler</target>
+            </trans-unit>
+            <trans-unit id="165" translate="yes" reformat="yes" xml:space="default">
+                <source>Type of call detail</source>
+                <target>Type samtale detalj</target>
+            </trans-unit>
+            <trans-unit id="166" translate="yes" reformat="yes" xml:space="default">
+                <source>Change password</source>
+                <target>Bytt passord</target>
+            </trans-unit>
+            <trans-unit id="167" translate="yes" reformat="yes" xml:space="default">
+                <source>Update</source>
+                <target>Oppdater</target>
+            </trans-unit>
+            <trans-unit id="168" translate="yes" reformat="yes" xml:space="default">
+                <source>SMS history is updated after every 5-10 minutes.</source>
+                <target>SMS historie blir oppdatert etter hvert 5-10 minutt.</target>
+            </trans-unit>
+            <trans-unit id="169" translate="yes" reformat="yes" xml:space="default">
+                <source>How does it work?</source>
+                <target>Hvordan virker det?</target>
+            </trans-unit>
+            <trans-unit id="170" translate="yes" reformat="yes" xml:space="default">
+                <source>the invitation to</source>
+                <target>invitasjonen til</target>
+            </trans-unit>
+            <trans-unit id="171" translate="yes" reformat="yes" xml:space="default">
+                <source>has been sent</source>
+                <target>er sendt</target>
+            </trans-unit>
+            <trans-unit id="172" translate="yes" reformat="yes" xml:space="default">
+                <source>Tell a friend about Zapna!</source>
+                <target>Tips en venn om Zapna!</target>
+            </trans-unit>
+            <trans-unit id="173" translate="yes" reformat="yes" xml:space="default">
+                <source>HI</source>
+                <target>HI</target>
+            </trans-unit>
+            <trans-unit id="174" translate="yes" reformat="yes" xml:space="default">
+                <source>Thank you for your order of &lt;b&gt;%1%&lt;/b&gt;.</source>
+                <target>Takk for din bestilling av &lt;b&gt;%1%&lt;/b&gt;.</target>
+            </trans-unit>
+            <trans-unit id="175" translate="yes" reformat="yes" xml:space="default">
+                <source>Your goods will be shipped today. You should have delivery within two days. Your customer number is </source>
+                <target>Dine varer vil bli sendt i dag. Du bør ha levering innen to dager. Ditt kundenummer er </target>
+            </trans-unit>
+            <trans-unit id="176" translate="yes" reformat="yes" xml:space="default">
+                <source>SMS History</source>
+                <target>SMS Historie</target>
+            </trans-unit>
+            <trans-unit id="177" translate="yes" reformat="yes" xml:space="default">
+                <source> There, you can use in your dealings with customer service</source>
+                <target> Der kan du bruke i dine affærer med kundeservice</target>
+            </trans-unit>
+            <trans-unit id="178" translate="yes" reformat="yes" xml:space="default">
+                <source>Do not hesitate to contact us if you have any questions.</source>
+                <target>Ikke nøl med å kontakte oss dersom du har spørsmål.</target>
+            </trans-unit>
+            <trans-unit id="179" translate="yes" reformat="yes" xml:space="default">
+                <source>Yours sincerely,</source>
+                <target>Vennlig hilsen,</target>
+            </trans-unit>
+            <trans-unit id="180" translate="yes" reformat="yes" xml:space="default">
+                <source>Order Receipt</source>
+                <target>Bestillingskvittering</target>
+            </trans-unit>
+            <trans-unit id="181" translate="yes" reformat="yes" xml:space="default">
+                <source>Order No.</source>
+                <target>Varenummer.</target>
+            </trans-unit><trans-unit id="176" translate="yes" reformat="yes" xml:space="default">
+                <source>Mobile Number</source>
+                <target>Mobilnummer</target>
+            </trans-unit>
+            <trans-unit id="182" translate="yes" reformat="yes" xml:space="default">
+                <source>Smartsim including pot</source>
+                <target>SmartSim inkludert pot</target>
+            </trans-unit>
+            <trans-unit id="183" translate="yes" reformat="yes" xml:space="default">
+                <source>Thank you for ordering &lt;b&gt;%1%&lt;/b&gt; and becoming Zapna Customer. We welcome you to a new and huge mobile world. </source>
+                <target>Takk for bestilling &lt;b&gt;%1%&lt;/b&gt; og bli Zapna Kunden. Vi ønsker deg velkommen til en ny og stor mobile verden. </target>
+            </trans-unit>
+            <trans-unit id="184" translate="yes" reformat="yes" xml:space="default">
+                <source>Your customer number is </source>
+                <target>Ditt kundenummer er</target>
+            </trans-unit>
+            <trans-unit id="185" translate="yes" reformat="yes" xml:space="default">
+                <source>You will receive your package within %1%.</source>
+                <target>Du vil motta pakken din innen %1%.</target>
+            </trans-unit>
+            <trans-unit id="186" translate="yes" reformat="yes" xml:space="default">
+                <source>Below is the receipt of the product indicated.</source>
+                <target>Nedenfor blir mottakelsen av den produktet indikert.</target>
+            </trans-unit>
+            <trans-unit id="187" translate="yes" reformat="yes" xml:space="default">
+                <source>With &lt;b&gt;%1%&lt;/b&gt;, you can easily call your friends and family for free.</source>
+                <target>Med &lt;b&gt;%1%&lt;/b&gt;, du enkelt kan ringe venner og familie gratis.</target>
+            </trans-unit>
+            <trans-unit id="188" translate="yes" reformat="yes" xml:space="default">
+                <source>Thank you for purchasing zer0call %1% package, you will receive package in few days. For any questions please feel free to contact us at</source>
+                <target>Takk for at du kjøpte zer0call %1% pakke, vil du motta pakken i noen dager. For eventuelle spørsmål kan du gjerne kontakte oss på</target>
+            </trans-unit>
+            <trans-unit id="189" translate="yes" reformat="yes" xml:space="default">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="190" translate="yes" reformat="yes" xml:space="default">
+                <source>Thank you for ordering &lt;b&gt;%1%&lt;/b&gt; and becoming Zapna Customer. We welcome you to a new and huge mobile world.</source>
+                <target>Takk for bestilling &lt;b&gt;%1%&lt;/b&gt; og bli Zapna Kunden. Vi ønsker deg velkommen til en ny og stor mobile verden.</target>
+            </trans-unit>
+            <trans-unit id="191" translate="yes" reformat="yes" xml:space="default">
+                <source>Your Password have been saved.</source>
+                <target>Ditt passord er lagret.</target>
+            </trans-unit>
+            <trans-unit id="192" translate="yes" reformat="yes" xml:space="default">
+                <source>Zapna invitation</source>
+                <target>Zapna invitasjon</target>
+            </trans-unit>
+            <trans-unit id="193" translate="yes" reformat="yes" xml:space="default">
+                <source>Hi </source>
+                <target>Hi </target>
+            </trans-unit>
+            <trans-unit id="194" translate="yes" reformat="yes" xml:space="default">
+                <source>This invitation is sent to you with the reference of</source>
+                <target>Denne invitasjonen er sendt til deg med referanse til</target>
+            </trans-unit>
+            <trans-unit id="195" translate="yes" reformat="yes" xml:space="default">
+                <source>a user of Smartsim from the Zapna.</source>
+                <target>en bruker av SmartSim fra Zapna</target>
+            </trans-unit>
+            <trans-unit id="196" translate="yes" reformat="yes" xml:space="default">
+                <source>Please click accept to start saving money immediately with Smartsim.</source>
+                <target>Vennligst klikk godta å begynne å spare penger umiddelbart med SmartSim.</target>
+            </trans-unit>
+              <trans-unit id="197" translate="yes" reformat="yes" xml:space="default">
+                <source>navigation</source>
+                <target>navigasjon</target>
+            </trans-unit>
+            <trans-unit id="198" translate="yes" reformat="yes" xml:space="default">
+                <source>Accept</source>
+                <target>Godta</target>
+            </trans-unit>
+            <trans-unit id="199" translate="yes" reformat="yes" xml:space="default">
+                <source>Read more</source>
+                <target>Les mer</target>
+            </trans-unit>
+            <trans-unit id="200" translate="yes" reformat="yes" xml:space="default">
+                <source>Your password has been changed. Please use the following information to login to your Zapna account.</source>
+                <target>Ditt passord er endret. Vennligst bruk følgende informasjon for å logge på Zapna konto.</target>
+            </trans-unit>
+            <trans-unit id="201" translate="yes" reformat="yes" xml:space="default">
+                <source>Mobile Number: %s</source>
+                <target>Mobilnummer: %s</target>
+            </trans-unit>
+            <trans-unit id="202" translate="yes" reformat="yes" xml:space="default">
+                <source>Invalid mobile number or password.</source>
+                <target>Ugyldig mobilnummer eller passord.</target>
+            </trans-unit>
+            <trans-unit id="203" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid 8 to 14 digit mobile number.</source>
+                <target>Vennligst skriv inn en gyldig 8-14 sifret mobilnummer.</target>
+            </trans-unit>
+            <trans-unit id="204" translate="yes" reformat="yes" xml:space="default">
+                <source>Please accept the terms and conditions</source>
+                <target>Vennligst godta vilkårene og betingelsene</target>
+            </trans-unit>
+            <trans-unit id="205" translate="yes" reformat="yes" xml:space="default">
+                <source>Password "%value%" at least six characters.</source>
+                <target>Passord "%value%" minst seks tegn.</target>
+            </trans-unit>
+            <trans-unit id="206" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid Email address. </source>
+                <target>Vennligst skriv inn en gyldig e-postadresse.</target>
+            </trans-unit>
+               <trans-unit id="207" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid postal code with 4 or 5 digits.</source>
+                <target>Vennligst skriv inn en gyldig postnummer med 4 eller 5 siffer.</target>
+            </trans-unit>
+            <trans-unit id="208" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid 8 to 14 digit mobile number.</source>
+                <target>Vennligst skriv inn en gyldig 8-14 sifret mobilnummer.</target>
+            </trans-unit>
+            <trans-unit id="209" translate="yes" reformat="yes" xml:space="default">
+                <source>Please complete the fields</source>
+                <target>Fyll ut feltene</target>
+            </trans-unit>
+            <trans-unit id="210" translate="yes" reformat="yes" xml:space="default">
+                <source>The two passwords must be the same.</source>
+                <target>De to passordene må være den samme.</target>
+            </trans-unit>
+            <trans-unit id="211" translate="yes" reformat="yes" xml:space="default">
+                <source>Passwords don't match</source>
+                <target>Passordene stemmer ikke</target>
+            </trans-unit>
+            <trans-unit id="212" translate="yes" reformat="yes" xml:space="default">
+                <source>Thank you for registeration your account at Zapna. You will soon receive a delivery confirmation</source>
+                <target>Takk for registeration kontoen på Zapna. Du vil snart motta en leveringsbekreftelse</target>
+            </trans-unit>
+            <trans-unit id="213" translate="yes" reformat="yes" xml:space="default">
+                <source>Print</source>
+                <target>Skrive ut</target>
+            </trans-unit>
+            <trans-unit id="214" translate="yes" reformat="yes" xml:space="default">
+                <source>Unique Ids are not available. send email to the support.</source>
+                <target>Unike Ids er ikke tilgjengelige. send e-post til support..</target>
+            </trans-unit>
+            <trans-unit id="215" translate="yes" reformat="yes" xml:space="default">
+                <source>balance issue</source>
+                <target>balanse saken</target>
+            </trans-unit>
+             <trans-unit id="216" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid Email address.</source>
+                <target>Vennligst skriv inn en gyldig e-postadresse.</target>
+            </trans-unit>
+            <trans-unit id="217" translate="yes" reformat="yes" xml:space="default">
+                <source>Registration Confirmation</source>
+                <target>Registrering Bekreftelse</target>
+            </trans-unit>
+            <trans-unit id="218" translate="yes" reformat="yes" xml:space="default">
+                <source>Paid</source>
+                <target>Betalt</target>
+            </trans-unit>
+            <trans-unit id="219" translate="yes" reformat="yes" xml:space="default">
+                <source>Country</source>
+                <target>Land</target>
+            </trans-unit>
+            <trans-unit id="220" translate="yes" reformat="yes" xml:space="default">
+                <source>NOTICE:</source>
+                <target>MERKNAD:</target>
+            </trans-unit>
+            <trans-unit id="221" translate="yes" reformat="yes" xml:space="default">
+                <source>Please fill in this field</source>
+                <target>Vennligst fyll ut dette feltet</target>
+            </trans-unit>
+            <trans-unit id="222" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid email address.</source>
+                <target>Skriv inn en gyldig e-postadresse.</target>
+            </trans-unit>
+            <trans-unit id="223" translate="yes" reformat="yes" xml:space="default">
+                <source>Please enter a valid number.</source>
+                <target>Skriv inn et gyldig nummer.</target>
+            </trans-unit>
+            <trans-unit id="224" translate="yes" reformat="yes" xml:space="default">
+                <source>the invitation to </source>
+                <target>invitasjonen til </target>
+            </trans-unit>
+            <trans-unit id="225" translate="yes" reformat="yes" xml:space="default">
+                <source> has been sent</source>
+                <target> er sendt</target>
+            </trans-unit>
+            <trans-unit id="226" translate="yes" reformat="yes" xml:space="default">
+                <source>Your account details have been sent to your email address.</source>
+                <target>Dine kontoopplysninger er blitt sendt til din e-postadresse.</target>
+            </trans-unit>
+            <trans-unit id="227" translate="yes" reformat="yes" xml:space="default">
+                <source>No customer is registered with this email.</source>
+                <target>Ingen kunde er registrert med denne e-posten.</target>
+            </trans-unit>
+              <trans-unit id="228" translate="yes" reformat="yes" xml:space="default">
+                <source>Terms And Condition</source>
+                <target>Vilkår Og Tilstand</target>
+            </trans-unit>
+
+              <trans-unit id="229" translate="yes" reformat="yes" xml:space="default">
+                <source>Bonus awarded</source>
+                <target>Bonus tildeles</target>
+            </trans-unit>
+
+    <trans-unit id="230" translate="yes" reformat="yes" xml:space="default">
+                <source>We hereby confirm that you have received commissions deposited into your account that you have referred a friend about Smartsim from Zapna.Go in to "Payment History" to see what you have earned.</source>
+                <target>Vi bekrefter at du har mottatt bestillinger inn på kontoen din som du har henvist en venn om SmartSim fra Zapna.Go i å "Payment History" for å se hva du har tjent.</target>
+            </trans-unit>
+
+    <trans-unit id="231" translate="yes" reformat="yes" xml:space="default">
+                <source>Bonus Receiver</source>
+                <target>Bonus Mottaker</target>
+            </trans-unit>
+  <trans-unit id="232" translate="yes" reformat="yes" xml:space="default">
+                <source>Registered Friend</source>
+                <target>Registrert Venn</target>
+            </trans-unit>
+
+ <trans-unit id="233" translate="yes" reformat="yes" xml:space="default">
+                <source>Registration</source>
+                <target>Registrering</target>
+            </trans-unit>
+
+ <trans-unit id="234" translate="yes" reformat="yes" xml:space="default">
+                <source>Auto Refill</source>
+                <target>Auto Refill</target>
+            </trans-unit>
+
+ <trans-unit id="235" translate="yes" reformat="yes" xml:space="default">
+                <source>Invitation Bonus</source>
+                <target>Invitasjon Bonus</target>
+            </trans-unit>
+            <trans-unit id="236" translate="yes" reformat="yes" xml:space="default">
+                <source>Logout</source>
+                <target>Logg ut</target>
+            </trans-unit>
+            <trans-unit id="237" translate="yes" reformat="yes" xml:space="default">
+                <source>Registration Fee</source>
+                <target>Påmeldingsavgift</target>
+            </trans-unit>
+            <trans-unit id="238" translate="yes" reformat="yes" xml:space="default">
+                <source>Product Price</source>
+                <target>Produkt Pris</target>
+            </trans-unit>
+            <trans-unit id="239" translate="yes" reformat="yes" xml:space="default">
+                <source>"%value%" is too short 4 characters min.</source>
+                <target>"%value%" er for kort 4 tegn min</target>
+            </trans-unit>
+            <trans-unit id="240" translate="yes" reformat="yes" xml:space="default">
+                <source>"%value%" is too long 5 characters max.</source>
+                <target>"%value%" er for lang 5 tegn maks.</target>
+            </trans-unit>
+            <trans-unit id="241" translate="yes" reformat="yes" xml:space="default">
+                <source>Active Mobile No</source>
+                <target>Aktiv Mobil Ingen</target>
+            </trans-unit>
+            <trans-unit id="242" translate="yes" reformat="yes" xml:space="default">
+                <source>Automatic Replenishment is: Inactive</source>
+                <target>Automatisk påfylling er: Inaktiv</target>
+            </trans-unit>
+            <trans-unit id="243" translate="yes" reformat="yes" xml:space="default">
+                <source>Password Request</source>
+                <target>Passord Forespørsel</target>
+            </trans-unit>
+            <trans-unit id="244" translate="yes" reformat="yes" xml:space="default">
+                <source>Payment is unfortunately not accepted because your information is incorrect, please try again by entering correct credit card information</source>
+                <target>Betaling er dessverre ikke aksepteres fordi informasjonen er feil, vennligst prøv igjen ved å taste inn riktig kredittkortinformasjon</target>
+            </trans-unit>
+            <trans-unit id="245" translate="yes" reformat="yes" xml:space="default">
+                <source>Your Password have been saved.</source>
+                <target>passordet er lagret.</target>
+            </trans-unit>
+            <trans-unit id="246" translate="yes" reformat="yes" xml:space="default">
+                <source>Invalid.</source>
+                <target>Ugyldig.</target>
+            </trans-unit>
+            <trans-unit id="247" translate="yes" reformat="yes" xml:space="default">
+                <source>Payment details</source>
+                <target>Betalingsdetaljer</target>
+            </trans-unit>
+            <trans-unit id="248" translate="yes" reformat="yes" xml:space="default">
+                <source>Automatic replenishment is</source>
+                <target>Automatisk etterfylling er</target>
+            </trans-unit>
+            <trans-unit id="249" translate="yes" reformat="yes" xml:space="default">
+                <source>Your settings have been saved.</source>
+                <target>Innstillingene er lagret</target>
+            </trans-unit>            
+             <trans-unit id="251" translate="yes" reformat="yes" xml:space="default">
+                <source>Refund</source>
+                <target>Tilbakebetaling</target>
+            </trans-unit>
+            <trans-unit id="252" translate="yes" reformat="yes" xml:space="default">
+                <source>Print</source>
+                <target>Skrive ut</target>
+            </trans-unit>
+            <trans-unit id="253" translate="yes" reformat="yes" xml:space="default">
+                <source>The customer is already registered</source>
+                <target>Kunden er allerede registrert</target>
+            </trans-unit>
+            <trans-unit id="254" translate="yes" reformat="yes" xml:space="default">
+                <source>Call</source>
+                <target>Ring</target>
+            </trans-unit>
+            <trans-unit id="255" translate="yes" reformat="yes" xml:space="default">
+                <source>There are currently no call records to show.</source>
+                <target>Det er foreløpig ingen anropregistreringene å vise.</target>
+            </trans-unit>
+            <trans-unit id="256" translate="yes" reformat="yes" xml:space="default">
+                <source>Other events</source>
+                <target>Andre arrangementer</target>
+            </trans-unit>
+            <trans-unit id="257" translate="yes" reformat="yes" xml:space="default">
+                <source>Here you can join Option Package travel number. Simply press the Join button at the bottom of the page. After successful registration you will receive an email confirming the registration of additional package</source>
+                <target>Her kan du bli med utstyrspakke reiser tall. Bare trykk på Join-knappen nederst på siden. Etter vellykket registrering vil du motta en e-post som bekrefter registreringen av tilleggspakke</target>
+            </trans-unit>
+            <trans-unit id="258" translate="yes" reformat="yes" xml:space="default">
+                <source>What is Resenumber</source>
+                <target>Hva er Resenumber</target>
+            </trans-unit>
+            <trans-unit id="259" translate="yes" reformat="yes" xml:space="default">
+                <source>With Resenumber you can receive cheap calls on this number while travelling abroad.</source>
+                <target>Med Resenumber kan du motta billige samtaler på dette nummeret når du reiser utenlands.</target>
+            </trans-unit>
+            <trans-unit id="260" translate="yes" reformat="yes" xml:space="default">
+                <source>The price of the package is: 10 NOK per. Month</source>
+                <target>Prisen på pakken er: 10 NOK pr. måned</target>
+            </trans-unit>
+            <trans-unit id="261" translate="yes" reformat="yes" xml:space="default">
+                <source>The activation price is: 30 NOK</source>
+                <target>Aktiveringen Prisen er: 30 NOK</target>
+            </trans-unit>
+            <trans-unit id="262" translate="yes" reformat="yes" xml:space="default">
+                <source>To Number</source>
+                <target>Til Nummer</target>
+            </trans-unit>
+            <trans-unit id="263" translate="yes" reformat="yes" xml:space="default">
+                <source>From Number</source>
+                <target>Fra Nummer</target>
+            </trans-unit>
+            <trans-unit id="264" translate="yes" reformat="yes" xml:space="default">
+                <source>Cost</source>
+                <target>Kostnad</target>
+            </trans-unit>
+            <trans-unit id="265" translate="yes" reformat="yes" xml:space="default">
+                <source>Search</source>
+                <target>Søk</target>
+            </trans-unit>
+            <trans-unit id="266" translate="yes" reformat="yes" xml:space="default">
+                <source>To</source>
+                <target>Til</target>
+            </trans-unit>
+            <trans-unit id="267" translate="yes" reformat="yes" xml:space="default">
+                <source>From</source>
+                <target>Fra</target>
+            </trans-unit>
+            <trans-unit id="268" translate="yes" reformat="yes" xml:space="default">
+                <source>Manual payment</source>
+                <target>Manuell Betaling</target>
+            </trans-unit>
+            <trans-unit id="269" translate="yes" reformat="yes" xml:space="default">
+                <source>Charge</source>
+                <target>Charge</target>
+            </trans-unit>
+            <trans-unit id="270" translate="yes" reformat="yes" xml:space="default">
+                <source>Please Enter The Destination Number</source>
+                <target>Skriv inn målnummer</target>
+            </trans-unit>
+            <trans-unit id="270" translate="yes" reformat="yes" xml:space="default">
+                <source>Please Enter The Message</source>
+                <target>Skriv inn melding</target>
+            </trans-unit>
+            <trans-unit id="270" translate="yes" reformat="yes" xml:space="default">
+                <source>You do not have enough money in the account, you are kindly asked to refill</source>
+                <target>Du har ikke nok penger på konto, er du bes om å fylle</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

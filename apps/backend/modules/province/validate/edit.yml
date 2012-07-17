@@ -1,0 +1,7 @@
+fields:
+  province{province}:
+    required:
+      msg:              Province cannot be left blank.   
+  province{country_id}:
+    required:
+      msg:              Country Code cannot be left blank.       

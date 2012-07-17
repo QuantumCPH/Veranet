@@ -1,0 +1,14 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Handsets
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    list:
+      title:            Handsets List
+      display:        [id,brand_name,model_name,auto_reboot,dialer_mode,tested_by,comments,supported]
+      names:
+    edit:
+      title:          Edit %%brand_name%% %%model_name%% handset
+    create:
+      title:          Add Handsets

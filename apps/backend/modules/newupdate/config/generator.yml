@@ -1,0 +1,17 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      Newupdate
+    theme:            default
+    css:     /sf/sf_admin/css/admin_main.css
+    list:
+      title: New update List
+      display: [id,  heading , message ,   starting_date ,  expire_date,created_at]
+      fields : 
+        created_at: { params: date_format='dd-MM-yyyy' }
+      object_actions:
+        _edit: ~
+        _delete: ~
+    edit:
+      title: create/edit New update
+      display: [ heading , message ,    starting_date ,  expire_date,created_at]

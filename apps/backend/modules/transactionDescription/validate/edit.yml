@@ -1,0 +1,16 @@
+fields:
+  transaction_description{title}:
+    required:
+      msg:       The name field cannot be left blank
+    sfStringValidator:
+      min:       2
+      min_error: This name is too short (2 characters minimum)
+      max:       32
+      max_error: This name is too long. (32 characters maximum)
+  transaction_description{transaction_type_id}:
+    required:
+      msg:              The transaction type cannot be left blank.
+   
+  transaction_description{transaction_section_id}:
+    required:
+      msg:              The transaction section cannot be left blank.      

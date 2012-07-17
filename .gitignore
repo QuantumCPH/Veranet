@@ -1,0 +1,13 @@
+cache/
+log/
+config/databases.yml
+config/ProjectConfiguration.class.php
+nbproject/
+config/schema.yml
+lib/model/om/
+lib/model/map/
+apps/backend/config/app.yml
+apps/agent/config/app.yml
+apps/b2c/config/app.yml
+config/app.yml
+web/uploads/

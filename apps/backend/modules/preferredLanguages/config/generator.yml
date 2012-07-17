@@ -1,0 +1,18 @@
+generator:
+  class:              sfPropelAdminGenerator
+  param:
+    model_class:      PreferredLanguages
+    theme:            default
+    css:             /sf/sf_admin/css/admin_main.css
+    list:
+      title:          Preferred Languages
+      display:        [id,language,language_code]
+      
+    edit:
+      title:          Preferred Language 
+      actions:
+        _list: ~
+        _save: ~
+        _save_and_add: ~
+    create:
+      title:          Add Preferred Language
