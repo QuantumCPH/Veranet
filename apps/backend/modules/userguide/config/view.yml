@@ -3,7 +3,7 @@ default:
     content-type: text/html
 
   metas:
-    title:        Kimarin Admin Portal - User Guide
+    title:        Veranet Admin Portal - User Guide
     #description:  symfony project
     #keywords:     symfony, project
     #language:     en

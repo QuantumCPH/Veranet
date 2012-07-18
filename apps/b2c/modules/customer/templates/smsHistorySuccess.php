@@ -89,7 +89,7 @@
                          <td align="right"><?php echo number_format($amount_total, 2) ?> <?php echo sfConfig::get('app_currency_code')?></td>
                 </tr>
                 <?php endif; ?>
-                <tr><td colspan="3" style="text-align: right">All amounts excl. IVA.</td></tr>
+                <tr><td colspan="3" style="text-align: right">All amounts excl. VAT.</td></tr>
               </table>
             </li>
             <?php if($total_pages>1): ?>

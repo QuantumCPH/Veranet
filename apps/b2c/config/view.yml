@@ -3,7 +3,7 @@ default:
     content-type: text/html
 
   metas:
-    title:         Kimarin
+    title:         Veranet
     #description:  symfony project
     #keywords:     symfony, project
     #language:     en

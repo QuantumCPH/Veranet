@@ -471,8 +471,8 @@ class customerActions extends sfActions {
                 $this->customer = $customer;
                 $vat = 0;
                 $subject = $this->getContext()->getI18N()->__('Transation for VoIP Purchase');
-                $sender_email = sfConfig::get('app_email_sender_email', 'support@kimarin.es');
-                $sender_name = sfConfig::get('app_email_sender_name', 'Kimarin support');
+                $sender_email = sfConfig::get('app_email_sender_email', 'support-veranet@zapna.com');
+                $sender_name = sfConfig::get('app_email_sender_name', 'Veranet support');
 
                 $recepient_email = trim($this->customer->getEmail());
                 $recepient_name = sprintf('%s %s', $this->customer->getFirstName(), $this->customer->getLastName());
@@ -1294,15 +1294,15 @@ class customerActions extends sfActions {
 
             $messages = array();
             if (strlen($message) < 142) {
-                $messages[1] = $message . "-Sent by Kimarin-";
+                $messages[1] = $message . "-Sent by Veranet-";
             } else if (strlen($message) > 142 and strlen($message) < 302) {
 
-                $messages[1] = substr($message, 1, 142) . "-Sent by Kimarin-";
-                $messages[2] = substr($message, 143) . "-Sent by Kimarin-";
+                $messages[1] = substr($message, 1, 142) . "-Sent by Veranet-";
+                $messages[2] = substr($message, 143) . "-Sent by Veranet-";
             } else if (strlen($message) > 382) {
-                $messages[1] = substr($message, 1, 142) . "-Sent by Kimarin-";
-                $messages[2] = substr($message, 143, 302) . "-Sent by Kimarin-";
-                $messages[3] = substr($message, 303, 432) . "-Sent by Kimarin-";
+                $messages[1] = substr($message, 1, 142) . "-Sent by Veranet-";
+                $messages[2] = substr($message, 143, 302) . "-Sent by Veranet-";
+                $messages[3] = substr($message, 303, 432) . "-Sent by Veranet-";
             }
 
             foreach ($messages as $sms_text) {
@@ -1841,8 +1841,8 @@ class customerActions extends sfActions {
 
 
         $lang = $this->getUser()->getCulture();
-        $return_url = "http://www.kimarineurope.com/refill-thanks.html";
-        $cancel_url = "http://www.kimarineurope.com/refill-reject.html";
+        $return_url = $this->getTargetUrl() . 'customer/refillAccept';
+        $cancel_url = $this->getTargetUrl() . 'customer/refillReject';
         //   $notify_url = $this->getTargetUrl().'pScripts/calbackrefill?lang='.$lang.'&order_id='.$order_id.'&amountval='.$item_amount;
 
         $callbackparameters = $lang . '-' . $order_id . '-' . $item_amount;

@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 * {margin:0px;padding:0px;}
-body {font-family:Helvetica, sans-serif; font-size:14px; color:#0c74a5;font-style: normal;}
+body {font-family:Helvetica, sans-serif; font-size:14px; color:#000000;font-style: normal;}
 #wrap {width:780px;margin:0px auto;}
 #header {width:780px;height:119px;}
 #logo {width:168px; height:79px; float:left;}
@@ -86,26 +86,28 @@ padding:56px 10px 20px;
 width:232px;
 }
 .right-col .box-a{background-image:url(../images/bg-box-a.png); background-repeat:no-repeat;}
-.right-col .box-b{background-image:url(../images/bg-box-b.png); background-repeat:no-repeat;}.right-col .box-c{background-image:url(../images/bg-box-c.png); background-repeat:no-repeat;}
+.right-col .box-b{background-image:url(../images/bg-box-a.png); background-repeat:no-repeat;}.right-col .box-c{background-image:url(../images/bg-box-c.png); background-repeat:no-repeat;}
 /*.right-col .box h3{ color:#d86327; font-size:18px;}
 .right-col .box h3 span{ color:#000;}*/
 .right-col .box small{ font-size:11px;}
 .right-col .box p{ margin-top:5px; margin-bottom:20px; font-size:12px;padding:0px;}
 .right-col .box a{
-    background-image: url("../images/bg-greenbutton-.png");
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    color: #ffffff;
-    display: block;
-    font-size: 11px;
-    height: 16px;
-    width:auto !important;
-    padding-bottom: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 4px;
-    text-decoration: none;
-    white-space: nowrap;
+    background-image: url("../images/b.jpg");
+    background-repeat: repeat-x;
+    border: 0 none !important;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    height: 17px;
+    margin-left: 0px;
+    outline: medium none;
+    padding-left:9px;
+    padding-right:9px;
+    padding-top:5px;
+    text-align:center;
+    background-color:#D44D05;
+    
 }
 .right-col .box a span{
     background-image: url("../images/bg-greenbutton-.png");
@@ -169,7 +171,7 @@ width:232px;
     height: 27px !important;
     padding-bottom:6px !important;
     width: auto !important;
-    border:1px solid #0C74A5 !important;
+    border:1px solid #D44D05 !important;
 }
 .butonsignin{ background-image:url("../images/button-orange-big.png");border:0 none;color:#333333;font-size:22px;height:48px;width:132px;float:right;margin-right:40px;}
 .butonsigninsmall{
@@ -206,7 +208,7 @@ a.receipt{ background-image:url(../images/next.png); background-repeat:no-repeat
 .split-form-sign-up .col{width:314px; float: left; position: relative;height: 250px;}
 .split-form-sign-up ul{list-style:none;}
 .split-form-sign-up ul li{list-style:none; margin-bottom:10px; float:left; clear:both;width:350px; white-space:nowrap; z-index:100; position:relative;}
-.split-form-sign-up ul li label{width:148px; float:left; padding-top:3px; font-weight:bold; color:#0c74a5;; }
+.split-form-sign-up ul li label{width:148px; float:left; padding-top:3px; font-weight:bold; color:#000000; }
 .split-form-sign-up ul li input{width:130px; border:1px solid #999999; font-size:11px; padding:3px;}
 .split-form-sign-up ul li select{width:137px; border:1px solid #999999;font-size:11px; padding:3px; }
 
@@ -236,8 +238,8 @@ a.receipt{ background-image:url(../images/next.png); background-repeat:no-repeat
 
 .step-details{ width:100%; float:left; clear:both; padding-bottom:20px;}
 .step-details strong{ font-size:18px;}
-.step-details span.active{color:#0c74a5; }
-.step-details span.inactive{ color:#ecb32e}
+.step-details span.active{color:#000000; }
+.step-details span.inactive{ color:#686868}
 
 .signup-steps{float:left; clear:both; width:780px; overflow:hidden;}
 .signup-steps small{ font-size:12px; display:block; padding-bottom:10px; float:left; width:100%;}
@@ -348,7 +350,7 @@ margin-bottom:20px;
 
 .right-col .box p {
 clear:both;
-color:#0C74A5;
+color:#000000;
 float:left;
 font-size:11px;
 margin-bottom:7px;
@@ -683,19 +685,19 @@ select#extra_refill{
     margin-left:3px;
 }
 a.changePass{
-    color:#0C74A5;
+    color:#D44D05;
 }
 #forgot_password_form p.text1{
     margin-bottom: 11px !important;
 }
 .submitBtn{
-   background-image: url("../images/bg-greenbutton-.png");
-   background-repeat: repeat-y;
+   background-image: url("../images/b.png");
+   background-repeat: repeat-x;
    border: 0 none;
    color: #FFFFFF;
-   height: 20px;
+   height: 21px;
    padding-bottom: 3px;
-   width: 62px;   
+   width: 62px;
 }
 input[type=submit],input[type=button],textarea,option{
    font-family:Sans-Serif; 

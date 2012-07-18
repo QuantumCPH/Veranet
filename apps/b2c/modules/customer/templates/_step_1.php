@@ -340,7 +340,7 @@
             	$error_terms_conditions = true;
             ?><?php if($error_terms_conditions) { ?><span class="inline-error" style="float:none !important;">
             	<?php echo $form['terms_conditions']->renderError() ?>
-            </span><?php } ?><?php echo $form['terms_conditions'] ?><span><a href="http://kimarineurope.com/terms-conditions-es.html" target="_blank" style="outline:none"><?php echo $form['terms_conditions']->renderHelp() ?></a></span>
+            </span><?php } ?><?php echo $form['terms_conditions'] ?><span><a href="<?php echo sfConfig::get('app_customer_url').'customer/termsAndCondition';?>" target="_blank" style="outline:none"><?php echo $form['terms_conditions']->renderHelp() ?></a></span>
           </li>
           <li>
              <?php

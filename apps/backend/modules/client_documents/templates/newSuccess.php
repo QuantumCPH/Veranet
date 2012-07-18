@@ -40,7 +40,7 @@
 </fieldset>
 
 <ul class="sf_admin_actions">
-  <li><input type="button" onclick="document.location.href='<?php echo sfConfig::get('app_web_url');?>client_documents';" value="list" class="sf_admin_action_list"></li>
+  <li><input type="button" onclick="document.location.href='http://admin.zapna.no/backend.php/client_documents';" value="list" class="sf_admin_action_list"></li>
   <li><input type="submit" class="sf_admin_action_save" value="save" name="save"></li>
 </ul>
 

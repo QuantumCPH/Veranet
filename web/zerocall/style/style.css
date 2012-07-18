@@ -239,7 +239,7 @@ a.receipt{ background-image:url(../images/green-bullet.jpg); background-repeat:n
 .split-form-sign-up ul li button{ background-image:url("../images/button-orange-big.png");border:0 none;bottom:-70px;color:#333333;font-size:22px;height:48px;margin-top:20px;padding-bottom:7px;padding-top:5px;width:132px;}
 
 .step-details{ width:100%; float:left; clear:both; padding-bottom:20px;}
-.step-details strong{ color:#0c74a5; font-size:18px;}
+.step-details strong{ color:#000000; font-size:18px;}
 .step-details span.active{ color:#0c74a5;}
 .step-details span.inactive{ color:#ecb32e}
 

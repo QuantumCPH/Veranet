@@ -28,19 +28,18 @@
 </tfoot>
 <?php 
 
-$Qry = mysql_query("select * from clientdocuments");
-if(mysql_num_rows($Qry)){
-while($qryObj = mysql_fetch_object($Qry)){?>
+if($document>0){
+foreach($document as $qryObj){?>
 <tr class="sf_admin_row_0">
-    <td><a href="<?php echo $_SERVER['PHP_SELF'];?>/edit/id/<?php echo $qryObj->id;?>"><?php echo $qryObj->id;?></a></td>
-    <td><?php echo $qryObj->title;?></td>
+    <td><a href="<?php echo $_SERVER['PHP_SELF'];?>/edit/id/<?php echo $qryObj->getId();?>"><?php echo $qryObj->getId();?></a></td>
+    <td><?php echo $qryObj->getTitle();?></td>
       
-      <td><?php echo sfConfig::get('app_web_url');?>uploads/documents/<?php echo $qryObj->filename;?></td>
-      <td><a href="<?php echo sfConfig::get('app_web_url');?>uploads/documents/<?php echo $qryObj->filename;?>" target="_blank">DOWNLOAD DOCUMENT</a></td>
+      <td><?PHP echo sfConfig::get('app_main_url');?>uploads/documents/<?php echo $qryObj->getFilename();?></td>
+      <td><a href="<?PHP echo sfConfig::get('app_main_url');?>uploads/documents/<?php echo $qryObj->getFilename();?>" target="_blank">DOWNLOAD DOCUMENT</a></td>
   <td>
 <ul class="sf_admin_td_actions">
-  <li><a href="<?php echo $_SERVER['PHP_SELF'];?>/delete/id/<?php echo $qryObj->id;?>" onclick="if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'post'; f.action = this.href;f.submit(); };return false;"><img src="<?php echo sfConfig::get('app_web_url');?>sf/sf_admin/images/delete_icon.png" title="delete" alt="delete" /></a></li>
-  <li><a href="<?php echo $_SERVER['PHP_SELF'];?>/edit/id/<?php echo $qryObj->id;?>"><img src="<?php echo sfConfig::get('app_web_url');?>sf/sf_admin/images/edit_icon.png" title="edit" alt="edit"></a></li>
+  <li><a href="<?php echo $_SERVER['PHP_SELF'];?>/delete/id/<?php echo $qryObj->getId();?>" onclick="if (confirm('Are you sure?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'post'; f.action = this.href;f.submit(); };return false;"><img src="http://admin.zapna.no/sf/sf_admin/images/delete_icon.png" title="delete" alt="delete"></a></li>
+  <li><a href="<?php echo $_SERVER['PHP_SELF'];?>/edit/id/<?php echo $qryObj->getId();?>"><img src="<?PHP echo sfConfig::get('app_main_url');?>sf/sf_admin/images/edit_icon.png" title="edit" alt="edit"></a></li>
 </ul>
 </td>
 </tr>
@@ -50,7 +49,7 @@ while($qryObj = mysql_fetch_object($Qry)){?>
 } ?>
 </table>
 <ul class="sf_admin_actions">
-  <li><input type="button" onclick="document.location.href='<?php echo sfConfig::get('app_admin_url');?>client_documents/create';" value="create" class="sf_admin_action_create"></li>
+  <li><input type="button" onclick="document.location.href='<?PHP echo sfConfig::get('app_backend_url');?>client_documents/create';" value="create" class="sf_admin_action_create"></li>
 </ul>
 </div>
 

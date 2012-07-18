@@ -47,7 +47,7 @@
 
       <div class="clear"></div>
       
-      <label class="grid_2 required"><?php echo __('Kimarin Agent ID:') ?></label>
+      <label class="grid_2 required"><?php echo __('Zapna Agent ID:') ?></label>
       <div class="grid_2 content">
             <?php echo $agent_company->getKimarinAgentId(); ?>
       </div>

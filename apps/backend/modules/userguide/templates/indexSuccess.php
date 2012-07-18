@@ -18,9 +18,9 @@
     <?php $incrment=1;
     foreach ($userguide_list as $userguide): 
          if($incrment%2==0){
-                 $class= 'class="even"';
+                 $class= 'class="odd"';
           }else{
-            $class= 'class="odd"';
+            $class= 'class="even"';
           }
          $incrment++;
     ?>

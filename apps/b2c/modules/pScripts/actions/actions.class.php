@@ -143,8 +143,8 @@ class pScriptsActions extends sfActions
 	//set vat
 	$vat = 0;
         $subject = $this->getContext()->getI18N()->__('Payment Confirmation');
-	$sender_email = sfConfig::get('app_email_sender_email', 'support@kimarin.es');
-	$sender_name = sfConfig::get('app_email_sender_name', 'Kimarin support');
+	$sender_email = sfConfig::get('app_email_sender_email', 'support-veranet@zapna.com');
+	$sender_name = sfConfig::get('app_email_sender_name', 'Veranet support');
 
 	$recepient_email = trim($this->customer->getEmail());
 	$recepient_name = sprintf('%s %s', $this->customer->getFirstName(), $this->customer->getLastName());
@@ -839,9 +839,9 @@ class pScriptsActions extends sfActions
         echo '<br/>';
         echo sfConfig::get('app_email_smtp_password');
         echo '<br/>';
-        echo sfConfig::get('app_email_sender_email', 'support@kimarin.es');
+        echo sfConfig::get('app_email_sender_email', 'support-veranet@zapna.com');
         echo '<br/>';
-        echo sfConfig::get('app_email_sender_name', 'Kimarin support');
+        echo sfConfig::get('app_email_sender_name', 'Veranet support');
         
 
   	$connection = Swift_SmtpTransport::newInstance()
@@ -853,8 +853,8 @@ class pScriptsActions extends sfActions
 
 
 
-	$sender_email = sfConfig::get('app_email_sender_email', 'support@kimarin.es');
-	$sender_name = sfConfig::get('app_email_sender_name', 'Kimarin support');
+	$sender_email = sfConfig::get('app_email_sender_email', 'support-veranet@zapna.com');
+	$sender_name = sfConfig::get('app_email_sender_name', 'Veranet support');
 
         echo '<br/>';
         echo $sender_email ;
@@ -2739,8 +2739,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
             $MinuesOpeningBalance = $OpeningBalance * 3;
             
             $subject = $this->getContext()->getI18N()->__('Payment Confirmation');
-            $sender_email = sfConfig::get('app_email_sender_email', 'support@kimarin.es');
-            $sender_name = sfConfig::get('app_email_sender_name', 'Kimarin support');
+            $sender_email = sfConfig::get('app_email_sender_email', 'support-veranet@zapna.com');
+            $sender_name = sfConfig::get('app_email_sender_name', 'Veranet support');
 
             $recepient_email = trim($this->customer->getEmail());
             $recepient_name = sprintf('%s %s', $this->customer->getFirstName(), $this->customer->getLastName());
@@ -3107,8 +3107,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                         ));
 
                 $subject = $this->getContext()->getI18N()->__('Payment Confirmation');
-                $sender_email = sfConfig::get('app_email_sender_email', 'support@kimarin.es');
-                $sender_name = sfConfig::get('app_email_sender_name', 'Kimarin support');
+                $sender_email = sfConfig::get('app_email_sender_email', 'support-veranet@zapna.com');
+                $sender_name = sfConfig::get('app_email_sender_name', 'Veranet support');
 
                 $recepient_email = trim($this->customer->getEmail());
                 $recepient_name = sprintf('%s %s', $this->customer->getFirstName(), $this->customer->getLastName());

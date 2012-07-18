@@ -1,9 +1,3 @@
-<?php
- //echo $_SERVER['PHP_SELF']; 
- 
-$Qry = mysql_query("select * from clientdocuments where id = '".$editId."'");
-$qryObj = mysql_fetch_object($Qry);
-?>
 <div id="sf_admin_container">
 <h1>Edit Document</h1>
 
@@ -19,12 +13,12 @@ $qryObj = mysql_fetch_object($Qry);
 <div class="form-row">
   <label class="required" for="faqs_question">Name:</label>  <div class="content">
   
-  <input type="text" size="80" value="<?php echo $qryObj->title;?>" id="docTitle" name="docTitle" style="width: 240px;">    </div>
+  <input type="text" size="80" value="<?php echo $doc->getTitle();?>" id="docTitle" name="docTitle" style="width: 240px;">    </div>
 </div>
 
 <div class="form-row">
   <label class="required" for="faqs_answer">Document File:</label>  <div class="content"> <input type="file"  value="" id="documentfile" name="documentfile" style="width: 240px;"><br /><br />
-  <a href="<?php echo sfConfig::get('app_web_url');?>uploads/documents/<?php echo $qryObj->filename;?>" target="_blank"><strong>Old Document File</strong></a> </div>
+  <a href="<?PHP echo sfConfig::get('app_main_url');?>uploads/documents/<?php echo $doc->getFilename();?>" target="_blank"><strong>Old Document File</strong></a> </div>
 </div>
 
 
@@ -42,7 +36,7 @@ $qryObj = mysql_fetch_object($Qry);
 </fieldset>
 
 <ul class="sf_admin_actions">
-  <li><input type="button" onclick="document.location.href='<?php echo sfConfig::get('app_admin_url');?>/client_documents';" value="list" class="sf_admin_action_list"></li>
+  <li><input type="button" onclick="document.location.href='<?PHP echo sfConfig::get('app_backend_url');?>client_documents';" value="list" class="sf_admin_action_list"></li>
   <li><input type="submit" class="sf_admin_action_save" value="update" name="update"></li>
 </ul>
 

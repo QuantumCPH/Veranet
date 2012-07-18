@@ -14,7 +14,7 @@
 
 <form id="sf_admin_form" name="sf_admin_edit_form" method="post" enctype="multipart/form-data" action="editCreditLimit">
 
-    <table  cellspacing="0" cellpadding="2" class="tblAlign"  width="100%" style="background-color: #F2F8F8">
+    <table  cellspacing="0" cellpadding="2" class="tblAlign"  width="100%" style="background-color: #FCD9C9">
             <tr>
                 <td style="padding: 5px;"   ><?php echo __('Credit Limit:') ?></td>
                 <td style="padding: 5px;">

@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="form-row">
-  <?php echo label_for('agent_company[kimarin_agent_id]', "Kimarin Agent Id" ) ?>
+  <?php echo label_for('agent_company[kimarin_agent_id]', "Veranet Agent Id" ) ?>
   <div class="content<?php if ($sf_request->hasError('agent_company{kimarin_agent_id}')): ?> form-error<?php endif; ?>">
   <?php if ($sf_request->hasError('agent_company{kimarin_agent_id}')): ?>
     <?php echo form_error('agent_company{kimarin_agent_id}', array('class' => 'form-error-msg')) ?>
@@ -127,7 +127,7 @@
 )); echo $value ? $value : '&nbsp;' ?>
     </div>
 </div>-->
-<fieldset style="border:1px solid #0C74A5"><legend>Contact Person</legend>
+<fieldset style="border:1px solid #D44D05"><legend>Contact Person</legend>
  <div class="form-row">
   <?php echo label_for('agent_company[first_name]', __($labels['agent_company{first_name}']), 'class="required" ') ?>
   <div class="content<?php if ($sf_request->hasError('agent_company{first_name}')): ?> form-error<?php endif; ?>">

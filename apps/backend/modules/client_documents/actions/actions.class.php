@@ -12,13 +12,8 @@ class client_documentsActions extends sfActions
 {	
   public function executeIndex(sfWebRequest $request)
   {
-  	$DB_Server 	= "localhost";
-	$DB_Username 	= "root";
-	$DB_Password 	= "@wsxzaQ1";
-        //$DB_Password 	= "";
-	$DB_DBName   	= "kimarin";
-	$success= mysql_pconnect($DB_Server, $DB_Username, $DB_Password);	
-	mysql_select_db($DB_DBName);
+        $c = new Criteria();
+        $this->document = ClientdocumentsPeer::doSelect($c);
             
   }
 
@@ -30,31 +25,25 @@ class client_documentsActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
   	
-	$DB_Server 	= "localhost";
-	$DB_Username 	= "root";
-	$DB_Password 	= "@wsxzaQ1";
-        //$DB_Password 	= "";
-	$DB_DBName   	= "kimarin";
-	$success= mysql_pconnect($DB_Server, $DB_Username, $DB_Password);	
-	mysql_select_db($DB_DBName);
-	
-  	//echo sfConfig::get('sf_root_dir');
-  	//
-	//echo sfConfig::get('sf_environment');
-    $this->setTemplate('new');	
+        $this->setTemplate('new');
 	$error = '';
 	$this->error = '';
 	if(isset($_REQUEST['save']) && $_FILES['documentfile']['name']!=''){
-		//echo sfConfig::get('sf_upload_dir');
-		
+
 		$uploaddir = sfConfig::get('sf_upload_dir').'/documents/';
-		//Upload Image
 		$resultQry = date('Y-m-d-h-s');
 		$FILE_NAME = $resultQry.'_'.$_FILES['documentfile']['name'];
 		$uploadfile = $uploaddir . $resultQry.'_'.basename($_FILES['documentfile']['name']);
-		move_uploaded_file($_FILES['documentfile']['tmp_name'], $uploadfile);		
-		mysql_query("INSERT INTO clientdocuments (title ,filename ,status) VALUES ('".$_REQUEST['docTitle']."', '".$FILE_NAME."','".$_REQUEST['DocStatus']."')");
+		move_uploaded_file($_FILES['documentfile']['tmp_name'], $uploadfile);
+                
+                $c = new Clientdocuments();
+                $c->setTitle($_REQUEST['docTitle']);
+                $c->setFilename($FILE_NAME);
+                $c->setStatus($_REQUEST['DocStatus']);
+                $c->save();
+
 		$this->redirect('client_documents/index');
+                
 	}elseif(isset($_REQUEST['save']) && $_FILES['documentfile']['name']==''){
 		$error = 'fileerror';
 		$this->error = 'Error';
@@ -65,14 +54,11 @@ class client_documentsActions extends sfActions
   {
   	$EditId = $request->getParameter('id');
 	$this->editId = $EditId;
-  	$DB_Server 	= "localhost";
-	$DB_Username 	= "root";
-	$DB_Password 	= "@wsxzaQ1";
-        //$DB_Password 	= "";
-	$DB_DBName   	= "kimarin";
-	$success= mysql_pconnect($DB_Server, $DB_Username, $DB_Password);	
-	mysql_select_db($DB_DBName);
-	$editid = $request->getParameter('id');	
+
+        $c = new Criteria();
+        $c->add(ClientdocumentsPeer::ID, $EditId);
+        $this->doc = ClientdocumentsPeer::doSelectOne($c);
+ 
 	if(isset($_REQUEST['update']) && $_FILES['documentfile']['name']!=''){
 			
 		$uploaddir = sfConfig::get('sf_upload_dir').'/documents/';
@@ -81,10 +67,12 @@ class client_documentsActions extends sfActions
 		$FILE_NAME = $resultQry.'_'.$_FILES['documentfile']['name'];
 		$uploadfile = $uploaddir . $resultQry.'_'.basename($_FILES['documentfile']['name']);
 		move_uploaded_file($_FILES['documentfile']['tmp_name'], $uploadfile);
+                
+                $this->doc->setTitle($_REQUEST['docTitle']);
+                $this->doc->setFilename($FILE_NAME);
+                $this->doc->setStatus($_REQUEST['DocStatus']);
+                $this->doc->save();
 				
-		mysql_query("UPDATE clientdocuments SET title = '".$_REQUEST['docTitle']."' ,
-		filename = '".$FILE_NAME."'
-		WHERE id ='".$editid."' ");
 		$this->redirect('client_documents/index');
 	}elseif(isset($_REQUEST['update']) && $_FILES['documentfile']['name']==''){
 		mysql_query("UPDATE clientdocuments SET title = '".$_REQUEST['docTitle']."' WHERE id ='".$editid."' ");		
@@ -105,19 +93,13 @@ class client_documentsActions extends sfActions
 
   public function executeDelete(sfWebRequest $request)
   {
-  	$DB_Server 	= "localhost";
-	$DB_Username 	= "root";
-	$DB_Password 	= "@wsxzaQ1";
-        //$DB_Password 	= "";
-	$DB_DBName   	= "kimarin";
-	$success= mysql_pconnect($DB_Server, $DB_Username, $DB_Password);	
-	mysql_select_db($DB_DBName);
-	
-    $request->checkCSRFProtection();
-	$deleteId = $request->getParameter('id');	
-	mysql_query("DELETE FROM clientdocuments WHERE id = '".$deleteId."' ");
-	
-    $this->redirect('client_documents/index');
+  	
+        $request->checkCSRFProtection();
+	$deleteId = $request->getParameter('id');
+        $doc = ClientdocumentsPeer::retrieveByPk($deleteId);
+        $doc->delete();
+
+        $this->redirect('client_documents/index');
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)

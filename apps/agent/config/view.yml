@@ -3,7 +3,7 @@ default:
     content-type: text/html
 
   metas:
-    title:         Kimarin - Agent Portal
+    title:         Veranet - Agent Portal
     #description:  symfony project
     #keywords:     symfony, project
     #language:     en

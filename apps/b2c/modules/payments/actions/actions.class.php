@@ -309,8 +309,8 @@ class paymentsActions extends sfActions {
         
         $lang=$this->getUser()->getCulture();
       
-        $return_url = "http://www.kimarineurope.com/registration-thanks.html";
-        $cancel_url = "http://www.kimarineurope.com/registration-reject.html";
+        $return_url = $this->getTargetUrl().'payments/thankyou';
+        $cancel_url = $this->getTargetUrl().'payments/reject';
         
         $callbackparameters = $lang.'-'.$order_id.'-'.$item_amount;
         $notify_url = $this->getTargetUrl().'pScripts/confirmpayment?p='.$callbackparameters;        

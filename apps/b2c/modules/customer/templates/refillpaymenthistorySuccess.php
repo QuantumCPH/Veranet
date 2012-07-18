@@ -85,7 +85,7 @@
                 <?php endforeach; ?>
                 <?php if(count($transactions)==0): ?>
                 <tr>
-                	<td colspan="5"><p><?php echo __('There are currently no transactions to show.') ?></p></td>
+                	<td colspan="6"><p><?php echo __('There are currently no transactions to show.') ?></p></td>
                 </tr>
                 <?php else: ?>
                 <tr>

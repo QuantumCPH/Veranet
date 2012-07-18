@@ -149,7 +149,7 @@ $customer_form->unsetAllExcept(array('auto_refill_amount', 'auto_refill_min_bala
               <label class="prodname"><?php echo $order->getProduct()->getName() ?> <?php echo __('Payment details') ?>:</label>
             </li>
             <li>
-              <label> <?php echo __('Kimarin Starter Package') ?> <br />
+              <label> <?php echo __('Zapna Starter Package') ?> <br />
 				<?php //echo __('Product price') ?> </label><label class="fr ac"><span class="product_price_span"><?php echo  number_format($order->getProduct()->getRegistrationFee(),2);?></span><?php echo sfConfig::get('app_currency_code')?><br /><span id="extra_refill_span"><?php //echo  number_format($order->getProduct()->getPrice(),2); ?></span><?php //echo sfConfig::get('app_currency_code')?></label><!--<input type="hidden" id="product_price" value="<?php  $product_price_vat = ($order->getProduct()->getRegistrationFee()+$postalcharge)*sfConfig::get('app_vat_percentage');$product_price = ($order->getProduct()->getPrice()+$order->getProduct()->getRegistrationFee());echo $product_price;	?>" />-->
               <input type="hidden" id="extra_refill" value="<?php $extra_refill = $order->getExtraRefill(); echo $extra_refill; ?>" />
             </li>
@@ -179,7 +179,7 @@ $customer_form->unsetAllExcept(array('auto_refill_amount', 'auto_refill_min_bala
 
               
               <?php echo __('Delivery charges') ?> <br />
-              <?php echo __('IVA') ?> <!--(<?php echo sfConfig::get('app_vat')?>)--><br />
+              <?php echo __('VAT') ?> <!--(<?php echo sfConfig::get('app_vat')?>)--><br />
               <?php echo __('Total amount') ?>
 
 

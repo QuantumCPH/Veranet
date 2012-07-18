@@ -33,7 +33,7 @@
     <div class="clr"></div>
     </div>
             <div class="right"></div>
-               <span class="powered">Powered by <a href="zapna.com" target="_blank">Zapna</a></span>
+               <span class="powered">Powered by <a href="http://zapna.com/" target="_blank">Zapna</a></span>
     </div>
 </form>
             

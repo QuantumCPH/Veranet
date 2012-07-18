@@ -112,7 +112,7 @@ $wrap_content  = isset($wrap)?$wrap:false;
   </tr>
   <tr class="footer">
     <td>&nbsp;</td>
-    <td><?php echo __('IVA') ?></td>
+    <td><?php echo __('VAT') ?></td>
     <td>&nbsp;</td>
     <td align="right" style="padding-right:28px;"><?php echo number_format(0,2) ?><?php echo sfConfig::get('app_currency_code');?></td>
   </tr>

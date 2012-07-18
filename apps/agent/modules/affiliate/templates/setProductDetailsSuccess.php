@@ -117,7 +117,7 @@
                     </li>
                     <li>
                         <label style="text-align:left">
-                            <?php echo __('Registration Fee') ?>
+                            <?php echo __('Zapna Starter Package') ?>
                             <br/>
                             <br/>
                             <?php echo __('Product Price'); ?>
