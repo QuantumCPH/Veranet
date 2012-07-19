@@ -294,17 +294,9 @@ class employeeActions extends sfActions {
     }
 
     public function executeUpdateEmployee(sfWebRequest $request) {
-
-
-  //$contrymobilenumber = $request->getParameter('country_code') . $request->getParameter('mobile_number');
-  //$employeMobileNumber=$contrymobilenumber;
-
-
-   $c = new Criteria();
-
-                $c->add(CompanyPeer::ID,$request->getParameter('company_id'));
-
-                $compny=CompanyPeer::doSelectOne($c);
+      $c = new Criteria();
+      $c->add(CompanyPeer::ID,$request->getParameter('company_id'));
+      $compny=CompanyPeer::doSelectOne($c);
 
        $companyCVR=$compny->getVatNo();
        $rtype=$request->getParameter('registration_type');

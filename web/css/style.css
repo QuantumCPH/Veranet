@@ -507,10 +507,10 @@ margin-bottom:10px;
     float:left !important;
     display: inline !important;
 }
-.bg-img .Inputfield #login_username,.bg-img .Inputfield #login_password{
+.bg-img .Inputfield #login_username,#login_vat_no,.bg-img .Inputfield #login_password{
     background: url('../images/field-img.png') no-repeat top;
-    width: 322px;
-    height: 27px;
+    width: 322px !important;
+    height: 27px!important;
     border:0px;
     padding-left:10px;
     margin-left: 0px !important;
@@ -530,6 +530,11 @@ margin-bottom:10px;
 }
 .bg-img .submitButton button:hover{
     background:url('../images/login-button-hover.png') no-repeat !important;
+}
+a.forgotUrl {
+    float: left;
+    font-size: 11px;
+    padding-left: 44px;
 }
 #sf_admin_container h1{
   margin: 8px 0 0 0;
@@ -599,4 +604,126 @@ ul.changenumber li{
 }
 .dateBox-pt input{
     margin:0 10px 0 6px !important;
+}
+table.tblAlign{
+    margin:0 auto !important;
+    border-top: 1px solid #0C74A5  !important;
+    border-left: 1px solid #0C74A5 !important;
+    
+  
+    font-family: Arial,sans-serif;
+    font-size: 12px
+}
+table.tblAlign td{
+   border-bottom: 1px solid #0C74A5 !important; 
+   border-right: 1px solid #0C74A5 !important;
+}
+table.tblAlign td.last{
+   border-right: 0px !important; 
+}
+table.tblAlign tr.headings{
+   background-color: #ffffff !important;
+   color:#0C74A5 !important; 
+}
+table.tblAlign tr.headings th{
+   border-right: 1px solid #0C74A5 !important; 
+   border-bottom: 1px solid #0C74A5 !important;
+   text-align: left;
+   color:#0C74A5;
+}
+table.tblAlign tr.headings th.last{
+   border-right: 0px !important; 
+}
+/************* B2B Menu*******************/
+#menu ul#b2bsddm{
+    margin: 0 auto 41px;
+    padding: 0;
+    z-index: 30;
+    width: 57%;
+}
+
+#b2bsddm li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+    font: bold 11px arial;
+    background:url('../images/li-bg.png') repeat-x top left;
+    border-left: 1px solid #0C74A5;
+    border-top: 1px solid #0C74A5;
+    border-bottom: 1px solid #0C74A5;
+}
+#b2bsddm li.last
+{	
+    border-right:1px solid #0C74A5;    
+}    
+#b2bsddm li a{
+    display: block;
+    margin: 0 0px 0 0;
+    padding: 4px 10px;
+    color: #0C74A5;
+    text-align: center;
+    text-decoration: none;
+}
+
+#b2bsddm li a:hover{
+    text-decoration:none;
+    background: #0C74A5;
+    color:#ffffff;
+}
+
+#b2bsddm div
+{	position: absolute;
+	visibility: hidden;
+	margin: 0;
+	padding: 0;
+	background: #0C74A5;
+	border: 1px solid #0C74A5;
+}
+
+#b2bsddm div a
+{	position: relative;
+        display: block;
+        margin: 0;
+        padding: 5px 10px;
+        width: auto;
+        white-space: nowrap;
+        text-align: left;
+        text-decoration: none;
+        background: #0C74A5;
+        color: #FFFFFF;
+        font: 11px arial;
+}
+#b2bsddm div a:hover
+{	background: #FFFFFF;
+        color: #0C74A5;
+        text-decoration: none;
+}
+#b2bsddm div a.subSelect
+{	background: #FFFFFF;
+        color: #0C74A5;
+}
+#b2bsddm li a.current{
+    background: #0C74A5 !important;
+    color: #FFFFFF !important;
+}
+#b2bsddm li a.currentR{
+    background: #0C74A5 !important;
+    color: #FFFFFF !important;
+}
+.tblChangePassword label{
+   display: inline!important;
+   margin-bottom: 0!important;
+}
+.tblChangePassword input[type=text]{
+    margin: 2px 0 3px 26px!important;
+}
+.tblChangePassword .btnChange{
+    padding-left: 10px;
+}
+.tblChangePassword label.error{
+    width:143px!important;
+}
+label.error{
+    color:red!important;
 }

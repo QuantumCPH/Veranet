@@ -46,7 +46,19 @@
  
     </div>
 </div>
+<div class="form-row">
+  <?php echo label_for('company[password]', __($labels['company{password}']), 'class="required" ') ?>
+  <div class="content<?php if ($sf_request->hasError('company{password}')): ?> form-error<?php endif; ?>">
+  <?php if ($sf_request->hasError('company{password}')): ?>
+    <?php echo form_error('company{password}', array('class' => 'form-error-msg')) ?>
+  <?php endif; ?>
 
+  <?php $value = object_input_tag($company, 'getPassword', array (
+  'size' => 80,
+  'control_name' => 'company[password]',
+)); echo $value ? $value : '&nbsp;' ?>
+    </div>
+</div>
 <div class="form-row">
   <?php echo label_for('company[address]', __($labels['company{address}']), 'class="required" ') ?>
   <div class="content<?php if ($sf_request->hasError('company{address}')): ?> form-error<?php endif; ?>">
@@ -202,7 +214,7 @@
 </div>
 <?php } ?>
 <div class="form-row">
-  <?php echo label_for('company[status_id]', __($labels['company{status_id}']), '') ?>
+  <?php echo label_for('company[status_id]', __($labels['company{status_id}']), 'class="required" ') ?>
   <div class="content<?php if ($sf_request->hasError('company{status_id}')): ?> form-error<?php endif; ?>">
   <?php if ($sf_request->hasError('company{status_id}')): ?>
     <?php echo form_error('company{status_id}', array('class' => 'form-error-msg')) ?>
@@ -324,7 +336,6 @@
     </div>
 </div>
 
-
 <div class="form-row">
   <?php echo label_for('company[file_path]', __($labels['company{file_path}']), '') ?>
   <div class="content<?php if ($sf_request->hasError('company{file_path}')): ?> form-error<?php endif; ?>">
@@ -339,7 +350,6 @@
 )); echo $value ? $value : '&nbsp;' ?>
     </div>
 </div>
-
 
 <div class="form-row">
   <?php echo label_for('company[comments]', __($labels['company{comments}']), '') ?>

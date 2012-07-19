@@ -47,6 +47,7 @@ class BaseCompanyFormFilter extends BaseFormFilterPropel
       'i_customer'             => new sfWidgetFormFilterInput(),
       'credit_limit'           => new sfWidgetFormFilterInput(),
       'comments'               => new sfWidgetFormFilterInput(),
+      'password'               => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -83,6 +84,7 @@ class BaseCompanyFormFilter extends BaseFormFilterPropel
       'i_customer'             => new sfValidatorPass(array('required' => false)),
       'credit_limit'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'comments'               => new sfValidatorPass(array('required' => false)),
+      'password'               => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('company_filters[%s]');
@@ -134,6 +136,7 @@ class BaseCompanyFormFilter extends BaseFormFilterPropel
       'i_customer'             => 'Text',
       'credit_limit'           => 'Number',
       'comments'               => 'Text',
+      'password'               => 'Text',
     );
   }
 }
