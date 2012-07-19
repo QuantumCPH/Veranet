@@ -21,7 +21,7 @@
                             <select name="iaccount" id="account">
                                 <option value =''></option>
                              <?php 
-                             if($telintaAccountObj){
+                             if(count($telintaAccountObj)>0){
                              foreach($telintaAccountObj as $account){
                                 $companyid= $account->getParentId();
                                 $cn = new Criteria();
