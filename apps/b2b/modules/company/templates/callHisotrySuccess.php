@@ -48,7 +48,7 @@
            <li><input type="button" class="sf_admin_action_reset_filter" value="reset" name="reset" onclick="document.location.href='<?PHP echo sfConfig::get('app_b2b_url')."company/callHisotry";?>'"></li>
         </ul>
     </form>
-</div>
+</div><br><br><br>
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
 
 
