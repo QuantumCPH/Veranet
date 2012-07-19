@@ -618,10 +618,55 @@ class customerActions extends autocustomerActions {
 
     }
 
+  public function executeUpdateUniqueId(sfWebRequest $request) {
+
+        $this->customer = CustomerPeer::retrieveByPK($request->getParameter('customer_id'));
+        $this->redirectUnless($this->customer, "@homepage");
+        $c = new Criteria();
+        $c->add(UniqueIdsPeer::UNIQUE_NUMBER, $request->getParameter('unique_id'));
+        $c->addAnd(UniqueIdsPeer::STATUS, 0);
+        $this->uniqueId = UniqueIdsPeer::doSelectOne($c);
+        $this->redirectUnless($this->uniqueId, "@homepage");
 
 
- 
+        $cp = new Criteria;
+        $cp->add(TelintaAccountsPeer::I_CUSTOMER, $this->customer->getICustomer());
+        $cp->addAnd(TelintaAccountsPeer::STATUS, 3);
 
+        if (TelintaAccountsPeer::doCount($cp) > 0) {
+            $telintaAccounts = TelintaAccountsPeer::doSelect($cp);
+            foreach ($telintaAccounts as $account) {
+                echo "Deleting Account: " . $account->getAccountTitle();
+                Telienta::terminateAccount($account);
+            }
+        }
 
+        $balance = Telienta::getBalance($this->customer);
+        $this->customer->setUniqueid($this->uniqueId->getUniqueNumber());
+        $this->customer->save();
+        if (Telienta::ResgiterCustomer($this->customer, $balance)) {
+            echo "<br/>Customer Account Created Successfully<br/>";
+            $this->uniqueId->setStatus(1);
+            $this->uniqueId->setAssignedAt(date("Y-m-d H:i:s"));
+            $this->uniqueId->save();
+
+            if (Telienta::createAAccount(sfConfig::get('app_country_code').$this->customer->getMobileNumber(), $this->customer)) {
+                echo "<br/> A Account Created Successfully<br/>";
+            }
+            $callbacklog = new CallbackLog();
+            if(substr($this->customer->getMobileNumber(),0, 1)==0){
+                $mobile = substr($this->customer->getMobileNumber(), 1);
+            }else{
+                $mobile = $this->customer->getMobileNumber();
+            }
+            $callbacklog->setMobileNumber(sfConfig::get('app_country_code').$mobile);
+            $callbacklog->setuniqueId($this->customer->getUniqueid());
+            $callbacklog->setcallingCode(sfConfig::get('app_country_code'));
+            $callbacklog->save();
+        }
+        return sfView::NONE;
+    }
+
+    
 
 }
