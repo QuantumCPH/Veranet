@@ -521,7 +521,9 @@ jQuery('#sf_admin_edit_form').validate({
         "company[contact_name]": "required",
         "company[head_phone_number]": "required",
         "company[email]": "required email",
-        "company[invoice_method_id]": "required"
+        "company[invoice_method_id]": "required",
+        "company[password]": "required",
+        "company[status_id]": "required"
   }
 	});
 });

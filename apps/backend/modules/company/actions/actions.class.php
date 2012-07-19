@@ -184,7 +184,7 @@ class companyActions extends sfActions {
             $this->company->setVatNo($company['vat_no']);
         }
         if (isset($company['password'])) {
-            $this->company->setVatNo($company['password']);
+            $this->company->setPassword($company['password']);
         }
         if (isset($company['address'])) {
             $this->company->setAddress($company['address']);
