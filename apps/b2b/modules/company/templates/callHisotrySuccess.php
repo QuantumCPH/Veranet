@@ -1,67 +1,54 @@
 <?php use_helper('I18N') ?>
-
 <div id="sf_admin_container">
-
  <?PHP
     $str=strlen($company->getId());
     $str1=strlen(sfConfig::get("app_telinta_emp"));
     $substr=$str+$str1;
-?>
-
+ ?>
 <!--<a href=?iaccount=<?php //echo $account->getIAccount()."&iaccountTitle=".$account->getAccountTitle(); ?>>-->
-<div id="sf_admin_content">
-
-        <h1><?php echo __('Call History'); if(isset($iAccountTitle)&&$iAccountTitle!=''){echo "($iAccountTitle)"; }?></h1>
-        <div class="sf_admin_filters">
-            <form action="" id="searchform" method="POST" name="searchform">
-                <fieldset>
-                    <div class="form-row">
-                        <label><?php echo __('Select Employee to Filter');?>:</label>
-                        <div class="content">
-                            <select name="iaccount" id="account">
-                                <option value =''></option>
-                             <?php 
-                             if(count($telintaAccountObj)>0){
-                             foreach($telintaAccountObj as $account){
-                                $companyid= $account->getParentId();
-                                $cn = new Criteria();
-                                $cn->add(EmployeePeer::ID, $companyid);
-                                $employees = EmployeePeer::doSelectOne($cn);
-                             ?>
-                                <option value="<?PHP  echo $account->getId();?>" <?PHP echo ($account->getId()==$iaccount)?'selected="selected"':''?>><?php echo $employees->getFirstName()." -- ". $account->getAccountTitle();?></option>
-                            <?php }
-                             }
-                            ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <label><?php echo __('From');?>:</label>
-                        <div class="content">
-                           
-                            <?php echo input_date_tag('startdate', $fromdate, 'rich=true') ?>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <label><?php echo __('To');?>:</label>
-                        <div class="content">
-                          
-                            <?php echo input_date_tag('enddate', $todate, 'rich=true') ?>
-                        </div>
-                    </div>
-
-                </fieldset>
-
-                <ul class="sf_admin_actions">
-                    <li><input type="submit" class="sf_admin_action_filter" value="filter" name="filter"></li>
-                    <li><input type="button" class="sf_admin_action_filter" value="reset" name="reset" onclick="document.location.href='<?PHP echo sfConfig::get('app_b2b_url')."company/callHisotry";?>'"></li>
-                   
-                </ul>
-            </form>
-        </div>
-    </div>
-
-
+<h1><?php echo __('Call History'); if(isset($iAccountTitle)&&$iAccountTitle!=''){echo "($iAccountTitle)"; }?></h1>
+<div class="sf_admin_filters">
+    <form action="" id="searchform" method="POST" name="searchform">
+        <fieldset>
+            <div class="form-row">
+                <label><?php echo __('Select Employee to Filter');?>:</label>
+                <div class="content">
+                    <select name="iaccount" id="account">
+                        <option value =''></option>
+                     <?php
+                     if(count($telintaAccountObj)>0){
+                     foreach($telintaAccountObj as $account){
+                        $companyid= $account->getParentId();
+                        $cn = new Criteria();
+                        $cn->add(EmployeePeer::ID, $companyid);
+                        $employees = EmployeePeer::doSelectOne($cn);
+                     ?>
+                        <option value="<?PHP  echo $account->getId();?>" <?PHP echo ($account->getId()==$iaccount)?'selected="selected"':''?>><?php echo $employees->getFirstName()." -- ". $account->getAccountTitle();?></option>
+                    <?php }
+                     }
+                    ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <label><?php echo __('From');?>:</label>
+                <div class="content">
+                    <?php echo input_date_tag('startdate', $fromdate, 'rich=true') ?>
+                </div>
+            </div>
+            <div class="form-row">
+                <label><?php echo __('To');?>:</label>
+                <div class="content">
+                     <?php echo input_date_tag('enddate', $todate, 'rich=true') ?>
+                </div>
+            </div>
+        </fieldset>
+        <ul class="sf_admin_actions">
+           <li><input type="submit" class="sf_admin_action_filter" value="filter" name="filter"></li>
+           <li><input type="button" class="sf_admin_action_reset_filter" value="reset" name="reset" onclick="document.location.href='<?PHP echo sfConfig::get('app_b2b_url')."company/callHisotry";?>'"></li>
+        </ul>
+    </form>
+</div>
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
 
 
@@ -133,10 +120,13 @@ echo  date('i:s',$callval);
                 </tr>
 <?php } ?>
 
-<!--            <tr><td colspan="6" align="left"><?php echo __('Call type detail') ?> <br/> <?php echo __('Int. = International calls') ?><br/>
+            <tr><td colspan="6" align="left"><?php echo __('Call type detail') ?> <br/> <?php echo __('Int. = International calls') ?><br/>
                 <?php //echo __('Cb M = Callback mottaga')  ?><br />
                 <?php //echo __('Cb S = Callback samtal')  ?><br />
 <?php //echo __('R = resenummer samtal')    ?><br/>
-            </td></tr>-->
+            </td></tr>
+
+
+
     </table>
 </div>

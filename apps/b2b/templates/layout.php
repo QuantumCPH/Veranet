@@ -145,8 +145,16 @@
                             </div>
                 <?php endif; ?>
 
-
-
+                <link href="<?php echo sfConfig::get('app_web_url'); ?>css/ui-lightness/jquery-ui-172.css" rel="stylesheet" type="text/css"/>
+                <script src="<?php echo sfConfig::get('app_web_url'); ?>js/jquery-ui-1.7.2.custom.min.js"></script>
+                <script type="text/javascript">
+                 jQuery(function(){
+                   jQuery("#startdate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy' });
+                   jQuery("#enddate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy'});
+                   jQuery("#trigger_startdate").hide();
+                   jQuery("#trigger_enddate").hide();
+                 });
+                </script>
                 <?php echo $sf_content ?>
             </div>
             <!--     <div id="footer" class="grid_12">
