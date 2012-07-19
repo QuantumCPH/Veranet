@@ -46,6 +46,7 @@ class BaseCompanyForm extends BaseFormPropel
       'i_customer'             => new sfWidgetFormInput(),
       'credit_limit'           => new sfWidgetFormInput(),
       'comments'               => new sfWidgetFormTextarea(),
+      'password'               => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -83,6 +84,7 @@ class BaseCompanyForm extends BaseFormPropel
       'i_customer'             => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'credit_limit'           => new sfValidatorInteger(),
       'comments'               => new sfValidatorString(array('required' => false)),
+      'password'               => new sfValidatorString(array('max_length' => 250, 'required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(

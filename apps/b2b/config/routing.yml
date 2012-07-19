@@ -1,0 +1,18 @@
+# default rules
+homepage:
+  url:   /
+  param: { module: company, action: login }
+
+default_index:
+  url:   /:module
+  param: { action: login }
+
+login:
+  url: /login
+  param: {module: company, action:login}
+
+default:
+  url:   /:module/:action/*
+
+
+

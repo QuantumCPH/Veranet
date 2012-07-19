@@ -4,6 +4,7 @@ default:
 
   metas:
     title:         Veranet
+
     #description:  symfony project
     #keywords:     symfony, project
     #language:     en

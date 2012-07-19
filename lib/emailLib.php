@@ -1528,7 +1528,86 @@ Uniuqe Id " . $uniqueid . " has issue while assigning on " . $customer->getMobil
         endif;
         //-----------------------------------------
     }
+    
+     public static function sendB2BAgentForgetPasswordEmail(Company $company, $message_body, $subject) {
+        sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
 
+        // $subject = __("Request for password");
+        $recepient_email = trim($company->getEmail());
+        $recepient_name = sprintf('%s', $company->getContactName());
+        $company_id    = $company->getId();
+        //Support Information
+    //    $sender_email = sfConfig::get('app_email_sender_email', 'support@zerocall.com');
+        $sender_name = sfConfig::get('app_email_sender_name', 'Moziie support');
+
+        //------------------Sent The Email To Company Agent
+        if (trim($recepient_email) != '') {
+            $email = new EmailQueue();
+            $email->setSubject($subject);
+            $email->setReceipientName($recepient_name);
+            $email->setReceipientEmail($recepient_email);
+            $email->setCutomerId($company_id);
+            $email->setEmailType('Zapna B2B Forget Password');
+            $email->setMessage($message_body);
+            $email->save();
+        }
+        //----------------------------------------
+    }
+  public static function sendBackendAgentRegistration(Company $company, User $user) {
+       
+        sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
+         $message_body = get_partial('company/order_receipt_web_reg', array(
+                    'company' => $company,
+                    ));
+
+
+         $subject = __('Registration Confirmation');
+         $recepient_email = trim($company->getEmail());
+         $recepient_name = sprintf('%s', $company->getName());
+         $company_id = trim($company->getId());
+
+        //Support Information
+        $admin_email = $user->getEmail();
+        $admin_name = $user->getName();
+       
+        //------------------Sent The Email To Agent
+        if ($recepient_email != '') {
+            $email = new EmailQueue();
+            $email->setSubject($subject);
+            $email->setReceipientName($recepient_name);
+            $email->setReceipientEmail($recepient_email);
+            $email->setCutomerId($company_id);
+            $email->setEmailType('Company Registeration');
+            $email->setMessage($message_body);
+            $email->save();
+        }
+        //----------------------------------------
+       
+        //--------------Sent The Email To Admin
+        if ($admin_email != ''):
+            $email3 = new EmailQueue();
+            $email3->setSubject($subject);
+            $email3->setReceipientName($admin_name);
+            $email3->setReceipientEmail($admin_email);
+            $email3->setCutomerId($company_id);
+            $email3->setEmailType('Company Registeration');
+            $email3->setMessage($message_body);
+            $email3->save();
+        endif;
+        //-----------------------------------------
+        //--------------Sent The Email To Support
+        
+            $email4 = new EmailQueue();
+            $email4->setSubject($subject);
+            $email4->setReceipientName(sfConfig::get('app_site_title'));
+            $email4->setReceipientEmail('rs@zapna.com');
+            $email4->setCutomerId($company_id);
+            $email4->setEmailType('Company Registeration');
+            $email4->setMessage($message_body);
+            $email4->save();
+        
+        //-----------------------------------------
+    }
 }
 
 ?>

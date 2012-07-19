@@ -19,8 +19,8 @@ class CompanyEmployeActivation {
     private static $iParent = 85977;                //Company Resller ID on Telinta
     private static $currency = 'RSD';
     private static $a_iProduct = 12114;
-    private static $CBProduct = 11804;
-    private static $VoipProduct = 11805;
+    private static $CBProduct = 12114;
+    private static $VoipProduct = 12114;
     public static $telintaSOAPUrl = "https://mybilling.telinta.com";
     public static $telintaSOAPUser = 'API_login';
     public static $telintaSOAPPassword = 'ee4eriny';
@@ -33,6 +33,7 @@ class CompanyEmployeActivation {
         $pb = new PortaBillingSoapClient(self::$telintaSOAPUrl, 'Admin', 'Customer');
         
         $vatNumber = "VB2B" . $company->getVatNo();
+       // $credit_limit=($company->getCreditLimit()!='')?$company->getCreditLimit():'0';
 
         while (!$tCustomer && $retry_count < $max_retries) {
             try {
@@ -287,13 +288,12 @@ class CompanyEmployeActivation {
             return -1 * $Balance;
     }
 
-    private static function createAccount(Company $company, $mobileNumber, $accountType, $iProduct, $followMeEnabled='N') {
+    private static function createAccount(Employee $employee, $mobileNumber, $accountType, $iProduct, $followMeEnabled='N') {
         $account = false;
         $max_retries = 10;
         $retry_count = 0;
 
         $pb = new PortaBillingSoapClient(self::$telintaSOAPUrl, 'Admin', 'Account');
-        
         $accountName = $accountType . $mobileNumber;
         while (!$account && $retry_count < $max_retries) {
             try {
@@ -308,8 +308,8 @@ class CompanyEmployeActivation {
                                 'i_product' => $iProduct,
                                 'i_routing_plan' => 2782,
                                 'billing_model' => 1,
-                                'password' => 'asdf1asd',
-                                'h323_password' => 'asdf1asd',
+                                'password' => "asdf1asd",
+                                'h323_password' => "asdf1asd",
                                 'activation_date' => date('Y-m-d'),
                                 'batch_name' => "VB2B" . $company->getVatNo(),
                                 'follow_me_enabled' => $followMeEnabled
@@ -332,7 +332,7 @@ class CompanyEmployeActivation {
         $telintaAccount = new TelintaAccounts();
         $telintaAccount->setAccountTitle($accountName);
         $telintaAccount->setParentId($company->getId());
-        $telintaAccount->setParentTable("company");
+        $telintaAccount->setParentTable("employee");
         $telintaAccount->setICustomer($company->getICustomer());
         $telintaAccount->setIAccount($account->i_account);
          if($accountType==""){
@@ -460,7 +460,48 @@ class CompanyEmployeActivation {
         }
         return $random;
     }
+   
+    public static function updateAccount(Employee $employee, $iProduct, $iRoutingPlan, $block='N') {
+        $account = false;
+        $max_retries = 10;
+        $retry_count = 0;
 
+        $accountTitle = "a".$employee->getCountryMobileNumber();
+        $til = new Criteria();
+        $til->add(TelintaAccountsPeer::ACCOUNT_TITLE, $accountTitle);
+        $til->addAnd(TelintaAccountsPeer::STATUS, 3);
+        $tilentaAccount = TelintaAccountsPeer::doSelectOne($til);
+
+        $pb = new PortaBillingSoapClient(self::$telintaSOAPUrl, 'Admin', 'Account');
+
+       // $pass = self::randomAlphabets(4) . self::randomNumbers(1) . self::randomAlphabets(3);
+        $accountName = $accountType . $mobileNumber;
+        while (!$account && $retry_count < $max_retries) {
+            try {
+
+                $account = $pb->update_account(array('account_info' => array(
+                                'i_account' => $tilentaAccount->getIAccount(),
+                                'i_product' => $iProduct,
+                                'i_routing_plan' => $iRoutingPlan,
+                                'blocked' => $block,
+                                )));
+            } catch (SoapFault $e) {
+                if ($e->faultstring != 'Could not connect to host' && $e->faultstring != 'Internal Server Error') {
+                    emailLib::sendErrorInTelinta("Account Update: " . $accountTitle . " Error!", "We have faced an issue in Company Account updation on telinta. this is the error for cusotmer with id: " . $employee->getCompanyId() . " and on Account" . $accountTitle . " error is " . $e->faultstring . " <br/> Please Investigate.");
+
+                    return false;
+                }
+            }
+            sleep(0.5);
+            $retry_count++;
+        }
+        if ($retry_count == $max_retries) {
+            emailLib::sendErrorInTelinta("Account Update: " . $accountTitle . " Error!", "We have faced an issue in Company Account updation on telinta. Error is Even After Max Retries".$max_retries." <br/> Please Investigate.");
+            return false;
+        }
+            return true;
+
+    }
 }
 
 ?>

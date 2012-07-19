@@ -1,0 +1,17 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        Zapna
+    #description:  symfony project
+    #keywords:     symfony, project
+    #language:     en
+    #robots:       index, follow
+
+  stylesheets:    [style.css, 960.css]
+
+  javascripts:    [/sf/prototype/js/prototype.js, jquery-1.4.2.min.js,jquery.validate1.js, main.js]
+
+  has_layout:     on
+  layout:         layout
