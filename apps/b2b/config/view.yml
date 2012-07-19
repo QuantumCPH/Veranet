@@ -9,9 +9,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [style.css, 960.css]
+  stylesheets:    [style.css, 960.css, ui-lightness/jquery-ui-172.css]
 
-  javascripts:    [/sf/prototype/js/prototype.js, jquery-1.4.2.min.js,jquery.validate1.js, main.js]
+  javascripts:    [/sf/prototype/js/prototype.js, jquery-1.4.2.min.js,jquery.validate1.js, main.js, jquery-ui-1.7.2.custom.min.js]
 
   has_layout:     on
   layout:         layout

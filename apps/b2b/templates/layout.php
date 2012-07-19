@@ -6,8 +6,8 @@
         <?php include_metas() ?>
         <?php include_title() ?>
         <link rel="shortcut icon" href="/favicon.ico" />
-         <?php use_javascript('jquery.validate1.js', '', array('absolute' => true)) ?>
-    </head>
+        <?php use_javascript('jquery.validate1.js', '', array('absolute' => true)) ?>
+     </head>
 
     <body>
         <div id="basic">
@@ -144,9 +144,6 @@
                     <?php echo $sf_user->getFlash('error'); ?>
                             </div>
                 <?php endif; ?>
-
-                <link href="<?php echo sfConfig::get('app_web_url'); ?>css/ui-lightness/jquery-ui-172.css" rel="stylesheet" type="text/css"/>
-                <script src="<?php echo sfConfig::get('app_web_url'); ?>js/jquery-ui-1.7.2.custom.min.js"></script>
                 <script type="text/javascript">
                  jQuery(function(){
                    jQuery("#startdate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy' });

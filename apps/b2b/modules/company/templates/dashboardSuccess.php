@@ -1,6 +1,6 @@
-<h1>Available Balance: <?php echo $balance ?><?php echo sfConfig::get('app_currency_code');?></h1>
-<h1>Credit Limit:  <?php echo  $company->getCreditLimit();  ?><?php echo sfConfig::get('app_currency_code');?></h1><br/>
 <div id="sf_admin_container" style="clear: both;">
+    <h2>Available Balance: <?php echo $balance ?><?php echo sfConfig::get('app_currency_code');?></h2>
+    <h2>Credit Limit:  <?php echo  $company->getCreditLimit();  ?><?php echo sfConfig::get('app_currency_code');?></h2><br/>
     <h1><?php echo __('Employees') ?></h1>
 </div>
 <table class="tblAlign" width="100%" cellspacing="0" cellpadding="3">
@@ -38,7 +38,7 @@
    </tr>
         <?php } ?>
 </table>
-<div id="sf_admin_container"><h1><?php echo __('News Box') ?></h1></div>
+<!--<div id="sf_admin_container"><h1><?php echo __('News Box') ?></h1></div>
     <div class="borderDiv">
         <br/>
         <p>
@@ -81,5 +81,5 @@ foreach ($promotionRates as $promotionRate){
         <td><?php echo $promotionRate->getNetworkRate();?></td>
    </tr>
 <?php } ?>
-</table>
-<p>&nbsp;</p>
+</table>-->
+<br>

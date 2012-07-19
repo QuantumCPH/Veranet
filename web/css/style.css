@@ -553,7 +553,7 @@ tr.even{
     background-color:#FFFFFF !important;
 }
 tr.odd{
-    background-color:#D44D05 !important;
+    background-color:#FCD9C9 !important;
 }
 p.pTotal{    
     font-weight: bold;
@@ -805,7 +805,8 @@ label.error{
   vertical-align:middle;
   margin: 0px !important
 }
-/*#sf_admin_container input[type="submit"]{
+#sf_admin_container h2{
     padding: 0px !important;
     margin: 0px !important;
-}*/
+    color: #D44D05;
+}
