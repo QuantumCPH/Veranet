@@ -288,7 +288,7 @@ class CompanyEmployeActivation {
             return -1 * $Balance;
     }
 
-    private static function createAccount(Employee $employee, $mobileNumber, $accountType, $iProduct, $followMeEnabled='N') {
+    private static function createAccount(Company $company, $mobileNumber, $accountType, $iProduct, $followMeEnabled='N') {
         $account = false;
         $max_retries = 10;
         $retry_count = 0;
@@ -332,7 +332,7 @@ class CompanyEmployeActivation {
         $telintaAccount = new TelintaAccounts();
         $telintaAccount->setAccountTitle($accountName);
         $telintaAccount->setParentId($company->getId());
-        $telintaAccount->setParentTable("employee");
+        $telintaAccount->setParentTable("company");
         $telintaAccount->setICustomer($company->getICustomer());
         $telintaAccount->setIAccount($account->i_account);
          if($accountType==""){

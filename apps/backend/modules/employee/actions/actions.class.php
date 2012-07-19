@@ -185,8 +185,9 @@ class employeeActions extends sfActions {
        $product= ProductPeer::retrieveByPK($request->getParameter('productid'));
        $chrageamount=$product->getRegistrationFee()+$product->getRegistrationFee()*sfConfig::get('app_vat_percentage');
        //$emplyeeProductFeeDescription="Registration Fee Including Vat";,$emplyeeProductFeeDescription
-        CompanyEmployeActivation::charge($this->companys,$chrageamount);
-
+        if($chrageamount > 0){
+            CompanyEmployeActivation::charge($this->companys,$chrageamount);
+        }
         $transaction = new CompanyTransaction();
         $transaction->setAmount(-$chrageamount);
         $transaction->setCompanyId($request->getParameter('company_id'));
@@ -287,7 +288,7 @@ class employeeActions extends sfActions {
         $employee->setProductId($request->getParameter('productid'));
         $employee->setSimTypeId($request->getParameter('sim_type_id'));
        // $employee->setProductPrice($request->getParameter('price'));
-           $employee->setComments($request->getParameter('comments'));
+        $employee->setComments($request->getParameter('comments'));
         $employee->save();
         $this->getUser()->setFlash('messageAdd', 'Employee has been Add Sucessfully '.(isset($msg)?"and ".$msg:''));
         $this->redirect('employee/index?message=add');
