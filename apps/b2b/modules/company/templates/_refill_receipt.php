@@ -53,7 +53,7 @@ use_helper('Number');
             <?php echo __('Vat Number') ?>   <?php echo $company->getVatNo(); ?><br/>
             <?php echo sprintf("%s", $company->getName()) ?><br/>
             <?php echo $company->getAddress() ?><br/>
-            <?php echo sprintf('%s, %s', $company->getCity(), $company->getPostCode()) ?><br/>
+            <?php echo sprintf('%s %s', $company->getCity(), $company->getPostCode()) ?><br/>
             <br /><br />
         </td>
     </tr>
@@ -71,7 +71,7 @@ use_helper('Number');
             ?>
         </td>
         <td><?php echo "1"; ?></td>
-        <td><?php echo format_number($subtotal = $transaction->getAmount(),2)?><?php echo sfConfig::get('app_currency_code');?></td>
+        <td><?php echo number_format($subtotal = $transaction->getAmount(),2)?><?php echo sfConfig::get('app_currency_code');?></td>
     </tr>
     <tr>
         <td colspan="4" style="border-bottom: 2px solid #c0c0c0;">&nbsp;</td>

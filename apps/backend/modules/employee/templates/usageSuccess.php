@@ -144,10 +144,10 @@ foreach ($callHistoryres->xdr_list as $xdrres) {
 <?php } ?>
 
     <tr>
-        <td colspan="6" align="left">Samtalstyp  type detail <br/> Int. = Internationella samtal<br/>
-            Cb M = Callback mottaga<br/>
+        <td colspan="6" align="left"><?php echo __('Call type detail') ?> <br/> <?php echo __('Int. = International calls') ?><br/>
+<!--            Cb M = Callback mottaga<br/>
             Cb S = Callback samtal<br/>
-            R = resenummer samtal<br/>
+            R = resenummer samtal<br/>-->
         </td>
     </tr>
 </table></div>
