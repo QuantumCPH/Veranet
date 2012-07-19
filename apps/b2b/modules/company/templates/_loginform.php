@@ -11,7 +11,7 @@
 <div class="bg-img" >
         <div class="left"></div>
         <div class="centerImg"> 
-            <h1><?php echo __('Log in to Agent Account') ?></h1>
+            <h1><?php echo __('Log in to B2B Account') ?></h1>
             <h2><?php echo __("Provide your Vat No and Password");?></h2>
             <?php echo $form->renderGlobalErrors() ?>
             <div class="fieldName"> 
