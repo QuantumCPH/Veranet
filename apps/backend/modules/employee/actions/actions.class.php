@@ -170,13 +170,21 @@ class employeeActions extends sfActions {
       $this->country = CountryPeer::doSelectOne($c1);
       $contrymobilenumber = $this->country->getCallingCode() . $mobileNo;
       $employeMobileNumber=$contrymobilenumber;
-
-//        if(!CompanyEmployeActivation::telintaRegisterEmployeeCB($employeMobileNumber, $this->companys)){
-//            $this->getUser()->setFlash('messageError', 'Employee  Call Back account is not registered on Telinta please check email');
-//            $this->redirect('employee/add');
-//            die;
-//        }
-        if(!CompanyEmployeActivation::telintaRegisterEmployeeCT($employeMobileNumber, $this->companys,$request->getParameter('productid'))){
+      $employee->setCompanyId($request->getParameter('company_id'));
+      $employee->setFirstName($request->getParameter('first_name'));
+      $employee->setLastName($request->getParameter('last_name'));
+      $employee->setCountryCode($this->country->getCallingCode());
+      $employee->setCountryMobileNumber($contrymobilenumber);
+      $employee->setMobileNumber($request->getParameter('mobile_number'));
+      $employee->setEmail($request->getParameter('email'));
+      $employee->setProductId($request->getParameter('productid'));
+      $employee->setSimTypeId($request->getParameter('sim_type_id'));
+      $employee->setProductPrice($request->getParameter('price'));
+      $employee->setStatusId(sfConfig::get('app_status_new'));
+      $employee->save();
+        if(!CompanyEmployeActivation::telintaRegisterEmployeeCT($employee,$request->getParameter('productid'))){
+            $employee->setStatusId(sfConfig::get('app_status_error'));
+            $employee->save();
             $this->getUser()->setFlash('messageError', 'Employee  Call Through account is not registered on Telinta please check email');
             $this->redirect('employee/add');
             die;
@@ -198,7 +206,7 @@ class employeeActions extends sfActions {
         $transaction->save();
 
 
-     $rtype=$request->getParameter('registration_type');
+      $rtype=$request->getParameter('registration_type');
       if($rtype==1){
       ////////////////////////////////////////////////
 
@@ -277,19 +285,6 @@ class employeeActions extends sfActions {
                 }}
       
       }
-        
-        $employee->setCompanyId($request->getParameter('company_id'));
-        $employee->setFirstName($request->getParameter('first_name'));
-        $employee->setLastName($request->getParameter('last_name'));
-        $employee->setCountryCode($this->country->getCallingCode());
-        $employee->setCountryMobileNumber($contrymobilenumber);
-        $employee->setMobileNumber($request->getParameter('mobile_number'));
-        $employee->setEmail($request->getParameter('email'));
-        $employee->setProductId($request->getParameter('productid'));
-        $employee->setSimTypeId($request->getParameter('sim_type_id'));
-       // $employee->setProductPrice($request->getParameter('price'));
-        $employee->setComments($request->getParameter('comments'));
-        $employee->save();
         $this->getUser()->setFlash('messageAdd', 'Employee has been Add Sucessfully '.(isset($msg)?"and ".$msg:''));
         $this->redirect('employee/index?message=add');
     }
