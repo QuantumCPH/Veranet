@@ -75,7 +75,7 @@ class CompanyEmployeActivation {
         return self::createAccount($employee, 'a', $product->getAIproduct());
     }
 
-    public static function telintaRegisterEmployeeCB(Employee $employee, $companyid) {
+    public static function telintaRegisterEmployeeCB(Employee $employee) {
 
         return self::createAccount($employee, 'cb', self::$CBProduct);
     }
