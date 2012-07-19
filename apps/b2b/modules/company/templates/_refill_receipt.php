@@ -71,7 +71,7 @@ use_helper('Number');
             ?>
         </td>
         <td><?php echo "1"; ?></td>
-        <td><?php echo format_number($subtotal = $transaction->getAmount())?><?php echo sfConfig::get('app_currency_code');?></td>
+        <td><?php echo format_number($subtotal = $transaction->getAmount(),2)?><?php echo sfConfig::get('app_currency_code');?></td>
     </tr>
     <tr>
         <td colspan="4" style="border-bottom: 2px solid #c0c0c0;">&nbsp;</td>
@@ -80,25 +80,25 @@ use_helper('Number');
         <td>&nbsp;</td>
         <td><?php echo __('Subtotal') ?></td>
         <td>&nbsp;</td>
-        <td><?php echo format_number($subtotal) ?><?php echo sfConfig::get('app_currency_code');?></td>
+        <td><?php echo format_number($subtotal,2) ?><?php echo sfConfig::get('app_currency_code');?></td>
     </tr>
     <tr class="footer">
         <td>&nbsp;</td>
-        <td><?php echo __('VAT') ?> (<?php echo $vat == 0 ? '0%' : '25%' ?>)</td>
+        <td><?php echo __('VAT') ?> <!--(<?php echo $vat == 0 ? '0%' : '25%' ?>)--></td>
         <td>&nbsp;</td>
-        <td><?php echo format_number($vat) ?></td>
+        <td><?php echo format_number($vat, 2) ?></td>
     </tr>
     <tr class="footer">
         <td>&nbsp;</td>
         <td><?php echo __('Total') ?></td>
         <td>&nbsp;</td>
-        <td><?php echo format_number($transaction->getAmount()) ?><?php echo sfConfig::get('app_currency_code');?></td>
+        <td><?php echo format_number($transaction->getAmount(), 2) ?><?php echo sfConfig::get('app_currency_code');?></td>
     </tr>
     <tr>
         <td colspan="4" style="border-bottom: 2px solid #c0c0c0;">&nbsp;</td>
     </tr>
     <tr class="footer">
-        <td class="payer_summary" colspan="4" style="font-weight:normal; white-space: nowrap;">
-<?php //echo __('WLS3&nbsp;&nbsp;&nbsp;Box XXXXX, XX-XXX XX XXXXXXX&nbsp;&nbsp;&nbsp; Org.nr.XXXXXX-XXXX') ?> </td>
-    </tr>
+    <td class="payer_summary" colspan="4" style="font-weight:normal; white-space: nowrap;">
+    <?php echo __('%1%',array('%1%'=>sfConfig::get('app_postal_address_bottom')))?> </td>
+  </tr>
 </table>
