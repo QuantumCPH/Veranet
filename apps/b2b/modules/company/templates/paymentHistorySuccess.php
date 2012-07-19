@@ -14,7 +14,7 @@
     <th><?php echo __('Date & Time') ?></th>
     <th><?php echo __('Company & Name') ?></th>
     <th><?php echo __('Description') ?></th>
-    <th><?php echo __('Amount') ?> (&euro;)</th>
+    <th><?php echo __('Amount') ?> (<?php echo sfConfig::get('app_currency_code');?>)</th>
     <th><?php echo __('Reciept') ?></th>
 </tr>
 <?php 
