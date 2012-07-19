@@ -170,18 +170,28 @@ class employeeActions extends sfActions {
       $this->country = CountryPeer::doSelectOne($c1);
       $contrymobilenumber = $this->country->getCallingCode() . $mobileNo;
       $employeMobileNumber=$contrymobilenumber;
-
-//        if(!CompanyEmployeActivation::telintaRegisterEmployeeCB($employeMobileNumber, $this->companys)){
-//            $this->getUser()->setFlash('messageError', 'Employee  Call Back account is not registered on Telinta please check email');
-//            $this->redirect('employee/add');
-//            die;
-//        }
-        if(!CompanyEmployeActivation::telintaRegisterEmployeeCT($employeMobileNumber, $this->companys,$request->getParameter('productid'))){
+      $employee->setCompanyId($request->getParameter('company_id'));
+      $employee->setFirstName($request->getParameter('first_name'));
+      $employee->setLastName($request->getParameter('last_name'));
+      $employee->setCountryCode($this->country->getCallingCode());
+      $employee->setCountryMobileNumber($contrymobilenumber);
+      $employee->setMobileNumber($request->getParameter('mobile_number'));
+      $employee->setEmail($request->getParameter('email'));
+      $employee->setProductId($request->getParameter('productid'));
+      $employee->setSimTypeId($request->getParameter('sim_type_id'));
+      $employee->setProductPrice($request->getParameter('price'));
+    //  $employee->setStatusId(sfConfig::get('app_status_new'));   //// new status is 1 defined in backend/config/app.yml
+      $employee->save();
+        if(!CompanyEmployeActivation::telintaRegisterEmployeeCT($employee,$request->getParameter('productid'))){
+            $employee->setStatusId(sfConfig::get('app_status_error')); //// error status is 5 defined in backend/config/app.yml
+            $employee->save();
             $this->getUser()->setFlash('messageError', 'Employee  Call Through account is not registered on Telinta please check email');
             $this->redirect('employee/add');
             die;
         }
-
+       $employee->setStatusId(sfConfig::get('app_status_completed')); //// completed status is 3 defined in backend/config/app.yml
+       $employee->save();
+       
        $product= ProductPeer::retrieveByPK($request->getParameter('productid'));
        $chrageamount=$product->getRegistrationFee()+$product->getRegistrationFee()*sfConfig::get('app_vat_percentage');
        //$emplyeeProductFeeDescription="Registration Fee Including Vat";,$emplyeeProductFeeDescription
@@ -198,7 +208,7 @@ class employeeActions extends sfActions {
         $transaction->save();
 
 
-     $rtype=$request->getParameter('registration_type');
+      $rtype=$request->getParameter('registration_type');
       if($rtype==1){
       ////////////////////////////////////////////////
 
@@ -277,19 +287,6 @@ class employeeActions extends sfActions {
                 }}
       
       }
-        
-        $employee->setCompanyId($request->getParameter('company_id'));
-        $employee->setFirstName($request->getParameter('first_name'));
-        $employee->setLastName($request->getParameter('last_name'));
-        $employee->setCountryCode($this->country->getCallingCode());
-        $employee->setCountryMobileNumber($contrymobilenumber);
-        $employee->setMobileNumber($request->getParameter('mobile_number'));
-        $employee->setEmail($request->getParameter('email'));
-        $employee->setProductId($request->getParameter('productid'));
-        $employee->setSimTypeId($request->getParameter('sim_type_id'));
-       // $employee->setProductPrice($request->getParameter('price'));
-        $employee->setComments($request->getParameter('comments'));
-        $employee->save();
         $this->getUser()->setFlash('messageAdd', 'Employee has been Add Sucessfully '.(isset($msg)?"and ".$msg:''));
         $this->redirect('employee/index?message=add');
     }
@@ -465,25 +462,7 @@ class employeeActions extends sfActions {
             }
             return false;
         }
-        /*$telintaRegisterCus = file_get_contents('https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=delete&name=a'.$contrymobilenumber.'&type=account');
-         
-            parse_str($telintaRegisterCus);
-            if(isset($success) && $success!="OK"){
-                emailLib::sendErrorInTelinta("Error in employee  delete account", 'We have faced an issue in employee deletion on telinta. this is the error on the following url https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=delete&name=a'.$contrymobilenumber.'&type=account');
-                $this->getUser()->setFlash('message', 'Employee has not been deleted Sucessfully! Error in Callthrough Account');
-                if(isset($companyid) && $companyid!=""){$this->redirect('employee/index?company_id='.$companyid.'&filter=filter');}
-                else{$this->redirect('employee/index');}
-                return false;
-            }
-        $telintaRegisterCus1 = file_get_contents('https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=delete&name=cb'.$contrymobilenumber.'&type=account');
-        parse_str($telintaRegisterCus1);
-            if(isset($success) && $success!="OK"){
-                emailLib::sendErrorInTelinta("Error in employee  delete account", 'We have faced an issue in employee deletion on telinta. this is the error on the following url https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=delete&name=cb'.$contrymobilenumber.'&type=account');
-                $this->getUser()->setFlash('message', 'Employee has not been deleted Sucessfully! Error in Callback Account');
-                if(isset($companyid) && $companyid!=""){$this->redirect('employee/index?company_id='.$companyid.'&filter=filter');}
-                else{$this->redirect('employee/index');}
-                return false;
-            }*/
+        
         $this->forward404Unless($employee = EmployeePeer::retrieveByPk($request->getParameter('id')), sprintf('Object employee does not exist (%s).', $request->getParameter('id')));
 
 
@@ -494,25 +473,6 @@ class employeeActions extends sfActions {
                 if (isset($getvoipInfos)) {
                     $voipnumbers = $getvoipInfos->getNumber();
                     $voipnumbers = substr($voipnumbers, 2);
-
-                   /* $telintaDeactivate = file_get_contents('https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=update&name=' . $voipnumbers . '&active=N&follow_me_number=' . $contrymobilenumber . '&type=account');
-                    parse_str($telintaDeactivate);
-                    if(isset($success) && $success!="OK"){
-                        emailLib::sendErrorInTelinta("Error in employee  delete account", 'We have faced an issue in employee deletion on telinta. this is the error on the following url https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=update&name=' . $voipnumbers . '&active=N&follow_me_number=' . $contrymobilenumber . '&type=account');
-                        $this->getUser()->setFlash('message', 'Employee has not been deleted Sucessfully! Error in Deactivate Resenummer');
-                        if(isset($companyid) && $companyid!=""){$this->redirect('employee/index?company_id='.$companyid.'&filter=filter');}
-                        else{$this->redirect('employee/index');}
-                        return false;
-                    }
-                    $telintaDeleteResenummer = file_get_contents('https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=delete&name='.$voipnumbers.'&type=account');
-                    parse_str($telintaDeleteResenummer);
-                    if(isset($success) && $success!="OK"){
-                        emailLib::sendErrorInTelinta("Error in employee  delete account", 'We have faced an issue in employee deletion on telinta. this is the error on the following url https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=delete&name='.$voipnumbers.'&type=account');
-                        $this->getUser()->setFlash('message', 'Employee has not been deleted Sucessfully! Error in delete resenummer');
-                        if(isset($companyid) && $companyid!=""){$this->redirect('employee/index?company_id='.$companyid.'&filter=filter');}
-                        else{$this->redirect('employee/index');}
-                        return false;
-                    }*/
 
                     $res = new Criteria();
                     $res->add(TelintaAccountsPeer::ACCOUNT_TITLE, $voipnumbers);
@@ -535,7 +495,8 @@ class employeeActions extends sfActions {
                  }
 
                 
-        $employee->delete();
+        //$employee->delete();
+        $employee->setStatusId('app_status_delete'); //// delete status is 6 defined in backend/config/app.yml
         $this->getUser()->setFlash('message', 'Employee has been deleted Sucessfully');
         if(isset($companyid) && $companyid!=""){$this->redirect('employee/index?company_id='.$companyid.'&filter=filter');}
         else{$this->redirect('employee/index');}
@@ -589,6 +550,7 @@ class employeeActions extends sfActions {
         $c = new Criteria();
         $mobile_no=$_POST['mobile_no'];
         $c->add(EmployeePeer::MOBILE_NUMBER,  $mobile_no);
+        $c->add(EmployeePeer::STATUS_ID,3);
             if(EmployeePeer::doSelectOne($c)){
 
                 echo "no";

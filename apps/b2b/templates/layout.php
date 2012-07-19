@@ -5,9 +5,9 @@
         <?php include_http_metas() ?>
         <?php include_metas() ?>
         <?php include_title() ?>
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <?php use_javascript('jquery.validate1.js', '', array('absolute' => true)) ?>
-     </head>
+        <link rel="shortcut icon" href="<?php echo sfConfig::get('app_web_url');?>images/favicon.ico" type="image/x-icon" />
+         <?php use_javascript('jquery.validate1.js', '', array('absolute' => true)) ?>
+    </head>
 
     <body>
         <div id="basic">

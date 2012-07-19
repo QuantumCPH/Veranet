@@ -67,17 +67,17 @@ class CompanyEmployeActivation {
         return true;
     }
 
-    public static function telintaRegisterEmployeeCT($employeMobileNumber, Company $company,$productId) {
+    public static function telintaRegisterEmployeeCT(Employee $employee,$productId) {
         $c = new Criteria();
         $c->addAnd(ProductPeer::ID, $productId);
         $product = ProductPeer::doSelectOne($c);
         $product = BillingProductsPeer::retrieveByPK($product->getBillingProductId());
-        return self::createAccount($company, $employeMobileNumber, 'a', $product->getAIproduct());
+        return self::createAccount($employee, 'a', $product->getAIproduct());
     }
 
-    public static function telintaRegisterEmployeeCB($employeMobileNumber, Company $company) {
+    public static function telintaRegisterEmployeeCB(Employee $employee, $companyid) {
 
-        return self::createAccount($company, $employeMobileNumber, 'cb', self::$CBProduct);
+        return self::createAccount($employee, 'cb', self::$CBProduct);
     }
 
     public static function createReseNumberAccount($VOIPNumber, Company $company, $currentActiveNumber) {
@@ -288,11 +288,13 @@ class CompanyEmployeActivation {
             return -1 * $Balance;
     }
 
-    private static function createAccount(Company $company, $mobileNumber, $accountType, $iProduct, $followMeEnabled='N') {
+    private static function createAccount(Employee $employee,$accountType, $iProduct, $followMeEnabled='N') {
         $account = false;
         $max_retries = 10;
         $retry_count = 0;
-
+        $company = CompanyPeer::retrieveByPK($employee->getCompanyId());
+        $mobileNumber = $employee->getCountryMobileNumber();
+        
         $pb = new PortaBillingSoapClient(self::$telintaSOAPUrl, 'Admin', 'Account');
         $accountName = $accountType . $mobileNumber;
         while (!$account && $retry_count < $max_retries) {
