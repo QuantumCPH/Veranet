@@ -20,7 +20,7 @@
                 
                 <?php if ($sf_user->getAttribute('username', '', 'agentsession')) {
                 ?>
-                <h1><?php echo __('Agent Portal'); ?></h1>
+                <h1><?php echo __('B2B Portal'); ?></h1>
                         <div id="loggedInUser">
                     <?php echo __('Logged in as:') ?><b>&nbsp;<?php echo $sf_user->getAttribute('username', '', 'agentsession') ?></b><br />
                     <?php
