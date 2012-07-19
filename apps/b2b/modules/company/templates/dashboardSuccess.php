@@ -34,7 +34,7 @@
             echo sfConfig::get('app_currency_code');
             ?>
         </td>
-        <td><?php echo  date("Y-m-d H:i:s",strtotime($employee->getCreatedAt())+25200); ?></td>
+        <td><?php echo  date("d-m-Y H:i:s",strtotime($employee->getCreatedAt())); ?></td>
    </tr>
         <?php } ?>
 </table>
