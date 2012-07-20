@@ -1,40 +1,40 @@
 <?php use_helper('I18N') ?>
 <?php use_helper('Number') ?>
-
- 
-              <!--Always use tables for tabular data-->
-<div id="sf_admin_container"><h1><?php echo  __('Payment History') ?></h1><br />
-<form action="" id="searchform" method="POST" name="searchform" >
-
-
-                <div class="dateBox-pt">
-           <div class="formRow-pt" style="float:left;">
-                    <label class="datelable" style="width:35px;margin-top: 3px;">From:</label>
+<div id="sf_admin_container">
+    <h1><?php echo  __('Payment History') ?></h1><br />
+    <div class="sf_admin_filters">
+    <form action="" id="searchform" method="POST" name="searchform" >
+        <fieldset>
+            <div class="form-row">
+                <label><?php echo __('Type');?>:</label>
+                <div class="content">
+                    <select name="description">
+                        <option value="">All</option>
+                        <?php foreach($alltransactions as $alltransaction){  ?>
+                        <option value="<?php  echo $alltransaction->getDescription();  ?>"><?php  echo $alltransaction->getDescription();  ?></option>
+                        <?php  }?>
+                     </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <label><?php echo __('From');?>:</label>
+                <div class="content">
                     <input type="text"   name="startdate" autocomplete="off" id="stdate" style="width: 110px;" value="<?php  if(isset($startdate)){ echo $startdate; }  ?>" />
                 </div>
-                <div class="formRow-pt1" style="float:left;margin-left:7px;">
-                    &nbsp;<label class="datelable" style="width:35px;margin-top: 3px;">To:</label>
-                    <input type="text"   name="enddate" autocomplete="off" id="endate" style="width: 110px;" value="<?php   if(isset($enddate)){ echo $enddate; }  ?>" />
+            </div>
+            <div class="form-row">
+                <label><?php echo __('To');?>:</label>
+                <div class="content">
+                     <input type="text"   name="enddate" autocomplete="off" id="endate" style="width: 110px;" value="<?php   if(isset($enddate)){ echo $enddate; }  ?>" />
                 </div>
-                <div class="formRow-pt1" style="float:left;margin-left:7px;">
-                    &nbsp;<label class="datelable" style="width:20px;margin-top: 3px;">Type </label> <select name="description">
-                        <option value="">All</option>
-                    <?php  foreach($alltransactions as $alltransaction){  ?>
+            </div>
+        </fieldset>
+        <ul class="sf_admin_actions">
+           <li><input type="submit" name="Search" value="Search" class="sf_admin_action_filter" /></li>
+        </ul>
+    </form>
+</div>
 
-                    <option value="<?php  echo $alltransaction->getDescription();  ?>"><?php  echo $alltransaction->getDescription();  ?></option>
-                  <?php  }
-                    ?>
-
-
-
-                    </select>
-                 &nbsp;
-               <span style="margin-left:10px;"><input type="submit" name="Search" value="Search" class="searchbtn user_external_link" /></span>
-                </div>
-
-            </div><br clear="all" />
-
-            </form><br /></div>
 <div id="sf_admin_container">
     
     <table width="100%" cellspacing="0" cellpadding="2" class="callhistory tblAlign">
