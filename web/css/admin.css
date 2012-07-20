@@ -105,7 +105,7 @@ h2{
     color: #FFFFFF !important;
 }
 a.label{
-   background: #FFFFFF !important;
+   background: url('../images/li-bg.png') repeat-x top left !important;
    color: #EF2942 !important;
 }
 
