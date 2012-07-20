@@ -62,7 +62,7 @@ h2{
 	text-decoration: none}
 
 #sddm li a:hover
-{	background: #EF2942;
+{	background: url("../images/b.png") repeat-x scroll left center transparent;
         color:#ffffff;
 }
 
