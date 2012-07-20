@@ -52,7 +52,7 @@
   font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
   font-size: 25px;
   color:#ffffff;
-  background-color: #EF2942;
+  background: url("../images/b.png") repeat-x scroll left center transparent;
 }
 
 #sf_admin_container fieldset h2

@@ -84,7 +84,7 @@ h2{
         white-space: nowrap;
         text-align: left;
         text-decoration: none;
-        background: #EF2942;
+        background: url("../images/b.png") repeat-x scroll left center transparent;
         color: #FFFFFF;
         font: 11px arial;
 }
@@ -101,7 +101,7 @@ h2{
     width:75%;
 }
 #sddm li a.current{
-    background: #EF2942 !important;
+    background: url("../images/b.png") repeat-x scroll left center transparent;
     color: #FFFFFF !important;
 }
 a.label{
