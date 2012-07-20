@@ -115,7 +115,8 @@
   padding: 6px 20px 4px 25px;
   font-size: 11px;
   color: #fff;
-  background: #EF2942 url(../images/ok.png) no-repeat 5px 2px;
+  background: #F2878C url(../images/ok.png) no-repeat 5px 2px;
+  border: 1px solid #EF2942;
 }
 
 #sf_admin_container .form-row
