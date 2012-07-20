@@ -74,7 +74,7 @@
             <div class="clr"></div>
   	</div>
         <div class="clr"></div>
-            <div style="width:75%;margin:0 auto;text-align: right;">
+            <div style="width:75%; margin:0 auto; text-align: right; padding-top: 20px;">
                <?php //echo link_to(image_tag('/images/german.png'), 'user/changeCulture?new=de'); ?>
                <?php //echo link_to(image_tag('/images/english.png'), 'user/changeCulture?new=en'); ?>
             </div>
