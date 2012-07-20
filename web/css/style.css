@@ -26,7 +26,7 @@ h3 {
 	height:1px;
 }
 a{
-    color: #D44D05;
+    color: #EF2942;
     text-decoration: none;
 }
 a:hover{
@@ -216,7 +216,7 @@ margin-bottom:10px;
 }
 
 #slogan{
-    color:#D44D05;
+    color:#EF2942;
     width:1010px;
     margin: 0 auto;
 }
@@ -253,26 +253,26 @@ margin-bottom:10px;
     float: left;
     font: bold 11px arial;
     background:url('../images/li-bg.png') repeat-x top left;
-    border-left: 1px solid #D44D05;
-    border-top: 1px solid #D44D05;
-    border-bottom: 1px solid #D44D05;
+    border-left: 1px solid #EF2942;
+    border-top: 1px solid #EF2942;
+    border-bottom: 1px solid #EF2942;
 }
 #sddm li.last
 {	
-    border-right:1px solid #D44D05;
+    border-right:1px solid #EF2942;
 }    
 #sddm li a{
     display: block;
     margin: 0 0px 0 0;
     padding: 4px 10px;
-    color: #D44D05;
+    color: #EF2942;
     text-align: center;
     text-decoration: none;
 }
 
 #sddm li a:hover{
     text-decoration:none;
-    background: #D44D05;
+    background: #EF2942;
     color:#ffffff;
 }
 
@@ -281,7 +281,7 @@ margin-bottom:10px;
 	visibility: hidden;
 	margin: 0;
 	padding: 0;
-	background: #D44D05;
+	background: #EF2942;
 	border: 1px solid #ED8555;
 }
 
@@ -294,25 +294,25 @@ margin-bottom:10px;
         white-space: nowrap;
         text-align: left;
         text-decoration: none;
-        background: #D44D05 ;
+        background: #EF2942 ;
         color: #FFFFFF;
         font: 11px arial;
 }
 #sddm div a:hover
 {	background: #FFFFFF;
-        color: #D44D05;
+        color: #EF2942;
         text-decoration: none;
 }
 #sddm div a.subSelect
 {	background: #FFFFFF;
-        color: #D44D05;
+        color: #EF2942;
 }
 #sddm li a.current{
-    background: #D44D05 !important;
+    background: #EF2942 !important;
     color: #FFFFFF !important;
 }
 #sddm li a.currentR{
-    background: #D44D05 !important;
+    background: #EF2942 !important;
     color: #FFFFFF !important;
 }
 .report_container
@@ -336,7 +336,7 @@ margin-bottom:10px;
 	/*background-color: #A5BB3F;
 	color: #fff;
 	height: 30px;*/
-        color:#D44D05;
+        color:#EF2942;
         text-align: left;
 }
 
@@ -543,10 +543,10 @@ a.forgotUrl {
   font-family: "Trebuchet MS", Arial, Verdana, sans-serif;
   font-size: 17px;
   color:#ffffff;
-  background-color: #D44D05;
+  background-color: #EF2942;
 }
 .borderDiv{
-  border:1px solid #D44D05;
+  border:1px solid #EF2942;
   padding:5px;  
 }
 tr.even{
@@ -563,7 +563,7 @@ p.pTotal{
     padding-top:5px;
 }
 th{
-    color: #D44D05;
+    color: #EF2942;
     text-align: left;
 }
 a.external_link {
@@ -606,29 +606,29 @@ ul.changenumber li{
 }
 table.tblAlign{
     margin:0 auto !important;
-    border-top: 1px solid #D44D05  !important;
-    border-left: 1px solid #D44D05 !important;
+    border-top: 1px solid #EF2942  !important;
+    border-left: 1px solid #EF2942 !important;
     
   
     font-family: Arial,sans-serif;
     font-size: 12px
 }
 table.tblAlign td{
-   border-bottom: 1px solid #D44D05 !important;
-   border-right: 1px solid #D44D05 !important;
+   border-bottom: 1px solid #EF2942 !important;
+   border-right: 1px solid #EF2942 !important;
 }
 table.tblAlign td.last{
    border-right: 0px !important; 
 }
 table.tblAlign tr.headings{
    background-color: #ffffff !important;
-   color:#D44D05 !important;
+   color:#EF2942 !important;
 }
 table.tblAlign tr.headings th{
-   border-right: 1px solid #D44D05 !important;
-   border-bottom: 1px solid #D44D05 !important;
+   border-right: 1px solid #EF2942 !important;
+   border-bottom: 1px solid #EF2942 !important;
    text-align: left;
-   color:#D44D05;
+   color:#EF2942;
 }
 table.tblAlign tr.headings th.last{
    border-right: 0px !important; 
@@ -648,26 +648,26 @@ table.tblAlign tr.headings th.last{
     float: left;
     font: bold 11px arial;
     background:url('../images/li-bg.png') repeat-x top left;
-    border-left: 1px solid #D44D05;
-    border-top: 1px solid #D44D05;
-    border-bottom: 1px solid #D44D05;
+    border-left: 1px solid #EF2942;
+    border-top: 1px solid #EF2942;
+    border-bottom: 1px solid #EF2942;
 }
 #b2bsddm li.last
 {	
-    border-right:1px solid #D44D05;
+    border-right:1px solid #EF2942;
 }    
 #b2bsddm li a{
     display: block;
     margin: 0 0px 0 0;
     padding: 4px 10px;
-    color: #D44D05;
+    color: #EF2942;
     text-align: center;
     text-decoration: none;
 }
 
 #b2bsddm li a:hover{
     text-decoration:none;
-    background: #D44D05;
+    background: #EF2942;
     color:#ffffff;
 }
 
@@ -676,7 +676,7 @@ table.tblAlign tr.headings th.last{
 	visibility: hidden;
 	margin: 0;
 	padding: 0;
-	background: #D44D05;
+	background: #EF2942;
 	border: 1px solid #0C74A5;
 }
 
@@ -689,25 +689,25 @@ table.tblAlign tr.headings th.last{
         white-space: nowrap;
         text-align: left;
         text-decoration: none;
-        background: #D44D05;
+        background: #EF2942;
         color: #FFFFFF;
         font: 11px arial;
 }
 #b2bsddm div a:hover
 {	background: #FFFFFF;
-        color: #D44D05;
+        color: #EF2942;
         text-decoration: none;
 }
 #b2bsddm div a.subSelect
 {	background: #FFFFFF;
-        color: #D44D05;
+        color: #EF2942;
 }
 #b2bsddm li a.current{
-    background: #D44D05 !important;
+    background: #EF2942 !important;
     color: #FFFFFF !important;
 }
 #b2bsddm li a.currentR{
-    background: #D44D05 !important;
+    background: #EF2942 !important;
     color: #FFFFFF !important;
 }
 .tblChangePassword label{
@@ -731,7 +731,7 @@ label.error{
 {
   margin-bottom: 3px;
   margin-top: 3px;
-  border: 1px solid #D44D05;
+  border: 1px solid #EF2942;
   background-color: #FCD9C9;
 }
 #sf_admin_container .form-row {
@@ -777,7 +777,7 @@ label.error{
 #sf_admin_container input[type="submit"]
 {
   background: url(../images/b.png) repeat-x left !important;
-  border: 1px solid #D44D05 !important;
+  border: 1px solid #EF2942 !important;
   float: right !important;
   width: 50px !important;
   height: 27px !important;
@@ -787,7 +787,7 @@ label.error{
 #sf_admin_container .sf_admin_action_reset_filter
 {
   background: url(../images/b.png) repeat-x left;
-  border:1px solid #D44D05 !important;
+  border:1px solid #EF2942 !important;
   float: right !important;
   width: 50px !important;
   height: 27px !important;
@@ -808,5 +808,5 @@ label.error{
 #sf_admin_container h2{
     padding: 0px !important;
     margin: 0px !important;
-    color: #D44D05;
+    color: #EF2942;
 }
