@@ -322,7 +322,7 @@
 }
 #sf_admin_container .sf_admin_list th a
 {
-  color: #ffffff;
+  color: #EF2942;
 }
 tfoot th {
  background-color: #ffffff !important;
@@ -454,7 +454,7 @@ button#trigger_enddate {
     width: 16px;
 }
 tr.thheading{
-    background-color:#EF2942;
+/*    background-color:#EF2942;*/
 }
 tr.thheading th,tr.thheading th a{
     color:#ffffff !important;
