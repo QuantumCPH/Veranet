@@ -89,11 +89,11 @@ h2{
         font: 11px arial;
 }
 #sddm div a:hover
-{	background: #FFFFFF;
+{	background: url('../images/li-bg.png') repeat-x top left;
         color: #EF2942;
 }
 #sddm div a.subSelect
-{	background: #FFFFFF;
+{	background: url('../images/li-bg.png') repeat-x top left;
         color: #EF2942;
 }
 #sf_admin_container{
