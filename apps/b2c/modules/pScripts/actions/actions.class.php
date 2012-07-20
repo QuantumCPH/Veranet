@@ -3297,6 +3297,13 @@ if(($caltype!="IC") && ($caltype!="hc")){
                    $countryid = $cin->getId();
                 }
                 $emCalls->setCountryId($countryid);
+                    $ce = new Criteria();
+                    $ce->add(TelintaAccountsPeer::ACCOUNT_TITLE,$xdr->account_id);
+                    $ce->add(TelintaAccountsPeer::STATUS,3);
+                    if(TelintaAccountsPeer::doCount($ce)>0){
+                        $emp = TelintaAccountsPeer::doSelectOne($ce);
+                        $emCalls->setEmployeeId($emp->getParentId());
+                    }
                 $emCalls->setCompanyId($company->getId());
                 $emCalls->setDescription($xdr->description);
                 $emCalls->setDisconnectCause($xdr->disconnect_cause);
@@ -3320,5 +3327,10 @@ if(($caltype!="IC") && ($caltype!="hc")){
           } 
         } 
                 return sfView::NONE;
+    }
+    
+    public function executeCompanyBilling(sfWebRequest $request)
+    {
+          
     }
 }

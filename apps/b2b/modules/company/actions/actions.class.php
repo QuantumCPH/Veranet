@@ -1,5 +1,5 @@
 <?php
-
+require_once(sfConfig::get('sf_lib_dir') . '/zerocall_out_sms.php');
 /**
  * company actions.
  *
@@ -132,20 +132,42 @@ class companyActions extends sfActions {
             $this->todate = date("Y-m-d");
         }
         $this->iaccount = $request->getParameter('iaccount');
-        if (isset($this->iaccount) && $this->iaccount != '') {
+        $fromdate = $this->fromdate . " 00:00:00";
+        $todate = $this->todate. " 23:59:59" ;
+//        if (isset($this->iaccount) && $this->iaccount != '') {
+//            $ce = new Criteria();
+//            $ce->add(TelintaAccountsPeer::ID, $this->iaccount);
+//            $ce->addAnd(TelintaAccountsPeer::STATUS, 3);
+//            $telintaAccount = TelintaAccountsPeer::doSelectOne($ce);
+//
+//            $this->iAccountTitle = $telintaAccount->getAccountTitle();
+//
+//            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+//        } else {
+//
+//            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+//        }
+          if (isset($this->iaccount) && $this->iaccount != '') {
             $ce = new Criteria();
-            $ce->add(TelintaAccountsPeer::ID, $this->iaccount);
-            $ce->addAnd(TelintaAccountsPeer::STATUS, 3);
-            $telintaAccount = TelintaAccountsPeer::doSelectOne($ce);
-
-            $this->iAccountTitle = $telintaAccount->getAccountTitle();
-
-            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-        } else {
-
-            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-        }
-
+            $ce->add(EmployeeCallhistoryPeer::ACCOUNT_ID, $this->iaccount);
+            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $fromdate . "' ", Criteria::CUSTOM);
+            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time  < '" . $todate . " 23:59:59" . "' ", Criteria::CUSTOM);
+            $this->callHistory = EmployeeCallhistoryPeer::doSelect($ce);
+            
+           // $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+          } else {
+            
+            $ce = new Criteria();
+            $ce->add(EmployeeCallhistoryPeer::COMPANY_ID, $this->company->getId());
+            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $fromdate . "' ", Criteria::CUSTOM);
+            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time  < '" . $todate . "' ", Criteria::CUSTOM);
+            $this->callHistory = EmployeeCallhistoryPeer::doSelect($ce);
+            
+            //$this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+          }
+        echo $fromdate;
+        echo '<br />';
+        echo $todate;
         $c = new Criteria();
         $c->add(TelintaAccountsPeer::I_CUSTOMER, $this->company->getICustomer());
         $c->addAnd(TelintaAccountsPeer::STATUS, 3);
@@ -245,5 +267,56 @@ class companyActions extends sfActions {
             return $this->redirect(sfConfig::get('app_b2b_url') . 'company/view');
         }
     }
+    
+    public function executeSelectdate(sfWebRequest $request)
+    {
+             
+    } 
+    
+    public function executeCompanyBilling(sfWebRequest $request)
+    {
+        $company_id = $request->getParameter('company_id');
+    
+     echo   $this->billing_start_date = date('Y-m-d 00:00:00', strtotime($request->getParameter('start_date')));
+  echo'--';   echo   $this->billing_end_date = date('Y-m-d 23:59:59', strtotime($request->getParameter('end_date')));
+        $this->forward404Unless($company_id && $this->billing_start_date && $this->billing_end_date);
 
+        if (!($company = CompanyPeer::retrieveByPK($company_id))) {
+            $this->forward404();
+        }
+
+        $billings = array();
+        $ratings = array();
+        $bilcharge = 00.00;
+
+        $ec = new Criteria();
+        $ec->add(EmployeePeer::COMPANY_ID, $company_id);
+        $this->employees = EmployeePeer::doSelect($ec);
+        
+        $invoice_id = $company->getInvoiceMethodId();
+        $im = new Criteria();
+        $im->add(InvoiceMethodPeer::ID, $invoice_id);
+        $invoice = InvoiceMethodPeer::doSelectOne($im);
+        $this->invoice_cost = $invoice->getCost();
+
+        $new_invoice = new Invoice();
+        $new_invoice->setCompany($company);
+        $new_invoice->setBillingStartingDate($this->billing_start_date);
+        $new_invoice->setBillingEndingDate($this->billing_end_date);
+        
+//        $billing_due_days = $invoice->getBillingdays();
+//        $due_date = date("Y-m-d H:i:s", time() + ((60 * 60) * 24) * $billing_due_days);
+//
+//        $new_invoice->setDueDate($due_date);
+        $new_invoice->setInvoiceStatusId(4); // inactive
+        $new_invoice->save();
+      //  $new_invoice->setInvoiceNumber(date('dmy').$new_invoice->getId());
+
+        $new_invoice->save();
+     //   var_dump($new_invoice);
+        $this->invoice_meta = $new_invoice;
+        $this->company_meta = $company;
+
+        $this->setLayout(false);    
+    } 
 }

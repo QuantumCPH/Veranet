@@ -146,8 +146,8 @@
                 <?php endif; ?>
                 <script type="text/javascript">
                  jQuery(function(){
-                   jQuery("#startdate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy' });
-                   jQuery("#enddate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy'});
+                   jQuery("#startdate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'yy-mm-dd' });
+                   jQuery("#enddate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'yy-mm-dd'});
                    jQuery("#trigger_startdate").hide();
                    jQuery("#trigger_enddate").hide();
                  });

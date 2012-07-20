@@ -333,14 +333,14 @@ class CompanyEmployeActivation {
 
         $telintaAccount = new TelintaAccounts();
         $telintaAccount->setAccountTitle($accountName);
-        $telintaAccount->setParentId($company->getId());
-        $telintaAccount->setParentTable("company");
+        $telintaAccount->setParentId($employee->getId());
+        $telintaAccount->setParentTable("employee");
         $telintaAccount->setICustomer($company->getICustomer());
         $telintaAccount->setIAccount($account->i_account);
          if($accountType==""){
          $accountType='r';
         }
-           $telintaAccount->setAccountType($accountType);
+        $telintaAccount->setAccountType($accountType);
         $telintaAccount->save();
         return true;
     }

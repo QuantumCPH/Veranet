@@ -27,6 +27,12 @@
                     <?php }
                      }
                     ?>
+                        <option value="340025">
+                            340025
+                        </option>
+                        <option value="3400229">
+                            3400229
+                        </option>
                     </select>
                 </div>
             </div>
@@ -45,7 +51,7 @@
         </fieldset>
         <ul class="sf_admin_actions">
            <li><input type="submit" class="sf_admin_action_filter" value="filter" name="filter"></li>
-           <li><input type="button" class="sf_admin_action_reset_filter" value="reset" name="reset" onclick="document.location.href='<?PHP echo sfConfig::get('app_b2b_url')."company/callHisotry";?>'"></li>
+           <li><input type="button" class="sf_admin_action_reset_filter" value="reset" name="reset" onClick="document.location.href='<?PHP echo sfConfig::get('app_b2b_url')."company/callHisotry";?>'"></li>
         </ul>
     </form>
 </div>
@@ -53,54 +59,38 @@
 
 
         <tr class="headings">
-            <th width="10%"   align="left"><?php echo __('Date & Time') ?></th>
+            <th width="3%"   align="left">&nbsp;</th>
+            <th width="17%"   align="left"><?php echo __('Date & Time') ?></th>
 
-            <th  width="10%"  align="left"><?php echo __('Phone Number') ?></th>
-            <th width="10%"   align="left"><?php echo __('Duration') ?></th>
-            <th  width="25%"  align="left"><?php echo __('Country') ?></th>
-            <th  width="10%"  align="left"><?php echo __('Description') ?></th>
-            <th width="10%"   align="left"><?php echo __('Cost') ?></th>
-            <th  width="10%"   align="left"><?php echo __('Account ID') ?></th>
+            <th  width="11%"  align="left"><?php echo __('Phone Number') ?></th>
+            <th width="11%"   align="left"><?php echo __('Duration') ?></th>
+            <th  width="15%"  align="left"><?php echo __('Country') ?></th>
+            <th  width="21%"  align="left"><?php echo __('Description') ?></th>
+            <th width="11%"   align="left"><?php echo __('Cost') ?></th>
+            <th  width="11%"   align="left"><?php echo __('Account ID') ?></th>
       </tr>
         <?php
         $callRecords = 0;
 
         $amount_total = 0;
-
-       foreach ($callHistory->xdr_list as $xdr) {
+        $rec = 0; 
+       foreach ($callHistory as $call) {
+           $rec ++;
         ?>
 
 
-            <tr>
-                <td><?php echo $xdr->connect_time; ?></td>
-                <td><?php echo $xdr->CLD; ?></td>
+            <tr><td><?php echo $rec;?>.</td>
+                <td><?php echo $call->getConnectTime(); ?></td>
+                <td><?php echo $call->getPhoneNumber(); ?></td>
                 <td><?php   
-                 $callval=$xdr->charged_quantity;
-if($callval>3600){
-
- $hval=number_format($callval/3600);
-
-  $rval=$callval%3600;
-
-$minute=date('i',$rval);
-  $second=date('s',$rval);
-
-  $minute=$minute+$hval*60;
-
-  echo $minute.":".$second;
-}else{
-
-
-echo  date('i:s',$callval);
-
-}
+                  echo $call->getDuration();
                 ?></td>
-                <td><?php echo $xdr->country; ?></td>
-                   <td><?php echo $xdr->description;  ?></td>
-                <td><?php echo number_format($xdr->charged_amount, 2);
-            $amount_total+= number_format($xdr->charged_amount, 2); ?><?php echo sfConfig::get('app_currency_code');?></td>
+                <td><?php echo $call->getCountry()->getName(); ?></td>
+                   <td><?php echo $call->getDescription(); ?></td>
+                <td><?php echo number_format($call->getChargedAmount(), 2);
+            $amount_total+= number_format($call->getChargedAmount(), 2); ?><?php echo sfConfig::get('app_currency_code');?></td>
             
-            <td><?php echo $xdr->account_id; ?></td>
+            <td><?php echo $call->getAccountId(); ?></td>
         </tr>
 
         <?php
@@ -113,14 +103,14 @@ echo  date('i:s',$callval);
                 </tr>
 <?php } else { ?>
                 <tr>
-                    <td colspan="5" align="right"><strong><?php echo __('Subtotal') ?></strong></td>
+                    <td colspan="6" align="right"><strong><?php echo __('Subtotal') ?></strong></td>
 
-                    <td><?php echo number_format($amount_total, 2, ',', '') ?><?php echo sfConfig::get('app_currency_code');?></td>
+                    <td><?php echo number_format($amount_total, 2) ?><?php echo sfConfig::get('app_currency_code');?></td>
                     <td>&nbsp;</td>
                 </tr>
 <?php } ?>
 
-            <tr><td colspan="7" align="left"><?php echo __('Call type detail') ?> <br/> <?php echo __('Int. = International calls') ?><br/>
+            <tr><td colspan="8" align="left"><?php echo __('Call type detail') ?> <br/> <?php echo __('Int. = International calls') ?><br/>
                 <?php //echo __('Cb M = Callback mottaga')  ?>
                 <?php //echo __('Cb S = Callback samtal')  ?>
                 <?php //echo __('R = resenummer samtal')    ?>
