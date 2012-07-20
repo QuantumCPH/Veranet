@@ -18,7 +18,7 @@ class BaseCallbackLogFormFilter extends BaseFormFilterPropel
       'callingcode'   => new sfWidgetFormFilterInput(),
       'uniqueid'      => new sfWidgetFormFilterInput(),
       'imsi'          => new sfWidgetFormFilterInput(),
-      'created'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'created'       => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'check_status'  => new sfWidgetFormFilterInput(),
       'imei'          => new sfWidgetFormFilterInput(),
     ));
@@ -28,7 +28,7 @@ class BaseCallbackLogFormFilter extends BaseFormFilterPropel
       'callingcode'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'uniqueid'      => new sfValidatorPass(array('required' => false)),
       'imsi'          => new sfValidatorPass(array('required' => false)),
-      'created'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'created'       => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'check_status'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'imei'          => new sfValidatorPass(array('required' => false)),
     ));
@@ -53,7 +53,7 @@ class BaseCallbackLogFormFilter extends BaseFormFilterPropel
       'callingcode'   => 'Number',
       'uniqueid'      => 'Text',
       'imsi'          => 'Text',
-      'created'       => 'Date',
+      'created'       => 'Boolean',
       'check_status'  => 'Number',
       'imei'          => 'Text',
     );

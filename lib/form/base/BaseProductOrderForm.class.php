@@ -18,7 +18,7 @@ class BaseProductOrderForm extends BaseFormPropel
       'agent_company_id' => new sfWidgetFormPropelChoice(array('model' => 'AgentCompany', 'add_empty' => true)),
       'quantity'         => new sfWidgetFormInput(),
       'discount'         => new sfWidgetFormInput(),
-      'created_at'       => new sfWidgetFormDateTime(),
+      'created_at'       => new sfWidgetFormInputCheckbox(),
       'updated_at'       => new sfWidgetFormDateTime(),
     ));
 
@@ -29,7 +29,7 @@ class BaseProductOrderForm extends BaseFormPropel
       'agent_company_id' => new sfValidatorPropelChoice(array('model' => 'AgentCompany', 'column' => 'id', 'required' => false)),
       'quantity'         => new sfValidatorInteger(),
       'discount'         => new sfValidatorNumber(),
-      'created_at'       => new sfValidatorDateTime(),
+      'created_at'       => new sfValidatorBoolean(),
       'updated_at'       => new sfValidatorDateTime(array('required' => false)),
     ));
 

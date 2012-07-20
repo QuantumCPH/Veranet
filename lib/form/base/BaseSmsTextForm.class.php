@@ -16,7 +16,7 @@ class BaseSmsTextForm extends BaseFormPropel
       'for_text'     => new sfWidgetFormInput(),
       'text_heading' => new sfWidgetFormInput(),
       'message_text' => new sfWidgetFormTextarea(),
-      'created_at'   => new sfWidgetFormDateTime(),
+      'created_at'   => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -24,7 +24,7 @@ class BaseSmsTextForm extends BaseFormPropel
       'for_text'     => new sfValidatorString(array('max_length' => 255)),
       'text_heading' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'message_text' => new sfValidatorString(),
-      'created_at'   => new sfValidatorDateTime(),
+      'created_at'   => new sfValidatorBoolean(),
     ));
 
     $this->widgetSchema->setNameFormat('sms_text[%s]');

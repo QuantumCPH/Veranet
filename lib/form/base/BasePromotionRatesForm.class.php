@@ -16,7 +16,7 @@ class BasePromotionRatesForm extends BaseFormPropel
       'agent_id'     => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => false)),
       'network_name' => new sfWidgetFormInput(),
       'network_rate' => new sfWidgetFormInput(),
-      'created_at'   => new sfWidgetFormDateTime(),
+      'created_at'   => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -24,7 +24,7 @@ class BasePromotionRatesForm extends BaseFormPropel
       'agent_id'     => new sfValidatorPropelChoice(array('model' => 'Company', 'column' => 'id')),
       'network_name' => new sfValidatorString(array('max_length' => 255)),
       'network_rate' => new sfValidatorString(array('max_length' => 255)),
-      'created_at'   => new sfValidatorDateTime(),
+      'created_at'   => new sfValidatorBoolean(),
     ));
 
     $this->validatorSchema->setPostValidator(

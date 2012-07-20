@@ -20,7 +20,7 @@ class BasePackageForm extends BaseFormPropel
       'R1_cost'            => new sfWidgetFormInput(),
       'R2_cost'            => new sfWidgetFormInput(),
       'activaton_cost'     => new sfWidgetFormInput(),
-      'created_at'         => new sfWidgetFormDateTime(),
+      'created_at'         => new sfWidgetFormInputCheckbox(),
       'updated_at'         => new sfWidgetFormDateTime(),
     ));
 
@@ -33,7 +33,7 @@ class BasePackageForm extends BaseFormPropel
       'R1_cost'            => new sfValidatorNumber(array('required' => false)),
       'R2_cost'            => new sfValidatorNumber(array('required' => false)),
       'activaton_cost'     => new sfValidatorNumber(array('required' => false)),
-      'created_at'         => new sfValidatorDateTime(),
+      'created_at'         => new sfValidatorBoolean(),
       'updated_at'         => new sfValidatorDateTime(array('required' => false)),
     ));
 

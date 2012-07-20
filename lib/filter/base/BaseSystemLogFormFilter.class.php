@@ -17,14 +17,14 @@ class BaseSystemLogFormFilter extends BaseFormFilterPropel
       'description' => new sfWidgetFormFilterInput(),
       'type'        => new sfWidgetFormFilterInput(),
       'module'      => new sfWidgetFormFilterInput(),
-      'created_at'  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'created_at'  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
       'description' => new sfValidatorPass(array('required' => false)),
       'type'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'module'      => new sfValidatorPass(array('required' => false)),
-      'created_at'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'created_at'  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('system_log_filters[%s]');
@@ -46,7 +46,7 @@ class BaseSystemLogFormFilter extends BaseFormFilterPropel
       'description' => 'Text',
       'type'        => 'Number',
       'module'      => 'Text',
-      'created_at'  => 'Date',
+      'created_at'  => 'Boolean',
     );
   }
 }

@@ -18,18 +18,18 @@
             </div>
             <div id="slogan">
                 
-                <?php if ($sf_user->getAttribute('username', '', 'agentsession')) {
+                <?php if ($sf_user->getAttribute('companyname', '', 'companysession')) {
                 ?>
                 <h1><?php echo __('B2B Portal'); ?></h1>
                         <div id="loggedInUser">
-                    <?php echo __('Logged in as:') ?><b>&nbsp;<?php echo $sf_user->getAttribute('username', '', 'agentsession') ?></b><br />
+                    <?php echo __('Logged in as:') ?><b>&nbsp;<?php echo $sf_user->getAttribute('companyname', '', 'companysession') ?></b><br />
                     <?php
-                        if ($agent_company) {
-                            if ($agent_company->getIsPrepaid()) {
+                       // if ($company) {
+                           // if ($ompany->getIsPrepaid()) {
                     ?>
-                    <?php echo __('Your Balance is:') ?> <b><?php echo $agent_company->getBalance(); ?></b>
-                    <?php } ?>
-                    <?php } ?>
+                    <?php //echo __('Your Balance is:') ?> <b><?php //echo $company->getBalance(); ?></b>
+                    <?php //} ?>
+                    <?php // } ?>
                     </div>
                 <?php } ?>
 

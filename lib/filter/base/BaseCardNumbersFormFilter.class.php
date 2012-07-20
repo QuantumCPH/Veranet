@@ -18,7 +18,7 @@ class BaseCardNumbersFormFilter extends BaseFormFilterPropel
       'card_serial' => new sfWidgetFormFilterInput(),
       'card_price'  => new sfWidgetFormFilterInput(),
       'status'      => new sfWidgetFormFilterInput(),
-      'created_at'  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'created_at'  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'used_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'customer_id' => new sfWidgetFormFilterInput(),
     ));
@@ -28,7 +28,7 @@ class BaseCardNumbersFormFilter extends BaseFormFilterPropel
       'card_serial' => new sfValidatorPass(array('required' => false)),
       'card_price'  => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'status'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'created_at'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'created_at'  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'used_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'customer_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
@@ -53,7 +53,7 @@ class BaseCardNumbersFormFilter extends BaseFormFilterPropel
       'card_serial' => 'Text',
       'card_price'  => 'Number',
       'status'      => 'Number',
-      'created_at'  => 'Date',
+      'created_at'  => 'Boolean',
       'used_at'     => 'Date',
       'customer_id' => 'Number',
     );

@@ -19,7 +19,7 @@ class BaseCallRateTableFormFilter extends BaseFormFilterPropel
       'connect_charge'      => new sfWidgetFormFilterInput(),
       'rate'                => new sfWidgetFormFilterInput(),
       'rate_status'         => new sfWidgetFormFilterInput(),
-      'ratecreated'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'ratecreated'         => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -28,7 +28,7 @@ class BaseCallRateTableFormFilter extends BaseFormFilterPropel
       'connect_charge'      => new sfValidatorPass(array('required' => false)),
       'rate'                => new sfValidatorPass(array('required' => false)),
       'rate_status'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'ratecreated'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'ratecreated'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('call_rate_table_filters[%s]');
@@ -52,7 +52,7 @@ class BaseCallRateTableFormFilter extends BaseFormFilterPropel
       'connect_charge'      => 'Text',
       'rate'                => 'Text',
       'rate_status'         => 'Number',
-      'ratecreated'         => 'Date',
+      'ratecreated'         => 'Boolean',
     );
   }
 }

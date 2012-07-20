@@ -18,7 +18,7 @@ class BaseForumTelRequestsForm extends BaseFormPropel
       'request_type' => new sfWidgetFormInput(),
       'iccid'        => new sfWidgetFormInput(),
       'msisdn'       => new sfWidgetFormInput(),
-      'created_at'   => new sfWidgetFormDateTime(),
+      'created_at'   => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -28,7 +28,7 @@ class BaseForumTelRequestsForm extends BaseFormPropel
       'request_type' => new sfValidatorString(array('max_length' => 255)),
       'iccid'        => new sfValidatorString(array('max_length' => 255)),
       'msisdn'       => new sfValidatorString(array('max_length' => 255)),
-      'created_at'   => new sfValidatorDateTime(),
+      'created_at'   => new sfValidatorBoolean(),
     ));
 
     $this->widgetSchema->setNameFormat('forum_tel_requests[%s]');

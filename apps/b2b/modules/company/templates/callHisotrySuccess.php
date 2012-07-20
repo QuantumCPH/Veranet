@@ -18,9 +18,9 @@
                      <?php
                      if(count($telintaAccountObj)>0){
                      foreach($telintaAccountObj as $account){
-                        $companyid= $account->getParentId();
+                        $employeeid= $account->getParentId();
                         $cn = new Criteria();
-                        $cn->add(EmployeePeer::ID, $companyid);
+                        $cn->add(EmployeePeer::ID, $employeeid);
                         $employees = EmployeePeer::doSelectOne($cn);
                      ?>
                         <option value="<?PHP  echo $account->getId();?>" <?PHP echo ($account->getId()==$iaccount)?'selected="selected"':''?>><?php echo $employees->getFirstName()." -- ". $account->getAccountTitle();?></option>

@@ -15,7 +15,7 @@ class BaseUniqueIdsFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'unique_number'        => new sfWidgetFormFilterInput(),
-      'created_at'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'created_at'           => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'assigned_at'          => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'registration_type_id' => new sfWidgetFormFilterInput(),
       'sim_type_id'          => new sfWidgetFormFilterInput(),
@@ -24,7 +24,7 @@ class BaseUniqueIdsFormFilter extends BaseFormFilterPropel
 
     $this->setValidators(array(
       'unique_number'        => new sfValidatorPass(array('required' => false)),
-      'created_at'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'created_at'           => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'assigned_at'          => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'registration_type_id' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'sim_type_id'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
@@ -48,7 +48,7 @@ class BaseUniqueIdsFormFilter extends BaseFormFilterPropel
     return array(
       'id'                   => 'Number',
       'unique_number'        => 'Text',
-      'created_at'           => 'Date',
+      'created_at'           => 'Boolean',
       'assigned_at'          => 'Date',
       'registration_type_id' => 'Number',
       'sim_type_id'          => 'Number',

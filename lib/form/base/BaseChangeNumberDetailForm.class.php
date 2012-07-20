@@ -17,7 +17,7 @@ class BaseChangeNumberDetailForm extends BaseFormPropel
       'old_number'  => new sfWidgetFormInput(),
       'new_number'  => new sfWidgetFormInput(),
       'status'      => new sfWidgetFormInputCheckbox(),
-      'created_at'  => new sfWidgetFormDateTime(),
+      'created_at'  => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -26,7 +26,7 @@ class BaseChangeNumberDetailForm extends BaseFormPropel
       'old_number'  => new sfValidatorString(array('max_length' => 255)),
       'new_number'  => new sfValidatorString(array('max_length' => 255)),
       'status'      => new sfValidatorBoolean(),
-      'created_at'  => new sfValidatorDateTime(),
+      'created_at'  => new sfValidatorBoolean(),
     ));
 
     $this->widgetSchema->setNameFormat('change_number_detail[%s]');

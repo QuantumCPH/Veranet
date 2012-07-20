@@ -18,7 +18,7 @@ class BaseCallLogFormFilter extends BaseFormFilterPropel
       'dest'          => new sfWidgetFormFilterInput(),
       'mac'           => new sfWidgetFormFilterInput(),
       'mobile_number' => new sfWidgetFormFilterInput(),
-      'created'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'created'       => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'check_status'  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
@@ -27,7 +27,7 @@ class BaseCallLogFormFilter extends BaseFormFilterPropel
       'dest'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'mac'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'mobile_number' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'created'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'created'       => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'check_status'  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
@@ -51,7 +51,7 @@ class BaseCallLogFormFilter extends BaseFormFilterPropel
       'dest'          => 'Number',
       'mac'           => 'Number',
       'mobile_number' => 'Number',
-      'created'       => 'Date',
+      'created'       => 'Boolean',
       'check_status'  => 'Boolean',
     );
   }

@@ -17,7 +17,7 @@ class BaseUsageAlertSentForm extends BaseFormPropel
       'customerid'     => new sfWidgetFormInput(),
       'messagetype'    => new sfWidgetFormInput(),
       'alert_amount'   => new sfWidgetFormInput(),
-      'senttime'       => new sfWidgetFormDateTime(),
+      'senttime'       => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -26,7 +26,7 @@ class BaseUsageAlertSentForm extends BaseFormPropel
       'customerid'     => new sfValidatorInteger(),
       'messagetype'    => new sfValidatorString(array('max_length' => 50)),
       'alert_amount'   => new sfValidatorInteger(),
-      'senttime'       => new sfValidatorDateTime(),
+      'senttime'       => new sfValidatorBoolean(),
     ));
 
     $this->widgetSchema->setNameFormat('usage_alert_sent[%s]');

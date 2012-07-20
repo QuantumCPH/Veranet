@@ -15,7 +15,7 @@ class BaseCustomerProductForm extends BaseFormPropel
       'id'          => new sfWidgetFormInputHidden(),
       'customer_id' => new sfWidgetFormPropelChoice(array('model' => 'Customer', 'add_empty' => false)),
       'product_id'  => new sfWidgetFormPropelChoice(array('model' => 'Product', 'add_empty' => false)),
-      'created_at'  => new sfWidgetFormDateTime(),
+      'created_at'  => new sfWidgetFormInputCheckbox(),
       'status_id'   => new sfWidgetFormInput(),
     ));
 
@@ -23,7 +23,7 @@ class BaseCustomerProductForm extends BaseFormPropel
       'id'          => new sfValidatorPropelChoice(array('model' => 'CustomerProduct', 'column' => 'id', 'required' => false)),
       'customer_id' => new sfValidatorPropelChoice(array('model' => 'Customer', 'column' => 'id')),
       'product_id'  => new sfValidatorPropelChoice(array('model' => 'Product', 'column' => 'id')),
-      'created_at'  => new sfValidatorDateTime(),
+      'created_at'  => new sfValidatorBoolean(),
       'status_id'   => new sfValidatorInteger(),
     ));
 

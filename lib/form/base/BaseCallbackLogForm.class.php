@@ -17,7 +17,7 @@ class BaseCallbackLogForm extends BaseFormPropel
       'callingcode'   => new sfWidgetFormInput(),
       'uniqueid'      => new sfWidgetFormInput(),
       'imsi'          => new sfWidgetFormInput(),
-      'created'       => new sfWidgetFormDateTime(),
+      'created'       => new sfWidgetFormInputCheckbox(),
       'check_status'  => new sfWidgetFormInput(),
       'imei'          => new sfWidgetFormInput(),
     ));
@@ -28,7 +28,7 @@ class BaseCallbackLogForm extends BaseFormPropel
       'callingcode'   => new sfValidatorInteger(),
       'uniqueid'      => new sfValidatorString(array('max_length' => 255)),
       'imsi'          => new sfValidatorString(array('max_length' => 250)),
-      'created'       => new sfValidatorDateTime(),
+      'created'       => new sfValidatorBoolean(),
       'check_status'  => new sfValidatorInteger(),
       'imei'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));

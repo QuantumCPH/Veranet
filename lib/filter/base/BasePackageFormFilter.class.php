@@ -21,7 +21,7 @@ class BasePackageFormFilter extends BaseFormFilterPropel
       'R1_cost'            => new sfWidgetFormFilterInput(),
       'R2_cost'            => new sfWidgetFormFilterInput(),
       'activaton_cost'     => new sfWidgetFormFilterInput(),
-      'created_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'created_at'         => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'updated_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
     ));
 
@@ -33,7 +33,7 @@ class BasePackageFormFilter extends BaseFormFilterPropel
       'R1_cost'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'R2_cost'            => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'activaton_cost'     => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
-      'created_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'created_at'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'updated_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
@@ -60,7 +60,7 @@ class BasePackageFormFilter extends BaseFormFilterPropel
       'R1_cost'            => 'Number',
       'R2_cost'            => 'Number',
       'activaton_cost'     => 'Number',
-      'created_at'         => 'Date',
+      'created_at'         => 'Boolean',
       'updated_at'         => 'Date',
     );
   }

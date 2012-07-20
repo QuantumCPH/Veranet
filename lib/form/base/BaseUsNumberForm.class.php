@@ -18,7 +18,7 @@ class BaseUsNumberForm extends BaseFormPropel
       'msisdn'           => new sfWidgetFormInput(),
       'us_mobile_number' => new sfWidgetFormInput(),
       'active_status'    => new sfWidgetFormInput(),
-      'created_at'       => new sfWidgetFormDateTime(),
+      'created_at'       => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -28,7 +28,7 @@ class BaseUsNumberForm extends BaseFormPropel
       'msisdn'           => new sfValidatorString(array('max_length' => 255)),
       'us_mobile_number' => new sfValidatorString(array('max_length' => 255)),
       'active_status'    => new sfValidatorInteger(),
-      'created_at'       => new sfValidatorDateTime(),
+      'created_at'       => new sfValidatorBoolean(),
     ));
 
     $this->widgetSchema->setNameFormat('us_number[%s]');

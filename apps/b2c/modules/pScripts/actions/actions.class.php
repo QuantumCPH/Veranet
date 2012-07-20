@@ -3243,5 +3243,82 @@ if(($caltype!="IC") && ($caltype!="hc")){
 
         return sfView::NONE;
     }
+  
+    public function executeSaveCompanyCallHistory(sfWebRequest $request)
+    {
+        $c = new Criteria;
+        $c->add(CompanyPeer::STATUS_ID,1);  // active
+        $companies = CompanyPeer::doSelect($c);
 
+        foreach($companies as $company){
+            $fromdate = mktime(0, 0, 0, date("m"), date("d") - 15, date("Y"));
+            $this->fromdate = date("Y-m-d", $fromdate);
+            $todate = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
+            $this->todate = date("Y-m-d", $todate);
+            $tilentaCallHistryResult = CompanyEmployeActivation::callHistory($company, $this->fromdate . ' 00:00:00', $this->todate . ' 23:59:59');
+//     var_dump($tilentaCallHistryResult);
+//     die;
+           if($tilentaCallHistryResult){
+            foreach ($tilentaCallHistryResult->xdr_list as $xdr) {
+                
+                $callval = $xdr->charged_quantity;
+                 if($callval>3600){
+                    $hval = number_format($callval/3600);
+                    $rval = $callval%3600;
+                    $minute = date('i',$rval);
+                    $second=date('s',$rval);
+                    $minute=$minute+$hval*60;
+                    $duration = $minute.":".$second;
+                 }else{
+                    $duration = date('i:s',$callval);
+                 }
+                               
+                $emCalls = new EmployeeCallhistory();
+                $emCalls->setAccountId($xdr->account_id);
+                $emCalls->setBillStatus($xdr->bill_status);
+                $emCalls->setBillTime($xdr->bill_time);
+                $emCalls->setChargedAmount($xdr->charged_amount);
+                $emCalls->setChargedQuantity($xdr->charged_quantity);
+                $emCalls->setPhoneNumber($xdr->CLD);
+                $emCalls->setCli($xdr->CLI);
+                $emCalls->setConnectTime($xdr->connect_time);
+                
+                $country = $xdr->country;
+                $cc = new Criteria();
+                $cc->add(CountryPeer::NAME,$country, Criteria::LIKE);
+                $ccount = CountryPeer::doCount($cc);
+                if($ccount > 0){
+                   $csel = CountryPeer::doSelectOne($cc); 
+                   $countryid = $csel->getId();
+                }else{
+                   $cin = new Country();
+                   $cin->setName($country);
+                   $cin->save();
+                   $countryid = $cin->getId();
+                }
+                $emCalls->setCountryId($countryid);
+                $emCalls->setCompanyId($company->getId());
+                $emCalls->setDescription($xdr->description);
+                $emCalls->setDisconnectCause($xdr->disconnect_cause);
+                $emCalls->setDisconnectTime($xdr->disconnect_time);
+                $emCalls->setDuration($duration);
+                $emCalls->setICustomer($company->getICustomer());
+                $emCalls->setIXdr($xdr->i_xdr);
+                $emCalls->setStatusId(1);
+                $emCalls->setSubdivision($xdr->subdivision);
+                $emCalls->setUnixConnectTime($xdr->unix_connect_time);
+                $emCalls->setUnixDisconnectTime($xdr->unix_disconnect_time);
+                $emCalls->save();
+             }
+          }else{
+                $callsHistory = new CallHistoryCallsLog();
+                $callsHistory->setParent('company');
+                $callsHistory->setParentId($company->getId());
+                $callsHistory->setTodate($this->todate);
+                $callsHistory->setFromdate($this->fromdate);
+                $callsHistory->save();
+          } 
+        } 
+                return sfView::NONE;
+    }
 }

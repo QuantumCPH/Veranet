@@ -52,6 +52,7 @@ class companyActions extends sfActions {
                         $this->getUser()->setAuthenticated(true);
                         $this->getUser()->setAttribute('company_id', $company->getId(), 'companysession');
                         $this->getUser()->setAttribute('companyname', $company->getName(), 'companysession');
+                        $this->company = $company;
                         $this->redirect(sfConfig::get('app_b2b_url') . 'company/dashboard');
                     } else {
                         $this->getUser()->setFlash('login_error_message', $this->getContext()->getI18N()->__('Your account is not active.'));

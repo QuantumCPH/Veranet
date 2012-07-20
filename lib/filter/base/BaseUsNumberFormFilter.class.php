@@ -19,7 +19,7 @@ class BaseUsNumberFormFilter extends BaseFormFilterPropel
       'msisdn'           => new sfWidgetFormFilterInput(),
       'us_mobile_number' => new sfWidgetFormFilterInput(),
       'active_status'    => new sfWidgetFormFilterInput(),
-      'created_at'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
+      'created_at'       => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
     ));
 
     $this->setValidators(array(
@@ -28,7 +28,7 @@ class BaseUsNumberFormFilter extends BaseFormFilterPropel
       'msisdn'           => new sfValidatorPass(array('required' => false)),
       'us_mobile_number' => new sfValidatorPass(array('required' => false)),
       'active_status'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'created_at'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'created_at'       => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
     ));
 
     $this->widgetSchema->setNameFormat('us_number_filters[%s]');
@@ -52,7 +52,7 @@ class BaseUsNumberFormFilter extends BaseFormFilterPropel
       'msisdn'           => 'Text',
       'us_mobile_number' => 'Text',
       'active_status'    => 'Number',
-      'created_at'       => 'Date',
+      'created_at'       => 'Boolean',
     );
   }
 }

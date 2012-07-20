@@ -19,7 +19,7 @@ class BaseAgentPaymentHistoryForm extends BaseFormPropel
       'order_description' => new sfWidgetFormInput(),
       'amount'            => new sfWidgetFormInput(),
       'remaining_balance' => new sfWidgetFormInput(),
-      'created_at'        => new sfWidgetFormDateTime(),
+      'created_at'        => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -30,7 +30,7 @@ class BaseAgentPaymentHistoryForm extends BaseFormPropel
       'order_description' => new sfValidatorInteger(array('required' => false)),
       'amount'            => new sfValidatorInteger(),
       'remaining_balance' => new sfValidatorInteger(),
-      'created_at'        => new sfValidatorDateTime(),
+      'created_at'        => new sfValidatorBoolean(),
     ));
 
     $this->widgetSchema->setNameFormat('agent_payment_history[%s]');
