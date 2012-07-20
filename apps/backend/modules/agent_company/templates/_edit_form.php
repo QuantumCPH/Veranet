@@ -127,7 +127,7 @@
 )); echo $value ? $value : '&nbsp;' ?>
     </div>
 </div>-->
-<fieldset style="border:1px solid #D44D05"><legend>Contact Person</legend>
+<fieldset style="border:1px solid #EF2942"><legend>Contact Person</legend>
  <div class="form-row">
   <?php echo label_for('agent_company[first_name]', __($labels['agent_company{first_name}']), 'class="required" ') ?>
   <div class="content<?php if ($sf_request->hasError('agent_company{first_name}')): ?> form-error<?php endif; ?>">

@@ -137,14 +137,14 @@ td.last{
    border-right: 0px !important; 
 }
 tr.headings{
-   background-color: #EF2942 !important;
-   color:#ffffff !important; 
+/*   background-color: #EF2942 !important;*/
+   color:#EF2942 !important;
 }
 tr.headings th{
    border-right: 1px solid #EF2942 !important;
    border-bottom: 1px solid #EF2942 !important;
    text-align: left;
-   color:#ffffff;
+   color:#EF2942;
 }
 tr.headings th.last{
    border-right: 0px !important; 
