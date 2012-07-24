@@ -17,7 +17,7 @@ class BasePaymentsForm extends BaseFormPropel
       'payment_amount' => new sfWidgetFormInput(),
       'payment_status' => new sfWidgetFormInput(),
       'itemid'         => new sfWidgetFormInput(),
-      'createdtime'    => new sfWidgetFormInputCheckbox(),
+      'createdtime'    => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -26,7 +26,7 @@ class BasePaymentsForm extends BaseFormPropel
       'payment_amount' => new sfValidatorNumber(),
       'payment_status' => new sfValidatorString(array('max_length' => 25)),
       'itemid'         => new sfValidatorString(array('max_length' => 25)),
-      'createdtime'    => new sfValidatorBoolean(),
+      'createdtime'    => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('payments[%s]');

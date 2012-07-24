@@ -14,14 +14,14 @@ class BaseOtherCostForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'name'       => new sfWidgetFormInput(),
-      'created_at' => new sfWidgetFormInputCheckbox(),
+      'created_at' => new sfWidgetFormDateTime(),
       'company_id' => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'OtherCost', 'column' => 'id', 'required' => false)),
       'name'       => new sfValidatorString(),
-      'created_at' => new sfValidatorBoolean(array('required' => false)),
+      'created_at' => new sfValidatorDateTime(array('required' => false)),
       'company_id' => new sfValidatorPropelChoice(array('model' => 'Company', 'column' => 'id')),
     ));
 

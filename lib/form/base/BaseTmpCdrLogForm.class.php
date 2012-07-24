@@ -21,7 +21,7 @@ class BaseTmpCdrLogForm extends BaseFormPropel
       'dur_secs'    => new sfWidgetFormInput(),
       'price'       => new sfWidgetFormInput(),
       'description' => new sfWidgetFormInput(),
-      'created_at'  => new sfWidgetFormInputCheckbox(),
+      'created_at'  => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -34,7 +34,7 @@ class BaseTmpCdrLogForm extends BaseFormPropel
       'dur_secs'    => new sfValidatorInteger(),
       'price'       => new sfValidatorNumber(),
       'description' => new sfValidatorString(array('max_length' => 200, 'required' => false)),
-      'created_at'  => new sfValidatorBoolean(),
+      'created_at'  => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('tmp_cdr_log[%s]');

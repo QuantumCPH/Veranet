@@ -3251,11 +3251,16 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $companies = CompanyPeer::doSelect($c);
 
         foreach($companies as $company){
-            $fromdate = mktime(0, 0, 0, date("m"), date("d") - 15, date("Y"));
-            $this->fromdate = date("Y-m-d", $fromdate);
-            $todate = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
-            $this->todate = date("Y-m-d", $todate);
-            $tilentaCallHistryResult = CompanyEmployeActivation::callHistory($company, $this->fromdate . ' 00:00:00', $this->todate . ' 23:59:59');
+
+            //previous month start and end date
+//              $this->fromdate = date("Y-m-1 00:00:00", strtotime("last month"));       
+//              $this->todate = date("Y-m-t 23:59:59", strtotime("last month"));
+
+            // Current month start and end date
+              $this->fromdate = date("Y-m-1 00:00:00");       
+              $this->todate = date("Y-m-t 23:59:59");
+      //      die;
+            $tilentaCallHistryResult = CompanyEmployeActivation::callHistory($company, $this->fromdate, $this->todate);
 //     var_dump($tilentaCallHistryResult);
 //     die;
            if($tilentaCallHistryResult){
@@ -3269,8 +3274,10 @@ if(($caltype!="IC") && ($caltype!="hc")){
                     $second=date('s',$rval);
                     $minute=$minute+$hval*60;
                     $duration = $minute.":".$second;
+                    //$duration_minutes = date('i',  strtotime($duration));
                  }else{
                     $duration = date('i:s',$callval);
+                    //$duration_minutes = date('i',  strtotime($duration));
                  }
                                
                 $emCalls = new EmployeeCallhistory();
@@ -3309,6 +3316,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
                 $emCalls->setDisconnectCause($xdr->disconnect_cause);
                 $emCalls->setDisconnectTime($xdr->disconnect_time);
                 $emCalls->setDuration($duration);
+               // $emCalls->setDurationMinutes($duration_minutes);
                 $emCalls->setICustomer($company->getICustomer());
                 $emCalls->setIXdr($xdr->i_xdr);
                 $emCalls->setStatusId(1);
@@ -3329,8 +3337,376 @@ if(($caltype!="IC") && ($caltype!="hc")){
                 return sfView::NONE;
     }
     
+    public function executeSaveCompanyCallHistoryNotFetch(sfWebRequest $request)
+    {
+        $c = new Criteria;
+        $c->add(CallHistoryCallsLogPeer::PARENT,'company');
+        $c->add(CallHistoryCallsLogPeer::STATUS,1);
+        $callLogs =CallHistoryCallsLogPeer::doSelect($c);
+
+        foreach($callLogs as $callLog){
+
+            $this->fromdate = $callLog->getFromdate();
+
+            $this->todate = $callLog->getTodate();
+            $company =  CompanyPeer::retrieveByPK($callLog->getCompanyId());
+            $tilentaCallHistryResult = CompanyEmployeActivation::callHistory($company, $this->fromdate . ' 00:00:00', $this->todate . ' 23:59:59');
+//     var_dump($tilentaCallHistryResult);
+//     die;
+           if($tilentaCallHistryResult){
+            foreach ($tilentaCallHistryResult->xdr_list as $xdr) {
+                
+                $callval = $xdr->charged_quantity;
+                 if($callval>3600){
+                    $hval = number_format($callval/3600);
+                    $rval = $callval%3600;
+                    $minute = date('i',$rval);
+                    $second=date('s',$rval);
+                    $minute=$minute+$hval*60;
+                    $duration = $minute.":".$second;
+                   // $duration_minutes = date('i',  strtotime($duration));
+                 }else{
+                    $duration = date('i:s',$callval);
+                  //  $duration_minutes = date('i',  strtotime($duration));
+                 }
+                               
+                $emCalls = new EmployeeCallhistory();
+                $emCalls->setAccountId($xdr->account_id);
+                $emCalls->setBillStatus($xdr->bill_status);
+                $emCalls->setBillTime($xdr->bill_time);
+                $emCalls->setChargedAmount($xdr->charged_amount);
+                $emCalls->setChargedQuantity($xdr->charged_quantity);
+                $emCalls->setPhoneNumber($xdr->CLD);
+                $emCalls->setCli($xdr->CLI);
+                $emCalls->setConnectTime($xdr->connect_time);
+                
+                $country = $xdr->country;
+                $cc = new Criteria();
+                $cc->add(CountryPeer::NAME,$country, Criteria::LIKE);
+                $ccount = CountryPeer::doCount($cc);
+                if($ccount > 0){
+                   $csel = CountryPeer::doSelectOne($cc); 
+                   $countryid = $csel->getId();
+                }else{
+                   $cin = new Country();
+                   $cin->setName($country);
+                   $cin->save();
+                   $countryid = $cin->getId();
+                }
+                $emCalls->setCountryId($countryid);
+                    $ce = new Criteria();
+                    $ce->add(TelintaAccountsPeer::ACCOUNT_TITLE,$xdr->account_id);
+                    $ce->add(TelintaAccountsPeer::STATUS,3);
+                    if(TelintaAccountsPeer::doCount($ce)>0){
+                        $emp = TelintaAccountsPeer::doSelectOne($ce);
+                        $emCalls->setEmployeeId($emp->getParentId());
+                    }
+                $emCalls->setCompanyId($company->getId());
+                $emCalls->setDescription($xdr->description);
+                $emCalls->setDisconnectCause($xdr->disconnect_cause);
+                $emCalls->setDisconnectTime($xdr->disconnect_time);
+                $emCalls->setDuration($duration);
+               // $emCalls->setDurationMinutes($duration_minutes);
+                $emCalls->setICustomer($company->getICustomer());
+                $emCalls->setIXdr($xdr->i_xdr);
+                $emCalls->setStatusId(1);
+                $emCalls->setSubdivision($xdr->subdivision);
+                $emCalls->setUnixConnectTime($xdr->unix_connect_time);
+                $emCalls->setUnixDisconnectTime($xdr->unix_disconnect_time);
+                $emCalls->save();
+             }
+             
+             $callLog->setStatus(3);
+             $callLog->save();
+             
+          }
+//          else{
+//                $callsHistory = new CallHistoryCallsLog();
+//                $callsHistory->setParent('company');
+//                $callsHistory->setParentId($company->getId());
+//                $callsHistory->setTodate($this->todate);
+//                $callsHistory->setFromdate($this->fromdate);
+//                $callsHistory->save();
+//          } 
+        } 
+                return sfView::NONE;
+    }
+    
     public function executeCompanyBilling(sfWebRequest $request)
     {
-          
+      $company_id = $request->getParameter('company_id');
+    
+        $this->billing_start_date = date('Y-m-d 00:00:00', $request->getParameter('start_date'));
+        $this->billing_end_date = date('Y-m-d 23:59:59', $request->getParameter('end_date'));
+        $this->forward404Unless($company_id && $this->billing_start_date && $this->billing_end_date);
+
+        if (!($company = CompanyPeer::retrieveByPK($company_id))) {
+            $this->forward404();
+        }
+
+        $billings = array();
+        $ratings = array();
+        $bilcharge = 00.00;
+
+        $ec = new Criteria();
+        $ec->add(EmployeePeer::COMPANY_ID, $company_id);
+        $this->employees = EmployeePeer::doSelect($ec);
+        
+        $billing_details = array();
+        $this->details = $billing_details;
+        
+        
+
+        $invoice_id = $company->getInvoiceMethodId();
+        $im = new Criteria();
+        $im->add(InvoiceMethodPeer::ID, $invoice_id);
+        $invoice = InvoiceMethodPeer::doSelectOne($im);
+        $this->invoice_cost = $invoice->getCost();
+
+        $new_invoice = new Invoice();
+        $new_invoice->setCompany($company);
+        $new_invoice->setBillingStartingDate($this->billing_start_date);
+        $new_invoice->setBillingEndingDate($this->billing_end_date);
+        $new_invoice->setStartTime($request->getParameter('start_date'));
+        $new_invoice->setEndTime($request->getParameter('end_date'));
+        $billing_due_days = $invoice->getBillingdays();
+        $due_date = date("Y-m-d H:i:s", time() + ((60 * 60) * 24) * $billing_due_days);
+
+        $new_invoice->setDueDate($due_date);
+        $new_invoice->setInvoiceStatusId(4); // inactive
+        $new_invoice->save();
+        $new_invoice->setInvoiceNumber(date('dmy').$new_invoice->getId());
+
+        $new_invoice->save();
+     //   var_dump($new_invoice);
+        $this->invoice_meta = $new_invoice;
+        $this->company_meta = $company;
+
+        $this->setLayout(false);
+    } 
+    
+    public function executeEmployeeRegSubFeeMonthly(sfWebRequest $request) {
+        
+        echo $start_date = date('Y-m-1 00:00:00');
+        echo "<hr/>";
+        echo $end_date = date('Y-m-t 23:59:59');
+        echo "<hr/>";
+        $start_strtotime = strtotime($start_date);
+        echo $startdate = date('Y-m-d 00:00:00', $start_strtotime);
+        echo "<hr/>";
+        $end_strototime = strtotime($end_date);
+        echo $enddate = date('Y-m-d 23:59:59', $end_strototime);
+        echo "<hr/>";
+
+        $em = new Criteria();
+        $em->addAnd(EmployeePeer::STATUS_ID,3);
+        $employees = EmployeePeer::doSelect($em);
+        foreach($employees as $employee){
+            $prdPrice = 0;
+            
+            $c2 = new Criteria();
+            $c2->add(EmployeeRegSubPeer::BILL_START, $startdate);
+            $c2->addAnd(EmployeeRegSubPeer::BILL_END, $enddate);
+            $c2->addAnd(EmployeeRegSubPeer::EMPLOYEE_ID, $employee->getId());
+            if(EmployeeRegSubPeer::doCount($c2)==0){
+
+            $empRegSub = new EmployeeRegSub();
+            $empProduct = ProductPeer::retrieveByPK($employee->getProductId());
+            $employee_creation_at = strtotime($employee->getCreatedAt());
+            $prdPrice = $empProduct->getPrice();
+               
+            if ($employee_creation_at >= $start_strtotime && $employee_creation_at <= $end_strototime){
+                // Employee have Registration Fee.
+                $empRegSub->setRegFee($prdPrice);
+            }else{
+                $empRegSub->setRegFee(0);
+            }
+            // Save the product Subscription fee in the employee.
+            $empRegSub->setEmployeeCreatedAt($employee->getCreatedAt());
+            $empRegSub->setBillStart($startdate);
+            $empRegSub->setBillEnd($enddate);
+            $empRegSub->setProductId($empProduct->getId());
+            $empRegSub->setProductName($empProduct->getName());
+            $tilentaSubscriptionResult = CompanyEmployeActivation::getSubscription($employee, $startdate, $enddate);
+               if($tilentaSubscriptionResult){
+                   foreach ($tilentaSubscriptionResult->xdr_list as $xdr) {
+                       $empRegSub->setSubFee($xdr->charged_amount);
+                       $empRegSub->setIXdr($xdr->i_xdr);
+                       $empRegSub->setAccountId($xdr->account_id);
+                       $empRegSub->setConnectTime($xdr->connect_time);
+                       $empRegSub->setDisconnectTime($xdr->disconnect_time);
+                       $empRegSub->setBillTime($xdr->bill_time);
+                   }
+               } 
+            // 
+            $empRegSub->setCompanyId($employee->getCompanyId());
+            $empRegSub->setEmployeeId($employee->getId());
+            $empRegSub->save();
+            }
+        }
+        return sfView::NONE;
+    }
+        
+    function executeGenerateInvoiceMonthly(sfWebRequest $request){
+       // $start_date = date('Y-m-1',strtotime('last month'));
+        // echo '<br />';23:59:59'
+      //  $end_date = date('Y-m-t',strtotime('last month'));
+        
+        $start_date = date('Y-m-1');
+        // echo '<br />';23:59:59'
+        $end_date = date('Y-m-t');
+        $start_strtotime = strtotime($start_date);
+        $startdate = date('Y-m-d 00:00:00', $start_strtotime);
+        $end_strototime = strtotime($end_date);
+        $enddate = date('Y-m-d 23:59:59',$end_strototime );
+
+        echo "<br/>";
+        $start_strtotime = strtotime($startdate);
+        $end_strototime = strtotime($enddate);
+        echo $startdate ;
+        echo ' - ';
+        echo $enddate;
+        echo '<br />';
+        $c = new Criteria();
+        $companies = CompanyPeer::doSelect($c);
+       
+       foreach($companies as $company){
+            echo $company->getId()."::::";
+            echo $created_date = $company->getCreatedAt();
+
+            echo "<br/>";
+            
+
+            $cl = new Criteria();
+            $cl->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, $startdate, Criteria::GREATER_EQUAL);
+            $cl->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, $enddate, Criteria::LESS_EQUAL);
+            $cl->addAnd(EmployeeCallhistoryPeer::COMPANY_ID, $company->getId());
+            $calls = EmployeeCallhistoryPeer::doCount($cl);
+            echo "calls---".$calls;
+            if($calls>0){ echo "----companyid------".$company->getId(); echo "<br/>";
+            echo    $url1 = sfConfig::get('app_customer_url').'pScripts/companyBilling?company_id='.$company->getId().'&start_date='.$start_strtotime.'&end_date='.$end_strototime;
+                     $invoice = file_get_contents($url1);
+
+           }echo "<br/>";
+            $c2 = new Criteria();
+            $c2->addJoin(CompanyPeer::ID,EmployeePeer::COMPANY_ID, Criteria::LEFT_JOIN);
+            $c2->addJoin(EmployeePeer::ID, EmployeeRegSubPeer::EMPLOYEE_ID, Criteria::LEFT_JOIN);
+            $c2->addAnd(EmployeePeer::CREATED_AT, $startdate, Criteria::GREATER_EQUAL);
+            $c2->addAnd(EmployeePeer::CREATED_AT, $enddate, Criteria::LESS_EQUAL);
+            $c2->addAnd(EmployeeRegSubPeer::REG_FEE, 1, Criteria::GREATER_EQUAL);
+            $c2->addAnd(CompanyPeer::ID, $company->getId());
+            $companies2 = CompanyPeer::doCount($c2);
+
+//            echo "<hr/>";
+//            echo $companies2;
+//            echo "<hr/>";
+
+            if($companies2>0){
+           echo     $url2 = sfConfig::get('app_customer_url').'pScripts/billingReg?company_id='.$company->getId().'&start_date='.$start_strtotime.'&end_date='.$end_strototime;
+                   $invoice2=  file_get_contents($url2);
+
+            }
+
+            if($calls==0){ 
+//                echo 'subscriptionfee--'.$company->getId().'<br />';
+//                echo "start date--".$startdate."<br/> enddate---".$enddate;
+                $c3 = new Criteria();
+                $c3->addJoin(CompanyPeer::ID, EmployeeRegSubPeer::COMPANY_ID, Criteria::LEFT_JOIN);
+                //$c3->addJoin(EmployeePeer::ID, EmployeeRegSubPeer::EMPLOYEE_ID, Criteria::LEFT_JOIN);
+                $c3->addAnd(EmployeeRegSubPeer::BILL_START, $startdate);
+                $c3->addAnd(EmployeeRegSubPeer::BILL_END, $enddate);
+                $c3->addAnd(EmployeeRegSubPeer::SUB_FEE, 1, Criteria::GREATER_EQUAL);
+                $c3->addAnd(CompanyPeer::ID, $company->getId());
+
+               $companies3 = CompanyPeer::doCount($c3);
+               if($companies3>0){ 
+            echo     $url3 = sfConfig::get('app_customer_url').'pScripts/companyBilling?company_id='.$company->getId().'&start_date='.$start_strtotime.'&end_date='.$end_strototime;
+                 $invoice3 =   file_get_contents($url3);
+               }
+
+            }
+
+        }
+        return sfView::NONE;   
+
+   }
+   function executeBillingReg(sfRequest $request) {
+    
+       $company_id = $request->getParameter('company_id');
+    
+       $this->billing_start_date = date('Y-m-d 00:00:00', $request->getParameter('start_date'));
+       $this->billing_end_date = date('Y-m-d 23:59:59', $request->getParameter('end_date'));
+       $this->forward404Unless($company_id && $this->billing_start_date && $this->billing_end_date);
+
+        if (!($company = CompanyPeer::retrieveByPK($company_id))) {
+            $this->forward404();
+        }
+        
+        $billings = array();
+        $ratings = array();
+        $bilcharge = 00.00;
+
+        $ec = new Criteria();
+        $ec->add(EmployeePeer::COMPANY_ID, $company_id);
+        $this->employees = EmployeePeer::doSelect($ec);
+        
+        $invoice_id = $company->getInvoiceMethodId();
+        $im = new Criteria();
+        $im->add(InvoiceMethodPeer::ID, $invoice_id);
+        $invoice = InvoiceMethodPeer::doSelectOne($im);
+        $this->invoice_cost = $invoice->getCost();
+        
+                $new_invoice = new Invoice();
+                $new_invoice->setCompany($company);
+                $new_invoice->setBillingStartingDate($this->billing_start_date);
+                $new_invoice->setBillingEndingDate($this->billing_end_date);
+                $billing_due_days = $invoice->getBillingdays();
+                $due_date = date("Y-m-d H:i:s", time() + ((60 * 60) * 24) * $billing_due_days);
+
+                $new_invoice->setDueDate($due_date);
+                $new_invoice->setInvoiceStatusId(4); // inactive
+                $new_invoice->save();
+                $new_invoice->setInvoiceNumber(date('dmy').$new_invoice->getId());
+                $new_invoice->setRegistrationHtml("<hr/>Registration:$company_id"."<hr/>");
+                $new_invoice->save();
+
+        $this->invoice_meta = $new_invoice;
+        $this->company_meta = $company;
+
+        $this->setLayout(false);
+
+
+        ////////////////////////////////////////////////////////////////////
+    }
+    
+    function executeUpdateCompanyBilling(sfRequest $request) {
+
+        $invoiceId = $request->getParameter('invoiceid');
+        $invoice = InvoicePeer::retrieveByPK($invoiceId);
+        $company = $invoice->getCompany();
+
+        $this->billing_start_date = $invoice->getBillingStartingDate();
+        $this->billing_end_date = $invoice->getBillingEndingDate();
+
+        $billings = array();
+        $ratings = array();
+        $bilcharge = 00.00;
+
+        $ec = new Criteria();
+        $ec->add(EmployeePeer::COMPANY_ID, $company->getId());
+        $ec->add(EmployeePeer::STATUS_ID,3);
+        $this->employees = EmployeePeer::doSelect($ec);
+
+        $billing_details = array();
+        $this->details = $billing_details;
+
+        $this->invoice_cost = $invoice->getInvoiceCost();
+        $this->invoice_meta = $invoice;
+        $this->company_meta = $company;
+
+        $this->setLayout(false);
+
+
+        ////////////////////////////////////////////////////////////////////
     }
 }

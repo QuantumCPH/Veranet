@@ -53,7 +53,7 @@ jQuery(document).ready ( function() {
 	</div>
 <?php endif; ?>
 <?php  // echo form_tag('invoice/generate') ?>
-<?php echo form_tag('company/companyBilling') ?>
+<?php echo form_tag('company/companyEmployeeSubscription') ?>
 
 <label>Billing Start date/time</label>
 <input type="text" id='start_date' name='start_date' value='<?php echo date('Y-m-d', strtotime('-1 Month'));?>' />

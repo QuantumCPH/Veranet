@@ -25,7 +25,7 @@ class BaseCdrLogForm extends BaseFormPropel
       'purchase_price'         => new sfWidgetFormInput(),
       'sale_price'             => new sfWidgetFormInput(),
       'description'            => new sfWidgetFormInput(),
-      'created_at'             => new sfWidgetFormInputCheckbox(),
+      'created_at'             => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -42,7 +42,7 @@ class BaseCdrLogForm extends BaseFormPropel
       'purchase_price'         => new sfValidatorNumber(array('required' => false)),
       'sale_price'             => new sfValidatorNumber(array('required' => false)),
       'description'            => new sfValidatorString(array('max_length' => 200)),
-      'created_at'             => new sfValidatorBoolean(),
+      'created_at'             => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('cdr_log[%s]');

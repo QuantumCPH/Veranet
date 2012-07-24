@@ -17,7 +17,7 @@ class BaseCallLogForm extends BaseFormPropel
       'dest'          => new sfWidgetFormInput(),
       'mac'           => new sfWidgetFormInput(),
       'mobile_number' => new sfWidgetFormInput(),
-      'created'       => new sfWidgetFormInputCheckbox(),
+      'created'       => new sfWidgetFormDateTime(),
       'check_status'  => new sfWidgetFormInputCheckbox(),
     ));
 
@@ -27,7 +27,7 @@ class BaseCallLogForm extends BaseFormPropel
       'dest'          => new sfValidatorInteger(),
       'mac'           => new sfValidatorInteger(),
       'mobile_number' => new sfValidatorInteger(),
-      'created'       => new sfValidatorBoolean(),
+      'created'       => new sfValidatorDateTime(),
       'check_status'  => new sfValidatorBoolean(),
     ));
 

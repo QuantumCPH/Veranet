@@ -18,7 +18,7 @@ class BaseSmsLogFormFilter extends BaseFormFilterPropel
       'message'       => new sfWidgetFormFilterInput(),
       'sender_name'   => new sfWidgetFormFilterInput(),
       'status'        => new sfWidgetFormFilterInput(),
-      'created_at'    => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'created_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'customer_id'   => new sfWidgetFormFilterInput(),
     ));
 
@@ -27,7 +27,7 @@ class BaseSmsLogFormFilter extends BaseFormFilterPropel
       'message'       => new sfValidatorPass(array('required' => false)),
       'sender_name'   => new sfValidatorPass(array('required' => false)),
       'status'        => new sfValidatorPass(array('required' => false)),
-      'created_at'    => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'created_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'customer_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
@@ -51,7 +51,7 @@ class BaseSmsLogFormFilter extends BaseFormFilterPropel
       'message'       => 'Text',
       'sender_name'   => 'Text',
       'status'        => 'Text',
-      'created_at'    => 'Boolean',
+      'created_at'    => 'Date',
       'customer_id'   => 'Number',
     );
   }

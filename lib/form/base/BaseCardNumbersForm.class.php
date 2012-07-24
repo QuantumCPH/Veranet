@@ -17,7 +17,7 @@ class BaseCardNumbersForm extends BaseFormPropel
       'card_serial' => new sfWidgetFormInput(),
       'card_price'  => new sfWidgetFormInput(),
       'status'      => new sfWidgetFormInput(),
-      'created_at'  => new sfWidgetFormInputCheckbox(),
+      'created_at'  => new sfWidgetFormDateTime(),
       'used_at'     => new sfWidgetFormDateTime(),
       'customer_id' => new sfWidgetFormInput(),
     ));
@@ -28,7 +28,7 @@ class BaseCardNumbersForm extends BaseFormPropel
       'card_serial' => new sfValidatorString(array('max_length' => 255)),
       'card_price'  => new sfValidatorInteger(),
       'status'      => new sfValidatorInteger(),
-      'created_at'  => new sfValidatorBoolean(),
+      'created_at'  => new sfValidatorDateTime(),
       'used_at'     => new sfValidatorDateTime(),
       'customer_id' => new sfValidatorInteger(array('required' => false)),
     ));

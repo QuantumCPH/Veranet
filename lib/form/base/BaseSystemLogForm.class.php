@@ -16,7 +16,7 @@ class BaseSystemLogForm extends BaseFormPropel
       'description' => new sfWidgetFormInput(),
       'type'        => new sfWidgetFormInput(),
       'module'      => new sfWidgetFormInput(),
-      'created_at'  => new sfWidgetFormInputCheckbox(),
+      'created_at'  => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -24,7 +24,7 @@ class BaseSystemLogForm extends BaseFormPropel
       'description' => new sfValidatorString(array('max_length' => 1000)),
       'type'        => new sfValidatorInteger(array('required' => false)),
       'module'      => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'created_at'  => new sfValidatorBoolean(),
+      'created_at'  => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('system_log[%s]');

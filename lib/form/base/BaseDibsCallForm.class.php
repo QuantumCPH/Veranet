@@ -14,13 +14,13 @@ class BaseDibsCallForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'callurl'    => new sfWidgetFormTextarea(),
-      'created_at' => new sfWidgetFormInputCheckbox(),
+      'created_at' => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'DibsCall', 'column' => 'id', 'required' => false)),
       'callurl'    => new sfValidatorString(array('required' => false)),
-      'created_at' => new sfValidatorBoolean(),
+      'created_at' => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('dibs_call[%s]');

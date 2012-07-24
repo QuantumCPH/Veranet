@@ -20,7 +20,7 @@ class BaseAgentPaymentHistoryFormFilter extends BaseFormFilterPropel
       'order_description' => new sfWidgetFormFilterInput(),
       'amount'            => new sfWidgetFormFilterInput(),
       'remaining_balance' => new sfWidgetFormFilterInput(),
-      'created_at'        => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'created_at'        => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
@@ -30,7 +30,7 @@ class BaseAgentPaymentHistoryFormFilter extends BaseFormFilterPropel
       'order_description' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'amount'            => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'remaining_balance' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'created_at'        => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'created_at'        => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
     $this->widgetSchema->setNameFormat('agent_payment_history_filters[%s]');
@@ -55,7 +55,7 @@ class BaseAgentPaymentHistoryFormFilter extends BaseFormFilterPropel
       'order_description' => 'Number',
       'amount'            => 'Number',
       'remaining_balance' => 'Number',
-      'created_at'        => 'Boolean',
+      'created_at'        => 'Date',
     );
   }
 }

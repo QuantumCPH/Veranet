@@ -15,7 +15,7 @@ class BaseLandncallCdrLogForm extends BaseFormPropel
       'id'         => new sfWidgetFormInputHidden(),
       'name'       => new sfWidgetFormInput(),
       'status'     => new sfWidgetFormInput(),
-      'created_at' => new sfWidgetFormInputCheckbox(),
+      'created_at' => new sfWidgetFormDateTime(),
       'from_time'  => new sfWidgetFormDateTime(),
       'to_time'    => new sfWidgetFormDateTime(),
     ));
@@ -24,7 +24,7 @@ class BaseLandncallCdrLogForm extends BaseFormPropel
       'id'         => new sfValidatorPropelChoice(array('model' => 'LandncallCdrLog', 'column' => 'id', 'required' => false)),
       'name'       => new sfValidatorString(array('max_length' => 50, 'required' => false)),
       'status'     => new sfValidatorInteger(array('required' => false)),
-      'created_at' => new sfValidatorBoolean(),
+      'created_at' => new sfValidatorDateTime(),
       'from_time'  => new sfValidatorDateTime(array('required' => false)),
       'to_time'    => new sfValidatorDateTime(array('required' => false)),
     ));

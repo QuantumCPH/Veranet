@@ -17,7 +17,7 @@ class BaseSmsLogForm extends BaseFormPropel
       'message'       => new sfWidgetFormInput(),
       'sender_name'   => new sfWidgetFormInput(),
       'status'        => new sfWidgetFormInput(),
-      'created_at'    => new sfWidgetFormInputCheckbox(),
+      'created_at'    => new sfWidgetFormDateTime(),
       'customer_id'   => new sfWidgetFormInput(),
     ));
 
@@ -27,7 +27,7 @@ class BaseSmsLogForm extends BaseFormPropel
       'message'       => new sfValidatorString(array('max_length' => 255)),
       'sender_name'   => new sfValidatorString(array('max_length' => 30)),
       'status'        => new sfValidatorString(array('max_length' => 20)),
-      'created_at'    => new sfValidatorBoolean(),
+      'created_at'    => new sfValidatorDateTime(),
       'customer_id'   => new sfValidatorInteger(array('required' => false)),
     ));
 

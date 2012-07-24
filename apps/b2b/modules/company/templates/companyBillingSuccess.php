@@ -60,15 +60,15 @@ use_helper('Number');
                 </td>
                 <td width="50%" align="right"> 
                     <table border="0"  class="invoice_meta" width="200">
-                        <tr> <td> Zapna Aps </td></tr>
-                        <tr> <td>Smedeholm 13 B</td></tr>
-                        <tr> <td>2730 Herlev</td></tr>
-                        <tr> <td>  Tel: +45 7027 9966</td></tr>
-                        <tr> <td>  Fax: +45 7027 9965</td></tr>
-                        <tr> <td>CVR: 32068219</td></tr>
-                        <tr> <td>  Bank: Danske Bank</td></tr>
-                        <tr> <td> Reg: 3001</td></tr>
-                        <tr> <td>  Konto: 0010408563</td></tr>
+                        <tr> <td>Veranet</td></tr>
+                        <tr> <td></td></tr>
+                        <tr> <td></td></tr>
+                        <tr> <td></td></tr>
+                        <tr> <td></td></tr>
+                        <tr> <td></td></tr>
+                        <tr> <td></td></tr>
+                        <tr> <td></td></tr>
+                        <tr> <td></td></tr>
                         <tr> <td></td></tr></table>
                 </td>
             </tr>
@@ -77,26 +77,26 @@ use_helper('Number');
                 <td align="right">
                      <table class="invoice_meta">
                         <tr>
-                            <td colspan="2">Faktura</td>
+                            <td colspan="2">invoice</td>
                         </tr>
                         <tr>
-                            <td>Faktura Nummer:</td>
+                            <td>Invoice Number:</td>
                             <td><?php echo $invoice_meta->getId(); ?></td>
                         </tr>
                         <tr>
-                            <td>Faktura Periode:</td>
+                            <td>Invoice Period:</td>
                             <td><?php echo $invoice_meta->getBillingStartingDate('d M.') . ' - ' . $invoice_meta->getBillingEndingDate('d M.') ?></td>
                         </tr>
                         <tr>
-                            <td>Faktura Dato:</td>
+                            <td>Invoice Date:</td>
                             <td><?php echo $invoice_meta->getCreatedAt('d M. Y') ?></td>
                         </tr>
                         <tr>
-                            <td>Betalingsdato:</td>
+                            <td>Due date:</td>
                             <td><?php echo $invoice_meta->getDueDate('d M. Y') ?></td>
                         </tr>
                         <tr>
-                            <td>Kundenummer:</td>
+                            <td>Customer Number:</td>
                             <td><?php echo $company_meta->getVatNo() ?></td>
                         </tr>
                     </table> <!-- end invoice meta -->
@@ -106,8 +106,8 @@ use_helper('Number');
                 <td colspan="2">
                     <table class="call_summary" width="100%" cellspacing="0">
                         <tr class="summary_header" style="border: 1px solid #000;">
-                            <td width="50%">Produkt beskrivelse</td>
-                            <td width="16%"align="left">Antal opkald enheder</td>
+                            <td width="50%">Product</td>
+                            <td width="16%"align="left"></td>
                             <!--                                        Produkt pris-->
                             <td align="16%">&nbsp; </td>
                             <td align="18%">Charged Amount (<?php echo sfConfig::get('app_currency_code')?>.)</td>
@@ -134,12 +134,27 @@ use_helper('Number');
                             $prdPrice = 0;
                             $startdate = strtotime($billing_start_date);
                             $enddate = strtotime($billing_end_date);
-                            $employeeCreatedDate = strtotime($employee->getCreatedAt());                           
+                            $employeeCreatedDate = strtotime($employee->getCreatedAt()); 
+                            $empRegPrd = null;
+                            $ers = new Criteria();
+                            $ers->add(EmployeeRegSubPeer::EMPLOYEE_ID, $employee->getId());
+                            $ers->addAnd(EmployeeRegSubPeer::BILL_START, $billing_start_date);
+                            $ers->addAnd(EmployeeRegSubPeer::BILL_END, $billing_end_date);
+                            if (EmployeeRegSubPeer::doCount($ers) > 0) {
+                                $empRegPrd = EmployeeRegSubPeer::doSelectOne($ers);
+                                $subFee = $empRegPrd->getSubFee();
+                                if($subFee>0)
+                                    $subFlag = true;
+                            } else {
+                                if($employeeCreatedDate<=$enddate){
+                                //    emailLib::sendErrorInTelinta("Employee not found in Reg Sub Fee Table for Invoices", "Employee not found in Reg Sub Fee Table start date: $billing_start_date , Enddate: $billing_end_date , EmployeeId:". $employee->getId());
+                                }
+                            }
                         ?><?php
                             $bc = new Criteria();
                             $bc->add(EmployeeCallhistoryPeer::EMPLOYEE_ID, $employee->getId());
-                            $bc->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $billing_start_date . "' ", Criteria::CUSTOM);
-                            $bc->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time  < '" . $billing_end_date . "' ", Criteria::CUSTOM);
+                            $bc->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $billing_start_date . "' ", Criteria::CUSTOM);
+                            $bc->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  <= '" . $billing_end_date . "' ", Criteria::CUSTOM);
                             $bc->addGroupByColumn(EmployeeCallhistoryPeer::COUNTRY_ID);
                             if (EmployeeCallhistoryPeer::doCount($bc) > 0) {
                                 $billingFlag = true;
@@ -151,7 +166,7 @@ use_helper('Number');
 <?php } ?><?php if ($subFlag) { ?>
                                 <tr>
                                     <td>
-                                        Abonnement: <?php echo $employee->getProduct()->getName(); ?>
+                                        subscription: <?php echo $employee->getProduct()->getName(); ?>
                                     </td>
                                     <td></td>
                                     <td></td>
@@ -172,17 +187,18 @@ use_helper('Number');
                                     $dc = new Criteria();
                                     $dc->add(EmployeeCallhistoryPeer::EMPLOYEE_ID, $employee->getId());
                                     $dc->add(EmployeeCallhistoryPeer::COUNTRY_ID,$billing->getCountryId());
-                                    $dc->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $invoice_meta->getBillingStartingDate('Y-m-d 00:00:00') . "' ", Criteria::CUSTOM);
-                                    $dc->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time  < '" . $invoice_meta->getBillingEndingDate('Y-m-d 23:59:59') . "' ", Criteria::CUSTOM);
+                                    $dc->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $invoice_meta->getBillingStartingDate('Y-m-d 00:00:00') . "' ", Criteria::CUSTOM);                                    
+                                    $dc->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  <= '" . $invoice_meta->getBillingEndingDate('Y-m-d 23:59:59') . "' ", Criteria::CUSTOM);
                                   //  $dc->addGroupByColumn(EmployeeCallhistoryPeer::COUNTRY_ID);
                                     $temp = EmployeeCallhistoryPeer::doSelect($dc);
                                     $minutes_count = 0;
                                     $calculated_cost = 0;
                                     foreach ($temp as $t) {
                                         $calculated_cost += $t->getChargedAmount();
+                                        $avg = EmployeeCallhistoryPeer::getAveragePotenzial($employee, $billing->getCountryId());
                                     }
                                 ?>
-                                <?php //echo $minutes_count ?>
+                                <?php echo $avg ?>
                                 </td><td>&nbsp;</td>
                                 <td>
                                 <?php echo  number_format($temp_cost = $calculated_cost, 2) ?>

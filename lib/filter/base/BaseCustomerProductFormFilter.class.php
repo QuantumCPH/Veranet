@@ -16,14 +16,14 @@ class BaseCustomerProductFormFilter extends BaseFormFilterPropel
     $this->setWidgets(array(
       'customer_id' => new sfWidgetFormPropelChoice(array('model' => 'Customer', 'add_empty' => true)),
       'product_id'  => new sfWidgetFormPropelChoice(array('model' => 'Product', 'add_empty' => true)),
-      'created_at'  => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'created_at'  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'status_id'   => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
       'customer_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Customer', 'column' => 'id')),
       'product_id'  => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Product', 'column' => 'id')),
-      'created_at'  => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'created_at'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'status_id'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
@@ -45,7 +45,7 @@ class BaseCustomerProductFormFilter extends BaseFormFilterPropel
       'id'          => 'Number',
       'customer_id' => 'ForeignKey',
       'product_id'  => 'ForeignKey',
-      'created_at'  => 'Boolean',
+      'created_at'  => 'Date',
       'status_id'   => 'Number',
     );
   }

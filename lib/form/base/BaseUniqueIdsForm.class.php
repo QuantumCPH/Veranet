@@ -14,7 +14,7 @@ class BaseUniqueIdsForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'                   => new sfWidgetFormInputHidden(),
       'unique_number'        => new sfWidgetFormInput(),
-      'created_at'           => new sfWidgetFormInputCheckbox(),
+      'created_at'           => new sfWidgetFormDateTime(),
       'assigned_at'          => new sfWidgetFormDateTime(),
       'registration_type_id' => new sfWidgetFormInput(),
       'sim_type_id'          => new sfWidgetFormInput(),
@@ -24,7 +24,7 @@ class BaseUniqueIdsForm extends BaseFormPropel
     $this->setValidators(array(
       'id'                   => new sfValidatorPropelChoice(array('model' => 'UniqueIds', 'column' => 'id', 'required' => false)),
       'unique_number'        => new sfValidatorString(array('max_length' => 50)),
-      'created_at'           => new sfValidatorBoolean(),
+      'created_at'           => new sfValidatorDateTime(),
       'assigned_at'          => new sfValidatorDateTime(),
       'registration_type_id' => new sfValidatorInteger(),
       'sim_type_id'          => new sfValidatorInteger(array('required' => false)),

@@ -17,14 +17,14 @@ class BasePromotionRatesFormFilter extends BaseFormFilterPropel
       'agent_id'     => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => true)),
       'network_name' => new sfWidgetFormFilterInput(),
       'network_rate' => new sfWidgetFormFilterInput(),
-      'created_at'   => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'created_at'   => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
       'agent_id'     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Company', 'column' => 'id')),
       'network_name' => new sfValidatorPass(array('required' => false)),
       'network_rate' => new sfValidatorPass(array('required' => false)),
-      'created_at'   => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'created_at'   => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
     $this->widgetSchema->setNameFormat('promotion_rates_filters[%s]');
@@ -46,7 +46,7 @@ class BasePromotionRatesFormFilter extends BaseFormFilterPropel
       'agent_id'     => 'ForeignKey',
       'network_name' => 'Text',
       'network_rate' => 'Text',
-      'created_at'   => 'Boolean',
+      'created_at'   => 'Date',
     );
   }
 }

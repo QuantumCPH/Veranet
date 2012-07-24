@@ -18,7 +18,7 @@ class BaseCallRateTableForm extends BaseFormPropel
       'connect_charge'      => new sfWidgetFormInput(),
       'rate'                => new sfWidgetFormInput(),
       'rate_status'         => new sfWidgetFormInput(),
-      'ratecreated'         => new sfWidgetFormInputCheckbox(),
+      'ratecreated'         => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -28,7 +28,7 @@ class BaseCallRateTableForm extends BaseFormPropel
       'connect_charge'      => new sfValidatorString(array('max_length' => 255)),
       'rate'                => new sfValidatorString(array('max_length' => 255)),
       'rate_status'         => new sfValidatorInteger(),
-      'ratecreated'         => new sfValidatorBoolean(),
+      'ratecreated'         => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('call_rate_table[%s]');

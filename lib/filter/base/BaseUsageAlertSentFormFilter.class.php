@@ -18,7 +18,7 @@ class BaseUsageAlertSentFormFilter extends BaseFormFilterPropel
       'customerid'     => new sfWidgetFormFilterInput(),
       'messagetype'    => new sfWidgetFormFilterInput(),
       'alert_amount'   => new sfWidgetFormFilterInput(),
-      'senttime'       => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'senttime'       => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
@@ -26,7 +26,7 @@ class BaseUsageAlertSentFormFilter extends BaseFormFilterPropel
       'customerid'     => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'messagetype'    => new sfValidatorPass(array('required' => false)),
       'alert_amount'   => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
-      'senttime'       => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'senttime'       => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
     $this->widgetSchema->setNameFormat('usage_alert_sent_filters[%s]');
@@ -49,7 +49,7 @@ class BaseUsageAlertSentFormFilter extends BaseFormFilterPropel
       'customerid'     => 'Number',
       'messagetype'    => 'Text',
       'alert_amount'   => 'Number',
-      'senttime'       => 'Boolean',
+      'senttime'       => 'Date',
     );
   }
 }

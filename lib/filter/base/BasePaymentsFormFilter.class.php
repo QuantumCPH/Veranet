@@ -18,7 +18,7 @@ class BasePaymentsFormFilter extends BaseFormFilterPropel
       'payment_amount' => new sfWidgetFormFilterInput(),
       'payment_status' => new sfWidgetFormFilterInput(),
       'itemid'         => new sfWidgetFormFilterInput(),
-      'createdtime'    => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'createdtime'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
     ));
 
     $this->setValidators(array(
@@ -26,7 +26,7 @@ class BasePaymentsFormFilter extends BaseFormFilterPropel
       'payment_amount' => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
       'payment_status' => new sfValidatorPass(array('required' => false)),
       'itemid'         => new sfValidatorPass(array('required' => false)),
-      'createdtime'    => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'createdtime'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
 
     $this->widgetSchema->setNameFormat('payments_filters[%s]');
@@ -49,7 +49,7 @@ class BasePaymentsFormFilter extends BaseFormFilterPropel
       'payment_amount' => 'Number',
       'payment_status' => 'Text',
       'itemid'         => 'Text',
-      'createdtime'    => 'Boolean',
+      'createdtime'    => 'Date',
     );
   }
 }
