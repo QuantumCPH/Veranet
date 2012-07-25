@@ -19,6 +19,7 @@ class employeeActions extends sfActions {
             $c->addAnd(EmployeePeer::COMPANY_ID,  $companyid);
 
         }
+        $c->addAnd(EmployeePeer::STATUS_ID,3);
         $this->employees = EmployeePeer::doSelect($c);
     }
 
@@ -180,9 +181,11 @@ class employeeActions extends sfActions {
       $employee->setProductId($request->getParameter('productid'));
       $employee->setSimTypeId($request->getParameter('sim_type_id'));
       $employee->setProductPrice($request->getParameter('price'));
+      $employee->setUniqueId($request->getParameter('uniqueid'));
     //  $employee->setStatusId(sfConfig::get('app_status_new'));   //// new status is 1 defined in backend/config/app.yml
       $employee->save();
-        if(!CompanyEmployeActivation::telintaRegisterEmployeeCT($employee,$request->getParameter('productid'))){
+        
+        if(!CompanyEmployeActivation::telintaRegisterEmployeeCT($employee,$employee->getProductId())){
             $employee->setStatusId(sfConfig::get('app_status_error')); //// error status is 5 defined in backend/config/app.yml
             $employee->save();
             $this->getUser()->setFlash('messageError', 'Employee  Call Through account is not registered on Telinta please check email');
@@ -191,7 +194,12 @@ class employeeActions extends sfActions {
         }
        $employee->setStatusId(sfConfig::get('app_status_completed')); //// completed status is 3 defined in backend/config/app.yml
        $employee->save();
-       
+        $c = new Criteria();
+        $c->add(UniqueIdsPeer::UNIQUE_NUMBER,$request->getParameter('uniqueid'));
+        $uniqueIdObj = UniqueIdsPeer::doSelectOne($c);
+        $uniqueIdObj->setAssignedAt(date("Y-m-d H:i:s"));
+        $uniqueIdObj->setStatus(1);
+        $uniqueIdObj->save();
        $product= ProductPeer::retrieveByPK($request->getParameter('productid'));
        $chrageamount=$product->getRegistrationFee()+$product->getRegistrationFee()*sfConfig::get('app_vat_percentage');
        //$emplyeeProductFeeDescription="Registration Fee Including Vat";,$emplyeeProductFeeDescription
@@ -558,5 +566,24 @@ class employeeActions extends sfActions {
                echo "yes";
             }
         }
+   
+   public function executeGetUniqueIds(sfWebRequest $request) {
 
+        $c = new Criteria();
+        //$c->setLimit(10);
+         $sim_type_id = $request->getParameter('sim_type_id');
+        $c->add(UniqueIdsPeer::SIM_TYPE_ID, $sim_type_id);
+        $c->addAnd(UniqueIdsPeer::REGISTRATION_TYPE_ID, 1);
+        $c->addAnd(UniqueIdsPeer::STATUS, 0);
+        $c->addAscendingOrderByColumn(UniqueIdsPeer::UNIQUE_NUMBER);
+        
+        $str = "";
+        $uniqueIds = UniqueIdsPeer::doSelect($c);
+        // $str.='<option value="">Select UniqueId</option>';
+        foreach ($uniqueIds as $uniqueId) {
+            $str.="<option value='" . $uniqueId->getUniqueNumber() . "'>" . $uniqueId->getUniqueNumber() . "</option>";
+        }
+        echo $str;
+        return sfView::NONE;
+    }
 }

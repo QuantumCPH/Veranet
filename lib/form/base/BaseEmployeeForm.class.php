@@ -30,6 +30,7 @@ class BaseEmployeeForm extends BaseFormPropel
       'country_mobile_number' => new sfWidgetFormInput(),
       'sim_type_id'           => new sfWidgetFormPropelChoice(array('model' => 'Employee', 'add_empty' => true)),
       'comments'              => new sfWidgetFormTextarea(),
+      'unique_id'             => new sfWidgetFormInput(),
       'status_id'             => new sfWidgetFormInput(),
     ));
 
@@ -52,6 +53,7 @@ class BaseEmployeeForm extends BaseFormPropel
       'country_mobile_number' => new sfValidatorString(array('max_length' => 250, 'required' => false)),
       'sim_type_id'           => new sfValidatorPropelChoice(array('model' => 'Employee', 'column' => 'id', 'required' => false)),
       'comments'              => new sfValidatorString(array('required' => false)),
+      'unique_id'             => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'status_id'             => new sfValidatorInteger(array('required' => false)),
     ));
 

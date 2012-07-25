@@ -31,6 +31,7 @@ class BaseEmployeeFormFilter extends BaseFormFilterPropel
       'country_mobile_number' => new sfWidgetFormFilterInput(),
       'sim_type_id'           => new sfWidgetFormPropelChoice(array('model' => 'Employee', 'add_empty' => true)),
       'comments'              => new sfWidgetFormFilterInput(),
+      'unique_id'             => new sfWidgetFormFilterInput(),
       'status_id'             => new sfWidgetFormFilterInput(),
     ));
 
@@ -52,6 +53,7 @@ class BaseEmployeeFormFilter extends BaseFormFilterPropel
       'country_mobile_number' => new sfValidatorPass(array('required' => false)),
       'sim_type_id'           => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Employee', 'column' => 'id')),
       'comments'              => new sfValidatorPass(array('required' => false)),
+      'unique_id'             => new sfValidatorPass(array('required' => false)),
       'status_id'             => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
@@ -88,6 +90,7 @@ class BaseEmployeeFormFilter extends BaseFormFilterPropel
       'country_mobile_number' => 'Text',
       'sim_type_id'           => 'ForeignKey',
       'comments'              => 'Text',
+      'unique_id'             => 'Text',
       'status_id'             => 'Number',
     );
   }

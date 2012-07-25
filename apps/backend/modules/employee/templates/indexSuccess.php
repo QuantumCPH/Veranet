@@ -44,7 +44,7 @@
         <th align="left"  id="sf_admin_list_th_name">Employee balance</th>
         <?php } ?>
 
-        
+        <th align="left" id="sf_admin_list_th_name">Unique Id</th>
       <th align="left"  id="sf_admin_list_th_name">Created at</th>
    
  <!--         <th align="left">App code</th>
@@ -160,6 +160,7 @@
                                                 ?></td>
 
       <?php } ?>
+      <td><?php echo $employee->getUniqueId(); ?></td>
       <td><?php echo $employee->getCreatedAt('d-m-Y'); ?></td>
    
     <!--  <td align="center">  <?php //$appval=$employee->getIsAppRegistered();  if(isset($appval) && $appval==1){   ?> <img alt="Tick" src="/sf/sf_admin/images/tick.png">  <?php //} ?></td>

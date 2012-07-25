@@ -590,12 +590,18 @@ jQuery(function(){
 jQuery(function(){
 
 
-
-	jQuery( "#startdate" ).datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy' });
-	jQuery( "#enddate" ).datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy'});
-        jQuery( "#stdate" ).datepicker({maxDate: '0m +0w', dateFormat: 'dd-mm-yy' });
-        jQuery( "#endate" ).datepicker({maxDate: '0m +0w', dateFormat: 'dd-mm-yy'});
-
+      if(jQuery( "#startdate" ).length > 0){
+         jQuery( "#startdate" ).datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'yy-mm-dd' }); 
+      }  
+      if(jQuery( "#enddate" ).length > 0){
+         jQuery( "#enddate" ).datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'yy-mm-dd'});
+      }
+      if(jQuery( "#stdate" ).length > 0){
+         jQuery( "#stdate" ).datepicker({maxDate: '0m +0w', dateFormat: 'yy-mm-dd' });
+      }
+      if(jQuery( "#endate" ).length > 0){
+         jQuery( "#endate" ).datepicker({maxDate: '0m +0w', dateFormat: 'yy-mm-dd'});
+      }
     });
 
 
