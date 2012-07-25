@@ -29,8 +29,8 @@
             $ct->add(TelintaAccountsPeer::ACCOUNT_TITLE, "a".$employee->getCountryMobileNumber());
             $ct->addAnd(TelintaAccountsPeer::STATUS, 3);
             $telintaAccount = TelintaAccountsPeer::doSelectOne($ct);
-//            $accountInfo = CompanyEmployeActivation::getAccountInfo($telintaAccount->getIAccount());
-//            echo $accountInfo->account_info->balance;
+            $accountInfo = CompanyEmployeActivation::getAccountInfo($telintaAccount->getIAccount());
+            echo $accountInfo->account_info->balance;
             echo sfConfig::get('app_currency_code');
             ?>
         </td>

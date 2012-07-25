@@ -22,6 +22,7 @@ class companyActions extends sfActions {
         
         $c = new Criteria();
         $c->add(EmployeePeer::COMPANY_ID, $this->company->getId());
+        $c->addAnd(EmployeePeer::STATUS_ID,3);
         $this->employees = EmployeePeer::doSelect($c);
 
         $nc = new Criteria();
@@ -366,66 +367,6 @@ class companyActions extends sfActions {
     {
              
     } 
-    
-    public function executeCompanyBilling(sfWebRequest $request)
-    {
-        $company_id = $request->getParameter('company_id');
-    
-        $this->billing_start_date = date('Y-m-d 00:00:00', strtotime($request->getParameter('start_date')));
-        $this->billing_end_date = date('Y-m-d 23:59:59', strtotime($request->getParameter('end_date')));
-        $this->forward404Unless($company_id && $this->billing_start_date && $this->billing_end_date);
-
-        if (!($company = CompanyPeer::retrieveByPK($company_id))) {
-            $this->forward404();
-        }
-
-        $billings = array();
-        $ratings = array();
-        $bilcharge = 00.00;
-
-        $ec = new Criteria();
-        $ec->add(EmployeePeer::COMPANY_ID, $company_id);
-        $this->employees = EmployeePeer::doSelect($ec);
-        
-        $invoice_id = $company->getInvoiceMethodId();
-        $im = new Criteria();
-        $im->add(InvoiceMethodPeer::ID, $invoice_id);
-        $invoice = InvoiceMethodPeer::doSelectOne($im);
-        $this->invoice_cost = $invoice->getCost();
-
-        $new_invoice = new Invoice();
-        $new_invoice->setCompany($company);
-        $new_invoice->setBillingStartingDate($this->billing_start_date);
-        $new_invoice->setBillingEndingDate($this->billing_end_date);
-        
-//        $billing_due_days = $invoice->getBillingdays();
-//        $due_date = date("Y-m-d H:i:s", time() + ((60 * 60) * 24) * $billing_due_days);
-//
-//        $new_invoice->setDueDate($due_date);
-        $new_invoice->setInvoiceStatusId(4); // inactive
-        $new_invoice->save();
-      //  $new_invoice->setInvoiceNumber(date('dmy').$new_invoice->getId());
-
-        $new_invoice->save();
-     //   var_dump($new_invoice);
-        $this->invoice_meta = $new_invoice;
-        $this->company_meta = $company;
-
-        $this->setLayout(false);    
-    } 
-    
-    public function executeCompanyEmployeeSubscription(sfWebRequest $request)
-    {
-        $company_id = $request->getParameter('company_id');
-        $company = CompanyPeer::retrieveByPK($company_id);
-        $this->billing_start_date = date('Y-m-d 00:00:00', strtotime($request->getParameter('start_date')));
-        $this->billing_end_date = date('Y-m-d 23:59:59', strtotime($request->getParameter('end_date')));
-        $this->forward404Unless($company_id && $this->billing_start_date && $this->billing_end_date);
-
-        CompanyEmployeActivation::getSubscription($company, $this->billing_start_date, $this->billing_end_date);
-
-        return sfView::NONE;    
-    }
     
     public function executeInvoices(sfWebRequest $request)
     {
