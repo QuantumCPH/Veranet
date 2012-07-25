@@ -22,19 +22,10 @@
 				  	<?php echo ($employee->getCompany()?$employee->getCompany():'N/A') ?>
 				  </div>
 				</div>
-
-
-
-
-
-
-
-
-
                             <div class="form-row">
 				  <label class="required">Employee Balance:</label>
 				  <div class="content">
-				  	<?php  echo (float) $balance ." ";
+				  	<?php  echo number_format($balance,2);
                         echo sfConfig::get('app_currency_code'); /*$mobileID= $employee->getCountryMobileNumber();
         $telintaGetBalance=0;
         $telintaGetBalance = file_get_contents('https://mybilling.telinta.com/htdocs/zapna/zapna.pl?action=getbalance&name=a'.$mobileID.'&type=account');

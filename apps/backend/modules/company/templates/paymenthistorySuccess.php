@@ -10,13 +10,15 @@
     </div>
 <?php } ?>
 
-<div id="sf_admin_container"><h1><?php echo __('Payment History') ?></h1>
-<?php if ($sf_user->hasFlash('message')): ?>
-<div class="save-ok">
-  <h2><?php echo __($sf_user->getFlash('message')) ?></h2>
+<div id="sf_admin_container">
+    <h1><?php echo __('Payment History') ?></h1>
+    <?php if ($sf_user->hasFlash('message')): ?>
+    <div class="save-ok">
+      <h2><?php echo __($sf_user->getFlash('message')) ?></h2>
+    </div>
+    <?php endif; ?>
 </div>
-<?php endif; ?>
-</div>
+<div id="sf_admin_header"></div>
 <table width="75%" cellspacing="0" cellpadding="2" class="tblAlign">
 <tr class="headings">
     <th><?php echo __('Date') ?></th>

@@ -92,7 +92,7 @@ width:232px;
 .right-col .box small{ font-size:11px;}
 .right-col .box p{ margin-top:5px; margin-bottom:20px; font-size:12px;padding:0px;}
 .right-col .box a{
-    background-image: url("../images/b.jpg");
+    background-image: url("../images/b.png");
     background-repeat: repeat-x;
     border: 0 none !important;
     color: #FFFFFF;
@@ -685,7 +685,7 @@ select#extra_refill{
     margin-left:3px;
 }
 a.changePass{
-    color:#D44D05;
+    color:#EF2942;
 }
 #forgot_password_form p.text1{
     margin-bottom: 11px !important;

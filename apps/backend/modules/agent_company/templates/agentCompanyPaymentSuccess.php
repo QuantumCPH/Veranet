@@ -8,7 +8,7 @@
 <style>
     .odd{background-color: #EEEEFF}
     .even{background-color: #FFFFFF}
-    .headings{ background-color: #CCCCFF;color: #000000;}
+    .headings{color: #000000;}
 </style>
 
 <div id="sf_admin_container"><h1><?php echo __('Agent Company Refill History') ?>  (<?php if($agentidd>0){ echo  $agent_company->getName(); }else{ echo __("All Agent Companies"); }   ?>) </h1></div><br/>

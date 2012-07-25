@@ -24,7 +24,7 @@
 	<div class="form-row">
 				  <label class="required"><?php echo  __('Balance view:') ?> </label>
 				  <div class="content"><?php
-                                 echo $balance ." ". sfConfig::get('app_currency_code');
+                                 echo number_format($balance,2);echo sfConfig::get('app_currency_code');
                            ?>
 				   
 				  </div>
@@ -108,7 +108,7 @@
                                 <div class="form-row">
 				  <label class="required"><?php echo  __('Credit Limit:') ?></label>
 				  <div class="content">
-				  	-<?php echo $company->getCreditLimit(); ?>
+				  	-<?php echo number_format($company->getCreditLimit(),2); ?>
 				  </div>
 				</div>
 

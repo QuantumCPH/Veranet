@@ -5,7 +5,7 @@ body{
   font-size: 12px;
 }
 h2{
-    color:#D44D05;
+    color:#EF2942;
 }
 .admin-navigation ul, li{
 	display:inline;
@@ -45,24 +45,24 @@ h2{
     float: left;
     font: bold 11px arial;
     background:url('../images/li-bg.png') repeat-x top left;
-    border-left: 1px solid #D44D05;
-    border-top: 1px solid #D44D05;
-    border-bottom: 1px solid #D44D05;
+    border-left: 1px solid #EF2942;
+    border-top: 1px solid #EF2942;
+    border-bottom: 1px solid #EF2942;
 }
 #sddm li.last
 {	
-    border-right:1px solid #D44D05;
+    border-right:1px solid #EF2942;
 }    
 #sddm li a
 {	display: block;
 	margin: 0 0px 0 0;
 	padding: 4px 10px;
-	color: #D44D05;
+	color: #EF2942;
 	text-align: center;
 	text-decoration: none}
 
 #sddm li a:hover
-{	background: #D44D05;
+{	background: url("../images/b.png") repeat-x scroll left center transparent;
         color:#ffffff;
 }
 
@@ -71,8 +71,8 @@ h2{
 	visibility: hidden;
 	margin: 0;
 	padding: 0;
-	background: #D44D05;
-	border: 1px solid #ED8555;
+	background: #EF2942;
+	border: 1px solid #EF2942;
 }
 
 #sddm div a
@@ -84,29 +84,29 @@ h2{
         white-space: nowrap;
         text-align: left;
         text-decoration: none;
-        background: #D44D05;
+        background: url("../images/b.png") repeat-x scroll left center transparent;
         color: #FFFFFF;
         font: 11px arial;
 }
 #sddm div a:hover
-{	background: #FFFFFF;
-        color: #D44D05;
+{	background: url('../images/li-bg.png') repeat-x top left;
+        color: #EF2942;
 }
 #sddm div a.subSelect
-{	background: #FFFFFF;
-        color: #D44D05;
+{	background: url('../images/li-bg.png') repeat-x top left;
+        color: #EF2942;
 }
 #sf_admin_container{
     margin:0 auto;
     width:75%;
 }
 #sddm li a.current{
-    background: #D44D05 !important;
+    background: url("../images/b.png") repeat-x scroll left center transparent;
     color: #FFFFFF !important;
 }
 a.label{
-   background: #FFFFFF !important;
-   color: #D44D05 !important;
+   background: url('../images/li-bg.png') repeat-x top left !important;
+   color: #EF2942 !important;
 }
 
 div.tableHeading{
@@ -114,7 +114,7 @@ div.tableHeading{
     margin: 0 auto;   
 }
 div.tableHeading span{
-    background-color: #D44D05;
+    background-color: #EF2942;
     color:#ffffff;
     line-height: 18px;
     padding-right:15px;
@@ -122,29 +122,29 @@ div.tableHeading span{
 }
 table.tblAlign{
     margin:0 auto !important;
-    border-top: 1px solid #D44D05 !important;
-    border-left: 1px solid #D44D05 !important;
+    border-top: 1px solid #EF2942 !important;
+    border-left: 1px solid #EF2942 !important;
     
   
     font-family: Arial,sans-serif;
     font-size: 12px
 }
 td{
-   border-bottom: 1px solid #D44D05 !important;
-   border-right: 1px solid #D44D05 !important;
+   border-bottom: 1px solid #EF2942 !important;
+   border-right: 1px solid #EF2942 !important;
 }
 td.last{
    border-right: 0px !important; 
 }
 tr.headings{
-   background-color: #D44D05 !important;
-   color:#ffffff !important; 
+/*   background-color: #EF2942 !important;*/
+   color:#EF2942 !important;
 }
 tr.headings th{
-   border-right: 1px solid #D44D05 !important;
-   border-bottom: 1px solid #D44D05 !important;
+   border-right: 1px solid #EF2942 !important;
+   border-bottom: 1px solid #EF2942 !important;
    text-align: left;
-   color:#ffffff;
+   color:#EF2942;
 }
 tr.headings th.last{
    border-right: 0px !important; 
@@ -178,13 +178,13 @@ tr.odd{
     background-color:#FCD9C9 !important;
 }
 .tblLogin label {
-    color:#D44D05;
+    color:#EF2942;
     font-size: 13px;
     font-weight: bold;
     letter-spacing: 2px;
 }
 .tblLogin button{
-    background-color: #D44D05;
+    background-color: #EF2942;
     color:#FFFFFF;
     border:1px solid #ffffff;
     line-height: 21px;
@@ -276,10 +276,10 @@ tr.odd{
     padding: 2px 50px 5px 9px;
 }
 .tblUserguide{
-    border:1px solid #D44D05 !important;
+    border:1px solid #EF2942 !important;
 }
 .tblUserguide th.noBorder label{
-    color:#D44D05 !important;
+    color:#EF2942 !important;
     font-weight: bold !important;
     float: right !important;
     width: auto !important;
@@ -336,7 +336,7 @@ a.userDelete, a.userCancel{
     margin-right: 0;
     padding: 6px 5px;
     text-decoration: none !important;
-    border: 1px solid #D44D05 !important;
+    border: 1px solid #EF2942 !important;
 }
 .powered {
     float: right;
