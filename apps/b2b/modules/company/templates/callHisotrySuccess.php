@@ -115,7 +115,7 @@ if (isset($empl)) {
             </tr>
 <?php } else { ?>
             <tr>
-                <td colspan="5" align="right"><strong><?php echo __('Subtotal') ?></strong></td>
+                <td colspan="5" align="right"><strong><?php echo __('Total') ?></strong></td>
 
                 <td><?php echo number_format($amount_total, 2) ?><?php echo sfConfig::get('app_currency_code'); ?></td>
                 <td>&nbsp;</td>
@@ -142,6 +142,7 @@ if (isset($empl)) {
             <th  width="10%"  align="left" style="text-align: right;"><?php echo __('Amount') ?></th>
         </tr>
         <?php //var_dump($ems);
+        $total_sub = 0;
          if(isset($empl)){
            $tilentaSubResult = CompanyEmployeActivation::getSubscription($empl, $fromdate . ' 00:00:00', $todate . ' 23:59:59');
             if (count($tilentaSubResult) > 0) {
@@ -150,7 +151,7 @@ if (isset($empl)) {
                         <td><?php echo date("d-m-Y H:i:s", strtotime($xdr->bill_time)); ?></td>
                         <td><?php echo __($xdr->account_id); ?></td>
                         <td><?php echo __($xdr->CLD); ?></td>
-                        <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); ?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
+                        <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); $total_sub += $xdr->charged_amount; ?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
                     </tr>
                 <?php
                 }
@@ -164,7 +165,7 @@ if (isset($empl)) {
                         <td><?php echo date("d-m-Y H:i:s", strtotime($xdr->bill_time)); ?></td>
                         <td><?php echo __($xdr->account_id); ?></td>
                         <td><?php echo __($xdr->CLD); ?></td>
-                        <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); ?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
+                        <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); $total_sub += $xdr->charged_amount;?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
                     </tr>
                 <?php
                 }
@@ -175,5 +176,9 @@ if (isset($empl)) {
            }
          }  
         ?>
+                    <tr>
+                        <td colspan="3" align="right;"><strong>Total</strong></td>
+                        <td><?php echo number_format($total_sub,2);?><?php echo sfConfig::get('app_currency_code'); ?></td>
+                    </tr>
     </table><br/><br/>
 </div>

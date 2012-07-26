@@ -86,11 +86,11 @@
                     <li><?php
                         if ($modulName == "company" && $actionName == 'callHisotry') {
                         ?>
-                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/callHistory" class="current"><?php echo  __('Call History');?></a>
+                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/callHisotry" class="current"><?php echo  __('Call History');?></a>
                         <?php 
                         } else {
                         ?>
-                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/callHistory"><?php echo  __('Call History');?></a>
+                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/callHisotry"><?php echo  __('Call History');?></a>
                         <?php 
                         }
                         ?>
