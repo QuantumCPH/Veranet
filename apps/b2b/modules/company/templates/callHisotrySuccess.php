@@ -178,7 +178,7 @@ if (isset($empl)) {
         ?>
                     <tr>
                         <td colspan="3" align="right"><strong>Total</strong></td>
-                        <td><?php echo number_format($total_sub,2);?><?php echo sfConfig::get('app_currency_code'); ?></td>
+                        <td align="right"><?php echo number_format($total_sub,2);?><?php echo sfConfig::get('app_currency_code'); ?></td>
                     </tr>
     </table><br/><br/>
 </div>
