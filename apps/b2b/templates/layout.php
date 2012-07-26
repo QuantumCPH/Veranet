@@ -18,18 +18,18 @@
             </div>
             <div id="slogan">
                 
-                <?php if ($sf_user->getAttribute('username', '', 'agentsession')) {
+                <?php if ($sf_user->getAttribute('companyname', '', 'companysession')) {
                 ?>
                 <h1><?php echo __('B2B Portal'); ?></h1>
                         <div id="loggedInUser">
-                    <?php echo __('Logged in as:') ?><b>&nbsp;<?php echo $sf_user->getAttribute('username', '', 'agentsession') ?></b><br />
+                    <?php echo __('Logged in as:') ?><b>&nbsp;<?php echo $sf_user->getAttribute('companyname', '', 'companysession') ?></b><br />
                     <?php
-                        if ($agent_company) {
-                            if ($agent_company->getIsPrepaid()) {
+                       // if ($company) {
+                           // if ($ompany->getIsPrepaid()) {
                     ?>
-                    <?php echo __('Your Balance is:') ?> <b><?php echo $agent_company->getBalance(); ?></b>
-                    <?php } ?>
-                    <?php } ?>
+                    <?php //echo __('Your Balance is:') ?> <b><?php //echo $company->getBalance(); ?></b>
+                    <?php //} ?>
+                    <?php // } ?>
                     </div>
                 <?php } ?>
 
@@ -86,12 +86,24 @@
                     <li><?php
                         if ($modulName == "company" && $actionName == 'callHisotry') {
                         ?>
-                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/callHisotry" class="current"><?php echo  __('Call History');?></a>
+                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/callHistory" class="current"><?php echo  __('Call History');?></a>
                         <?php 
                         } else {
                         ?>
-                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/callHisotry"><?php echo  __('Call History');?></a>
+                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/callHistory"><?php echo  __('Call History');?></a>
                         <?php 
+                        }
+                        ?>
+                    </li>
+                    <li><?php
+                        if ($modulName == "company" && $actionName == 'invoices') {
+                        ?>
+                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/invoices" class="current"><?php echo  __('Invoices');?></a>
+                        <?php    
+                        } else {
+                        ?>
+                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/invoices"><?php echo  __('Invoices');?></a>
+                        <?php     
                         }
                         ?>
                     </li>
@@ -146,8 +158,8 @@
                 <?php endif; ?>
                 <script type="text/javascript">
                  jQuery(function(){
-                   jQuery("#startdate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy' });
-                   jQuery("#enddate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'dd-mm-yy'});
+                   jQuery("#startdate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'yy-mm-dd' });
+                   jQuery("#enddate").datepicker({ minDate: '-2m +0w',maxDate: '0m +0w', dateFormat: 'yy-mm-dd'});
                    jQuery("#trigger_startdate").hide();
                    jQuery("#trigger_enddate").hide();
                  });

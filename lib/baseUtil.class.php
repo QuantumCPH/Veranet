@@ -1,7 +1,7 @@
 <?php
 	class BaseUtil
 	{
-		public static function html2pdf($html_content)
+		public static function html2pdf($invoiceId,$html_content,$pdfname='')
 		{ // return the path to pdf file
 			$html_file_path = '';
 			$pdf_file_path = '';

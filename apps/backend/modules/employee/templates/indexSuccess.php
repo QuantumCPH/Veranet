@@ -115,14 +115,14 @@
 <!--</td>-->
  <?php  if(isset($companyval) && $companyval!=""){  ?>
       <td> <?php  $mobileID= $employee->getCountryMobileNumber();
-       
+        $telintaGetBalance = 0;
         $ct = new Criteria();
         $ct->add(TelintaAccountsPeer::ACCOUNT_TITLE, 'a'.$mobileID);
         $ct->addAnd(TelintaAccountsPeer::STATUS, 3);
         $telintaAccount = TelintaAccountsPeer::doSelectOne($ct);
         $accountInfo = CompanyEmployeActivation::getAccountInfo($telintaAccount->getIAccount());
         $telintaGetBalance = $accountInfo->account_info->balance;
-       
+//       
         /*
         $cb = new Criteria();
         $cb->add(TelintaAccountsPeer::ACCOUNT_TITLE, 'cb'.$mobileID);
@@ -141,19 +141,19 @@
         $voip->addAnd(SeVoipNumberPeer::IS_ASSIGNED, 1);
         $voipv = SeVoipNumberPeer::doSelectOne($voip);
 
-        if(isset ($voipv)){
+            if(isset ($voipv)){
 
-        $resenummer=$voipv->getNumber();
-        $resenummer = substr($resenummer, 2);
+            $resenummer=$voipv->getNumber();
+            $resenummer = substr($resenummer, 2);
 
-        $res = new Criteria();
-        $res->add(TelintaAccountsPeer::ACCOUNT_TITLE, $resenummer);
-        $res->addAnd(TelintaAccountsPeer::STATUS, 3);
-        $telintaAccountres = TelintaAccountsPeer::doSelectOne($res);
-        $accountInfores = CompanyEmployeActivation::getAccountInfo($telintaAccountres->getIAccount());
-        $telintaGetBalanceres = $accountInfores->account_info->balance;
+            $res = new Criteria();
+            $res->add(TelintaAccountsPeer::ACCOUNT_TITLE, $resenummer);
+            $res->addAnd(TelintaAccountsPeer::STATUS, 3);
+            $telintaAccountres = TelintaAccountsPeer::doSelectOne($res);
+            $accountInfores = CompanyEmployeActivation::getAccountInfo($telintaAccountres->getIAccount());
+            $telintaGetBalanceres = $accountInfores->account_info->balance;
 
-        }
+            }
         }
         $balnc=(float)$telintaGetBalance+(float)$telintaGetBalancecb+(float)$telintaGetBalanceres;
         echo number_format($balnc,2);

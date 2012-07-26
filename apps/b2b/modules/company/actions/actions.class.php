@@ -22,6 +22,7 @@ class companyActions extends sfActions {
         
         $c = new Criteria();
         $c->add(EmployeePeer::COMPANY_ID, $this->company->getId());
+        $c->addAnd(EmployeePeer::STATUS_ID,3);
         $this->employees = EmployeePeer::doSelect($c);
 
         $nc = new Criteria();
@@ -52,6 +53,7 @@ class companyActions extends sfActions {
                         $this->getUser()->setAuthenticated(true);
                         $this->getUser()->setAttribute('company_id', $company->getId(), 'companysession');
                         $this->getUser()->setAttribute('companyname', $company->getName(), 'companysession');
+                        $this->company = $company;
                         $this->redirect(sfConfig::get('app_b2b_url') . 'company/dashboard');
                     } else {
                         $this->getUser()->setFlash('login_error_message', $this->getContext()->getI18N()->__('Your account is not active.'));
@@ -118,7 +120,7 @@ class companyActions extends sfActions {
         return sfView::NONE;
     }
 
-    public function executeCallHisotry(sfWebRequest $request) {
+    public function executeCallHistorys(sfWebRequest $request) {
         $this->forward404Unless($this->getUser()->getAttribute('companyname', '', 'companysession'));
         $this->company = CompanyPeer::retrieveByPK($this->getUser()->getAttribute('company_id', '', 'companysession'));
         if (isset($_POST['startdate']) && isset($_POST['enddate'])) {
@@ -131,28 +133,144 @@ class companyActions extends sfActions {
             $this->todate = date("Y-m-d");
         }
         $this->iaccount = $request->getParameter('iaccount');
-        if (isset($this->iaccount) && $this->iaccount != '') {
+        $fromdate = $this->fromdate . " 00:00:00";
+        $todate = $this->todate. " 23:59:59" ;
+//        if (isset($this->iaccount) && $this->iaccount != '') {
+//            $ce = new Criteria();
+//            $ce->add(TelintaAccountsPeer::ID, $this->iaccount);
+//            $ce->addAnd(TelintaAccountsPeer::STATUS, 3);
+//            $telintaAccount = TelintaAccountsPeer::doSelectOne($ce);
+//
+//            $this->iAccountTitle = $telintaAccount->getAccountTitle();
+//
+//            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+//        } else {
+//
+//            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+//        }
+          if (isset($this->iaccount) && $this->iaccount != '') {
             $ce = new Criteria();
-            $ce->add(TelintaAccountsPeer::ID, $this->iaccount);
-            $ce->addAnd(TelintaAccountsPeer::STATUS, 3);
-            $telintaAccount = TelintaAccountsPeer::doSelectOne($ce);
-
-            $this->iAccountTitle = $telintaAccount->getAccountTitle();
-
-            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-        } else {
-
-            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-        }
-
+            $ce->add(EmployeeCallhistoryPeer::ACCOUNT_ID, $this->iaccount);
+            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $fromdate . "' ", Criteria::CUSTOM);
+            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time  < '" . $todate . " 23:59:59" . "' ", Criteria::CUSTOM);
+            $this->callHistory = EmployeeCallhistoryPeer::doSelect($ce);
+            
+           // $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+          } else {
+            
+            $ce = new Criteria();
+            $ce->add(EmployeeCallhistoryPeer::COMPANY_ID, $this->company->getId());
+            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $fromdate . "' ", Criteria::CUSTOM);
+            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time  < '" . $todate . "' ", Criteria::CUSTOM);
+            $this->callHistory = EmployeeCallhistoryPeer::doSelect($ce);
+            
+            //$this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+          }
+        echo $fromdate;
+        echo '<br />';
+        echo $todate;
         $c = new Criteria();
         $c->add(TelintaAccountsPeer::I_CUSTOMER, $this->company->getICustomer());
         $c->addAnd(TelintaAccountsPeer::STATUS, 3);
        // echo 'icustomer---'.TelintaAccountsPeer::doCount($c);
         $this->telintaAccountObj = TelintaAccountsPeer::doSelect($c);
         //var_dump($this->telintaAccountObj);die;
+        
+        $im = new Criteria();
+        $im->add(InvoicePeer::BILLING_STARTING_DATE, $starting);
+        $im->addAnd(InvoicePeer::BILLING_ENDING_DATE, $ending);
+        $im->addAnd(InvoicePeer::COMPANY_ID,$companyId);
+        $im->addSelectColumn('sum(' . InvoicePeer::INVOICE_COST. ') AS invoice_cost');
+        $im->addSelectColumn('sum(' . InvoicePeer::MOMS. ') AS MOMS');
+        $sum = InvoicePeer::doSelectStmt($im);
+        $resultset = $sum->fetch(PDO::FETCH_OBJ);
+        $this->total_invoice_cost =$resultset->invoice_cost;
+        $this->total_mom = $resultset->MOMS;
     }
+    public function executeCallHistory($request){
+            
+            $this->forward404Unless($this->getUser()->getAttribute('companyname', '', 'companysession'));
+            $this->company = CompanyPeer::retrieveByPK($this->getUser()->getAttribute('company_id', '', 'companysession'));
+            $billingduration = $request->getParameter('billingduration');
+            
+            $companyId = $this->company->getId();
+            
+          // echo $this->no_days = date("t");
+            
+            $emp_c = new Criteria();
+            $emp_c->add(EmployeePeer::COMPANY_ID,$companyId);
+            $emp_c->add(EmployeePeer::STATUS_ID,3);
+            $this->employees = EmployeePeer::doSelect($emp_c);            
+            
+            $employee_ids = array();
+            foreach($this->employees as $emp){
+                $employee_ids[] = $emp->getId();
+            }
+            $this->employee_id ="";
+            
+            $cb = new Criteria();
+            $cb->add(EmployeeCallhistoryPeer::EMPLOYEE_ID,$employee_ids,Criteria::IN);
+            if ($request->isMethod('post')) {
+               $this->employee_id = $request->getParameter('employee');
+               if($this->employee_id!=""){
+                  $emp_c->addAnd(EmployeeCallhistoryPeer::EMPLOYEE_ID,$this->employee_id);
+                  $cb->addAdd(EmployeeCallhistoryPeer::EMPLOYEE_ID,$this->employee_id); 
+               }
+               if($billingduration!='all'){
+                 $duration = explode("_",$billingduration); 
+                 $starting = $duration[0];
+                 $ending   = $duration[1];
+                 $cb->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $starting . "' ", Criteria::CUSTOM);
+                 $cb->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  <= '" . $ending . "' ", Criteria::CUSTOM);
+                 $this->start = $starting;
+                 $this->end = $ending;
+              }elseif($billingduration=='all'){
+                 $employee = EmployeePeer::doSelectOne($emp_c);
+                 $empCreat = $employee->getCreatedAt();
+                 
+                 $this->start = $this->company->getCreatedAt();
+                 $this->end = date('Y-m-d h:i:s');
+              }
+            }else{  
+                 $starting = date('Y-m-01 00:00:00');
+                 $ending   = date('Y-m-t 23:59:59');
+                 $cb->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $starting . "' ", Criteria::CUSTOM);
+                 $cb->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  <= '" . $ending . "' ", Criteria::CUSTOM);
+                 $billingduration = $starting.'_'.$ending;
+                 $this->start = $starting;
+                 $this->end = $ending;
+                 $this->last = $starting;
+                 $this->till = $ending;
+            }
+            
+            
+            $cb->addDescendingOrderByColumn(EmployeeCallhistoryPeer::ACCOUNT_ID);
+            $cb->addDescendingOrderByColumn(EmployeeCallhistoryPeer::CONNECT_TIME);
+            $this->callHistory = EmployeeCallhistoryPeer::doSelect($cb);
 
+            $ic = new Criteria();
+            $ic->add(InvoicePeer::COMPANY_ID,$companyId);
+            $ic->addGroupByColumn(InvoicePeer::BILLING_STARTING_DATE);
+            $ic->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
+
+            $this->invoiceTimings = InvoicePeer::doSelect($ic);
+            #$emp_c->add(EmployeePeer::CREATED_AT,$this->end,Criteria::LESS_EQUAL);
+            $this->employees = EmployeePeer::doSelect($emp_c);
+            $this->billingduration = $billingduration;
+
+            $im = new Criteria();
+            $im->add(InvoicePeer::BILLING_STARTING_DATE, $starting);
+            $im->addAnd(InvoicePeer::BILLING_ENDING_DATE, $ending);
+            $im->addAnd(InvoicePeer::COMPANY_ID,$companyId);
+            $im->addSelectColumn('sum(' . InvoicePeer::INVOICE_COST. ') AS invoice_cost');
+            $im->addSelectColumn('sum(' . InvoicePeer::MOMS. ') AS MOMS');
+            $sum = InvoicePeer::doSelectStmt($im);
+            $resultset = $sum->fetch(PDO::FETCH_OBJ);
+            $this->total_invoice_cost =$resultset->invoice_cost;
+            $this->total_mom = $resultset->MOMS;
+             
+           // print_r($this->billing);
+        }
     public function executeForgotPassword(sfWebRequest $request) {
 
         if ($request->isMethod('post')) {
@@ -244,5 +362,63 @@ class companyActions extends sfActions {
             return $this->redirect(sfConfig::get('app_b2b_url') . 'company/view');
         }
     }
+    
+    public function executeSelectdate(sfWebRequest $request)
+    {
+             
+    } 
+    
+    public function executeInvoices(sfWebRequest $request)
+    {
+       
+       $this->forward404Unless($this->getUser()->getAttribute('companyname', '', 'companysession'));
+       $this->company = CompanyPeer::retrieveByPK($this->getUser()->getAttribute('company_id', '', 'companysession'));
+        
+       $billingduration = $request->getParameter('billingduration');
+       $this->statusid = $request->getParameter('statusid');     
+       
+      
+       
+       $ic = new Criteria();
+       $ic->add(InvoicePeer::COMPANY_ID,$this->company->getId());
+       $ic->addGroupByColumn(InvoicePeer::BILLING_STARTING_DATE);
+       $ic->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
 
+       $ci = new Criteria();
+         
+       $cis = new Criteria();
+       $cis->add(InvoiceStatusPeer::ID,4 ,CRITERIA::NOT_EQUAL);
+       $this->invoice_status = InvoiceStatusPeer::doSelect($cis);
+       if($this->statusid !='' ){           
+         $ci->add(InvoicePeer::INVOICE_STATUS_ID,$this->statusid);  /// pending,paid,expire
+       }else{
+         $ci->add(InvoicePeer::INVOICE_STATUS_ID,4,Criteria::NOT_EQUAL);  /// pending,paid,expire  
+       }
+       if($billingduration){
+         $duration = explode("_",$billingduration); 
+         $starting = $duration[0];
+         $ending   = $duration[1];
+         $ci->addAnd(InvoicePeer::BILLING_STARTING_DATE, " billing_starting_date >= '" . $starting . "' ", Criteria::CUSTOM);
+         $ci->addAnd(InvoicePeer::BILLING_ENDING_DATE, " billing_ending_date  <= '" . $ending . "' ", Criteria::CUSTOM);
+       }
+       $ci->addAnd(InvoicePeer::COMPANY_ID,$this->company->getId());
+       $ci->add(InvoicePeer::TOTALPAYMENT,1,CRITERIA::GREATER_EQUAL);  
+       
+       $ci->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
+       
+       $this->invoices = InvoicePeer::doSelect($ci);
+       $this->billingduration = $billingduration;
+
+       
+
+       $this->invoiceTimings = InvoicePeer::doSelect($ic);
+    }
+    
+    public function executeShowInvoice(sfRequest $request){
+       $invoiceid = $request->getParameter('id');
+       
+       $invoice = InvoicePeer::retrieveByPK($invoiceid);
+       $this->invoiceHtml = $invoice->getInvoiceHtml();
+       $this->setLayout(false);
+   }
 }
