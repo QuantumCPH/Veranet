@@ -214,7 +214,7 @@ class companyActions extends sfActions {
                $this->employee_id = $request->getParameter('employee');
                if($this->employee_id!=""){
                   $emp_c->addAnd(EmployeeCallhistoryPeer::EMPLOYEE_ID,$this->employee_id);
-                  $cb->addAdd(EmployeeCallhistoryPeer::EMPLOYEE_ID,$this->employee_id); 
+                  $cb->addAnd(EmployeeCallhistoryPeer::EMPLOYEE_ID,$this->employee_id); 
                }
                if($billingduration!='all'){
                  $duration = explode("_",$billingduration); 
