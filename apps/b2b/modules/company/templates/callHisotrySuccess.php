@@ -23,7 +23,7 @@
                                     $cn->add(EmployeePeer::ID, $employeeid);
                                     $employees = EmployeePeer::doSelectOne($cn);
                                     ?>
-                                    <option value="<?PHP echo $account->getId(); ?>" <?PHP echo ($account->getId() == $iaccount) ? 'selected="selected"' : '' ?>><?php echo $employees->getFirstName() . " -- " . $account->getAccountTitle(); ?></option>
+                            <option value="<?PHP echo $account->getId(); ?>" <?PHP echo ($account->getId() == $iaccount) ? 'selected="selected"' : '' ?>><?php echo $employees->getFirstName() . " -- " . $employees->getMobileNumber(); ?></option>
                                 <?php
                                 }
                             }
@@ -51,8 +51,8 @@
         </form>
     </div><br><br /><br />
     <h1><?php echo __('Call History');
-if (isset($iAccountTitle) && $iAccountTitle != '') {
-    echo "($iAccountTitle)";
+if (isset($empl)) {
+    echo "(".$empl->getMobileNumber().")";
 } ?></h1>
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
 
@@ -131,8 +131,8 @@ if (isset($iAccountTitle) && $iAccountTitle != '') {
     </table><br /><br />
 
     <h1><?php echo __('Subscription');
-if (isset($iAccountTitle) && $iAccountTitle != '') {
-    echo "($iAccountTitle)";
+if (isset($empl)) {
+    echo "(".$empl->getMobileNumber().")";
 } ?></h1>
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
         <tr class="headings">
@@ -142,7 +142,20 @@ if (isset($iAccountTitle) && $iAccountTitle != '') {
             <th  width="10%"  align="left" style="text-align: right;"><?php echo __('Amount') ?></th>
         </tr>
         <?php //var_dump($ems);
-
+         if(isset($empl)){
+           $tilentaSubResult = CompanyEmployeActivation::getSubscription($empl, $fromdate . ' 00:00:00', $todate . ' 23:59:59');
+            if (count($tilentaSubResult) > 0) {
+                foreach ($tilentaSubResult->xdr_list as $xdr) {
+                    ?> <tr>
+                        <td><?php echo date("d-m-Y H:i:s", strtotime($xdr->bill_time)); ?></td>
+                        <td><?php echo __($xdr->account_id); ?></td>
+                        <td><?php echo __($xdr->CLD); ?></td>
+                        <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); ?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
+                    </tr>
+                <?php
+                }
+            } 
+         }else{   
             foreach ($ems as $emp) {
             $tilentaSubResult = CompanyEmployeActivation::getSubscription($emp, $fromdate . ' 00:00:00', $todate . ' 23:59:59');
             if (count($tilentaSubResult) > 0) {
@@ -160,6 +173,7 @@ if (isset($iAccountTitle) && $iAccountTitle != '') {
                 echo __('There are currently no call records to show.');
             }
            }
+         }  
         ?>
     </table><br/><br/>
 </div>
