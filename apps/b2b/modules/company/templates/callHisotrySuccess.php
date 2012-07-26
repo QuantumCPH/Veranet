@@ -137,6 +137,7 @@ if (isset($iAccountTitle) && $iAccountTitle != '') {
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
         <tr class="headings">
             <th  width="10%"  align="left"><?php echo __('Date and time') ?></th>
+            <th  width="10%"  align="left"><?php echo __('Account ID') ?></th>
             <th  width="10%"  align="left"><?php echo __('Description') ?></th>
             <th  width="10%"  align="left" style="text-align: right;"><?php echo __('Amount') ?></th>
         </tr>
@@ -148,6 +149,7 @@ if (isset($iAccountTitle) && $iAccountTitle != '') {
                 foreach ($tilentaSubResult->xdr_list as $xdr) {
                     ?> <tr>
                         <td><?php echo date("d-m-Y H:i:s", strtotime($xdr->bill_time)); ?></td>
+                        <td><?php echo __($xdr->account_id); ?></td>
                         <td><?php echo __($xdr->CLD); ?></td>
                         <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); ?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
                     </tr>
