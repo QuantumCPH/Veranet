@@ -516,7 +516,7 @@ class CompanyEmployeActivation {
         $cta->add(TelintaAccountsPeer::PARENT_TABLE,'employee');
         $cta->addAnd(TelintaAccountsPeer::PARENT_ID,$employee->getId());
         $cta->addAnd(TelintaAccountsPeer::STATUS,3);
-        $count_ta = TelintaAccountsPeer::doCount($cta);
+     echo   $count_ta = TelintaAccountsPeer::doCount($cta);
         if($count_ta > 0){
         $telinta_account = TelintaAccountsPeer::doSelectOne($cta);    
        // var_dump($telinta_account);die;
