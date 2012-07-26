@@ -3537,6 +3537,13 @@ if(($caltype!="IC") && ($caltype!="hc")){
                        $empRegSub->setDisconnectTime($xdr->disconnect_time);
                        $empRegSub->setBillTime($xdr->bill_time);
                    }
+               }else{
+                   $employeeSubLog = new EmployeeSubscriptionLogsPeer();
+                   $employeeSubLog->setParent('employee');
+                   $employeeSubLog->setParentId($employee->getId());
+                   $employeeSubLog->setTodate($this->todate);
+                   $employeeSubLog->setFromdate($this->fromdate);
+                   $employeeSubLog->save();
                } 
             // 
             $empRegSub->setCompanyId($employee->getCompanyId());
@@ -3708,5 +3715,92 @@ if(($caltype!="IC") && ($caltype!="hc")){
 
 
         ////////////////////////////////////////////////////////////////////
+    }
+    
+    public function executeSaveEmployeeSubNotFetch(sfWebRequest $request)
+    {
+        $c = new Criteria;
+        $c->add(EmployeeSubscriptionLogsPeer::PARENT,'employee');
+        $c->add(EmployeeSubscriptionLogsPeer::STATUS,1);
+        $subscriptionLogs = EmployeeSubscriptionLogsPeer::doSelect($c);
+
+        foreach($subscriptionLogs as $subLog){
+
+            $this->fromdate = $subLog->getFromdate();
+
+            $this->todate = $subLog->getTodate();
+            $company =  EmployeePeer::retrieveByPK($subLog->getEmployeeId());
+//            $tilentaCallHistryResult = CompanyEmployeActivation::callHistory($company, $this->fromdate . ' 00:00:00', $this->todate . ' 23:59:59');
+////     var_dump($tilentaCallHistryResult);
+////     die;
+//           if($tilentaCallHistryResult){
+//            foreach ($tilentaCallHistryResult->xdr_list as $xdr) {
+//                
+//                $callval = $xdr->charged_quantity;
+//                 if($callval>3600){
+//                    $hval = number_format($callval/3600);
+//                    $rval = $callval%3600;
+//                    $minute = date('i',$rval);
+//                    $second=date('s',$rval);
+//                    $minute=$minute+$hval*60;
+//                    $duration = $minute.":".$second;
+//                   // $duration_minutes = date('i',  strtotime($duration));
+//                 }else{
+//                    $duration = date('i:s',$callval);
+//                  //  $duration_minutes = date('i',  strtotime($duration));
+//                 }
+//                               
+//                $emCalls = new EmployeeCallhistory();
+//                $emCalls->setAccountId($xdr->account_id);
+//                $emCalls->setBillStatus($xdr->bill_status);
+//                $emCalls->setBillTime($xdr->bill_time);
+//                $emCalls->setChargedAmount($xdr->charged_amount);
+//                $emCalls->setChargedQuantity($xdr->charged_quantity);
+//                $emCalls->setPhoneNumber($xdr->CLD);
+//                $emCalls->setCli($xdr->CLI);
+//                $emCalls->setConnectTime($xdr->connect_time);
+//                
+//                $country = $xdr->country;
+//                $cc = new Criteria();
+//                $cc->add(CountryPeer::NAME,$country, Criteria::LIKE);
+//                $ccount = CountryPeer::doCount($cc);
+//                if($ccount > 0){
+//                   $csel = CountryPeer::doSelectOne($cc); 
+//                   $countryid = $csel->getId();
+//                }else{
+//                   $cin = new Country();
+//                   $cin->setName($country);
+//                   $cin->save();
+//                   $countryid = $cin->getId();
+//                }
+//                $emCalls->setCountryId($countryid);
+//                    $ce = new Criteria();
+//                    $ce->add(TelintaAccountsPeer::ACCOUNT_TITLE,$xdr->account_id);
+//                    $ce->add(TelintaAccountsPeer::STATUS,3);
+//                    if(TelintaAccountsPeer::doCount($ce)>0){
+//                        $emp = TelintaAccountsPeer::doSelectOne($ce);
+//                        $emCalls->setEmployeeId($emp->getParentId());
+//                    }
+//                $emCalls->setCompanyId($company->getId());
+//                $emCalls->setDescription($xdr->description);
+//                $emCalls->setDisconnectCause($xdr->disconnect_cause);
+//                $emCalls->setDisconnectTime($xdr->disconnect_time);
+//                $emCalls->setDuration($duration);
+//               // $emCalls->setDurationMinutes($duration_minutes);
+//                $emCalls->setICustomer($company->getICustomer());
+//                $emCalls->setIXdr($xdr->i_xdr);
+//                $emCalls->setStatusId(1);
+//                $emCalls->setSubdivision($xdr->subdivision);
+//                $emCalls->setUnixConnectTime($xdr->unix_connect_time);
+//                $emCalls->setUnixDisconnectTime($xdr->unix_disconnect_time);
+//                $emCalls->save();
+//             }
+//             
+//             $callLog->setStatus(3);
+//             $callLog->save();
+//             
+//          }
+        } 
+                return sfView::NONE;
     }
 }
