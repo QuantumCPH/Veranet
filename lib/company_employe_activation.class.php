@@ -511,12 +511,12 @@ class CompanyEmployeActivation {
         $xdrList = false;
         $max_retries = 10;
         $retry_count = 0;
-        
+     //   var_dump($employee);
         $cta = new Criteria();
         $cta->add(TelintaAccountsPeer::PARENT_TABLE,'employee');
         $cta->addAnd(TelintaAccountsPeer::PARENT_ID,$employee->getId());
         $cta->addAnd(TelintaAccountsPeer::STATUS,3);
-     echo   $count_ta = TelintaAccountsPeer::doCount($cta);
+        $count_ta = TelintaAccountsPeer::doCount($cta);
         if($count_ta > 0){
         $telinta_account = TelintaAccountsPeer::doSelectOne($cta);    
        // var_dump($telinta_account);die;

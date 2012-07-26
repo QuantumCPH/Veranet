@@ -160,7 +160,9 @@ class companyActions extends sfActions {
         $ces = new Criteria();
         $ces->add(EmployeePeer::COMPANY_ID,$this->company->getId());
         $ces->addAnd(EmployeePeer::STATUS_ID,3);
-        if(EmployeePeer::doCount($ces)>0)  $this->employees = EmployeePeer::doSelect($ces);
+        if(EmployeePeer::doCount($ces)>0)  {
+             $this->ems = EmployeePeer::doSelect($ces);
+        }
 //        
 //        $im = new Criteria();
 //        $im->add(InvoicePeer::BILLING_STARTING_DATE, $starting);
