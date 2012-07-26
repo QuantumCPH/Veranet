@@ -6,7 +6,7 @@
     $substr=$str+$str1;
  ?>
 <!--<a href=?iaccount=<?php //echo $account->getIAccount()."&iaccountTitle=".$account->getAccountTitle(); ?>>-->
-<h1><?php echo __('Call History'); if(isset($iAccountTitle)&&$iAccountTitle!=''){echo "($iAccountTitle)"; }?></h1>
+
 <div class="sf_admin_filters">
     <form action="" id="searchform" method="POST" name="searchform">
         <fieldset>
@@ -18,9 +18,9 @@
                      <?php
                      if(count($telintaAccountObj)>0){
                      foreach($telintaAccountObj as $account){
-                        $companyid= $account->getParentId();
+                        $employeeid= $account->getParentId();
                         $cn = new Criteria();
-                        $cn->add(EmployeePeer::COMPANY_ID, $companyid);
+                        $cn->add(EmployeePeer::ID, $employeeid);
                         $employees = EmployeePeer::doSelectOne($cn);
                      ?>
                         <option value="<?PHP  echo $account->getId();?>" <?PHP echo ($account->getId()==$iaccount)?'selected="selected"':''?>><?php echo $employees->getFirstName()." -- ". $account->getAccountTitle();?></option>
@@ -48,9 +48,9 @@
            <li><input type="button" class="sf_admin_action_reset_filter" value="reset" name="reset" onclick="document.location.href='<?PHP echo sfConfig::get('app_b2b_url')."company/callHisotry";?>'"></li>
         </ul>
     </form>
-</div><br><br><br>
+</div><br><br /><br />
+<h1><?php echo __('Call History'); if(isset($iAccountTitle)&&$iAccountTitle!=''){echo "($iAccountTitle)"; }?></h1>
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
-
 
         <tr class="headings">
             <th width="10%"   align="left"><?php echo __('Date & Time') ?></th>
@@ -72,7 +72,7 @@
 
 
             <tr>
-                <td><?php echo $xdr->connect_time; ?></td>
+                <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->connect_time)); ?></td>
                 <td><?php echo $xdr->CLD; ?></td>
                 <td><?php   
                  $callval=$xdr->charged_quantity;
@@ -120,13 +120,41 @@ echo  date('i:s',$callval);
                 </tr>
 <?php } ?>
 
-            <tr><td colspan="7" align="left"><?php echo __('Call type detail') ?> <br/> <?php echo __('Int. = International calls') ?><br/>
+<!--            <tr><td colspan="7" align="left"><?php echo __('Call type detail') ?> <br/> <?php echo __('Int. = International calls') ?><br/>
                 <?php //echo __('Cb M = Callback mottaga')  ?>
                 <?php //echo __('Cb S = Callback samtal')  ?>
                 <?php //echo __('R = resenummer samtal')    ?>
-            </td></tr>
+            </td></tr>-->
+
+    </table><br /><br />
+            
+    <h1><?php echo __('Subscription'); if(isset($iAccountTitle)&&$iAccountTitle!=''){echo "($iAccountTitle)"; }?></h1>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="callhistory">
+            <tr>
+                <td class="title"><?php echo __('Date and time') ?></td>
+                <td class="title" width="40%"><?php echo __('Description') ?></td>
+                    <td class="title" aligin="right" style="text-align: right;"><?php echo __('Amount') ?></td>
+                </tr>
+            <?php
+            foreach($employees as $employee){
+                $tilentaCallHistryResult = CompanyEmployeActivation::getSubscription($employee, $fromdate . ' 00:00:00', $todate . ' 23:59:59');
+                if(count($tilentaCallHistryResult)>0){
+                foreach ($tilentaCallHistryResult->xdr_list as $xdr) {
+             ?>
 
 
+                <tr>
+                    <td><?php echo date("d-m-Y H:i:s", strtotime($xdr->bill_time)); ?></td>
+                    <td><?php echo __($xdr->CLD); ?></td>
+                    <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); ?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
+                </tr>
+                <?php } 
+                
+                }else {
 
-    </table>
+                    echo __('There are currently no call records to show.');
+
+                }
+            }    ?>
+            </table><br/><br/>
 </div>

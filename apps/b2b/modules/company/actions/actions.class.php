@@ -120,7 +120,7 @@ class companyActions extends sfActions {
         return sfView::NONE;
     }
 
-    public function executeCallHistorys(sfWebRequest $request) {
+    public function executeCallHisotry(sfWebRequest $request) {
         $this->forward404Unless($this->getUser()->getAttribute('companyname', '', 'companysession'));
         $this->company = CompanyPeer::retrieveByPK($this->getUser()->getAttribute('company_id', '', 'companysession'));
         if (isset($_POST['startdate']) && isset($_POST['enddate'])) {
@@ -135,57 +135,43 @@ class companyActions extends sfActions {
         $this->iaccount = $request->getParameter('iaccount');
         $fromdate = $this->fromdate . " 00:00:00";
         $todate = $this->todate. " 23:59:59" ;
-//        if (isset($this->iaccount) && $this->iaccount != '') {
-//            $ce = new Criteria();
-//            $ce->add(TelintaAccountsPeer::ID, $this->iaccount);
-//            $ce->addAnd(TelintaAccountsPeer::STATUS, 3);
-//            $telintaAccount = TelintaAccountsPeer::doSelectOne($ce);
-//
-//            $this->iAccountTitle = $telintaAccount->getAccountTitle();
-//
-//            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-//        } else {
-//
-//            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-//        }
-          if (isset($this->iaccount) && $this->iaccount != '') {
+        if (isset($this->iaccount) && $this->iaccount != '') {
             $ce = new Criteria();
-            $ce->add(EmployeeCallhistoryPeer::ACCOUNT_ID, $this->iaccount);
-            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $fromdate . "' ", Criteria::CUSTOM);
-            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time  < '" . $todate . " 23:59:59" . "' ", Criteria::CUSTOM);
-            $this->callHistory = EmployeeCallhistoryPeer::doSelect($ce);
-            
-           // $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-          } else {
-            
-            $ce = new Criteria();
-            $ce->add(EmployeeCallhistoryPeer::COMPANY_ID, $this->company->getId());
-            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $fromdate . "' ", Criteria::CUSTOM);
-            $ce->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time  < '" . $todate . "' ", Criteria::CUSTOM);
-            $this->callHistory = EmployeeCallhistoryPeer::doSelect($ce);
-            
-            //$this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-          }
-        echo $fromdate;
-        echo '<br />';
-        echo $todate;
+            $ce->add(TelintaAccountsPeer::ID, $this->iaccount);
+            $ce->addAnd(TelintaAccountsPeer::STATUS, 3);
+            $telintaAccount = TelintaAccountsPeer::doSelectOne($ce);
+
+            $this->iAccountTitle = $telintaAccount->getAccountTitle();
+
+            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+        } else {
+
+            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+        }
+          
+//        echo $fromdate;
+//        echo '<br />';
+//        echo $todate;
         $c = new Criteria();
         $c->add(TelintaAccountsPeer::I_CUSTOMER, $this->company->getICustomer());
         $c->addAnd(TelintaAccountsPeer::STATUS, 3);
-       // echo 'icustomer---'.TelintaAccountsPeer::doCount($c);
         $this->telintaAccountObj = TelintaAccountsPeer::doSelect($c);
-        //var_dump($this->telintaAccountObj);die;
         
-        $im = new Criteria();
-        $im->add(InvoicePeer::BILLING_STARTING_DATE, $starting);
-        $im->addAnd(InvoicePeer::BILLING_ENDING_DATE, $ending);
-        $im->addAnd(InvoicePeer::COMPANY_ID,$companyId);
-        $im->addSelectColumn('sum(' . InvoicePeer::INVOICE_COST. ') AS invoice_cost');
-        $im->addSelectColumn('sum(' . InvoicePeer::MOMS. ') AS MOMS');
-        $sum = InvoicePeer::doSelectStmt($im);
-        $resultset = $sum->fetch(PDO::FETCH_OBJ);
-        $this->total_invoice_cost =$resultset->invoice_cost;
-        $this->total_mom = $resultset->MOMS;
+        $ces = new Criteria();
+        $ces->add(EmployeePeer::COMPANY_ID,$this->company->getId());
+        $ces->addAnd(EmployeePeer::STATUS_ID,3);
+        if(EmployeePeer::doCount($ces)>0)  $this->employees = EmployeePeer::doSelect($ces);
+//        
+//        $im = new Criteria();
+//        $im->add(InvoicePeer::BILLING_STARTING_DATE, $starting);
+//        $im->addAnd(InvoicePeer::BILLING_ENDING_DATE, $ending);
+//        $im->addAnd(InvoicePeer::COMPANY_ID,$companyId);
+//        $im->addSelectColumn('sum(' . InvoicePeer::INVOICE_COST. ') AS invoice_cost');
+//        $im->addSelectColumn('sum(' . InvoicePeer::MOMS. ') AS MOMS');
+//        $sum = InvoicePeer::doSelectStmt($im);
+//        $resultset = $sum->fetch(PDO::FETCH_OBJ);
+//        $this->total_invoice_cost =$resultset->invoice_cost;
+//        $this->total_mom = $resultset->MOMS;
     }
     public function executeCallHistory($request){
             

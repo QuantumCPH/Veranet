@@ -199,8 +199,9 @@ class employeeActions extends sfActions {
         $uniqueIdObj->setAssignedAt(date("Y-m-d H:i:s"));
         $uniqueIdObj->setStatus(1);
         $uniqueIdObj->save();
-       $product= ProductPeer::retrieveByPK($request->getParameter('productid'));
-       $chrageamount=$product->getRegistrationFee()+$product->getRegistrationFee()*sfConfig::get('app_vat_percentage');
+        $product= ProductPeer::retrieveByPK($request->getParameter('productid'));
+      // $chrageamount=$product->getRegistrationFee()+$product->getRegistrationFee()*sfConfig::get('app_vat_percentage');
+        $chrageamount=$product->getInitialBalance();
        //$emplyeeProductFeeDescription="Registration Fee Including Vat";,$emplyeeProductFeeDescription
         if($chrageamount > 0){
             CompanyEmployeActivation::charge($this->companys,$chrageamount);
