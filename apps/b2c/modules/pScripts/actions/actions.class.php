@@ -3266,21 +3266,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
            if($tilentaCallHistryResult){
             foreach ($tilentaCallHistryResult->xdr_list as $xdr) {
                 
-                $callval = $xdr->charged_quantity;
-                 if($callval>3600){
-                    $hval = number_format($callval/3600);
-                    $rval = $callval%3600;
-                    $minute = date('i',$rval);
-                    $second=date('s',$rval);
-                    $minute=$minute+$hval*60;
-                    $duration = $minute.":".$second;
-                    //$duration_minutes = date('i',  strtotime($duration));
-                 }else{
-                    $duration = date('i:s',$callval);
-                    //$duration_minutes = date('i',  strtotime($duration));
-                 }
-                               
-                $emCalls = new EmployeeCallhistory();
+                
+                $emCalls = new EmployeeCustomerCallhistory();
                 $emCalls->setAccountId($xdr->account_id);
                 $emCalls->setBillStatus($xdr->bill_status);
                 $emCalls->setBillTime($xdr->bill_time);
@@ -3303,23 +3290,24 @@ if(($caltype!="IC") && ($caltype!="hc")){
                    $cin->save();
                    $countryid = $cin->getId();
                 }
+                $emCalls->setParentTable('employee');
                 $emCalls->setCountryId($countryid);
                     $ce = new Criteria();
                     $ce->add(TelintaAccountsPeer::ACCOUNT_TITLE,$xdr->account_id);
+                    $ce->addAnd(TelintaAccountsPeer::PARENT_TABLE,'employee');
                     $ce->add(TelintaAccountsPeer::STATUS,3);
                     if(TelintaAccountsPeer::doCount($ce)>0){
                         $emp = TelintaAccountsPeer::doSelectOne($ce);
-                        $emCalls->setEmployeeId($emp->getParentId());
+                        $emCalls->setParentId($emp->getParentId());
                     }
                 $emCalls->setCompanyId($company->getId());
                 $emCalls->setDescription($xdr->description);
                 $emCalls->setDisconnectCause($xdr->disconnect_cause);
                 $emCalls->setDisconnectTime($xdr->disconnect_time);
-                $emCalls->setDuration($duration);
                // $emCalls->setDurationMinutes($duration_minutes);
                 $emCalls->setICustomer($company->getICustomer());
                 $emCalls->setIXdr($xdr->i_xdr);
-                $emCalls->setStatusId(1);
+                $emCalls->setStatus(1);
                 $emCalls->setSubdivision($xdr->subdivision);
                 $emCalls->setUnixConnectTime($xdr->unix_connect_time);
                 $emCalls->setUnixDisconnectTime($xdr->unix_disconnect_time);
@@ -3356,21 +3344,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
            if($tilentaCallHistryResult){
             foreach ($tilentaCallHistryResult->xdr_list as $xdr) {
                 
-                $callval = $xdr->charged_quantity;
-                 if($callval>3600){
-                    $hval = number_format($callval/3600);
-                    $rval = $callval%3600;
-                    $minute = date('i',$rval);
-                    $second=date('s',$rval);
-                    $minute=$minute+$hval*60;
-                    $duration = $minute.":".$second;
-                   // $duration_minutes = date('i',  strtotime($duration));
-                 }else{
-                    $duration = date('i:s',$callval);
-                  //  $duration_minutes = date('i',  strtotime($duration));
-                 }
-                               
-                $emCalls = new EmployeeCallhistory();
+                
+                $emCalls = new EmployeeCustomerCallhistory();
                 $emCalls->setAccountId($xdr->account_id);
                 $emCalls->setBillStatus($xdr->bill_status);
                 $emCalls->setBillTime($xdr->bill_time);
@@ -3393,23 +3368,24 @@ if(($caltype!="IC") && ($caltype!="hc")){
                    $cin->save();
                    $countryid = $cin->getId();
                 }
+                $emCalls->setParentTable('employee');
                 $emCalls->setCountryId($countryid);
                     $ce = new Criteria();
                     $ce->add(TelintaAccountsPeer::ACCOUNT_TITLE,$xdr->account_id);
+                    $ce->addAnd(TelintaAccountsPeer::PARENT_TABLE,'employee');
                     $ce->add(TelintaAccountsPeer::STATUS,3);
                     if(TelintaAccountsPeer::doCount($ce)>0){
                         $emp = TelintaAccountsPeer::doSelectOne($ce);
-                        $emCalls->setEmployeeId($emp->getParentId());
+                        $emCalls->setParentId($emp->getParentId());
                     }
-                $emCalls->setCompanyId($company->getId());
+                $emCalls->setCompanyId($callLog->getParentId());
                 $emCalls->setDescription($xdr->description);
                 $emCalls->setDisconnectCause($xdr->disconnect_cause);
                 $emCalls->setDisconnectTime($xdr->disconnect_time);
-                $emCalls->setDuration($duration);
                // $emCalls->setDurationMinutes($duration_minutes);
                 $emCalls->setICustomer($company->getICustomer());
                 $emCalls->setIXdr($xdr->i_xdr);
-                $emCalls->setStatusId(1);
+                $emCalls->setStatus(1);
                 $emCalls->setSubdivision($xdr->subdivision);
                 $emCalls->setUnixConnectTime($xdr->unix_connect_time);
                 $emCalls->setUnixDisconnectTime($xdr->unix_disconnect_time);
@@ -3420,14 +3396,6 @@ if(($caltype!="IC") && ($caltype!="hc")){
              $callLog->save();
              
           }
-//          else{
-//                $callsHistory = new CallHistoryCallsLog();
-//                $callsHistory->setParent('company');
-//                $callsHistory->setParentId($company->getId());
-//                $callsHistory->setTodate($this->todate);
-//                $callsHistory->setFromdate($this->fromdate);
-//                $callsHistory->save();
-//          } 
         } 
                 return sfView::NONE;
     }
@@ -3505,12 +3473,13 @@ if(($caltype!="IC") && ($caltype!="hc")){
             $prdPrice = 0;
             
             $c2 = new Criteria();
-            $c2->add(EmployeeRegSubPeer::BILL_START, $startdate);
-            $c2->addAnd(EmployeeRegSubPeer::BILL_END, $enddate);
-            $c2->addAnd(EmployeeRegSubPeer::EMPLOYEE_ID, $employee->getId());
-            if(EmployeeRegSubPeer::doCount($c2)==0){
+            $c2->add(RegistrationSubscriptionPeer::PARENT_TABLE, "employee");
+            $c2->add(RegistrationSubscriptionPeer::BILL_START, $startdate);
+            $c2->addAnd(RegistrationSubscriptionPeer::BILL_END, $enddate);
+            $c2->addAnd(RegistrationSubscriptionPeer::PARENT_ID, $employee->getId());
+            if(RegistrationSubscriptionPeer::doCount($c2)==0){
 
-            $empRegSub = new EmployeeRegSub();
+            $empRegSub = new RegistrationSubscription();
             $empProduct = ProductPeer::retrieveByPK($employee->getProductId());
             $employee_creation_at = strtotime($employee->getCreatedAt());
             $prdPrice = $empProduct->getPrice();
@@ -3547,7 +3516,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                } 
             // 
             $empRegSub->setCompanyId($employee->getCompanyId());
-            $empRegSub->setEmployeeId($employee->getId());
+            $empRegSub->setParentTable('employee');
+            $empRegSub->setParentId($employee->getId());
             $empRegSub->save();
             }
         }
@@ -3585,22 +3555,24 @@ if(($caltype!="IC") && ($caltype!="hc")){
             
 
             $cl = new Criteria();
-            $cl->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, $startdate, Criteria::GREATER_EQUAL);
-            $cl->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, $enddate, Criteria::LESS_EQUAL);
-            $cl->addAnd(EmployeeCallhistoryPeer::COMPANY_ID, $company->getId());
-            $calls = EmployeeCallhistoryPeer::doCount($cl);
+            $cl->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, $startdate, Criteria::GREATER_EQUAL);
+            $cl->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, $enddate, Criteria::LESS_EQUAL);
+            $cl->addAnd(EmployeeCustomerCallhistoryPeer::COMPANY_ID, $company->getId());
+            $calls = EmployeeCustomerCallhistoryPeer::doCount($cl);
             echo "calls---".$calls;
             if($calls>0){ echo "----companyid------".$company->getId(); echo "<br/>";
             echo    $url1 = sfConfig::get('app_customer_url').'pScripts/companyBilling?company_id='.$company->getId().'&start_date='.$start_strtotime.'&end_date='.$end_strototime;
                      $invoice = file_get_contents($url1);
 
            }echo "<br/>";
+           if($calls==0){
             $c2 = new Criteria();
             $c2->addJoin(CompanyPeer::ID,EmployeePeer::COMPANY_ID, Criteria::LEFT_JOIN);
-            $c2->addJoin(EmployeePeer::ID, EmployeeRegSubPeer::EMPLOYEE_ID, Criteria::LEFT_JOIN);
+            $c2->addJoin(EmployeePeer::ID, RegistrationSubscriptionPeer::PARENT_ID, Criteria::LEFT_JOIN);
+            $c2->addAnd(RegistrationSubscriptionPeer::PARENT_TABLE,'employee');
             $c2->addAnd(EmployeePeer::CREATED_AT, $startdate, Criteria::GREATER_EQUAL);
             $c2->addAnd(EmployeePeer::CREATED_AT, $enddate, Criteria::LESS_EQUAL);
-            $c2->addAnd(EmployeeRegSubPeer::REG_FEE, 1, Criteria::GREATER_EQUAL);
+            $c2->addAnd(RegistrationSubscriptionPeer::REG_FEE, 1, Criteria::GREATER_EQUAL);
             $c2->addAnd(CompanyPeer::ID, $company->getId());
             $companies2 = CompanyPeer::doCount($c2);
 
@@ -3609,20 +3581,20 @@ if(($caltype!="IC") && ($caltype!="hc")){
 //            echo "<hr/>";
 
             if($companies2>0){
-           echo     $url2 = sfConfig::get('app_customer_url').'pScripts/billingReg?company_id='.$company->getId().'&start_date='.$start_strtotime.'&end_date='.$end_strototime;
+           echo     $url2 = sfConfig::get('app_customer_url').'pScripts/companyBilling?company_id='.$company->getId().'&start_date='.$start_strtotime.'&end_date='.$end_strototime;
                    $invoice2=  file_get_contents($url2);
 
             }
-
+           }
             if($calls==0){ 
 //                echo 'subscriptionfee--'.$company->getId().'<br />';
 //                echo "start date--".$startdate."<br/> enddate---".$enddate;
                 $c3 = new Criteria();
-                $c3->addJoin(CompanyPeer::ID, EmployeeRegSubPeer::COMPANY_ID, Criteria::LEFT_JOIN);
+                $c3->addJoin(CompanyPeer::ID, RegistrationSubscriptionPeer::COMPANY_ID, Criteria::LEFT_JOIN);
                 //$c3->addJoin(EmployeePeer::ID, EmployeeRegSubPeer::EMPLOYEE_ID, Criteria::LEFT_JOIN);
-                $c3->addAnd(EmployeeRegSubPeer::BILL_START, $startdate);
-                $c3->addAnd(EmployeeRegSubPeer::BILL_END, $enddate);
-                $c3->addAnd(EmployeeRegSubPeer::SUB_FEE, 1, Criteria::GREATER_EQUAL);
+                $c3->addAnd(RegistrationSubscriptionPeer::BILL_START, $startdate);
+                $c3->addAnd(RegistrationSubscriptionPeer::BILL_END, $enddate);
+                $c3->addAnd(RegistrationSubscriptionPeer::SUB_FEE, 1, Criteria::GREATER_EQUAL);
                 $c3->addAnd(CompanyPeer::ID, $company->getId());
 
                $companies3 = CompanyPeer::doCount($c3);

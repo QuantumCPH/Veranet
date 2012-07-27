@@ -406,6 +406,14 @@ class companyActions extends sfActions {
         $tomorrow = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
         $todate = date("Y-m-d", $tomorrow);
         $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $fromdate, $todate);
+        $this->fromdate = $fromdate;
+        $this->todate = $todate;
+        $ces = new Criteria();
+        $ces->add(EmployeePeer::COMPANY_ID,$this->company->getId());
+        $ces->addAnd(EmployeePeer::STATUS_ID,3);
+        if(EmployeePeer::doCount($ces)>0)  {
+             $this->ems = EmployeePeer::doSelect($ces);
+        }
     }
 
     public function executeRefill(sfWebRequest $request) {

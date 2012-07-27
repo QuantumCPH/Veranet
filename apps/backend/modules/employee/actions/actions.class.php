@@ -521,13 +521,31 @@ class employeeActions extends sfActions {
         $fromdate=date("Y-m-d", $tomorrow1);
         $tomorrow = mktime(0,0,0,date("m"),date("d")+1,date("Y"));
         $todate=date("Y-m-d", $tomorrow);
-
+        
+        $this->fromdate = $fromdate;
+        $this->todate = $todate;
+        
         $mobilenumber = $this->employee->getCountryMobileNumber();
         $ct = new Criteria();
         $ct->add(TelintaAccountsPeer::ACCOUNT_TITLE, 'a'.$mobilenumber);
         $ct->addAnd(TelintaAccountsPeer::STATUS, 3);
         $telintaAccount = TelintaAccountsPeer::doSelectOne($ct);
         $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $fromdate, $todate);
+        
+        $ers = new Criteria();
+        $ers->addAnd(RegistrationSubscriptionPeer::PARENT_TABLE, 'employee');
+        $ers->add(RegistrationSubscriptionPeer::PARENT_ID, $this->employee->getId());        
+        $ers->addAnd(RegistrationSubscriptionPeer::BILL_START, $fromdate);
+        $ers->addAnd(RegistrationSubscriptionPeer::BILL_END, $todate);
+        $regsubcount = RegistrationSubscriptionPeer::doCount($ers);
+        if ($regsubcount > 0) {
+            $empRegPrd = RegistrationSubscriptionPeer::doSelectOne($ers);
+            $subFee = $empRegPrd->getSubFee();
+            $prdPrice = $empRegPrd->getRegFee();
+            if ($prdPrice>0){
+                echo $prdPrice;
+            }
+        }
         
        /*$cb = new Criteria();
         $cb->add(TelintaAccountsPeer::ACCOUNT_TITLE, 'cb'.$mobilenumber);

@@ -116,6 +116,8 @@
  <?php  if(isset($companyval) && $companyval!=""){  ?>
       <td> <?php  $mobileID= $employee->getCountryMobileNumber();
         $telintaGetBalance = 0;
+        $telintaGetBalancecb = 0;
+        $telintaGetBalanceres = 0;
         $ct = new Criteria();
         $ct->add(TelintaAccountsPeer::ACCOUNT_TITLE, 'a'.$mobileID);
         $ct->addAnd(TelintaAccountsPeer::STATUS, 3);
@@ -123,14 +125,15 @@
         $accountInfo = CompanyEmployeActivation::getAccountInfo($telintaAccount->getIAccount());
         $telintaGetBalance = $accountInfo->account_info->balance;
 //       
-        /*
+       
         $cb = new Criteria();
         $cb->add(TelintaAccountsPeer::ACCOUNT_TITLE, 'cb'.$mobileID);
         $cb->addAnd(TelintaAccountsPeer::STATUS, 3);
-        $telintaAccountcb = TelintaAccountsPeer::doSelectOne($cb);
-        $accountInfocb = CompanyEmployeActivation::getAccountInfo($telintaAccountcb->getIAccount());
-        $telintaGetBalancecb = $accountInfocb->account_info->balance;
-        */
+        if(TelintaAccountsPeer::doCount($cb)>0){
+            $telintaAccountcb = TelintaAccountsPeer::doSelectOne($cb);
+            $accountInfocb = CompanyEmployeActivation::getAccountInfo($telintaAccountcb->getIAccount());
+            $telintaGetBalancecb = $accountInfocb->account_info->balance;
+        }
 
          $regtype=$employee->getRegistrationType();
         

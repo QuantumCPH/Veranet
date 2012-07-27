@@ -139,11 +139,12 @@ use_helper('Number');
                             $employeeCreatedDate = strtotime($employee->getCreatedAt());
                             $empRegPrd = null;
                             $ers = new Criteria();
-                            $ers->add(EmployeeRegSubPeer::EMPLOYEE_ID, $employee->getId());
-                            $ers->addAnd(EmployeeRegSubPeer::BILL_START, $billing_start_date);
-                            $ers->addAnd(EmployeeRegSubPeer::BILL_END, $billing_end_date);
-                            if (EmployeeRegSubPeer::doCount($ers) > 0) {
-                                $empRegPrd = EmployeeRegSubPeer::doSelectOne($ers);
+                            $ers->add(RegistrationSubscriptionPeer::PARENT_TABLE, "employee");
+                            $ers->add(RegistrationSubscriptionPeer::PARENT_ID, $employee->getId());
+                            $ers->addAnd(RegistrationSubscriptionPeer::BILL_START, $billing_start_date);
+                            $ers->addAnd(RegistrationSubscriptionPeer::BILL_END, $billing_end_date);
+                            if (RegistrationSubscriptionPeer::doCount($ers) > 0) {
+                                $empRegPrd = RegistrationSubscriptionPeer::doSelectOne($ers);
                                 $subFee = $empRegPrd->getSubFee();
                                 $prdPrice = $empRegPrd->getRegFee();
                                 if ($prdPrice>0)
@@ -157,11 +158,12 @@ use_helper('Number');
                             }                        
                         ?><?php
                             $bc = new Criteria();
-                            $bc->add(EmployeeCallhistoryPeer::EMPLOYEE_ID, $employee->getId());
-                            $bc->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $billing_start_date . "' ", Criteria::CUSTOM);
-                            $bc->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, " disconnect_time < '" . $billing_end_date . "' ", Criteria::CUSTOM);
-                            $bc->addGroupByColumn(EmployeeCallhistoryPeer::COUNTRY_ID);
-                            if (EmployeeCallhistoryPeer::doCount($bc) > 0) {
+                            $bc->add(EmployeeCustomerCallhistoryPeer::PARENT_TABLE, "employee");
+                            $bc->addAnd(EmployeeCustomerCallhistoryPeer::PARENT_ID, $employee->getId());
+                            $bc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $billing_start_date . "' ", Criteria::CUSTOM);
+                            $bc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time < '" . $billing_end_date . "' ", Criteria::CUSTOM);
+                            $bc->addGroupByColumn(EmployeeCustomerCallhistoryPeer::COUNTRY_ID);
+                            if (EmployeeCustomerCallhistoryPeer::doCount($bc) > 0) {
                                 $billingFlag = true;
                             }
                         ?>
@@ -200,23 +202,24 @@ use_helper('Number');
                         </tr> <?php } ?><?php
                             if ($billingFlag) {
                                 $invoiceFlag = true;
-                                $billings = EmployeeCallhistoryPeer::doSelect($bc);
+                                $billings = EmployeeCustomerCallhistoryPeer::doSelect($bc);
                                 foreach ($billings as $billing) {?><tr><td>
                                 <?php echo $billing->getCountry()->getName()//.'-'.$billing->getCountryId(); ?>
                                         </td>
                                         <td><?php
                                     $dc = new Criteria();
-                                    $dc->add(EmployeeCallhistoryPeer::EMPLOYEE_ID, $employee->getId());
-                                    $dc->add(EmployeeCallhistoryPeer::COUNTRY_ID,$billing->getCountryId());
-                                    $dc->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $invoice_meta->getBillingStartingDate('Y-m-d 00:00:00') . "' ", Criteria::CUSTOM);
-                                    $dc->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  < '" . $invoice_meta->getBillingEndingDate('Y-m-d 23:59:59') . "' ", Criteria::CUSTOM);
+                                    $dc->add(EmployeeCustomerCallhistoryPeer::PARENT_TABLE, "employee");
+                                    $dc->add(EmployeeCustomerCallhistoryPeer::PARENT_ID, $employee->getId());
+                                    $dc->add(EmployeeCustomerCallhistoryPeer::COUNTRY_ID,$billing->getCountryId());
+                                    $dc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $invoice_meta->getBillingStartingDate('Y-m-d 00:00:00') . "' ", Criteria::CUSTOM);
+                                    $dc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  < '" . $invoice_meta->getBillingEndingDate('Y-m-d 23:59:59') . "' ", Criteria::CUSTOM);
                                   //  $dc->addGroupByColumn(EmployeeCallhistoryPeer::COUNTRY_ID);
-                                    $temp = EmployeeCallhistoryPeer::doSelect($dc);
+                                    $temp = EmployeeCustomerCallhistoryPeer::doSelect($dc);
                                     $minutes_count = 0;
                                     $calculated_cost = 0;
                                     foreach ($temp as $t) {
                                         $calculated_cost += $t->getChargedAmount();
-                                        $call_duration = EmployeeCallhistoryPeer::getTotalCallDuration($employee, $billing->getCountryId());
+                                        $call_duration = EmployeeCustomerCallhistoryPeer::getTotalCallDuration($employee, $billing->getCountryId());
                                     }
                                 ?>
                                 <?php echo $call_duration ?>

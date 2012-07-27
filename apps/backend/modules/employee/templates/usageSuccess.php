@@ -9,9 +9,11 @@
         <th width="20%"   align="left"><?php echo __('Date &amp; time') ?></th>
         <th  width="20%"  align="left"><?php echo __('Phone Number') ?></th>
         <th width="10%"   align="left"><?php echo __('Duration') ?></th>
-        <th  width="10%"  align="left"><?php echo __('VAT') ?></th>
-        <th width="20%"   align="left"><?php echo __('Cost <small>(Incl. VAT)</small>') ?></th>
-        <th  width="20%"   align="left">Samtalstyp</th>
+        <th  width="10%"  align="left"><?php echo __('Country') ?></th>
+<!--        <th  width="10%"  align="left"><?php echo __('VAT') ?></th>-->
+        <th width="20%"   align="left"><?php echo __('Cost') ?></th>
+        <th  width="10%"   align="left"><?php echo __('Account ID') ?></th>
+<!--        <th  width="20%"   align="left">Samtalstyp</th>-->
     </tr>
 <?php
 
@@ -28,10 +30,12 @@ foreach ($callHistory->xdr_list as $xdr) {
                 <td><?php echo $xdr->connect_time; ?></td>
                 <td><?php echo $xdr->CLD; ?></td>
                 <td><?php echo number_format($xdr->charged_quantity / 60, 2); ?></td>
-                <td><?php echo number_format($xdr->charged_amount / 4, 2); ?></td>
+                <td><?php echo $xdr->country; ?></td>
+<!--                <td><?php echo number_format($xdr->charged_amount / 4, 2); ?></td>-->
                 <td><?php echo number_format($xdr->charged_amount, 2);
             $amount_total+= number_format($xdr->charged_amount, 2); ?> <?php echo sfConfig::get('app_currency_code');?></td>
-                <td><?php
+                <td><?php echo $xdr->account_id; ?></td>
+<!--                <td><?php
             $typecall = substr($xdr->account_id, 0, 1);
             if ($typecall == 'a') {
                 echo "Int.";
@@ -45,7 +49,7 @@ foreach ($callHistory->xdr_list as $xdr) {
                 } else {
                     echo "Cb S";
                 }
-            } ?> </td>
+            } ?> </td>-->
         </tr>
 
 <?php
@@ -143,11 +147,45 @@ foreach ($callHistoryres->xdr_list as $xdrres) {
     </tr>
 <?php } ?>
 
-    <tr>
+  <!--  <tr>
         <td colspan="6" align="left"><?php echo __('Call type detail') ?> <br/> <?php echo __('Int. = International calls') ?><br/>
-<!--            Cb M = Callback mottaga<br/>
+            Cb M = Callback mottaga<br/>
             Cb S = Callback samtal<br/>
-            R = resenummer samtal<br/>-->
+            R = resenummer samtal<br/>
         </td>
-    </tr>
-</table></div>
+    </tr>-->
+</table>
+   <br /><br />
+    <h1><?php echo __('Subscription'); ?></h1>
+    <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
+        <tr class="headings">
+            <th  width="10%"  align="left"><?php echo __('Date & time') ?></th>
+            <th  width="10%"  align="left"><?php echo __('Account ID') ?></th>
+            <th  width="10%"  align="left"><?php echo __('Description') ?></th>
+            <th  width="10%"  align="left" style="text-align: right;"><?php echo __('Amount') ?></th>
+        </tr>
+        <?php //var_dump($ems);
+        $total_sub = 0;
+         
+            $tilentaSubResult = CompanyEmployeActivation::getSubscription($employee, $fromdate . ' 00:00:00', $todate . ' 23:59:59');
+            if (count($tilentaSubResult) > 0) {
+                foreach ($tilentaSubResult->xdr_list as $xdr) {
+                    ?> <tr>
+                        <td><?php echo date("d-m-Y H:i:s", strtotime($xdr->bill_time)); ?></td>
+                        <td><?php echo __($xdr->account_id); ?></td>
+                        <td><?php echo __($xdr->CLD); ?></td>
+                        <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); $total_sub += $xdr->charged_amount;?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
+                    </tr>
+                <?php
+                }
+            } else {
+
+                echo __('There are currently no call records to show.');
+            }
+        ?>
+                    <tr>
+                        <td colspan="3" align="right"><strong>Total</strong></td>
+                        <td align="right"><?php echo number_format($total_sub,2);?><?php echo sfConfig::get('app_currency_code'); ?></td>
+                    </tr>
+    </table><br/><br/>
+</div>
