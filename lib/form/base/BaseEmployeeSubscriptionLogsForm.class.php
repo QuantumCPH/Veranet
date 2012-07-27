@@ -18,6 +18,7 @@ class BaseEmployeeSubscriptionLogsForm extends BaseFormPropel
       'description' => new sfWidgetFormInput(),
       'todate'      => new sfWidgetFormDateTime(),
       'fromdate'    => new sfWidgetFormDateTime(),
+      'status'      => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -27,6 +28,7 @@ class BaseEmployeeSubscriptionLogsForm extends BaseFormPropel
       'description' => new sfValidatorString(array('max_length' => 200, 'required' => false)),
       'todate'      => new sfValidatorDateTime(array('required' => false)),
       'fromdate'    => new sfValidatorDateTime(array('required' => false)),
+      'status'      => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('employee_subscription_logs[%s]');

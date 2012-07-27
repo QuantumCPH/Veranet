@@ -3538,7 +3538,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
                        $empRegSub->setBillTime($xdr->bill_time);
                    }
                }else{
-                   $employeeSubLog = new EmployeeSubscriptionLogsPeer();
+                   $employeeSubLog = new EmployeeSubscriptionLogs();
                    $employeeSubLog->setParent('employee');
                    $employeeSubLog->setParentId($employee->getId());
                    $employeeSubLog->setTodate($this->todate);

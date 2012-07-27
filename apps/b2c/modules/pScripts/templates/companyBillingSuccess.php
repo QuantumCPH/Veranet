@@ -115,6 +115,7 @@ use_helper('Number');
                         <?php
                         $totalcost = 0.00;
                         $totalSubFee = 0.00;
+                        $totalRegFee = 0.00;
                         $fromNumber = "";
                         $rateTableId = '';
                         //$call_rate_table = CallRateTablePeer::doSelect(new Criteria());
@@ -128,6 +129,7 @@ use_helper('Number');
                         $billing_details = array();
                         foreach ($employees as $employee) {                            
                             $subFlag = false;
+                            $regFlag = false;
                             $billingFlag = false;
                         ?>
                         <?php
@@ -143,6 +145,9 @@ use_helper('Number');
                             if (EmployeeRegSubPeer::doCount($ers) > 0) {
                                 $empRegPrd = EmployeeRegSubPeer::doSelectOne($ers);
                                 $subFee = $empRegPrd->getSubFee();
+                                $prdPrice = $empRegPrd->getRegFee();
+                                if ($prdPrice>0)
+                                    $regFlag = true;
                                 if($subFee>0)
                                     $subFlag = true;
                             } else {
@@ -161,9 +166,25 @@ use_helper('Number');
                             }
                         ?>
                         <?php
-                            if ($subFlag || $billingFlag) {
+                            if ($regFlag || $subFlag || $billingFlag) {
                         ?><tr><td><br/><b><u><?php echo 'From Number: ' . $employee->getMobileNumber() ?> </u> </b><br/><br/></td></tr>
-<?php } ?><?php if ($subFlag) { ?>
+<?php } ?>           
+                         <?php if ($regFlag) {
+                        ?>
+                                        <tr>
+                                            <td>Registered Product: <?php echo $empRegPrd->getProductName(); ?></td>
+                                            <td> 1  </td>
+                                            <td> </td>
+                                            <td>
+                                <?php $totalcost+=$prdPrice;
+                                      $totalRegFee +=$prdPrice;
+                                        echo number_format($prdPrice, 2); ?>
+                                    </td>
+                                </tr>
+                        <?php $invoiceFlag = true; 
+                        }
+                        ?>
+                         <?php if ($subFlag) { ?>
                                 <tr>
                                     <td>
                                         subscription: <?php echo $empRegPrd->getProductName(); ?>
@@ -229,7 +250,7 @@ use_helper('Number');
         $ci->add(InvoicePeer::ID,$invoice_meta->getId());
         $in = InvoicePeer::doSelectOne($ci);
         $in->setSubscriptionFee($totalSubFee);
-       // $in->setRegistrationFee($totalRegFee);
+        $in->setRegistrationFee($totalRegFee);
         $in->setMoms($moms);
         $in->setTotalusage($totalcost);
         $in->setInvoiceCost($invoice_cost);

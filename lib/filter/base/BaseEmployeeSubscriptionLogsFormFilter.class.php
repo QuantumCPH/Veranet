@@ -19,6 +19,7 @@ class BaseEmployeeSubscriptionLogsFormFilter extends BaseFormFilterPropel
       'description' => new sfWidgetFormFilterInput(),
       'todate'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'fromdate'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
+      'status'      => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -27,6 +28,7 @@ class BaseEmployeeSubscriptionLogsFormFilter extends BaseFormFilterPropel
       'description' => new sfValidatorPass(array('required' => false)),
       'todate'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'fromdate'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'status'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('employee_subscription_logs_filters[%s]');
@@ -50,6 +52,7 @@ class BaseEmployeeSubscriptionLogsFormFilter extends BaseFormFilterPropel
       'description' => 'Text',
       'todate'      => 'Date',
       'fromdate'    => 'Date',
+      'status'      => 'Number',
     );
   }
 }
