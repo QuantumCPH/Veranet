@@ -450,7 +450,7 @@ class companyActions extends sfActions {
         }
     }
 
-    public function executeRefill(sfWebRequest $request) {
+    /*public function executeRefill(sfWebRequest $request) {
 
         $c = new Criteria();
         $this->companys = CompanyPeer::doSelect($c);
@@ -486,7 +486,7 @@ class companyActions extends sfActions {
             //$telintaAddAccount='success=OK&Amount=$amount{$cust_info->{iso_4217}}';
             //parse_str($telintaAddAccount, $success);print_r($success);echo $success['success'];
         }
-    }
+    }*/
 
     public function executePaymenthistory(sfWebRequest $request) {
 
@@ -500,6 +500,11 @@ class companyActions extends sfActions {
         }
         $c->addDescendingOrderByColumn(CompanyTransactionPeer::CREATED_AT);
         $this->transactions = CompanyTransactionPeer::doSelect($c);
+
+        $ces = new Criteria();
+        $ces->add(EmployeePeer::COMPANY_ID,$companyid);
+        $ces->addAnd(EmployeePeer::STATUS_ID,3);
+        $this->count = EmployeePeer::doCount($ces);
     }
 
     public function executeVat(sfWebRequest $request) {
@@ -551,12 +556,18 @@ class companyActions extends sfActions {
         $ctd = new Criteria();
         $ctd->add(TransactionDescriptionPeer::TRANSACTION_TYPE_ID,2);  ///// for Charge 
         $ctd->addAnd(TransactionDescriptionPeer::TRANSACTION_SECTION_ID,1); ///// for Admin
+        $ctd->addAnd(TransactionDescriptionPeer::B2B,1);
         $this->descriptions = TransactionDescriptionPeer::doSelect($ctd);
         if ($request->isMethod('post')) {
 
             $company_id = $request->getParameter('company_id');
             $charge_amount = $request->getParameter('charge');
             $descid        = $request->getParameter('descid');
+            ///Get transaction description
+            $cd = new Criteria();
+            $cd->add(TransactionDescriptionPeer::ID,$descid);
+            $description = TransactionDescriptionPeer::doSelectOne($cd);
+            
             $c1 = new Criteria();
             $c1->addAnd(CompanyPeer::ID, $company_id);
             $this->company = CompanyPeer::doSelectOne($c1);
@@ -568,11 +579,13 @@ class companyActions extends sfActions {
             $transaction->setExtraRefill(-$charge_amount);
             $transaction->setTransactionStatusId(1);
             $transaction->setPaymenttype($descid); //Charged Description id
-            $transaction->setDescription('Company Charged');
+            $transaction->setDescription($description->getTitle());
             $transaction->save();
-
+            
+            
+            
             if ($companyCVR != '') {
-                CompanyEmployeActivation::charge($this->company, $charge_amount);
+                CompanyEmployeActivation::charge($this->company, $charge_amount,$description->getTitle());
                 $transaction->setTransactionStatusId(3);
                 $transaction->save();
                 $this->getUser()->setFlash('message', 'B2B Company Charged Successfully');
@@ -585,4 +598,144 @@ class companyActions extends sfActions {
             //parse_str($telintaAddAccount, $success);print_r($success);echo $success['success'];
         }
     }
+
+   public function executeInvoices(sfWebRequest $request)
+    {
+
+       
+       $this->company = CompanyPeer::retrieveByPK($request->getParameter('company_id'));
+
+       $billingduration = $request->getParameter('billingduration');
+       $this->statusid = $request->getParameter('statusid');
+
+
+
+       $ic = new Criteria();
+       $ic->add(InvoicePeer::COMPANY_ID,$this->company->getId());
+       $ic->addGroupByColumn(InvoicePeer::BILLING_STARTING_DATE);
+       $ic->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
+
+       $ci = new Criteria();
+
+       $cis = new Criteria();
+       $cis->add(InvoiceStatusPeer::ID,4 ,CRITERIA::NOT_EQUAL);
+       $this->invoice_status = InvoiceStatusPeer::doSelect($cis);
+       if($this->statusid !='' ){
+         $ci->add(InvoicePeer::INVOICE_STATUS_ID,$this->statusid);  /// pending,paid,expire
+       }else{
+         $ci->add(InvoicePeer::INVOICE_STATUS_ID,4,Criteria::NOT_EQUAL);  /// pending,paid,expire
+       }
+       if($billingduration){
+         $duration = explode("_",$billingduration);
+         $starting = $duration[0];
+         $ending   = $duration[1];
+         $ci->addAnd(InvoicePeer::BILLING_STARTING_DATE, " billing_starting_date >= '" . $starting . "' ", Criteria::CUSTOM);
+         $ci->addAnd(InvoicePeer::BILLING_ENDING_DATE, " billing_ending_date  <= '" . $ending . "' ", Criteria::CUSTOM);
+       }
+       $ci->addAnd(InvoicePeer::COMPANY_ID,$this->company->getId());
+       $ci->add(InvoicePeer::TOTALPAYMENT,1,CRITERIA::GREATER_EQUAL);
+
+       $ci->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
+
+       $this->invoices = InvoicePeer::doSelect($ci);
+       $this->billingduration = $billingduration;
+
+
+
+       $this->invoiceTimings = InvoicePeer::doSelect($ic);
+    }
+
+    public function executeShowInvoice(sfRequest $request){
+       $invoiceid = $request->getParameter('id');
+
+       $invoice = InvoicePeer::retrieveByPK($invoiceid);
+       $this->invoiceHtml = $invoice->getInvoiceHtml();
+       $this->setLayout(false);
+   }
+   public function executeRefill($request){
+         $id = $request->getParameter('id');
+
+         if($id!=''){
+             $invoice = new Criteria();
+             $invoice->add(InvoicePeer::ID, $id);
+             $this->invoiceSelect = InvoicePeer::doSelectOne($invoice);
+         }
+
+         $c = new Criteria();
+         $this->company = CompanyPeer::doSelect($c);
+
+         if ($request->isMethod('post')) {
+             $company_id=$request->getParameter('company_id');
+             $invoice_id = $request->getParameter('invoice_id');
+             $refill = $request->getParameter('refill');
+             $start_date= $request->getParameter('start_date');
+
+             $recharge=$refill-($refill* sfConfig::get('app_vat_percentage'));
+             $company = CompanyPeer::retrieveByPk($company_id);
+
+             $ct = new Criteria();
+             $ct->add(TransactionDescriptionPeer::ID, 9);
+             $description = TransactionDescriptionPeer::doSelectOne($ct);
+
+             if(CompanyEmployeActivation::recharge($company, $recharge, $description->getTitle())){
+                 if($invoice_id!=''){
+                     $ci = new Criteria();
+                     $ci->add(InvoicePeer::ID, $invoice_id);
+                     $invoices = InvoicePeer::doSelectone($ci);
+                     $payment=$invoices->getTotalpayment();
+                     $paid=$invoices->getPaidAmount();
+                     $invoice_no=$invoices->getInvoiceNumber();
+                     $total_refill=$refill+$paid;
+                     $net_amount=$payment-$total_refill;
+
+                     if($refill>=$payment){
+                         $invoices->setInvoiceStatusId('2');
+                     }else{
+                         $invoices->setInvoiceStatusId('5');
+                     }
+                     $invoices->setPaidAmount($total_refill);
+                     $invoices->setNetPayment($net_amount);
+                     $invoices->setPaidDatetime($start_date);
+                     $invoices->save();
+                 }
+
+                    $cc = new CompanyTransaction();
+                    $cc->setCompanyId($company_id);
+                    $cc->setAmount($refill);
+                    $cc->setExtraRefill($recharge);
+                    $cc->setInvoiceNo($invoice_no);
+                    $cc->setPaymentType('1');
+                    $cc->setDescription($description->getTitle());
+                    $cc->setTransactionStatusId('3');
+                    $cc->setPaidDate($start_date);
+                    $cc->save();
+                    //$transaction = $cc;
+                    $this->getUser()->setFlash('message', 'Record has been added Successfully');
+             }else{
+                    $this->getUser()->setFlash('message', 'Record has not been added Successfully');
+             }
+               // emailLib::sendPaymentReceipt($transaction);
+                $this->redirect('company/paymenthistory?company_id='.$company_id);
+         }
+    }
+
+    public function executeInvoice($request){
+         $company_id = $request->getParameter('company_id');
+         $c = new Criteria();
+         $c->add(InvoicePeer::COMPANY_ID, $company_id);
+         $c->add(InvoicePeer::INVOICE_STATUS_ID, 2,  Criteria::NOT_EQUAL);
+         $c->addDescendingOrderByColumn(InvoicePeer::INVOICE_NUMBER);
+         $this->invoice = InvoicePeer::doSelect($c);
+
+    }
+
+    public function executeAmount($request){
+         $invoice_id = $request->getParameter('invoice_id');
+         $c = new Criteria();
+         $c->add(InvoicePeer::ID, $invoice_id);
+         $this->amount = InvoicePeer::doSelectOne($c);
+
+    }
+
+
 }

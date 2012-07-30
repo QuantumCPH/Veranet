@@ -109,11 +109,17 @@
                          echo link_to(__('Payment History'), 'company/paymenthistory'); 
                       }?>
                     <?php 
-                      if($actionName=='refill'){
+                      /*if($actionName=='refill'){
                          echo link_to(__('Refill'), 'company/refill', array('class'=>'subSelect'));    
                       }else{
                           echo link_to(__('Refill'), 'company/refill');                          
                       } ?>
+                    <?php
+                      if($actionName=='invoices'){
+                         echo link_to(__('Invoices'), 'company/invoices', array('class'=>'subSelect'));
+                      }else{
+                          echo link_to(__('Invoices'), 'company/invoices');
+                      }*/ ?>
                     <?php 
                       if($actionName=='charge'){
                          echo link_to(__('Charge'), 'company/charge', array('class'=>'subSelect'));    

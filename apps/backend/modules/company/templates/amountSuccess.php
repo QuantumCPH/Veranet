@@ -1,0 +1,1 @@
+<?PHP echo $amount->getNetPayment();?>
