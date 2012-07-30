@@ -202,7 +202,7 @@ class CompanyEmployeActivation {
         
         while (!$xdrList && $retry_count < $max_retries) {
             try {
-                $xdrList = $pb->get_xdr_list(array('i_account' => $iAccount, 'from_date' => $fromDate, 'to_date' => $toDate));
+                $xdrList = $pb->get_xdr_list(array('i_account' => $iAccount, 'from_date' => $fromDate, 'to_date' => $toDate,'i_service' => $iService));
             } catch (SoapFault $e) {
                 if ($e->faultstring != 'Could not connect to host' && $e->faultstring != 'Internal Server Error') {
                     emailLib::sendErrorInTelinta("Employee Call History: " . $iAccount . " Error!", "We have faced an issue with Employee while Fetching Call History  this is the error for cusotmer with ID: " . $iAccount . " error is " . $e->faultstring . "  <br/> Please Investigate.");
@@ -380,16 +380,20 @@ class CompanyEmployeActivation {
         return true;
     }
 
-    public static function callHistory(Company $company, $fromDate, $toDate) {
+    public static function callHistory(Company $company, $fromDate, $toDate, $reseller=false, $iService=3) {
         $xdrList = false;
         $max_retries = 10;
         $retry_count = 0;
 
         $pb = new PortaBillingSoapClient(self::$telintaSOAPUrl, 'Admin', 'Customer');
-        
+        if ($reseller){
+            $icustomer = $company;
+        }else{
+            $icustomer = $company->getICustomer();
+        }
         while (!$xdrList && $retry_count < $max_retries) {
             try {
-                $xdrList = $pb->get_customer_xdr_list(array('i_customer' => $company->getICustomer(), 'from_date' => $fromDate, 'to_date' => $toDate));
+                $xdrList = $pb->get_customer_xdr_list(array('i_customer' => $icustomer, 'from_date' => $fromDate, 'to_date' => $toDate,'i_service' => $iService));
             } catch (SoapFault $e) {
                 if ($e->faultstring != 'Could not connect to host' && $e->faultstring != 'Internal Server Error') {
                     emailLib::sendErrorInTelinta("Company Call History: " . $company->getId() . " Error!", "We have faced an issue with Company while Fetching Call History  this is the error for cusotmer with  Company ID: " . $company->getId() . " error is " . $e->faultstring . "  <br/> Please Investigate.");

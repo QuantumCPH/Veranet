@@ -3269,6 +3269,14 @@ if(($caltype!="IC") && ($caltype!="hc")){
                 
                 $emCalls = new EmployeeCustomerCallhistory();
                 $emCalls->setAccountId($xdr->account_id);
+                $type = substr($xdr->account_id,0,1);
+                   if($type=='a'){
+                     $emCalls->setAccountType('a');  
+                   }elseif($type =='c'){
+                     $emCalls->setAccountType('cb');    
+                   }elseif(is_int($type)){
+                     $emCalls->setAccountType('r');     
+                   }
                 $emCalls->setBillStatus($xdr->bill_status);
                 $emCalls->setBillTime($xdr->bill_time);
                 $emCalls->setChargedAmount($xdr->charged_amount);
@@ -3307,7 +3315,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
                // $emCalls->setDurationMinutes($duration_minutes);
                 $emCalls->setICustomer($company->getICustomer());
                 $emCalls->setIXdr($xdr->i_xdr);
-                $emCalls->setStatus(1);
+                $emCalls->setStatus(3);
                 $emCalls->setSubdivision($xdr->subdivision);
                 $emCalls->setUnixConnectTime($xdr->unix_connect_time);
                 $emCalls->setUnixDisconnectTime($xdr->unix_disconnect_time);
@@ -3482,11 +3490,26 @@ if(($caltype!="IC") && ($caltype!="hc")){
             $empRegSub = new RegistrationSubscription();
             $empProduct = ProductPeer::retrieveByPK($employee->getProductId());
             $employee_creation_at = strtotime($employee->getCreatedAt());
-            $prdPrice = $empProduct->getPrice();
+            //$prdPrice = $empProduct->getPrice();
+            $prdPrice = $empProduct->getRegistrationFee();
                
             if ($employee_creation_at >= $start_strtotime && $employee_creation_at <= $end_strototime){
                 // Employee have Registration Fee.
-                $empRegSub->setRegFee($prdPrice);
+                //$empRegSub->setRegFee($prdPrice);
+            $empRegResult = CompanyEmployeActivation::callHistory($employee->getCompany(), $startdate, $enddate, false, 1);
+               if($empRegResult){
+                   foreach ($empRegResult->xdr_list as $xdr) {
+                       $empRegSub->setRegFee($xdr->charged_amount);
+                   }
+               }else{
+                   $employeeSubLog = new EmployeeSubscriptionLogs();
+                   $employeeSubLog->setParent('employee');
+                   $employeeSubLog->setParentId($employee->getId());
+                   $employeeSubLog->setTodate($startdate);
+                   $employeeSubLog->setFromdate($enddate);
+                   $employeeSubLog->setDescription("Registration");
+                   $employeeSubLog->save();
+               } 
             }else{
                 $empRegSub->setRegFee(0);
             }
@@ -3510,8 +3533,9 @@ if(($caltype!="IC") && ($caltype!="hc")){
                    $employeeSubLog = new EmployeeSubscriptionLogs();
                    $employeeSubLog->setParent('employee');
                    $employeeSubLog->setParentId($employee->getId());
-                   $employeeSubLog->setTodate($this->todate);
-                   $employeeSubLog->setFromdate($this->fromdate);
+                   $employeeSubLog->setTodate($startdate);
+                   $employeeSubLog->setFromdate($enddate);
+                   $employeeSubLog->setDescription("Subscription");
                    $employeeSubLog->save();
                } 
             // 
