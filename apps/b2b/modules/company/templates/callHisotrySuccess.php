@@ -190,8 +190,8 @@ if (isset($empl)) {
        </tr>
         <?php
         $othertotal = 0;
-        foreach ($ems as $emp) {
-        $otherEvents = CompanyEmployeActivation::callHistory($emp->getCompany(), $fromdate . ' 00:00:00', $todate . ' 23:59:59', false, 1);
+      //  foreach ($ems as $emp) {
+        $otherEvents = CompanyEmployeActivation::callHistory($company, $fromdate . ' 00:00:00', $todate . ' 23:59:59', false, 1);
        // var_dump($otherEvents);
         if(count($otherEvents)>0){
         foreach ($otherEvents->xdr_list as $xdr) {
@@ -208,7 +208,7 @@ if (isset($empl)) {
                 echo __('There are currently no call records to show.');
 
             }
-        }?>
+       // }?>
         <tr align="right">
                 <td colspan="2"><strong><?php echo __('Subtotal');?></strong></td><td><?php echo number_format($othertotal,2);?><?php echo sfConfig::get('app_currency_code')?></td>
         </tr>
