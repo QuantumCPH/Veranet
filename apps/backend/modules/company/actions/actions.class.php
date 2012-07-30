@@ -627,12 +627,12 @@ class companyActions extends sfActions {
                     $cc->setPaidDate($start_date);
                     $cc->save();
                     //$transaction = $cc;
-                    //$this->getUser()->setFlash('message', 'Record has been added Successfully');
+                    $this->getUser()->setFlash('message', 'Record has been added Successfully');
              }else{
-                    //$this->getUser()->setFlash('message', 'Record has not been added Successfully');
+                    $this->getUser()->setFlash('message', 'Record has not been added Successfully');
              }
                // emailLib::sendPaymentReceipt($transaction);
-                //$this->redirect('company/paymenthistory?company_id='.$company_id);
+                $this->redirect('company/paymenthistory?company_id='.$company_id);
          }
     }
 
