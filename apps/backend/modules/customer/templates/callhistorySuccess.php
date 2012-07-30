@@ -2,11 +2,7 @@
 <?php use_helper('Number') ?>
 <script type="text/javascript">
     jQuery(function() {
-
         jQuery( "#trigger_startdate" ).hide();
-        jQuery( "#trigger_enddate" ).hide();
-
-
     });
 </script>
 <div id="sf_admin_container">

@@ -585,9 +585,11 @@ class companyActions extends sfActions {
              $company_id=$request->getParameter('company_id');
              $invoice_id = $request->getParameter('invoice_id');
              $refill = $request->getParameter('refill');
-             $start_date= $request->getParameter('start_date');
+             $start_date= $request->getParameter('startdate');
 
              $recharge=$refill-($refill* sfConfig::get('app_vat_percentage'));
+
+             //$recharge=($invoice_id!='')?$recharge:$refill;
              $company = CompanyPeer::retrieveByPk($company_id);
 
              $ct = new Criteria();
@@ -616,6 +618,7 @@ class companyActions extends sfActions {
                      $invoices->save();
                  }
 
+                    $invoice_no=($invoice_no!='')?$invoice_no:'';
                     $cc = new CompanyTransaction();
                     $cc->setCompanyId($company_id);
                     $cc->setAmount($refill);
@@ -652,6 +655,21 @@ class companyActions extends sfActions {
          $c->add(InvoicePeer::ID, $invoice_id);
          $this->amount = InvoicePeer::doSelectOne($c);
 
+    }
+
+        public function executeShowReceipt (sfWebRequest $request) {
+        //call Culture Method For Get Current Set Culture - Against Feature# 6.1 --- 02/28/11
+        changeLanguageCulture::languageCulture($request, $this);
+        $transaction_id = $request->getParameter('tid');
+        $transaction = CompanyTransactionPeer::retrieveByPK($transaction_id);
+
+        $this->renderPartial('company/refill_receipt', array(
+            'company' => CompanyPeer::retrieveByPK($transaction->getCompanyId()),
+            'transaction' => $transaction,
+            'vat' => sfConfig::get('app_vat_percentage'),
+        ));
+
+        return sfView::NONE;
     }
 
 }

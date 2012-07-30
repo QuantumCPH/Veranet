@@ -26,6 +26,7 @@
     <th><?php echo __('Company & Name') ?></th>
     <th><?php echo __('Description') ?></th>
     <th align="right"><?php echo __('Amount') ?> (<?php echo sfConfig::get('app_currency_code');?>)</th>
+    <th><?php echo __('Reciept') ?></th>
 </tr>
 <?php 
 $amount_total = 0;
@@ -47,6 +48,7 @@ $incrment++;
     <td><?php echo ($transaction->getCompany()?$transaction->getCompany():'N/A')?></td>
     <td><?php echo __($transaction->getDescription()) ?></td>
     <td align="right"><?php echo number_format($transaction->getAmount(),2); $amount_total += $transaction->getAmount(); ?><?php echo sfConfig::get('app_currency_code');?></td>
+    <td><a href="<?php echo "ShowReceipt?tid=".$transaction->getId()?>" target="_blank"> <img src="/sf/sf_admin/images/default_icon.png" title=<?php echo __("view")?> alt=<?php echo __("view")?>></a></td>
 </tr>
 <?php endforeach; ?>
 <?php if(count($transactions)==0): ?>
@@ -57,7 +59,7 @@ $incrment++;
 <tr><td>&nbsp;</td>
     <td colspan="2" align="right"><strong><?php echo __('Total:') ?>&nbsp;&nbsp;</strong></td>
     <td align="right"><?php echo number_format($amount_total,2);  ?><?php echo sfConfig::get('app_currency_code');?></td>
-    
+    <td>&nbsp;</td>
 </tr>	
 <?php endif; ?>
 </table>
