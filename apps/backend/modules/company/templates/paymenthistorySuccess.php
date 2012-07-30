@@ -48,7 +48,7 @@ $incrment++;
     <td><?php echo ($transaction->getCompany()?$transaction->getCompany():'N/A')?></td>
     <td><?php echo __($transaction->getDescription()) ?></td>
     <td align="right"><?php echo number_format($transaction->getAmount(),2); $amount_total += $transaction->getAmount(); ?><?php echo sfConfig::get('app_currency_code');?></td>
-    <td><a href="<?php echo "ShowReceipt?tid=".$transaction->getId()?>" target="_blank"> <img src="/sf/sf_admin/images/default_icon.png" title=<?php echo __("view")?> alt=<?php echo __("view")?>></a></td>
+    <td><a href="<?php echo "/company/ShowReceipt?tid=".$transaction->getId()?>" target="_blank"> <img src="/sf/sf_admin/images/default_icon.png" title=<?php echo __("view")?> alt=<?php echo __("view")?>></a></td>
 </tr>
 <?php endforeach; ?>
 <?php if(count($transactions)==0): ?>
