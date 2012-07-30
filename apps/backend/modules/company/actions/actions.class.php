@@ -618,10 +618,10 @@ class companyActions extends sfActions {
          if ($request->isMethod('post')) {
              $company_id=$request->getParameter('company_id');
              $invoice_id = $request->getParameter('invoice_id');
-             $refill = $request->getParameter('refill');
+             $recharge = $request->getParameter('refill');
              $start_date= $request->getParameter('startdate');
 
-             $recharge=$refill+($refill* sfConfig::get('app_vat_percentage'));
+             $refill=$refill+($refill* sfConfig::get('app_vat_percentage'));
 
              //$recharge=($invoice_id!='')?$recharge:$refill;
              $company = CompanyPeer::retrieveByPk($company_id);
