@@ -216,7 +216,7 @@ if (isset($empl)) {
             <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><strong><?php echo number_format($amount_total+$total_sub+$othertotal,2)?><?php echo sfConfig::get('app_currency_code')?></strong></td>
         </tr>  
         </table><br/><br/>
-        <h1><?php echo __("Debit/Credit"); ?> </h1>
+        <h1><?php echo __("Payment History"); ?> </h1>
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
         <tr class="headings">
             <th  width="10%"  align="left"><?php echo __('Date and time') ?></th>
