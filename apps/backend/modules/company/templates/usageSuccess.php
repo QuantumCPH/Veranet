@@ -194,7 +194,7 @@
         foreach ($otherEvents->xdr_list as $xdr) {
          ?>
             <tr>
-                <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?>---id---<?php //echo $emp->getId();?></td>
+                <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?><?php //echo $emp->getId();?></td>
                 <td><?php echo __($xdr->CLD); ?></td>
                 <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); $othertotal +=$xdr->charged_amount;?><?php echo sfConfig::get('app_currency_code')?></td>
             </tr>

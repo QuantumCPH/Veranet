@@ -1,7 +1,7 @@
 <script type="text/javascript">
-jQuery(document).ready ( function() {
-   // jQuery('#startdate').datepicker({dateFormat: 'yy-mm-dd'});
-});
+    jQuery(function() {
+        jQuery( "#trigger_startdate" ).hide();
+    });
 </script>
 <div id="sf_admin_container"><h1>Payment</h1></div>
 
@@ -25,8 +25,8 @@ jQuery(document).ready ( function() {
                 <td style="padding: 5px;">Invoices:</td>
                 <td style="padding: 5px;">
                     <select name="invoice_id" id="invoice" onchange="new Ajax.Updater('amount', 'amount', {asynchronous:true, evalScripts:false, parameters:'invoice_id=' + this.options[this.selectedIndex].value});">
-                        <?php echo ($invoiceSelect!='')?'<option value="'.$invoiceSelect->getId().'">'.$invoiceSelect->getInvoiceNumber(). "--". date("d M Y", strtotime($invoiceSelect->getBillingStartingDate()))."-".date("d M Y", strtotime($invoiceSelect->getBillingEndingDate())).'</option>':'<option value="">Select Company</option>';?>
-
+                       <option value="">All</option>
+                       <?php echo ($invoiceSelect!='')?'<option value="'.$invoiceSelect->getId().'"selected="selected">'.$invoiceSelect->getInvoiceNumber(). "--". date("d M Y", strtotime($invoiceSelect->getBillingStartingDate()))."-".date("d M Y", strtotime($invoiceSelect->getBillingEndingDate())).'</option>':'<option value="">Select Company</option>';?>
                     </select>
                 </td>
             </tr>
@@ -45,7 +45,7 @@ jQuery(document).ready ( function() {
             <tr>
                 <td style="padding: 5px;">Payment Received on:</td>
                 <td style="padding: 5px;">
-                    <input type="text" id='startdate' name='start_date' value="<?php echo date("Y-m-d"); ?>" />
+                    <?php echo input_date_tag('startdate', date("Y-m-d"), 'rich=true') ?>
                 </td>
             </tr>
         </table>
