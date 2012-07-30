@@ -204,7 +204,8 @@ class employeeActions extends sfActions {
         $chrageamount=$product->getInitialBalance();
        //$emplyeeProductFeeDescription="Registration Fee Including Vat";,$emplyeeProductFeeDescription
         if($chrageamount > 0){
-            CompanyEmployeActivation::charge($this->companys,$chrageamount);
+            $description = "RegFee".$employee->getMobileNumber();
+            CompanyEmployeActivation::charge($this->companys,$chrageamount,$description);
         }
         $transaction = new CompanyTransaction();
         $transaction->setAmount(-$chrageamount);
