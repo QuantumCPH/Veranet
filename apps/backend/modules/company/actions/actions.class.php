@@ -676,7 +676,7 @@ class companyActions extends sfActions {
              $company = CompanyPeer::retrieveByPk($company_id);
 
              $ct = new Criteria();
-             $ct->add(TransactionDescriptionPeer::ID, 9);
+             ($invoice_id!='')?$ct->add(TransactionDescriptionPeer::ID, 9):$ct->add(TransactionDescriptionPeer::ID, 10);
              $description = TransactionDescriptionPeer::doSelectOne($ct);
 
              if(CompanyEmployeActivation::recharge($company, $recharge, $description->getTitle())){
