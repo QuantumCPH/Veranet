@@ -101,7 +101,7 @@ if (isset($empl)) {
                 <td><?php echo $xdr->country; ?></td>
                 <td><?php echo $xdr->description; ?></td>
                 <td><?php echo number_format($xdr->charged_amount, 2);
-                $amount_total+= number_format($xdr->charged_amount, 2); ?><?php echo sfConfig::get('app_currency_code'); ?></td>
+                $amount_total+= $xdr->charged_amount; ?><?php echo sfConfig::get('app_currency_code'); ?></td>
 
                 <td><?php echo $xdr->account_id; ?></td>
             </tr>
@@ -181,4 +181,39 @@ if (isset($empl)) {
                         <td align="right"><?php echo number_format($total_sub,2);?><?php echo sfConfig::get('app_currency_code'); ?></td>
                     </tr>
     </table><br/><br/>
+    <h1><?php echo __("Other events"); ?> </h1>
+    <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
+        <tr class="headings">
+            <th  width="10%"  align="left"><?php echo __('Date and time') ?></th>
+            <th  width="10%"  align="left"><?php echo __('Description') ?></th>
+            <th  width="10%"  align="left" style="text-align: right;"><?php echo __('Amount') ?></th>
+       </tr>
+        <?php
+        $othertotal = 0;
+        foreach ($ems as $emp) {
+        $otherEvents = CompanyEmployeActivation::callHistory($emp->getCompany(), $fromdate . ' 00:00:00', $todate . ' 23:59:59', false, 1);
+       // var_dump($otherEvents);
+        if(count($otherEvents)>0){
+        foreach ($otherEvents->xdr_list as $xdr) {
+         ?>
+            <tr>
+                <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
+                <td><?php echo __($xdr->CLD); ?></td>
+                <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); $othertotal +=$xdr->charged_amount;?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
+            </tr>
+            <?php } 
+            
+            }else {
+
+                echo __('There are currently no call records to show.');
+
+            }
+        }?>
+        <tr align="right">
+                <td colspan="2"><strong><?php echo __('Subtotal');?></strong></td><td><?php echo number_format($othertotal,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+        </tr>
+        <tr align="right">
+            <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><strong><?php echo number_format($amount_total+$total_sub+$othertotal,2)?><?php echo sfConfig::get('app_currency_code')?></strong></td>
+        </tr>  
+        </table><br/><br/>
 </div>

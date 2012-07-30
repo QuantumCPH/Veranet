@@ -225,7 +225,9 @@ use_helper('Number');
                                 <?php echo $call_duration ?>
                                 </td><td>&nbsp;</td>
                                 <td>
-                                <?php echo  number_format($temp_cost = $calculated_cost, 2) ?>
+                                <?php echo  number_format($calculated_cost, 2) ;
+                                $temp_cost = $calculated_cost;
+                                ?>
                                 </td>
                             </tr><?php  $totalcost += $temp_cost;
                             }

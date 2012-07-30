@@ -82,7 +82,7 @@
                 <td><?php echo $call->getConnectTime(); ?></td>
                 <td><?php echo $call->getPhoneNumber(); ?></td>
                 <td><?php //echo $call->getEmployeeId();
-                  $duration = EmployeeCallhistoryPeer::getCallDuration($call->getId());
+                  $duration = EmployeeCustomerCallhistoryPeer::getCallDuration($call->getId());
                   echo $duration;
                 ?></td>
                 <td><?php echo $call->getCountry()->getName(); ?></td>
@@ -135,12 +135,13 @@
                                     $regFlag = false;
                                     $subFlag = false;
                                     $ers = new Criteria();
-                                    $ers->add(EmployeeRegSubPeer::EMPLOYEE_ID, $employee->getId());
-                                    $ers->addAnd(EmployeeRegSubPeer::BILL_START, $startdate);
-                                    $ers->addAnd(EmployeeRegSubPeer::BILL_END, $enddate);
+                                    $ers->add(RegistrationSubscriptionPeer::PARENT_TABLE, 'employee');
+                                    $ers->add(RegistrationSubscriptionPeer::PARENT_ID, $employee->getId());
+                                    $ers->addAnd(RegistrationSubscriptionPeer::BILL_START, $startdate);
+                                    $ers->addAnd(RegistrationSubscriptionPeer::BILL_END, $enddate);
 
-                                    if (EmployeeRegSubPeer::doCount($ers) > 0) {
-                                        $empRegPrd = EmployeeRegSubPeer::doSelectOne($ers);
+                                    if (RegistrationSubscriptionPeer::doCount($ers) > 0) {
+                                        $empRegPrd = RegistrationSubscriptionPeer::doSelectOne($ers);
                                         $regfee = $empRegPrd->getRegFee();
                                         $sub_Fee = $empRegPrd->getSubFee();
                                         if ($regfee > 0)

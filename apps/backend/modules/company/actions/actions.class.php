@@ -401,16 +401,50 @@ class companyActions extends sfActions {
 
     public function executeUsage($request) {
         $this->company = CompanyPeer::retrieveByPK($request->getParameter('company_id'));
-        $tomorrow1 = mktime(0, 0, 0, date("m"), date("d") - 15, date("Y"));
-        $fromdate = date("Y-m-d", $tomorrow1);
-        $tomorrow = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
-        $todate = date("Y-m-d", $tomorrow);
-        $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $fromdate, $todate);
-        $this->fromdate = $fromdate;
-        $this->todate = $todate;
+        $fromdate = $request->getParameter('startdate');
+        $todate = $request->getParameter('enddate');
+        if ($fromdate!="" && $todate!="") {
+            $this->fromdate = $fromdate;
+            $this->todate = $todate;
+        } else {
+            $tomorrow1 = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
+            $this->fromdate = date("Y-m-1", $tomorrow1);
+            //$tomorrow = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
+            $this->todate = date("Y-m-t");
+        }
+               
+        $this->iaccount = $request->getParameter('iaccount');
+        $fromdate = $this->fromdate . " 00:00:00";
+        $todate = $this->todate. " 23:59:59" ;
+        if (isset($this->iaccount) && $this->iaccount != '') {
+            $ce = new Criteria();
+            $ce->add(TelintaAccountsPeer::ID, $this->iaccount);
+            $ce->addAnd(TelintaAccountsPeer::STATUS, 3);
+            $telintaAccount = TelintaAccountsPeer::doSelectOne($ce);
+
+            $this->iAccountTitle = $telintaAccount->getAccountTitle();
+            $this->empl = EmployeePeer::retrieveByPK($telintaAccount->getParentId());
+            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+        } else {
+
+            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+            
+        }
+        
+        $ces = new Criteria();
+        $employeeid = $request->getParameter('employee_id');
+        if($employeeid !=""){
+            $ces->add(EmployeePeer::ID,$employeeid);
+        }
+        $c = new Criteria();
+        $c->add(TelintaAccountsPeer::I_CUSTOMER, $this->company->getICustomer());
+        $c->addAnd(TelintaAccountsPeer::STATUS, 3);
+        $this->telintaAccountObj = TelintaAccountsPeer::doSelect($c);
+        
         $ces = new Criteria();
         $ces->add(EmployeePeer::COMPANY_ID,$this->company->getId());
         $ces->addAnd(EmployeePeer::STATUS_ID,3);
+        $this->cnt = EmployeePeer::doCount($ces);
         if(EmployeePeer::doCount($ces)>0)  {
              $this->ems = EmployeePeer::doSelect($ces);
         }
