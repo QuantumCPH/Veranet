@@ -201,7 +201,7 @@ class employeeActions extends sfActions {
         $uniqueIdObj->save();
         $product= ProductPeer::retrieveByPK($request->getParameter('productid'));
       // $chrageamount=$product->getRegistrationFee()+$product->getRegistrationFee()*sfConfig::get('app_vat_percentage');
-        $chrageamount=$product->getInitialBalance();
+        $chrageamount = $product->getInitialBalance();
        //$emplyeeProductFeeDescription="Registration Fee Including Vat";,$emplyeeProductFeeDescription
         if($chrageamount > 0){
             $description = "RegFee-".$employee->getMobileNumber();
@@ -273,7 +273,7 @@ class employeeActions extends sfActions {
                         $OpeningBalance=40;
                         $employee->setRegistrationType($request->getParameter('registration_type'));
                         //$resenummerCharge=file_get_contents('https://mybilling.telinta.com/htdocs/zapna/zapna.pl?type=account&action=manual_charge&name=' . $voipnumbers . '&amount=40&customer='.$companyCVR);
-                        CompanyEmployeActivation::charge($this->companys, $OpeningBalance);
+                        CompanyEmployeActivation::charge($this->companys, $OpeningBalance,"Resenumber");
                         $transaction = new CompanyTransaction();
                         $transaction->setAmount(-40);
                         $transaction->setCompanyId($request->getParameter('company_id'));
