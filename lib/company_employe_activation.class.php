@@ -351,7 +351,7 @@ class CompanyEmployeActivation {
         $accounts = false;
         $max_retries = 10;
         $retry_count = 0;
-echo $description;
+//echo $description;
         $pb = new PortaBillingSoapClient(self::$telintaSOAPUrl, 'Admin', 'Customer');
         
         while (!$accounts && $retry_count < $max_retries) {

@@ -3510,9 +3510,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
                    $employeeSubLog->setDescription("Registration");
                    $employeeSubLog->save();
                } 
-            }else{
-                $empRegSub->setRegFee(0);
-            }
+            
             // Save the product Subscription fee in the employee.
             $empRegSub->setEmployeeCreatedAt($employee->getCreatedAt());
             $empRegSub->setBillStart($startdate);
@@ -3544,6 +3542,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
             $empRegSub->setParentId($employee->getId());
             $empRegSub->save();
             }
+          }
         }
         return sfView::NONE;
     }
