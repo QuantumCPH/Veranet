@@ -72,7 +72,7 @@ use_helper('Number');
             ?>
         </td>
         <td><?php echo "1"; ?></td>
-        <td><?php echo number_format($subtotal = $transaction->getAmount()-($transaction->getAmount()*$vat), 2) ?><?php echo sfConfig::get('app_currency_code');?></td>
+        <td><?php echo number_format($subtotal = $transaction->getExtraRefill(), 2) ?><?php echo sfConfig::get('app_currency_code');?></td>
     </tr>
     <tr>
         <td colspan="4" style="border-bottom: 2px solid #c0c0c0;">&nbsp;</td>
@@ -87,7 +87,7 @@ use_helper('Number');
         <td>&nbsp;</td>
         <td><?php echo __('VAT') ?></td>
         <td>&nbsp;</td>
-        <td><?php echo number_format($vat, 2) ?><?php echo sfConfig::get('app_currency_code');?></td>
+        <td><?php echo number_format($transaction->getExtraRefill()*$vat, 2) ?><?php echo sfConfig::get('app_currency_code');?></td>
     </tr>
     <tr class="footer">
         <td>&nbsp;</td>
