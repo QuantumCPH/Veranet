@@ -189,6 +189,7 @@ if (isset($empl)) {
             <th  width="10%"  align="left" style="text-align: right;"><?php echo __('Amount') ?></th>
        </tr>
         <?php
+        $othertotal = 0;
         foreach ($ems as $emp) {
         $otherEvents = CompanyEmployeActivation::callHistory($emp->getCompany(), $fromdate . ' 00:00:00', $todate . ' 23:59:59', false, 1);
        // var_dump($otherEvents);
@@ -208,5 +209,11 @@ if (isset($empl)) {
 
             }
         }?>
+        <tr align="right">
+                <td colspan="2"><?php echo __('Subtotal');?></td><td><?php echo number_format($othertotal,2)?><?php echo sfConfig::get('app_currency_code')?></td>
+        </tr>
+        <tr align="right">
+            <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><strong><?php echo number_format($amount_total+$total_sub+$othertotal,2)?><?php echo sfConfig::get('app_currency_code')?></strong></td>
+        </tr>  
         </table><br/><br/>
 </div>

@@ -428,7 +428,7 @@ class companyActions extends sfActions {
         } else {
 
             $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-            $this->otherEvents = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59", false, 1);
+            
         }
         
         $ces = new Criteria();
