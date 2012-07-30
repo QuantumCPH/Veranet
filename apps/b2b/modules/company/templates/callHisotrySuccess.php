@@ -199,7 +199,7 @@ if (isset($empl)) {
             <tr>
                 <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
                 <td><?php echo __($xdr->CLD); ?></td>
-                <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); ?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
+                <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); $othertotal +=$xdr->charged_amount;?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
             </tr>
             <?php } 
             
@@ -210,7 +210,7 @@ if (isset($empl)) {
             }
         }?>
         <tr align="right">
-                <td colspan="2"><?php echo __('Subtotal');?></td><td><?php echo number_format($othertotal,2)?><?php echo sfConfig::get('app_currency_code')?></td>
+                <td colspan="2"><strong><?php echo __('Subtotal');?></strong></td><td><?php echo number_format($othertotal,2);?><?php echo sfConfig::get('app_currency_code')?></td>
         </tr>
         <tr align="right">
             <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><strong><?php echo number_format($amount_total+$total_sub+$othertotal,2)?><?php echo sfConfig::get('app_currency_code')?></strong></td>
