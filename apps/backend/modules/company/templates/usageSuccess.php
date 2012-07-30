@@ -188,13 +188,13 @@
        </tr>
         <?php
         $othertotal = 0;
-        foreach ($ems as $emp) {
-         $otherEvents = CompanyEmployeActivation::callHistory($emp->getCompany(), $fromdate . " 00:00:00", $todate . " 23:59:59", false, 1);   
+      //  foreach ($ems as $emp) {
+         $otherEvents = CompanyEmployeActivation::callHistory($company, $fromdate . " 00:00:00", $todate . " 23:59:59", false, 1);   
         if(count($otherEvents)>0){
         foreach ($otherEvents->xdr_list as $xdr) {
          ?>
             <tr>
-                <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
+                <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?><?php //echo $emp->getId();?></td>
                 <td><?php echo __($xdr->CLD); ?></td>
                 <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); $othertotal +=$xdr->charged_amount;?><?php echo sfConfig::get('app_currency_code')?></td>
             </tr>
@@ -203,7 +203,7 @@
                 echo __('There are currently no call records to show.');
 
             }
-        }  ?>
+      //  }  ?>
             <tr align="right">
                 <td colspan="2"><strong><?php echo __('Subtotal');?></strong></td><td><?php echo number_format($othertotal,2)?><?php echo sfConfig::get('app_currency_code')?></td>
             </tr>

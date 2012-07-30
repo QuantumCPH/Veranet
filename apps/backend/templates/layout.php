@@ -120,6 +120,12 @@
                       }else{
                           echo link_to(__('Invoices'), 'company/invoices');
                       }*/ ?>
+                    <?php 
+                      if($actionName=='charge'){
+                         echo link_to(__('Charge'), 'company/charge', array('class'=>'subSelect'));    
+                      }else{
+                          echo link_to(__('Charge'), 'company/charge');                          
+                      } ?>
                 </div>
             </li>
             <li>

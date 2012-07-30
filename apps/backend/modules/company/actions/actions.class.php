@@ -549,6 +549,55 @@ class companyActions extends sfActions {
              $this->redirect('company/indexAll');
                 return sfView::NONE;
     }
+    public function executeCharge(sfWebRequest $request) {
+
+        $c = new Criteria();
+        $this->companys = CompanyPeer::doSelect($c);
+        $ctd = new Criteria();
+        $ctd->add(TransactionDescriptionPeer::TRANSACTION_TYPE_ID,2);  ///// for Charge 
+        $ctd->addAnd(TransactionDescriptionPeer::TRANSACTION_SECTION_ID,1); ///// for Admin
+        $ctd->addAnd(TransactionDescriptionPeer::B2B,1);
+        $this->descriptions = TransactionDescriptionPeer::doSelect($ctd);
+        if ($request->isMethod('post')) {
+
+            $company_id = $request->getParameter('company_id');
+            $charge_amount = $request->getParameter('charge');
+            $descid        = $request->getParameter('descid');
+            ///Get transaction description
+            $cd = new Criteria();
+            $cd->add(TransactionDescriptionPeer::ID,$descid);
+            $description = TransactionDescriptionPeer::doSelectOne($cd);
+            
+            $c1 = new Criteria();
+            $c1->addAnd(CompanyPeer::ID, $company_id);
+            $this->company = CompanyPeer::doSelectOne($c1);
+            $companyCVR = $this->company->getVatNo();
+
+            $transaction = new CompanyTransaction();
+            $transaction->setAmount(-$charge_amount);
+            $transaction->setCompanyId($company_id);
+            $transaction->setExtraRefill(-$charge_amount);
+            $transaction->setTransactionStatusId(1);
+            $transaction->setPaymenttype($descid); //Charged Description id
+            $transaction->setDescription($description->getTitle());
+            $transaction->save();
+            
+            
+            
+            if ($companyCVR != '') {
+                CompanyEmployeActivation::charge($this->company, $charge_amount,$description->getTitle());
+                $transaction->setTransactionStatusId(3);
+                $transaction->save();
+                $this->getUser()->setFlash('message', 'B2B Company Charged Successfully');
+                $this->redirect('company/paymenthistory');
+            } else {
+
+                $this->getUser()->setFlash('message', 'Please Select B2B Company');
+            }
+            //$telintaAddAccount='success=OK&Amount=$amount{$cust_info->{iso_4217}}';
+            //parse_str($telintaAddAccount, $success);print_r($success);echo $success['success'];
+        }
+    }
 
    public function executeInvoices(sfWebRequest $request)
     {
