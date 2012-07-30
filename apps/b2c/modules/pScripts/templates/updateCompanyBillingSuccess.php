@@ -213,7 +213,7 @@ use_helper('Number');
                                     $dc->add(EmployeeCustomerCallhistoryPeer::COUNTRY_ID,$billing->getCountryId());
                                     $dc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $invoice_meta->getBillingStartingDate('Y-m-d 00:00:00') . "' ", Criteria::CUSTOM);
                                     $dc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  < '" . $invoice_meta->getBillingEndingDate('Y-m-d 23:59:59') . "' ", Criteria::CUSTOM);
-                                  //  $dc->addGroupByColumn(EmployeeCallhistoryPeer::COUNTRY_ID);
+                                    //$dc->addGroupByColumn(EmployeeCustomerCallhistoryPeer::COUNTRY_ID);
                                     $temp = EmployeeCustomerCallhistoryPeer::doSelect($dc);
                                     $minutes_count = 0;
                                     $calculated_cost = 0;
@@ -225,7 +225,9 @@ use_helper('Number');
                                 <?php echo $call_duration ?>
                                 </td><td>&nbsp;</td>
                                 <td>
-                                <?php echo  number_format($temp_cost = $calculated_cost, 2) ?>
+                                <?php echo  number_format($calculated_cost, 2) ;
+                                $temp_cost = $calculated_cost;
+                                ?>
                                 </td>
                             </tr><?php  $totalcost += $temp_cost;
                             }

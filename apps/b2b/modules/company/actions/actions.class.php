@@ -127,10 +127,10 @@ class companyActions extends sfActions {
             $this->fromdate = $request->getParameter('startdate');
             $this->todate = $request->getParameter('enddate');
         } else {
-            $tomorrow1 = mktime(0, 0, 0, date("m"), date("d") - 3, date("Y"));
+            $tomorrow1 = mktime(0, 0, 0, date("m"), date("1") , date("Y"));
             $this->fromdate = date("Y-m-d", $tomorrow1);
             //$tomorrow = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
-            $this->todate = date("Y-m-d");
+            $this->todate = date("Y-m-t");
         }
         $this->iaccount = $request->getParameter('iaccount');
         $fromdate = $this->fromdate . " 00:00:00";
@@ -147,11 +147,9 @@ class companyActions extends sfActions {
         } else {
 
             $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+            $this->otherEvents = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59", false, 1);
         }
           
-//        echo $fromdate;
-//        echo '<br />';
-//        echo $todate;
         $c = new Criteria();
         $c->add(TelintaAccountsPeer::I_CUSTOMER, $this->company->getICustomer());
         $c->addAnd(TelintaAccountsPeer::STATUS, 3);
@@ -197,19 +195,20 @@ class companyActions extends sfActions {
             $this->employee_id ="";
             
             $cb = new Criteria();
-            $cb->add(EmployeeCallhistoryPeer::EMPLOYEE_ID,$employee_ids,Criteria::IN);
+            $cb->add(EmployeeCustomerCallhistoryPeer::PARENT_TABLE,'employee');
+            $cb->addAnd(EmployeeCustomerCallhistoryPeer::PARENT_ID,$employee_ids,Criteria::IN);
             if ($request->isMethod('post')) {
                $this->employee_id = $request->getParameter('employee');
                if($this->employee_id!=""){
-                  $emp_c->addAnd(EmployeeCallhistoryPeer::EMPLOYEE_ID,$this->employee_id);
-                  $cb->addAnd(EmployeeCallhistoryPeer::EMPLOYEE_ID,$this->employee_id); 
+                  $emp_c->addAnd(EmployeePeer::ID,$this->employee_id);
+                  $cb->addAnd(EmployeeCustomerCallhistoryPeer::PARENT_ID,$this->employee_id); 
                }
                if($billingduration!='all'){
                  $duration = explode("_",$billingduration); 
                  $starting = $duration[0];
                  $ending   = $duration[1];
-                 $cb->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $starting . "' ", Criteria::CUSTOM);
-                 $cb->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  <= '" . $ending . "' ", Criteria::CUSTOM);
+                 $cb->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $starting . "' ", Criteria::CUSTOM);
+                 $cb->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  <= '" . $ending . "' ", Criteria::CUSTOM);
                  $this->start = $starting;
                  $this->end = $ending;
               }elseif($billingduration=='all'){
@@ -222,8 +221,8 @@ class companyActions extends sfActions {
             }else{  
                  $starting = date('Y-m-01 00:00:00');
                  $ending   = date('Y-m-t 23:59:59');
-                 $cb->addAnd(EmployeeCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $starting . "' ", Criteria::CUSTOM);
-                 $cb->addAnd(EmployeeCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  <= '" . $ending . "' ", Criteria::CUSTOM);
+                 $cb->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $starting . "' ", Criteria::CUSTOM);
+                 $cb->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  <= '" . $ending . "' ", Criteria::CUSTOM);
                  $billingduration = $starting.'_'.$ending;
                  $this->start = $starting;
                  $this->end = $ending;
@@ -232,9 +231,9 @@ class companyActions extends sfActions {
             }
             
             
-            $cb->addDescendingOrderByColumn(EmployeeCallhistoryPeer::ACCOUNT_ID);
-            $cb->addDescendingOrderByColumn(EmployeeCallhistoryPeer::CONNECT_TIME);
-            $this->callHistory = EmployeeCallhistoryPeer::doSelect($cb);
+            $cb->addDescendingOrderByColumn(EmployeeCustomerCallhistoryPeer::ACCOUNT_ID);
+            $cb->addDescendingOrderByColumn(EmployeeCustomerCallhistoryPeer::CONNECT_TIME);
+            $this->callHistory = EmployeeCustomerCallhistoryPeer::doSelect($cb);
 
             $ic = new Criteria();
             $ic->add(InvoicePeer::COMPANY_ID,$companyId);
