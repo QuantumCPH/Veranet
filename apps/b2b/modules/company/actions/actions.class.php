@@ -146,8 +146,7 @@ class companyActions extends sfActions {
             $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
         } else {
 
-            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
-            $this->otherEvents = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59", false, 1);
+            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");            
         }
           
         $c = new Criteria();

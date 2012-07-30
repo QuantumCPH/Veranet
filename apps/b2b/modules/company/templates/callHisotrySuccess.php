@@ -185,25 +185,28 @@ if (isset($empl)) {
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
         <tr class="headings">
             <th  width="10%"  align="left"><?php echo __('Date and time') ?></th>
-            <th  width="10%"  align="left"><?php echo __('Account Id') ?></th>
             <th  width="10%"  align="left"><?php echo __('Description') ?></th>
             <th  width="10%"  align="left" style="text-align: right;"><?php echo __('Amount') ?></th>
        </tr>
         <?php
-        
+        foreach ($ems as $emp) {
+        $otherEvents = CompanyEmployeActivation::callHistory($emp->getCompany(), $fromdate . ' 00:00:00', $todate . ' 23:59:59', false, 1);
+       // var_dump($otherEvents);
         if(count($otherEvents)>0){
         foreach ($otherEvents->xdr_list as $xdr) {
          ?>
             <tr>
                 <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
-                <td><?php echo __($xdr->account_id); ?></td>
                 <td><?php echo __($xdr->CLD); ?></td>
                 <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); ?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
             </tr>
-            <?php } }else {
+            <?php } 
+            
+            }else {
 
                 echo __('There are currently no call records to show.');
 
-            } ?>
+            }
+        }?>
         </table><br/><br/>
 </div>
