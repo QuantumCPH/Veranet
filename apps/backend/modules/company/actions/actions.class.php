@@ -584,17 +584,17 @@ class companyActions extends sfActions {
          if ($request->isMethod('post')) {
              $company_id=$request->getParameter('company_id');
              $invoice_id = $request->getParameter('invoice_id');
-             echo $refill = $request->getParameter('refill');
+             $refill = $request->getParameter('refill');
              $start_date= $request->getParameter('start_date');
 
-             $com = new Criteria();
-             $company = CompanyPeer::doSelectOne($com);var_dump($company);
-CompanyEmployeActivation::recharge($company, $refill); exit;
-             //$ct = new Criteria();
-             //$ct->add(TransactionDescriptionPeer::ID, 9);
-             //$description = TransactionDescriptionPeer::doSelectOne($ct);, $description->getTitle())
-             
-             if(!CompanyEmployeActivation::recharge($company, $refill)){
+             $recharge=$refill-($refill* sfConfig::get('app_vat_percentage'));
+             $company = CompanyPeer::retrieveByPk($company_id);
+
+             $ct = new Criteria();
+             $ct->add(TransactionDescriptionPeer::ID, 9);
+             $description = TransactionDescriptionPeer::doSelectOne($ct);
+
+             if(CompanyEmployeActivation::recharge($company, $recharge, $description->getTitle())){
                  if($invoice_id!=''){
                      $ci = new Criteria();
                      $ci->add(InvoicePeer::ID, $invoice_id);
@@ -619,6 +619,7 @@ CompanyEmployeActivation::recharge($company, $refill); exit;
                     $cc = new CompanyTransaction();
                     $cc->setCompanyId($company_id);
                     $cc->setAmount($refill);
+                    $cc->setExtraRefill($recharge);
                     $cc->setInvoiceNo($invoice_no);
                     $cc->setPaymentType('1');
                     $cc->setDescription($description->getTitle());

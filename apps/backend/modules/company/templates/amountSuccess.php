@@ -1,1 +1,1 @@
-<?PHP echo $amount->getTotalUsage();?>
+<?PHP echo $amount->getNetPayment();?>

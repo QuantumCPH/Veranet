@@ -47,7 +47,7 @@
             <th>To be paid</th>
             <th>Status</th>
             <th>View HTML</th>
-<!--            <th>Action</th>-->
+            <th>Action</th>
         </tr>
 <?php
     $increment = 1;
@@ -92,7 +92,7 @@
                 <a href="showInvoice?id=<?php echo $invoice->getId();?>" target="_blank">View</a>
                 <?php } ?>
             </td>
-<!--            <td><a href="refill?id=<?php echo $invoice->getId();?>">Payment</a></td>-->
+            <td><a href="refill?id=<?php echo $invoice->getId();?>">Payment</a></td>
         </tr>
     <?php
         $records -=1;

@@ -155,12 +155,12 @@ class CompanyEmployeActivation {
         return true;
     }
 
-    public static function recharge(Company $company, $amount) {
-        return self::makeTransaction($company, "Manual payment", $amount);
+    public static function recharge(Company $company, $amount, $description="Refill") {
+        return self::makeTransaction($company, "Manual payment", $amount, $description);
     }
 
-    public static function charge(Company $company, $amount) {
-        return self::makeTransaction($company, "Manual charge", $amount);
+    public static function charge(Company $company, $amount,  $description="Charge") {
+        return self::makeTransaction($company, "Manual charge", $amount, $description);
     }
 
     public static function terminateAccount(TelintaAccounts $telintaAccount) {
@@ -347,11 +347,11 @@ class CompanyEmployeActivation {
         return true;
     }
 
-    private static function makeTransaction(Company $company, $action, $amount) {
+    private static function makeTransaction(Company $company, $action, $amount, $description) {
         $accounts = false;
         $max_retries = 10;
         $retry_count = 0;
-
+echo $description;
         $pb = new PortaBillingSoapClient(self::$telintaSOAPUrl, 'Admin', 'Customer');
         
         while (!$accounts && $retry_count < $max_retries) {
@@ -360,7 +360,7 @@ class CompanyEmployeActivation {
                             'i_customer' => $company->getICustomer(),
                             'action' => $action, //Manual payment, Manual charge
                             'amount' => $amount,
-                            'visible_comment' => 'charge by SOAP ' . $action
+                            'visible_comment' => $description
                         ));
             } catch (SoapFault $e) {
                 if ($e->faultstring != 'Could not connect to host' && $e->faultstring != 'Internal Server Error') {

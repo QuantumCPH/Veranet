@@ -33,7 +33,7 @@ jQuery(document).ready ( function() {
             <tr>
                 <td style="padding: 5px;">Amount:</td>
                 <td style="padding: 5px;">
-                   <span id="amount"><?php echo ($invoiceSelect!='')?$invoiceSelect->getTotalUsage():'0';?></span>
+                   <span id="amount"><?php echo ($invoiceSelect!='')?$invoiceSelect->getNetPayment():'0';?></span>
                 </td>
             </tr>
             <tr>
