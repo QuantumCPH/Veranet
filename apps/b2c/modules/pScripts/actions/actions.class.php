@@ -3547,7 +3547,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         return sfView::NONE;
     }
         
-    function executeGenerateInvoiceMonthly(sfWebRequest $request){
+    function executeGenerateInvoicesMonthly(sfWebRequest $request){
        // $start_date = date('Y-m-1',strtotime('last month'));
         // echo '<br />';23:59:59'
       //  $end_date = date('Y-m-t',strtotime('last month'));
