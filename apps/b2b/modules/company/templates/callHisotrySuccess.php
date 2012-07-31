@@ -225,7 +225,7 @@ if (isset($empl)) {
        </tr>
         <?php
         $paymenttotal = 0;
-      //  foreach ($ems as $emp) {
+      
         $otherEvent = CompanyEmployeActivation::callHistory($company, $fromdate . ' 00:00:00', $todate . ' 23:59:59', false, 2);
        // var_dump($otherEvents);
         if(count($otherEvent)>0){
@@ -243,7 +243,7 @@ if (isset($empl)) {
                 echo __('There are currently no call records to show.');
 
             }
-       // }?>
+       ?>
         <tr align="right">
                 <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><?php echo number_format($paymenttotal,2);?><?php echo sfConfig::get('app_currency_code')?></td>
         </tr>
