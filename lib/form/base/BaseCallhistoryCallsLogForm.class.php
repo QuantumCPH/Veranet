@@ -18,6 +18,7 @@ class BaseCallhistoryCallsLogForm extends BaseFormPropel
       'todate'    => new sfWidgetFormDateTime(),
       'fromdate'  => new sfWidgetFormDateTime(),
       'status'    => new sfWidgetFormInput(),
+      'i_service' => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
@@ -27,6 +28,7 @@ class BaseCallhistoryCallsLogForm extends BaseFormPropel
       'todate'    => new sfValidatorDateTime(array('required' => false)),
       'fromdate'  => new sfValidatorDateTime(array('required' => false)),
       'status'    => new sfValidatorInteger(array('required' => false)),
+      'i_service' => new sfValidatorInteger(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('callhistory_calls_log[%s]');
