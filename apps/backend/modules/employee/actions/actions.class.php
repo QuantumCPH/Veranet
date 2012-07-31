@@ -207,8 +207,9 @@ class employeeActions extends sfActions {
             $description = "RegFee-".$employee->getMobileNumber();
             CompanyEmployeActivation::charge($this->companys,$chrageamount,$description);
         }
+        $withvat = $chrageamount + $chrageamount * sfConfig::get('app_vat_percentage');
         $transaction = new CompanyTransaction();
-        $transaction->setAmount(-$chrageamount);
+        $transaction->setAmount(-$withvat);
         $transaction->setCompanyId($request->getParameter('company_id'));
         $transaction->setExtraRefill(-$chrageamount);
         $transaction->setTransactionStatusId(3);
