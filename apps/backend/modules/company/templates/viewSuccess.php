@@ -23,13 +23,20 @@
 				</div>
 
 	<div class="form-row">
-				  <label class="required"><?php echo  __('Balance view:') ?> </label>
+				  <label class="required"><?php echo  __('Airtime:') ?> <br /><small>(excluding vat)</small></label>
 				  <div class="content"><?php
                                  echo number_format($balance,2);echo sfConfig::get('app_currency_code');
                            ?>
 				   
 				  </div>
 				</div>
+                                <div class="form-row">
+				  <label class="required"><?php echo  __('Credit Limit:') ?></label>
+				  <div class="content">
+				  	-<?php echo number_format($company->getCreditLimit(),2); ?>
+				  </div>
+				</div>
+                                
 				<div class="form-row">
 				  <label class="required"><?php echo  __('Vat Number:') ?></label>
 				  <div class="content">
@@ -104,12 +111,6 @@
 				  <label class="required"><?php echo  __('Website:') ?></label>
 				  <div class="content">
 				  	<?php echo $company->getWebsite()?$company->getWebsite():'N/A' ?>
-				  </div>
-				</div>
-                                <div class="form-row">
-				  <label class="required"><?php echo  __('Credit Limit:') ?></label>
-				  <div class="content">
-				  	-<?php echo number_format($company->getCreditLimit(),2); ?>
 				  </div>
 				</div>
 

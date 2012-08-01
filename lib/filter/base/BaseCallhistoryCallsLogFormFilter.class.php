@@ -19,6 +19,7 @@ class BaseCallhistoryCallsLogFormFilter extends BaseFormFilterPropel
       'todate'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'fromdate'  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'status'    => new sfWidgetFormFilterInput(),
+      'i_service' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
@@ -27,6 +28,7 @@ class BaseCallhistoryCallsLogFormFilter extends BaseFormFilterPropel
       'todate'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'fromdate'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'status'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'i_service' => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
     $this->widgetSchema->setNameFormat('callhistory_calls_log_filters[%s]');
@@ -50,6 +52,7 @@ class BaseCallhistoryCallsLogFormFilter extends BaseFormFilterPropel
       'todate'    => 'Date',
       'fromdate'  => 'Date',
       'status'    => 'Number',
+      'i_service' => 'Number',
     );
   }
 }
