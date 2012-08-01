@@ -407,10 +407,10 @@ class companyActions extends sfActions {
             $this->fromdate = $fromdate;
             $this->todate = $todate;
         } else {
-            $tomorrow1 = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
-            $this->fromdate = date("Y-m-1", $tomorrow1);
-            //$tomorrow = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
-            $this->todate = date("Y-m-t");
+          //  $tomorrow1 = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
+            $this->fromdate = date("Y-m-1");
+          //  $tomorrow = mktime(0, 0, 0, date("m"), date("t") + 1, date("Y"));
+            $this->todate = date("Y-m-d");
         }
                
         $this->iaccount = $request->getParameter('iaccount');

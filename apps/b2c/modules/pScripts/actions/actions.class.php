@@ -3881,8 +3881,10 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cnb->addAnd(CompanyNetBalancePeer::BILL_END,$this->billing_end_date);
         $cnb->addAnd(CompanyNetBalancePeer::COMPANY_ID,$company->getId());
         $netbalance = CompanyNetBalancePeer::doSelectOne($cnb);
-        $net = $netbalance->getNetBalance();
-        $this->netbalance = $net;
+        if(CompanyNetBalancePeer::doCount($cnb)>0){
+            $net = $netbalance->getNetBalance();
+            $this->netbalance = $net;
+        }    
         
         $ec = new Criteria();
         $ec->add(EmployeePeer::COMPANY_ID, $company->getId());

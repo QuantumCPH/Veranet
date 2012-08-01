@@ -1,4 +1,11 @@
-<?php use_helper('I18N') ?><div id="sf_admin_container">
+<?php use_helper('I18N') ?>
+<script>
+  jQuery(function(){
+      jQuery('#trigger_startdate').hide();
+      jQuery('#trigger_enddate').hide();
+  });
+</script>
+<div id="sf_admin_container">
     <div id="sf_admin_content">
         <!-- employee/list?filters[company_id]=1 -->
         <a href="<?php echo url_for('employee/index') . '?company_id=' . $company->getId() . "&filter=filter" ?>" class="external_link" target="_self"><?php echo __('Employees') ?> (<?php echo $cnt ?>)</a>
@@ -137,29 +144,33 @@
          $total_sub = 0;
          $regfee = 0;
          $fromdate = date('Y-m-d 00:00:00', strtotime($fromdate));
-         $todate = date('Y-m-d 23:59:59', strtotime($todate));
+         $todate = date('Y-m-d 23:58:00', strtotime($todate));
+         
+//          echo    $fromdate;
+//          echo '<br />';
+//          echo    $todate;   
          if(isset($empl)){
            $tilentaSubResult = CompanyEmployeActivation::getSubscription($empl, $fromdate, $todate);
+          // var_dump($tilentaSubResult);
             if (count($tilentaSubResult) > 0) {
                 foreach ($tilentaSubResult->xdr_list as $xdr) {
                     ?> <tr>
                         <td><?php echo date("d-m-Y H:i:s", strtotime($xdr->bill_time)); ?></td>
                         <td><?php echo __($xdr->account_id); ?></td>
                         <td><?php echo __($xdr->CLD); ?></td>
-                        <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); $total_sub += $xdr->charged_amount; ?><?php echo sfConfig::get('app_currency_code') ?></td>
+                        <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); $total_sub += $xdr->charged_amount; ?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
                     </tr>
                 <?php
                 }
-            }
-        
-         }else{
-             
-         foreach ($ems as $emp) {         
+            } 
+         }else{   
+             foreach ($ems as $emp) {         
             $tilentaSubResult = CompanyEmployeActivation::getSubscription($emp, $fromdate , $todate);
+          //  var_dump($tilentaSubResult);
             if (count($tilentaSubResult) > 0) {
                 foreach ($tilentaSubResult->xdr_list as $xdr) {
                     ?> <tr>
-                        <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
+                        <td><?php echo $xdr->bill_time//date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
                         <td><?php //echo __($xdr->account_id); ?><?php echo $emp->getMobileNumber();?></td>
                         <td><?php echo __($xdr->CLD); ?></td>
                         <td align="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); $total_sub += $xdr->charged_amount;?><?php echo sfConfig::get('app_currency_code') ?></td>
@@ -168,7 +179,7 @@
                 }
             } 
          }
-        } 
+       }
         ?>
                     
     <tr>
