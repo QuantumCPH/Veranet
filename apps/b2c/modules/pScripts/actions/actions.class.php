@@ -3253,12 +3253,12 @@ if(($caltype!="IC") && ($caltype!="hc")){
         foreach($companies as $company){
 
             //previous month start and end date
-//              $this->fromdate = date("Y-m-1 00:00:00", strtotime("last month"));       
-//              $this->todate = date("Y-m-t 23:59:59", strtotime("last month"));
+              $this->fromdate = date("Y-m-1 00:00:00", strtotime("last month"));       
+              $this->todate = date("Y-m-t 23:59:59", strtotime("last month"));
 
             // Current month start and end date
-              $this->fromdate = date("Y-m-1 00:00:00");       
-              $this->todate = date("Y-m-t 23:59:59");
+//              $this->fromdate = date("Y-m-1 00:00:00");       
+//              $this->todate = date("Y-m-t 23:59:59");
       //      die;
             $tilentaCallHistryResult = CompanyEmployeActivation::callHistory($company, $this->fromdate, $this->todate);
 //     var_dump($tilentaCallHistryResult);
@@ -3465,9 +3465,9 @@ if(($caltype!="IC") && ($caltype!="hc")){
     
     public function executeOdrChargesMonthly(sfWebRequest $request) {
         
-        echo $start_date = date('Y-m-1 00:00:00');
+        echo $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
         echo "<hr/>";
-        echo $end_date = date('Y-m-t 23:59:59');
+        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
         echo "<hr/>";
         $start_strtotime = strtotime($start_date);
         echo $startdate = date('Y-m-d 00:00:00', $start_strtotime);
@@ -3598,9 +3598,9 @@ if(($caltype!="IC") && ($caltype!="hc")){
         // echo '<br />';23:59:59'
       //  $end_date = date('Y-m-t',strtotime('last month'));
         
-        $start_date = date('Y-m-1');
+        $start_date = date('Y-m-1',strtotime('last month'));
         // echo '<br />';23:59:59'
-        $end_date = date('Y-m-t');
+        $end_date = date('Y-m-t',strtotime('last month'));
         $start_strtotime = strtotime($start_date);
         $startdate = date('Y-m-d 00:00:00', $start_strtotime);
         $end_strototime = strtotime($end_date);
@@ -3634,7 +3634,19 @@ if(($caltype!="IC") && ($caltype!="hc")){
                      $invoice = file_get_contents($url1);
 
            }echo "<br/>";
-           
+           if($calls == 0){
+                $cl = new Criteria();
+                $cl->addAnd(OdrsPeer::BILL_START, $startdate, Criteria::GREATER_EQUAL);
+                $cl->addAnd(OdrsPeer::BILL_END, $enddate, Criteria::LESS_EQUAL);
+                $cl->addAnd(OdrsPeer::COMPANY_ID,$company->getId());        
+                $calls = OdrsPeer::doCount($cl);
+                echo "calls---".$calls;
+                if($calls>0){ echo "----companyid------".$company->getId(); echo "<br/>";
+                echo    $url1 = sfConfig::get('app_customer_url').'pScripts/invoiceBilling?company_id='.$company->getId().'&start_date='.$start_strtotime.'&end_date='.$end_strototime;
+                       $invoice = file_get_contents($url1);
+
+               }echo "<br/>";
+           }  
         }
         return sfView::NONE;   
 
@@ -3721,9 +3733,9 @@ if(($caltype!="IC") && ($caltype!="hc")){
     
     public function executeCompanyNetBalance(sfWebRequest $request) {
         
-        echo $start_date = date('Y-m-1 00:00:00');
+        echo $start_date = date('Y-m-1 00:00:00',strtotime('last month'));
         echo "<hr/>";
-        echo $end_date = date('Y-m-t 23:59:59');
+        echo $end_date = date('Y-m-t 23:59:59',strtotime('last month'));
         echo "<hr/>";
         $start_strtotime = strtotime($start_date);
         echo $startdate = date('Y-m-d 00:00:00', $start_strtotime);
@@ -3748,7 +3760,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
            $co->add(OdrsPeer::COMPANY_ID,$company->getId());
            $co->addAnd(OdrsPeer::BILL_END,$end_date,Criteria::LESS_EQUAL);
            $co->addAnd(OdrsPeer::I_SERVICE,2);
-           $co->addSelectColumn('sum(' . OdrsPeer::CHARGED_AMOUNT. ') AS total_charged_amount');
+           $co->addSelectColumn('sum(' . OdrsPeer::VAT_INCLUDED_AMOUNT. ') AS total_charged_amount');
            $sum_camount = OdrsPeer::doSelectStmt($co);
            $rs = $sum_camount->fetch(PDO::FETCH_OBJ);
            $total_charged_amount = $rs->total_charged_amount;
@@ -3839,7 +3851,14 @@ if(($caltype!="IC") && ($caltype!="hc")){
         if($paycount > 0){
            $this->payments = OdrsPeer::doSelect($cpay); 
         }
-        
+        ///// Select previous invoices
+        $cip = new Criteria();
+        $cip->add(InvoicePeer::BILLING_ENDING_DATE,$this->billing_end_date, Criteria::LESS_THAN);
+        $cip->addAnd(InvoicePeer::COMPANY_ID,$company_id);
+        $cip->setLimit(10);
+        $cip->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
+        $preInvoices = InvoicePeer::doSelect($cip);
+        $this->preInvoices = $preInvoices;
         $this->setLayout(false);
     }
     
@@ -3855,7 +3874,15 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $billings = array();
         $ratings = array();
         $bilcharge = 00.00;
-
+        
+        $cnb = new Criteria();
+        $cnb->add(CompanyNetBalancePeer::BILL_START,$this->billing_start_date);
+        $cnb->addAnd(CompanyNetBalancePeer::BILL_END,$this->billing_end_date);
+        $cnb->addAnd(CompanyNetBalancePeer::COMPANY_ID,$company->getId());
+        $netbalance = CompanyNetBalancePeer::doSelectOne($cnb);
+        $net = $netbalance->getNetBalance();
+        $this->netbalance = $net;
+        
         $ec = new Criteria();
         $ec->add(EmployeePeer::COMPANY_ID, $company->getId());
         $ec->add(EmployeePeer::STATUS_ID,3);
@@ -3880,12 +3907,21 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cpay = new Criteria();
         $cpay->add(OdrsPeer::COMPANY_ID,$company->getId());
         $cpay->addAnd(OdrsPeer::I_SERVICE,2);
-        
+        $cpay->setLimit(10);
+        $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_TIME);
         $paycount = OdrsPeer::doCount($cpay);
         if($paycount > 0){
            $this->payments = OdrsPeer::doSelect($cpay); 
         }
         
+        ///// Select previous invoices
+        $cip = new Criteria();
+        $cip->add(InvoicePeer::BILLING_ENDING_DATE,$this->billing_end_date, Criteria::LESS_THAN);
+        $cip->addAnd(InvoicePeer::COMPANY_ID,$company->getId());
+        $cip->setLimit(10);
+        $cip->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
+        $preInvoices = InvoicePeer::doSelect($cip);
+        $this->preInvoices = $preInvoices;
         $this->setLayout(false);
     }
     

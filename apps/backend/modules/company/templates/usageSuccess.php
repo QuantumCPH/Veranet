@@ -166,10 +166,7 @@
                     </tr>
                 <?php
                 }
-            } else {
-
-               echo __('There are currently no call records to show.');
-            }
+            } 
          }
         } 
         ?>
@@ -199,9 +196,14 @@
                 <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); $othertotal +=$xdr->charged_amount;?><?php echo sfConfig::get('app_currency_code')?></td>
             </tr>
             <?php } }else {
-
-                echo __('There are currently no call records to show.');
-
+             ?>
+                    <tr>
+                        <td>
+             <?php
+                echo __('There are currently no records to show.'); ?>
+                        </td>
+                    </tr>
+          <?php                  
             }
       //  }  ?>
             <tr align="right">
@@ -234,9 +236,14 @@
             <?php } 
             
             }else {
-
-                echo __('There are currently no call records to show.');
-
+             ?>
+                    <tr>
+                        <td>
+             <?php
+                echo __('There are currently no records to show.'); ?>
+                        </td>
+                    </tr>
+          <?php                  
             }
       ?>
         <tr align="right">
