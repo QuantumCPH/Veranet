@@ -114,6 +114,13 @@ use_helper('Number');
                        
                         //$call_rate_table = CallRateTablePeer::doSelect(new Criteria());
                         ?>
+                        <tr class="summary_header">
+                            <td width="50%">Calls</td>
+                            <td width="16%"align="left">Duration</td>
+                            <!--                                        Produkt pris-->
+                            <td align="16%">&nbsp;</td>
+                            <td align="18%">Charged Amount (<?php echo sfConfig::get('app_currency_code')?>.)</td>
+                        </tr>
                         <?php
                         $billings = array();
                         $ratings = array();
@@ -144,13 +151,7 @@ use_helper('Number');
                         <?php
                             if ($billingFlag) {
                         ?>
-                        <tr class="summary_header">
-                            <td width="50%">Calls</td>
-                            <td width="16%"align="left">Duration</td>
-                            <!--                                        Produkt pris-->
-                            <td align="16%">&nbsp;</td>
-                            <td align="18%">Charged Amount (<?php echo sfConfig::get('app_currency_code')?>.)</td>
-                        </tr>
+                        
                         <tr><td><br/><b><u><?php echo 'From Number: ' . $employee->getMobileNumber() ?> </u> </b><br/><br/></td></tr>
 <?php } ?>           
                         <?php
