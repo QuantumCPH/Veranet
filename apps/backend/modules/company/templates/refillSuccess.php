@@ -40,15 +40,15 @@
             <tr>
                 <td style="padding: 5px;">Payment Received:</td>
                 <td style="padding: 5px;">
-                    <input type="text" id="refill" name="refill">
+                    <input type="text" id="refill" name="refill"><?php echo sfConfig::get('app_currency_code');?>
                 </td>
             </tr>
-            <tr>
+<!--            <tr>
                 <td style="padding: 5px;">Payment Received on:</td>
                 <td style="padding: 5px;">
                     <?php echo input_date_tag('startdate', date("Y-m-d"), 'rich=true') ?>
                 </td>
-            </tr>
+            </tr>-->
         </table>
         <div id="sf_admin_container">
             <ul class="sf_admin_actions">
