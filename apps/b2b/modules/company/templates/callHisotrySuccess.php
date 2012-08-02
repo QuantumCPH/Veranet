@@ -250,7 +250,7 @@ if (isset($empl)) {
             }
        ?>
         <tr align="right">
-                <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><?php echo number_format($paymenttotal,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+                <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><?php echo -1 * number_format($paymenttotal,2);?><?php echo sfConfig::get('app_currency_code')?></td>
         </tr>
          
         </table><br/><br/>
