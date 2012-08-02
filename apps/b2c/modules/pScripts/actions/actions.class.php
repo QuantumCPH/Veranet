@@ -3465,6 +3465,10 @@ if(($caltype!="IC") && ($caltype!="hc")){
     
     public function executeOdrChargesMonthly(sfWebRequest $request) {
         
+//        echo $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+//        echo "<hr/>";
+//        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
+//        echo "<hr/>";
         echo $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
         echo "<hr/>";
         echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
@@ -3493,6 +3497,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                     $other->setChargedAmount($odr->charged_amount);
                     $other->setCompanyId($company->getId());
                     $other->setVatIncludedAmount($odr->charged_amount + $odr->charged_amount * sfConfig::get('app_vat_percentage'));
+                    $other->setConnectTime($odr->connect_time);
+                    $other->setDisconnectTime($odr->disconnect_time);
                     $other->setChargedVatValue(sfConfig::get('app_vat_percentage'));
                     $other->setIService(1);
                     $other->save();
@@ -3519,6 +3525,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                     $pay->setBillEnd($enddate);
                     $pay->setBillTime($odrpay->bill_time);
                     $pay->setDescription($odrpay->CLD);
+                    $pay->setConnectTime($odrpay->connect_time);
+                    $pay->setDisconnectTime($odrpay->disconnect_time);
                     $pay->setChargedAmount($chargedAmount);
                     $pay->setVatIncludedAmount($chargedAmount + $chargedAmount * sfConfig::get('app_vat_percentage'));
                     $pay->setChargedVatValue(sfConfig::get('app_vat_percentage'));

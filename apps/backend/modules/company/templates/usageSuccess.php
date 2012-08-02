@@ -144,11 +144,11 @@
          $total_sub = 0;
          $regfee = 0;
          $fromdate = date('Y-m-d 00:00:00', strtotime($fromdate));
-         $todate = date('Y-m-d 23:59:59', strtotime($todate));
+         $todate = date('Y-m-d 21:59:59', strtotime($todate));
          
-//          echo    $fromdate;
-//          echo '<br />';
-//          echo    $todate;   
+          echo    $fromdate;
+          echo '<br />';
+          echo    $todate;   
          if(isset($empl)){
            $tilentaSubResult = CompanyEmployeActivation::getSubscription($empl, $fromdate, $todate);
           // var_dump($tilentaSubResult);
@@ -166,7 +166,7 @@
          }else{   
              foreach ($ems as $emp) {         
             $tilentaSubResult = CompanyEmployeActivation::getSubscription($emp, $fromdate , $todate);
-          //  var_dump($tilentaSubResult);
+            var_dump($tilentaSubResult);
             if (count($tilentaSubResult) > 0) {
                 foreach ($tilentaSubResult->xdr_list as $xdr) {
                     ?> <tr>

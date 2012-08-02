@@ -210,6 +210,8 @@ use_helper('Number');
                               $cSub->add(OdrsPeer::PARENT_TABLE,'employee');
                               $cSub->addAnd(OdrsPeer::PARENT_ID,$emps->getId());
                               $cSub->addAnd(OdrsPeer::I_SERVICE,4);
+                              $cSub->addAnd(OdrsPeer::BILL_START,$billing_start_date, Criteria::GREATER_EQUAL);
+                              $cSub->addAnd(OdrsPeer::BILL_END,$billing_end_date, Criteria::LESS_EQUAL);
                               $scount = OdrsPeer::doCount($cSub);
                               if($scount > 0){
                                $subscriptions =  OdrsPeer::doSelect($cSub);
