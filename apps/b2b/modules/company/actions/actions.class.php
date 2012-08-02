@@ -127,8 +127,8 @@ class companyActions extends sfActions {
             $this->fromdate = $request->getParameter('startdate');
             $this->todate = $request->getParameter('enddate');
         } else {
-            $tomorrow1 = mktime(0, 0, 0, date("m"), date("1") , date("Y"));
-            $this->fromdate = date("Y-m-d", $tomorrow1);
+           // $tomorrow1 = mktime(0, 0, 0, date("m"), date("1") , date("Y"));
+            $this->fromdate = date("Y-m-1");
             //$tomorrow = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
             $this->todate = date("Y-m-t");
         }
