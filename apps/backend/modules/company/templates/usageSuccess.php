@@ -166,7 +166,7 @@
          }else{   
              foreach ($ems as $emp) {         
             $tilentaSubResult = CompanyEmployeActivation::getSubscription($emp, $fromdate , $todate);
-            var_dump($tilentaSubResult);
+         //   var_dump($tilentaSubResult);
             if (count($tilentaSubResult) > 0) {
                 foreach ($tilentaSubResult->xdr_list as $xdr) {
                     ?> <tr>
