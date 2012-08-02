@@ -3896,10 +3896,13 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cnb->add(CompanyNetBalancePeer::BILL_START,$this->billing_start_date);
         $cnb->addAnd(CompanyNetBalancePeer::BILL_END,$this->billing_end_date);
         $cnb->addAnd(CompanyNetBalancePeer::COMPANY_ID,$company->getId());
-        $netbalance = CompanyNetBalancePeer::doSelectOne($cnb);
+       // $netbalance = CompanyNetBalancePeer::doSelectOne($cnb);
         if(CompanyNetBalancePeer::doCount($cnb)>0){
+            $netbalance = CompanyNetBalancePeer::doSelectOne($cnb);
             $net = $netbalance->getNetBalance();
             $this->netbalance = $net;
+        }else{
+            $this->netbalance = 0.00;
         }    
         
         $ec = new Criteria();

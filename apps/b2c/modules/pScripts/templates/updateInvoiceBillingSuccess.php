@@ -1,6 +1,6 @@
 <?php
 	use_helper('Number');
-	ob_start(); 
+	ob_start();
 	$totalcost = 0.00;
 	$totalSubFee = 0.00;
 	$totalPayments = 0.00;
@@ -30,7 +30,7 @@
              .padding{
                 padding-top:10px!important;
                 padding-bottom:10px!important;
-				padding-left:5px!important;
+                padding-left:5px!important;
              }
              .padbot{
                     padding-bottom:10px;
@@ -77,7 +77,7 @@
 			</fieldset>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td width="50%">
 			<table width="60%" border="0" style="padding-top:30px">
@@ -101,7 +101,7 @@
 					<td>Customer Number:</td>
 					<td><?php echo $company_meta->getVatNo() ?></td>
 				</tr>
-				
+
 			</table>
 		</td>
 		<td width="50%" align="right">
@@ -135,11 +135,11 @@
 				$invoiceFlag = false;
 				$count = 1;
 				$billing_details = array();
-				foreach ($employees as $employee) {                            
+				foreach ($employees as $employee) {
 					$subFlag = false;
 					$regFlag = false;
 					$billingFlag = false;
-					
+
 					$prdPrice = 0;
 					$startdate = strtotime($billing_start_date);
 					$enddate = strtotime($billing_end_date);
@@ -196,8 +196,8 @@
 					<?php  $totalcost += $temp_cost;
 			}
 		 }
-	}  
-	$invoice_cost = ($invoiceFlag) ? $invoice_cost : '0.00'; ?>  
+	}
+	$invoice_cost = ($invoiceFlag) ? $invoice_cost : '0.00'; ?>
 	</table>
 		</td>
 	</tr>
@@ -211,7 +211,7 @@
 					<td class="border borderright">Amount (<?php echo sfConfig::get('app_currency_code')?>)</td>
 				</tr>
 			   <?php
-				 foreach ($employees as $emps) { 
+				 foreach ($employees as $emps) {
 				  $cSub = new Criteria();
 				  $cSub->add(OdrsPeer::PARENT_TABLE,'employee');
 				  $cSub->addAnd(OdrsPeer::PARENT_ID,$emps->getId());
@@ -227,16 +227,16 @@
 				   <td><?php echo $emps->getMobileNumber();?></td>
 				   <td><?php echo $subs->getDescription();?></td>
 				   <td><?php echo number_format($subs->getChargedAmount(),2);$totalSubFee += $subs->getChargedAmount();?></td>
-				</tr>  
-				<?php      
+				</tr>
+				<?php
 					}
 				  }
-				 } //end employee second foreach loop   
-			    ?>   
+				 } //end employee second foreach loop
+			    ?>
 			</table>
 		</td>
 	</tr>
-	<?php  if(isset ($otherevents) && $otherevents !=""){ ?>			
+	<?php  if(isset ($otherevents) && $otherevents !=""){ ?>
 	<tr>
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table" style="padding-bottom:30px;">
@@ -249,12 +249,12 @@
 				<tr>
                     <td><?php echo $event->getDescription();?></td>
                     <td><?php echo number_format($event->getChargedAmount(),2);$totalEventFee += $event->getChargedAmount();?></td>
-                </tr>  
+                </tr>
 				<?php }?>
 			</table>
 		</td>
 	</tr>
-   <?php        
+   <?php
 	  }
 	   $totalcost = $totalcost + $totalSubFee + $totalEventFee;
    ?>
@@ -321,12 +321,12 @@
 				   <td><?php echo number_format($chargedAmount = $payment->getChargedAmount(),2);$totalPayments += $payment->getVatIncludedAmount();?></td>
 				   <td><?php echo number_format($vat = $payment->getVatIncludedAmount()-$chargedAmount,2);?></td>
 				   <td><?php echo number_format($payment->getVatIncludedAmount(),2);?></td>
-				</tr>  
+				</tr>
 				<?php }?>
 			</table>
 		</td>
 	</tr>
-	<?php } ?>			
+	<?php } ?>
 	<?php if(isset ($preInvoices) && $preInvoices !=""){?>
 	<tr>
 		<td colspan="2">
@@ -340,12 +340,12 @@
 				<tr>
 				   <td><?php echo $preInvoice->getBillingStartingDate("M d");?> - <?php echo $preInvoice->getBillingEndingDate("M d");?></td>
 				   <td><?php echo number_format($preInvoice->getTotalPayment(),2);?></td>
-                </tr>  
+                </tr>
                 <?php  }?>
 			</table>
 		</td>
-	</tr>	
-	 <?php }?> 
+	</tr>
+	 <?php }?>
 	 <tr>
 		<td colspan="2">
 			<fieldset>
@@ -362,7 +362,7 @@
 	</tr>
 </table>
 </body>
-</html>			
+</html>
 <?php
 	$html_content = ob_get_contents();
 	util::saveHtmlToInvoice($invoice_meta->getId(), $html_content);
@@ -379,10 +379,10 @@
 	$in->setNetPayment($net_cost);
 	$in->setInvoiceStatusId(1);
 	$in->save();
-	
+
 	$fileName = str_replace("/", "_", $in->getCompany()->getName());
 	$fileName = str_replace(" ", "_", $fileName);
-	
+
 	$fileName = $in->getId().'-'.$fileName;
 
 	util::html2pdf($invoice_meta->getId(),$html_content,$fileName);
