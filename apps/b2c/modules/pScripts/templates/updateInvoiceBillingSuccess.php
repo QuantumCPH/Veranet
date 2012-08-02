@@ -21,35 +21,35 @@
                 border-bottom: 1px solid #000 !important;
                 border-top:1px solid #000 !important;
              }
-			 .borderleft{
-			 	border-left: 1px solid #000 !important;
-			 }
-			 .borderright{
-			 	border-right:1px solid #000 !important;
-			 }
+             .borderleft{
+                    border-left: 1px solid #000 !important;
+             }
+             .borderright{
+                    border-right:1px solid #000 !important;
+             }
              .padding{
                 padding-top:10px;
                 padding-bottom:10px;
 				padding-left:5px;
              }
-			 .padbot{
-			 	padding-bottom:10px;
-			 }
-			 .trbg{
-			 	font-weight:bold;  
-				background-color:#CCCCCC; 
-			 }
-			 .table{
-			 	padding-top:30px; 
-			 }
-			 .table td{
-			 	padding-left:5px;
-				padding-top:5px;
-			 }
-			 table td{
-			 	border:none!important;
-			 }
-			 h2{ color:#000!important;}
+             .padbot{
+                    padding-bottom:10px;
+             }
+             .trbg{
+                    font-weight:bold;
+                    background-color:#CCCCCC;
+             }
+             .table{
+                    padding-top:30px;
+             }
+             .table td{
+                    padding-left:5px;
+                    padding-top:5px;
+             }
+             table td{
+                    border:none!important;
+             }
+             h2{ color:#000!important;}
         </style>
     </head>
     <body>
@@ -149,7 +149,8 @@
 					$bc->addAnd(EmployeeCustomerCallhistoryPeer::PARENT_ID, $employee->getId());
 					$bc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $billing_start_date . "' ", Criteria::CUSTOM);
 					$bc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time < '" . $billing_end_date . "' ", Criteria::CUSTOM);
-					$bc->addGroupByColumn(EmployeeCustomerCallhistoryPeer::COUNTRY_ID);
+					//$bc->addGroupByColumn(EmployeeCustomerCallhistoryPeer::PHONE_NUMBER);
+//					$bc->addGroupByColumn(EmployeeCustomerCallhistoryPeer::COUNTRY_ID);
 					if (EmployeeCustomerCallhistoryPeer::doCount($bc) > 0) {
 						$billingFlag = true;
 					}
@@ -167,10 +168,10 @@
 					<td><?php echo $billing->getPhoneNumber(); ?></td>
 						<td>
 							<?php
-								$dc = new Criteria();
+								/*$dc = new Criteria();
 								$dc->add(EmployeeCustomerCallhistoryPeer::PARENT_TABLE, "employee");
 								$dc->add(EmployeeCustomerCallhistoryPeer::PARENT_ID, $employee->getId());
-								$dc->add(EmployeeCustomerCallhistoryPeer::COUNTRY_ID,$billing->getCountryId());
+								//$dc->add(EmployeeCustomerCallhistoryPeer::COUNTRY_ID,$billing->getCountryId());
 								$dc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $invoice_meta->getBillingStartingDate('Y-m-d 00:00:00') . "' ", Criteria::CUSTOM);
 								$dc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  < '" . $invoice_meta->getBillingEndingDate('Y-m-d 23:59:59') . "' ", Criteria::CUSTOM);
 							  //  $dc->addGroupByColumn(EmployeeCallhistoryPeer::COUNTRY_ID);
@@ -178,9 +179,11 @@
 								$minutes_count = 0;
 								$calculated_cost = 0;
 								foreach ($temp as $t) {
-									$calculated_cost += $t->getChargedAmount();
+									$calculated_cost = $t->getChargedAmount();
 									$call_duration = EmployeeCustomerCallhistoryPeer::getTotalCallDuration($employee, $billing->getCountryId());
-								}
+								}*/
+								$calculated_cost = $billing->getChargedAmount();
+								$call_duration = EmployeeCustomerCallhistoryPeer::getTotalCallDuration($employee, $billing->getCountryId());
 							?>
 							<?php echo $call_duration ?>
 						</td>
@@ -213,6 +216,8 @@
 				  $cSub->add(OdrsPeer::PARENT_TABLE,'employee');
 				  $cSub->addAnd(OdrsPeer::PARENT_ID,$emps->getId());
 				  $cSub->addAnd(OdrsPeer::I_SERVICE,4);
+				  $cSub->addAnd(OdrsPeer::BILL_START,$billing_start_date, Criteria::GREATER_EQUAL);
+                  $cSub->addAnd(OdrsPeer::BILL_END,$billing_end_date, Criteria::LESS_EQUAL);
 				  $scount = OdrsPeer::doCount($cSub);
 				  if($scount > 0){
 				   	$subscriptions =  OdrsPeer::doSelect($cSub);
