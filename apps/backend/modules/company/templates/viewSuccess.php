@@ -31,10 +31,10 @@
 				  </div>
 				</div>
                                 <div class="form-row">
-				  <label class="required"><?php echo  __('Credit Limit:') ?></label>
+				  <label class="required"><?php echo  __('Credit Limit:') ?><br /><small>(excluding vat)</small></label>
 				  <div class="content">
 				  	<?php echo number_format($company->getCreditLimit(),2); ?>
-                                      <small>(excluding vat)</small>
+                                      
 				  </div>
 				</div>
                                 
