@@ -144,7 +144,9 @@ if (isset($empl)) {
         <?php //var_dump($ems);
         $total_sub = 0;
          if(isset($empl)){
-           $tilentaSubResult = CompanyEmployeActivation::getSubscription($empl, $fromdate . ' 00:00:00', $todate . ' 23:59:59');
+           $fromdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($fromdate)));
+           $todate = date('Y-m-d 21:59:59', strtotime($todate));  
+           $tilentaSubResult = CompanyEmployeActivation::getSubscription($empl, $fromdate, $todate);
             if (count($tilentaSubResult) > 0) {
                 foreach ($tilentaSubResult->xdr_list as $xdr) {
                     ?> <tr>
