@@ -43,9 +43,9 @@
             <th>Billing Duration</th>
             <th>Company Name</th>
             <th>Invoice Total</th>
-            <th>Paid Amount</th>
+<!--            <th>Paid Amount</th>-->
             <th>To be paid</th>
-            <th>Status</th>
+<!--            <th>Status</th>-->
             <th>View HTML</th>
 <!--            <th>Action</th>-->
         </tr>
@@ -71,23 +71,23 @@
                     $total += $invoice->getTotalPayment();
                 ?>
             </td>
-            <td>
+<!--            <td>
                 <?php echo $invoice->getPaidAmount(); ?>
-            </td>
+            </td>-->
             <td>
                 <?php
                     echo number_format($netPayment = $invoice->getNetPayment(),2);
                     $totalNet += $netPayment;
                 ?>
             </td>
-            <td style="text-transform: capitalize;">
+<!--            <td style="text-transform: capitalize;">
                 <?php
                     $cis = new Criteria();
                     $cis->add(InvoiceStatusPeer::ID,$invoice->getInvoiceStatusId());
                     $status = InvoiceStatusPeer::doSelectOne($cis);
                     echo $status->getName();
                 ?>
-            </td>
+            </td>-->
             <td align="center"><?php if($invoice->getInvoiceHtml()!="" && $invoice->getTotalPayment() > 0){?>
                 <a href="showInvoice?id=<?php echo $invoice->getId();?>" target="_blank">View</a>
                 <?php } ?>
@@ -103,7 +103,7 @@
             <td colspan="3"></td>
             <td><strong>Total</strong></td>
             <td><strong><?php echo number_format($total,2);?></strong></td>
-            <td></td>
+<!--            <td></td>-->
             <td><strong><?php echo number_format($totalNet,2);?></strong></td>
             <td colspan="4"></td>
         </tr>
