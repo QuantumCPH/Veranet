@@ -3250,10 +3250,12 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $c->add(CompanyPeer::STATUS_ID,1);  // active
         $companies = CompanyPeer::doSelect($c);
         
-        $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+      //  $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00');
         $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
         echo "<hr/>";
-        echo $end_date = date('Y-m-t 21:59:59', strtotime("last month"));
+       // echo $end_date = date('Y-m-t 21:59:59', strtotime("last month"));
+        echo $end_date = date('Y-m-t 21:59:59');
         echo "<hr/>";
         foreach($companies as $company){
            
@@ -3467,10 +3469,12 @@ if(($caltype!="IC") && ($caltype!="hc")){
 //        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
 //        echo "<hr/>";
         
-        $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+      //  $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00');
         echo $startdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
         echo "<hr/>";
-        echo $enddate = date('Y-m-t 21:59:59', strtotime("last month"));
+      //  echo $enddate = date('Y-m-t 21:59:59', strtotime("last month"));
+        echo $enddate = date('Y-m-t 21:59:59');
         echo "<hr/>";
         $start_strtotime = strtotime($startdate);
         $end_strototime = strtotime($enddate);
@@ -3601,10 +3605,12 @@ if(($caltype!="IC") && ($caltype!="hc")){
         // echo '<br />';23:59:59'
       //  $end_date = date('Y-m-t',strtotime('last month'));        
        
-        $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+     //   $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00');
         $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
         // echo '<br />';23:59:59'
-        $enddate = date('Y-m-t 21:59:59',strtotime('last month'));
+       // $enddate = date('Y-m-t 21:59:59',strtotime('last month'));
+        $enddate = date('Y-m-t 21:59:59');
         $start_strtotime = strtotime($start_date);
         $startdate = date('Y-m-d 00:00:00', $start_strtotime);
         $end_strototime = strtotime($enddate);
@@ -3736,15 +3742,17 @@ if(($caltype!="IC") && ($caltype!="hc")){
     
     public function executeCompanyNetBalance(sfWebRequest $request) {
         
-        $start_date = date('Y-m-1 00:00:00',strtotime('last month'));
+               
+        $start_date = date('Y-m-1 00:00:00');
+        $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
         
-        $end_date = date('Y-m-t 23:59:59',strtotime('last month'));
+        $end_date = date('Y-m-t 21:59:59');
         
         $start_strtotime = strtotime($start_date);
-        $startdate = date('Y-m-d 00:00:00', $start_strtotime);
+        $startdate = date('Y-m-d 21:00:00', $start_strtotime);
         
         $end_strototime = strtotime($end_date);
-        $enddate = date('Y-m-d 23:59:59', $end_strototime);
+        $enddate = date('Y-m-d 21:59:59', $end_strototime);
        
         
         $cco = new Criteria();
