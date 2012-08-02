@@ -121,8 +121,10 @@
 	<tr>
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table">
+				<tr><td colspan="3" class="padbot"><h2>Invoice Call</h2></td></tr>
 				<tr height="40px" class="trbg">
 					<td class="border borderleft">Calls</td>
+					<td class="border borderleft">Description</td>
 					<td class="border">Duration</td>
 					<td class="border borderright" >Charged Amount (<?php echo sfConfig::get('app_currency_code')?>)</td>
 				</tr>
@@ -154,7 +156,7 @@
 					if ($billingFlag) {
 			?>
 				<tr>
-					<td colspan="3" class="padding"><strong><?php echo 'From Number: ' . $employee->getMobileNumber() ?></strong></td>
+					<td colspan="4" class="padding"><strong><?php echo 'From Number: ' . $employee->getMobileNumber() ?></strong></td>
 				</tr>
 			<?php
 				$invoiceFlag = true;
