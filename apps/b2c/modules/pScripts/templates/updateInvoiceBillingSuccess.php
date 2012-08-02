@@ -18,14 +18,14 @@
                  border: 2px solid #000;
              }
              .border{
-                border-bottom: 1px solid #000;
-                border-top:1px solid #000
+                border-bottom: 1px solid #000 !important;
+                border-top:1px solid #000 !important;
              }
 			 .borderleft{
-			 	border-left: 1px solid #000
+			 	border-left: 1px solid #000 !important;
 			 }
 			 .borderright{
-			 	border-right:1px solid #000
+			 	border-right:1px solid #000 !important;
 			 }
              .padding{
                 padding-top:10px;
@@ -46,6 +46,10 @@
 			 	padding-left:5px;
 				padding-top:5px;
 			 }
+			 table td{
+			 	border:none!important;
+			 }
+			 h2{ color:#000!important;}
         </style>
     </head>
     <body>
@@ -247,7 +251,7 @@
 	   $totalcost = $totalcost + $totalSubFee + $totalEventFee;
    ?>
    <tr height="30px">
-		<td colspan="2" style="border: 1px solid #000; background-color:#CCCCCC;">&nbsp;</td>
+		<td colspan="2" class="border borderleft borderright" style="background-color:#CCCCCC;">&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="padding"><strong>Total cost</strong></td>
@@ -290,7 +294,7 @@
 		<td><?php echo number_format($net_cost + $netbalance , 2);  ?></td>
 	</tr>
 	<tr height="30px">
-		<td colspan="2" style="border: 1px solid #000; background-color:#CCCCCC;">&nbsp;</td>
+		<td colspan="2" class="border borderleft borderright" style="background-color:#CCCCCC;">&nbsp;</td>
 	</tr>
 	<?php if(isset ($payments) && $payments !=""){ ?>
   	<tr>
