@@ -243,7 +243,7 @@
             <tr>
                 <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
                 <td><?php echo __($xdr->CLD); ?></td>
-                <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount,2); $paymenttotal +=$xdr->charged_amount;?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
+                <td aligin="right" style="text-align: right;"><?php echo -1 * number_format($xdr->charged_amount,2); $paymenttotal +=$xdr->charged_amount;?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
             </tr>
             <?php } 
             
