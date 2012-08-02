@@ -716,7 +716,7 @@ class companyActions extends sfActions {
                     $cc->setPaymentType('1');
                     $cc->setDescription($description->getTitle());
                     $cc->setTransactionStatusId('3');
-                    $cc->setPaidDate($start_date);
+                    //$cc->setPaidDate($start_date);
                     $cc->save();
                     //$transaction = $cc;
                     $this->getUser()->setFlash('message', 'Record has been added Successfully');
