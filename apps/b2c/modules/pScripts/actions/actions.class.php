@@ -3250,12 +3250,13 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $c->add(CompanyPeer::STATUS_ID,1);  // active
         $companies = CompanyPeer::doSelect($c);
         
-      //  $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $bill_start_date = date('Y-m-1 00:00:00', strtotime("last month"));
         $start_date = date('Y-m-1 00:00:00');
-        $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
+        $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($bill_start_date)));
         echo "<hr/>";
        // echo $end_date = date('Y-m-t 21:59:59', strtotime("last month"));
-        echo $end_date = date('Y-m-t 21:59:59');
+        echo $end_date = date('Y-m-t 21:59:59', strtotime("last month"));
+        $bill_end_date = date('Y-m-t 23:59:59', strtotime("last month"));
         echo "<hr/>";
         foreach($companies as $company){
            
@@ -3469,12 +3470,16 @@ if(($caltype!="IC") && ($caltype!="hc")){
 //        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
 //        echo "<hr/>";
         
-      //  $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
-        $start_date = date('Y-m-1 00:00:00');
-        echo $startdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
+        $bill_start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+      //  $bill_start_date = date('Y-m-1 00:00:00');
+        echo $startdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($bill_start_date)));
         echo "<hr/>";
-      //  echo $enddate = date('Y-m-t 21:59:59', strtotime("last month"));
-        echo $enddate = date('Y-m-t 21:59:59');
+        echo $bill_enddate = date('Y-m-t 23:59:59', strtotime("last month"));
+        //echo $bill_enddate = date('Y-m-t 21:59:59');
+        
+        echo $enddate = date('Y-m-t 21:59:59', strtotime("last month"));
+       // echo $enddate = date('Y-m-t 21:59:59');
+        
         echo "<hr/>";
         $start_strtotime = strtotime($startdate);
         $end_strototime = strtotime($enddate);
@@ -3489,8 +3494,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                     $other = new Odrs();
                     $other->setParentTable('company');
                     $other->setParentId($company->getId());
-                    $other->setBillStart($startdate);
-                    $other->setBillEnd($enddate);
+                    $other->setBillStart($bill_start_date);
+                    $other->setBillEnd($bill_enddate);
                     $other->setBillTime($odr->bill_time);
                     $other->setDescription($odr->CLD);
                     $other->setChargedAmount($odr->charged_amount);
@@ -3506,8 +3511,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                    $otherEventLog = new CallhistoryCallsLog();
                    $otherEventLog->setParent('company');
                    $otherEventLog->setParentId($company->getId());
-                   $otherEventLog->setTodate($startdate);
-                   $otherEventLog->setFromdate($enddate);
+                   $otherEventLog->setTodate($bill_start_date);
+                   $otherEventLog->setFromdate($bill_enddate);
                    $otherEventLog->setIService(1);
                    $otherEventLog->save();
             }
@@ -3520,8 +3525,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                     $pay->setParentTable('company');
                     $pay->setParentId($company->getId());
                     $pay->setCompanyId($company->getId());
-                    $pay->setBillStart($startdate);
-                    $pay->setBillEnd($enddate);
+                    $pay->setBillStart($bill_start_date);
+                    $pay->setBillEnd($bill_enddate);
                     $pay->setBillTime($odrpay->bill_time);
                     $pay->setDescription($odrpay->CLD);
                     $pay->setConnectTime($odrpay->connect_time);
@@ -3536,8 +3541,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                    $odrpayLog = new CallhistoryCallsLog();
                    $odrpayLog->setParent('company');
                    $odrpayLog->setParentId($company->getId());
-                   $odrpayLog->setTodate($startdate);
-                   $odrpayLog->setFromdate($enddate);
+                   $odrpayLog->setTodate($bill_start_date);
+                   $odrpayLog->setFromdate($bill_enddate);
                    $odrpayLog->setIService(2);
                    $odrpayLog->save();
             }
@@ -3551,8 +3556,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
             
             $c2 = new Criteria();
             $c2->add(OdrsPeer::PARENT_TABLE, "employee");
-            $c2->add(OdrsPeer::BILL_START, $startdate);
-            $c2->addAnd(OdrsPeer::BILL_END, $enddate);
+            $c2->add(OdrsPeer::BILL_START, $bill_start_date);
+            $c2->addAnd(OdrsPeer::BILL_END, $bill_enddate);
             $c2->addAnd(OdrsPeer::PARENT_ID, $employee->getId());
             if(OdrsPeer::doCount($c2)==0){
 
@@ -3573,8 +3578,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                        $empSub->setDisconnectTime($xdr->disconnect_time);
                        $empSub->setBillTime($xdr->bill_time);
                        $empSub->setDescription($xdr->CLD);
-                       $empSub->setBillStart($startdate);
-                       $empSub->setBillEnd($enddate);
+                       $empSub->setBillStart($bill_start_date);
+                       $empSub->setBillEnd($bill_enddate);
                        $empSub->setParentTable('employee');
                        $empSub->setParentId($employee->getId());
                        $empSub->setCompanyId($employee->getCompanyId());
@@ -3587,8 +3592,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
                        $odrSubLog = new CallhistoryCallsLog();
                        $odrSubLog->setParent('employee');
                        $odrSubLog->setParentId($employee->getId());
-                       $odrSubLog->setTodate($startdate);
-                       $odrSubLog->setFromdate($enddate);
+                       $odrSubLog->setTodate($bill_start_date);
+                       $odrSubLog->setFromdate($bill_enddate);
                        $odrSubLog->setIService(4);
                        $odrSubLog->save();
                } 
@@ -3606,11 +3611,10 @@ if(($caltype!="IC") && ($caltype!="hc")){
       //  $end_date = date('Y-m-t',strtotime('last month'));        
        
      //   $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
-        $start_date = date('Y-m-1 00:00:00');
-        $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
+        $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
         // echo '<br />';23:59:59'
-       // $enddate = date('Y-m-t 21:59:59',strtotime('last month'));
-        $enddate = date('Y-m-t 21:59:59');
+        $enddate = date('Y-m-t 23:59:59',strtotime('last month'));
+      //  $enddate = date('Y-m-t 23:59:59');
         $start_strtotime = strtotime($start_date);
         $startdate = date('Y-m-d 00:00:00', $start_strtotime);
         $end_strototime = strtotime($enddate);
@@ -3625,7 +3629,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $c = new Criteria();
         $companies = CompanyPeer::doSelect($c);
        
-       foreach($companies as $company){
+        foreach($companies as $company){
             echo $company->getId()."::::";
             echo $created_date = $company->getCreatedAt();
 
@@ -3743,17 +3747,11 @@ if(($caltype!="IC") && ($caltype!="hc")){
     public function executeCompanyNetBalance(sfWebRequest $request) {
         
                
-        $start_date = date('Y-m-1 00:00:00');
-        $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
+     
+        $start_date = date('Y-m-1 23:59:59', strtotime("last month"));
         
-        $end_date = date('Y-m-t 21:59:59');
+        $end_date = date('Y-m-t 21:59:59', strtotime("last month"));
         
-        $start_strtotime = strtotime($start_date);
-        $startdate = date('Y-m-d 21:00:00', $start_strtotime);
-        
-        $end_strototime = strtotime($end_date);
-        $enddate = date('Y-m-d 21:59:59', $end_strototime);
-       
         
         $cco = new Criteria();
         $companies = CompanyPeer::doSelect($cco);
