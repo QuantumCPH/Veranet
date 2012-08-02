@@ -28,9 +28,9 @@
                     border-right:1px solid #000 !important;
              }
              .padding{
-                padding-top:10px;
-                padding-bottom:10px;
-				padding-left:5px;
+                padding-top:10px!important;
+                padding-bottom:10px!important;
+				padding-left:5px!important;
              }
              .padbot{
                     padding-bottom:10px;
