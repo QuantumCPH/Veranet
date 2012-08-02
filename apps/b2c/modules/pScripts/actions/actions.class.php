@@ -3470,14 +3470,14 @@ if(($caltype!="IC") && ($caltype!="hc")){
 //        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
 //        echo "<hr/>";
         
-        $bill_start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $bill_start_date = date('Y-m-1 00:00:00');
       //  $bill_start_date = date('Y-m-1 00:00:00');
         echo $startdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($bill_start_date)));
         echo "<hr/>";
-        echo $bill_enddate = date('Y-m-t 23:59:59', strtotime("last month"));
+        echo $bill_enddate = date('Y-m-t 23:59:59');
         //echo $bill_enddate = date('Y-m-t 21:59:59');
         
-        echo $enddate = date('Y-m-t 21:59:59', strtotime("last month"));
+        echo $enddate = date('Y-m-t 21:59:59');
        // echo $enddate = date('Y-m-t 21:59:59');
         
         echo "<hr/>";
@@ -3611,9 +3611,9 @@ if(($caltype!="IC") && ($caltype!="hc")){
       //  $end_date = date('Y-m-t',strtotime('last month'));        
        
      //   $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
-        $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00');
         // echo '<br />';23:59:59'
-        $enddate = date('Y-m-t 23:59:59',strtotime('last month'));
+        $enddate = date('Y-m-t 23:59:59');
       //  $enddate = date('Y-m-t 23:59:59');
         $start_strtotime = strtotime($start_date);
         $startdate = date('Y-m-d 00:00:00', $start_strtotime);
@@ -3748,9 +3748,9 @@ if(($caltype!="IC") && ($caltype!="hc")){
         
                
      
-        $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00');
         
-        $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
+        $end_date = date('Y-m-t 23:59:59');
         
         
         $cco = new Criteria();
