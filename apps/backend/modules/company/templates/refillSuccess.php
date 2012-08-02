@@ -16,12 +16,13 @@
                        <?php 
                        foreach($company as $companies){
                        ?>
-                        <option value="<?php echo $companies->getId();?>" <?php if($invoiceSelect!=''){echo ($companies->getId()==$invoiceSelect->getCompanyId())?'selected="selected"':'';}?>><?php echo $companies->getName();?></option>
+<!--                        <option value="<?php echo $companies->getId();?>" <?php if($invoiceSelect!=''){echo ($companies->getId()==$invoiceSelect->getCompanyId())?'selected="selected"':'';}?>><?php echo $companies->getName();?></option>-->
+                        <option value="<?php echo $companies->getId();?>"><?php echo $companies->getName();?></option>
                        <?php }?>
                     </select>
                 </td>
             </tr>
-            <tr>
+<!--            <tr>
                 <td style="padding: 5px;">Invoices:</td>
                 <td style="padding: 5px;">
                     <select name="invoice_id" id="invoice" onchange="new Ajax.Updater('amount', 'amount', {asynchronous:true, evalScripts:false, parameters:'invoice_id=' + this.options[this.selectedIndex].value});">
@@ -35,7 +36,7 @@
                 <td style="padding: 5px;">
                    <span id="amount"><?php echo ($invoiceSelect!='')?$invoiceSelect->getNetPayment():'0';?></span>
                 </td>
-            </tr>
+            </tr>-->
             <tr>
                 <td style="padding: 5px;">Payment Received:</td>
                 <td style="padding: 5px;">

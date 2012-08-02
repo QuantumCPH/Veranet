@@ -104,18 +104,18 @@
                     ?>                    
                     <?php 
                       if($actionName=='paymenthistory' && $modulName=="company"){
-                         echo link_to(__('Payment History'), 'company/paymenthistory', array('class'=>'subSelect'));
+                         echo link_to(__('Receipts'), 'company/paymenthistory', array('class'=>'subSelect'));
                       }else{
-                         echo link_to(__('Payment History'), 'company/paymenthistory'); 
+                         echo link_to(__('Receipts'), 'company/paymenthistory');
                       }?>
                     <?php 
-                      /*if($actionName=='refill'){
-                         echo link_to(__('Refill'), 'company/refill', array('class'=>'subSelect'));    
+                      if($actionName=='refill'){
+                         echo link_to(__('Payment'), 'company/refill', array('class'=>'subSelect'));
                       }else{
-                          echo link_to(__('Refill'), 'company/refill');                          
+                          echo link_to(__('Payment'), 'company/refill');
                       } ?>
                     <?php
-                      if($actionName=='invoices'){
+                      /*if($actionName=='invoices'){
                          echo link_to(__('Invoices'), 'company/invoices', array('class'=>'subSelect'));
                       }else{
                           echo link_to(__('Invoices'), 'company/invoices');

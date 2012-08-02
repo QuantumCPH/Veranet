@@ -490,10 +490,16 @@ class companyActions extends sfActions {
 
     public function executePaymenthistory(sfWebRequest $request) {
 
+        $ct = new Criteria();
+        $ct->add(TransactionDescriptionPeer::ID, 10);
+        $description = TransactionDescriptionPeer::doSelectOne($ct);
+
         $c = new Criteria();
         $companyid = $request->getParameter('company_id');
         $this->companyval = $companyid;
         $c->add(CompanyTransactionPeer::TRANSACTION_STATUS_ID, 3);
+        $c->add(CompanyTransactionPeer::DESCRIPTION, '%'.$description->getTitle().'%', Criteria::LIKE);
+
 
         if (isset($companyid) && $companyid != '') {
             $c->addAnd(CompanyTransactionPeer::COMPANY_ID, $companyid);
@@ -653,13 +659,13 @@ class companyActions extends sfActions {
        $this->setLayout(false);
    }
    public function executeRefill($request){
-         $id = $request->getParameter('id');
+         //$id = $request->getParameter('id');
 
-         if($id!=''){
+         /*if($id!=''){
              $invoice = new Criteria();
              $invoice->add(InvoicePeer::ID, $id);
              $this->invoiceSelect = InvoicePeer::doSelectOne($invoice);
-         }
+         }*/
 
          $c = new Criteria();
          $this->company = CompanyPeer::doSelect($c);
@@ -680,7 +686,7 @@ class companyActions extends sfActions {
              $description = TransactionDescriptionPeer::doSelectOne($ct);
 
              if(CompanyEmployeActivation::recharge($company, $recharge, $description->getTitle())){
-                 if($invoice_id!=''){
+                 /*if($invoice_id!=''){
                      $ci = new Criteria();
                      $ci->add(InvoicePeer::ID, $invoice_id);
                      $invoices = InvoicePeer::doSelectone($ci);
@@ -699,14 +705,14 @@ class companyActions extends sfActions {
                      $invoices->setNetPayment($net_amount);
                      $invoices->setPaidDatetime($start_date);
                      $invoices->save();
-                 }
+                 }*/
 
-                    $invoice_no=($invoice_no!='')?$invoice_no:'';
+                    //$invoice_no=($invoice_no!='')?$invoice_no:'';
                     $cc = new CompanyTransaction();
                     $cc->setCompanyId($company_id);
                     $cc->setAmount($refill);
                     $cc->setExtraRefill($recharge);
-                    $cc->setInvoiceNo($invoice_no);
+                    //$cc->setInvoiceNo($invoice_no);
                     $cc->setPaymentType('1');
                     $cc->setDescription($description->getTitle());
                     $cc->setTransactionStatusId('3');
