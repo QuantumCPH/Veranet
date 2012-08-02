@@ -3748,9 +3748,9 @@ if(($caltype!="IC") && ($caltype!="hc")){
         
                
      
-        $start_date = date('Y-m-1 23:59:59', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
         
-        $end_date = date('Y-m-t 21:59:59', strtotime("last month"));
+        $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
         
         
         $cco = new Criteria();
