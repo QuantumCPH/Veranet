@@ -144,7 +144,7 @@
          $total_sub = 0;
          $regfee = 0;
          $fromdate = date('Y-m-d 00:00:00', strtotime($fromdate));
-         $todate = date('Y-m-d 23:58:00', strtotime($todate));
+         $todate = date('Y-m-d 23:59:59', strtotime($todate));
          
 //          echo    $fromdate;
 //          echo '<br />';
@@ -170,7 +170,8 @@
             if (count($tilentaSubResult) > 0) {
                 foreach ($tilentaSubResult->xdr_list as $xdr) {
                     ?> <tr>
-                        <td><?php echo $xdr->bill_time//date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
+                        <td><?php //echo $xdr->bill_time;
+                      echo  date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
                         <td><?php //echo __($xdr->account_id); ?><?php echo $emp->getMobileNumber();?></td>
                         <td><?php echo __($xdr->CLD); ?></td>
                         <td align="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); $total_sub += $xdr->charged_amount;?><?php echo sfConfig::get('app_currency_code') ?></td>
