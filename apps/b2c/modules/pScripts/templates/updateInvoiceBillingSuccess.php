@@ -124,7 +124,7 @@
 				<tr><td colspan="3" class="padbot"><h2>Invoice Call</h2></td></tr>
 				<tr height="40px" class="trbg">
 					<td class="border borderleft">Calls</td>
-					<td class="border borderleft">Description</td>
+					<td class="border">Destination</td>
 					<td class="border">Duration</td>
 					<td class="border borderright" >Charged Amount (<?php echo sfConfig::get('app_currency_code')?>)</td>
 				</tr>
@@ -164,6 +164,7 @@
 				foreach ($billings as $billing) {?>
 				<tr>
 					<td><?php echo $billing->getCountry()->getName()//.'-'.$billing->getCountryId(); ?></td>
+					<td><?php echo $billing->getPhoneNumber(); ?></td>
 						<td>
 							<?php
 								$dc = new Criteria();
