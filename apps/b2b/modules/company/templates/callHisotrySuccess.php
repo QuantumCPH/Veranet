@@ -64,7 +64,7 @@ if (isset($empl)) {
             <th  width="25%"  align="left"><?php echo __('Country') ?></th>
             <th  width="10%"  align="left"><?php echo __('Description') ?></th>
             <th width="10%"   align="left"><?php echo __('Cost') ?></th>
-            <th  width="10%"   align="left"><?php echo __('Account ID') ?></th>
+            <th  width="10%"   align="left"><?php echo __('Emp Mobile') ?></th>
         </tr>
         <?php
         $callRecords = 0;
@@ -103,7 +103,7 @@ if (isset($empl)) {
                 <td><?php echo number_format($xdr->charged_amount, 2);
                 $amount_total+= $xdr->charged_amount; ?><?php echo sfConfig::get('app_currency_code'); ?></td>
 
-                <td><?php echo $xdr->account_id; ?></td>
+                <td><?php echo substr($xdr->account_id,4); ?></td>
             </tr>
 
             <?php
@@ -137,7 +137,7 @@ if (isset($empl)) {
     <table width="100%" cellspacing="0" cellpadding="2" class="tblAlign" border='0'>
         <tr class="headings">
             <th  width="10%"  align="left"><?php echo __('Date and time') ?></th>
-            <th  width="10%"  align="left"><?php echo __('Account ID') ?></th>
+            <th  width="10%"  align="left"><?php echo __('Emp Mobile') ?></th>
             <th  width="10%"  align="left"><?php echo __('Description') ?></th>
             <th  width="10%"  align="left" style="text-align: right;"><?php echo __('Amount') ?></th>
         </tr>
@@ -151,7 +151,7 @@ if (isset($empl)) {
                 foreach ($tilentaSubResult->xdr_list as $xdr) {
                     ?> <tr>
                         <td><?php echo date("d-m-Y H:i:s", strtotime($xdr->bill_time)); ?></td>
-                        <td><?php echo __($xdr->account_id); ?></td>
+                        <td><?php echo __(substr($xdr->account_id,4)); ?></td>
                         <td><?php echo __($xdr->CLD); ?></td>
                         <td aligin="right" style="text-align: right;"><?php echo number_format($xdr->charged_amount, 2); $total_sub += $xdr->charged_amount; ?>&nbsp;<?php echo sfConfig::get('app_currency_code') ?></td>
                     </tr>
