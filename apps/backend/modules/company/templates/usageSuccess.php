@@ -144,10 +144,10 @@
          $total_sub = 0;
          $regfee = 0;
          $fromdate = date('Y-m-d 00:00:00', strtotime($fromdate));
-         $todate = date('Y-m-d 23:59:58', strtotime($todate));
+         $todate = date('Y-m-d 23:59:59', strtotime($todate));
          
-          echo    $fromdate;
-          echo '<br />';
+//          echo    $fromdate;
+//          echo '<br />';
 //          echo    $todate;   
          if(isset($empl)){
            $tilentaSubResult = CompanyEmployeActivation::getSubscription($empl, $fromdate, $todate);
