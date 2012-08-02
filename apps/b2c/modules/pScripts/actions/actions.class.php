@@ -3249,18 +3249,17 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $c = new Criteria;
         $c->add(CompanyPeer::STATUS_ID,1);  // active
         $companies = CompanyPeer::doSelect($c);
-
+        
+      //  $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00');
+        $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
+        echo "<hr/>";
+       // echo $end_date = date('Y-m-t 21:59:59', strtotime("last month"));
+        echo $end_date = date('Y-m-t 21:59:59');
+        echo "<hr/>";
         foreach($companies as $company){
-
-            //previous month start and end date
-              $this->fromdate = date("Y-m-1 00:00:00", strtotime("last month"));       
-              $this->todate = date("Y-m-t 23:59:59", strtotime("last month"));
-
-            // Current month start and end date
-//              $this->fromdate = date("Y-m-1 00:00:00");       
-//              $this->todate = date("Y-m-t 23:59:59");
-      //      die;
-            $tilentaCallHistryResult = CompanyEmployeActivation::callHistory($company, $this->fromdate, $this->todate);
+           
+           $tilentaCallHistryResult = CompanyEmployeActivation::callHistory($company, $start_date, $end_date);
 //     var_dump($tilentaCallHistryResult);
 //     die;
            if($tilentaCallHistryResult){
@@ -3414,8 +3413,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
     {
       $company_id = $request->getParameter('company_id');
     
-        $this->billing_start_date = date('Y-m-d 00:00:00', $request->getParameter('start_date'));
-        $this->billing_end_date = date('Y-m-d 23:59:59', $request->getParameter('end_date'));
+        $this->billing_start_date = date('Y-m-d 21:00:00', $request->getParameter('start_date'));
+        $this->billing_end_date = date('Y-m-d 21:59:59', $request->getParameter('end_date'));
         $this->forward404Unless($company_id && $this->billing_start_date && $this->billing_end_date);
 
         if (!($company = CompanyPeer::retrieveByPK($company_id))) {
@@ -3469,16 +3468,16 @@ if(($caltype!="IC") && ($caltype!="hc")){
 //        echo "<hr/>";
 //        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
 //        echo "<hr/>";
-        echo $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        
+      //  $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00');
+        echo $startdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
         echo "<hr/>";
-        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
+      //  echo $enddate = date('Y-m-t 21:59:59', strtotime("last month"));
+        echo $enddate = date('Y-m-t 21:59:59');
         echo "<hr/>";
-        $start_strtotime = strtotime($start_date);
-        echo $startdate = date('Y-m-d 00:00:00', $start_strtotime);
-        echo "<hr/>";
-        $end_strototime = strtotime($end_date);
-        echo $enddate = date('Y-m-d 23:59:59', $end_strototime);
-        echo "<hr/>";
+        $start_strtotime = strtotime($startdate);
+        $end_strototime = strtotime($enddate);
         
         $co = new Criteria();
         $companies = CompanyPeer::doSelect($co);
@@ -3604,16 +3603,18 @@ if(($caltype!="IC") && ($caltype!="hc")){
     function executeGenerateInvoiceMonthly(sfWebRequest $request){
        // $start_date = date('Y-m-1',strtotime('last month'));
         // echo '<br />';23:59:59'
-      //  $end_date = date('Y-m-t',strtotime('last month'));
-        
-        $start_date = date('Y-m-1',strtotime('last month'));
+      //  $end_date = date('Y-m-t',strtotime('last month'));        
+       
+     //   $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+        $start_date = date('Y-m-1 00:00:00');
+        $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
         // echo '<br />';23:59:59'
-        $end_date = date('Y-m-t',strtotime('last month'));
+       // $enddate = date('Y-m-t 21:59:59',strtotime('last month'));
+        $enddate = date('Y-m-t 21:59:59');
         $start_strtotime = strtotime($start_date);
         $startdate = date('Y-m-d 00:00:00', $start_strtotime);
-        $end_strototime = strtotime($end_date);
-        $enddate = date('Y-m-d 23:59:59',$end_strototime );
-
+        $end_strototime = strtotime($enddate);
+        
         echo "<br/>";
         $start_strtotime = strtotime($startdate);
         $end_strototime = strtotime($enddate);
@@ -3741,16 +3742,18 @@ if(($caltype!="IC") && ($caltype!="hc")){
     
     public function executeCompanyNetBalance(sfWebRequest $request) {
         
-        echo $start_date = date('Y-m-1 00:00:00',strtotime('last month'));
-        echo "<hr/>";
-        echo $end_date = date('Y-m-t 23:59:59',strtotime('last month'));
-        echo "<hr/>";
+               
+        $start_date = date('Y-m-1 00:00:00');
+        $start_date = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($start_date)));
+        
+        $end_date = date('Y-m-t 21:59:59');
+        
         $start_strtotime = strtotime($start_date);
-        echo $startdate = date('Y-m-d 00:00:00', $start_strtotime);
-        echo "<hr/>";
+        $startdate = date('Y-m-d 21:00:00', $start_strtotime);
+        
         $end_strototime = strtotime($end_date);
-        echo $enddate = date('Y-m-d 23:59:59', $end_strototime);
-        echo "<hr/>";
+        $enddate = date('Y-m-d 21:59:59', $end_strototime);
+       
         
         $cco = new Criteria();
         $companies = CompanyPeer::doSelect($cco);
@@ -3806,9 +3809,13 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cnb->add(CompanyNetBalancePeer::BILL_START,$this->billing_start_date);
         $cnb->addAnd(CompanyNetBalancePeer::BILL_END,$this->billing_end_date);
         $cnb->addAnd(CompanyNetBalancePeer::COMPANY_ID,$company_id);
-        $netbalance = CompanyNetBalancePeer::doSelectOne($cnb);
-        $net = $netbalance->getNetBalance();
-        $this->netbalance = $net;
+        if(CompanyNetBalancePeer::doCount($cnb)>0){
+            $netbalance = CompanyNetBalancePeer::doSelectOne($cnb);
+            $net = $netbalance->getNetBalance();
+            $this->netbalance = $net;
+        }else{
+            $this->netbalance = 0.00;
+        }    
         
         $ec = new Criteria();
         $ec->add(EmployeePeer::COMPANY_ID, $company_id);
@@ -3845,7 +3852,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cother = new Criteria();
         $cother->add(OdrsPeer::COMPANY_ID,$company_id);
         $cother->addAnd(OdrsPeer::I_SERVICE,1);
-        
+        $cother->addAnd(OdrsPeer::BILL_START,$this->billing_start_date, Criteria::GREATER_EQUAL);
+        $cother->addAnd(OdrsPeer::BILL_END,$this->billing_end_date, Criteria::LESS_EQUAL);
         $othercount = OdrsPeer::doCount($cother);
         if($othercount > 0){
            $this->otherevents = OdrsPeer::doSelect($cother); 
@@ -3909,7 +3917,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cother = new Criteria();
         $cother->add(OdrsPeer::COMPANY_ID,$company->getId());
         $cother->addAnd(OdrsPeer::I_SERVICE,1);
-        
+        $cother->addAnd(OdrsPeer::BILL_START,$this->billing_start_date, Criteria::GREATER_EQUAL);
+        $cother->addAnd(OdrsPeer::BILL_END,$this->billing_end_date, Criteria::LESS_EQUAL);
         $othercount = OdrsPeer::doCount($cother);
         if($othercount > 0){
            $this->otherevents = OdrsPeer::doSelect($cother); 

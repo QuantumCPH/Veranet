@@ -414,8 +414,8 @@ class companyActions extends sfActions {
         }
                
         $this->iaccount = $request->getParameter('iaccount');
-        $fromdate = $this->fromdate . " 00:00:00";
-        $todate = $this->todate. " 23:59:59" ;
+        $fromdate = $this->fromdate . " 21:00:00";
+        $todate = $this->todate. " 21:59:59" ;
         if (isset($this->iaccount) && $this->iaccount != '') {
             $ce = new Criteria();
             $ce->add(TelintaAccountsPeer::ID, $this->iaccount);
@@ -424,10 +424,10 @@ class companyActions extends sfActions {
 
             $this->iAccountTitle = $telintaAccount->getAccountTitle();
             $this->empl = EmployeePeer::retrieveByPK($telintaAccount->getParentId());
-            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+            $this->callHistory = CompanyEmployeActivation::getAccountCallHistory($telintaAccount->getIAccount(), $fromdate, $todate);
         } else {
 
-            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $this->fromdate . " 00:00:00", $this->todate . " 23:59:59");
+            $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $fromdate, $todate);
             
         }
         
