@@ -40,7 +40,7 @@
             <tr>
                 <td style="padding: 5px;">Payment Received:</td>
                 <td style="padding: 5px;">
-                    <input type="text" id="refill" name="refill">
+                    <input type="text" id="refill" name="refill"><?php echo sfConfig::get('app_currency_code');?>
                 </td>
             </tr>
 <!--            <tr>
