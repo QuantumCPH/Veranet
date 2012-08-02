@@ -51,7 +51,7 @@ use_helper('Number');
     <tr> 
         <td colspan="4" class="payer_summary">
             <?php echo __('Vat Number') ?>   <?php echo $company->getVatNo(); ?><br/>
-            <?php echo __('Invoice Number') ?>   <?php echo $transaction->getInvoiceNo(); ?><br/>
+<!--            <?php echo __('Invoice Number') ?>   <?php echo $transaction->getInvoiceNo(); ?><br/>-->
             <?php echo sprintf("%s", $company->getName()) ?><br/>
             <?php echo $company->getAddress() ?><br/>
             <?php echo sprintf('%s %s', $company->getPostCode(), $company->getCity()) ?><br/>
@@ -87,7 +87,7 @@ use_helper('Number');
         <td>&nbsp;</td>
         <td><?php echo __('VAT') ?></td>
         <td>&nbsp;</td>
-        <td><?php echo number_format($transaction->getExtraRefill()*$vat, 2) ?><?php echo sfConfig::get('app_currency_code');?></td>
+        <td><?php echo number_format($transaction->getAmount() - $transaction->getExtraRefill(), 2) ?><?php echo sfConfig::get('app_currency_code');?></td>
     </tr>
     <tr class="footer">
         <td>&nbsp;</td>

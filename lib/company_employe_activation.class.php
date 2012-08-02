@@ -285,7 +285,7 @@ class CompanyEmployeActivation {
         if ($Balance == 0)
             return $Balance;
         else
-            return -1 * $Balance;
+            return $Balance;
     }
 
     private static function createAccount(Employee $employee,$accountType, $iProduct, $followMeEnabled='N') {

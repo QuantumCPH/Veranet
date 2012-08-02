@@ -3,7 +3,7 @@
 	<!-- employee/list?filters[company_id]=1 -->
 	<a href="<?php echo url_for('employee/index').'?company_id='.$company->getId()."&filter=filter" ?>" class="external_link" target="_self"><?php echo  __('Employees') ?> (<?php echo $count ?>)</a>
 	<a href="<?php echo url_for('company/usage').'?company_id='.$company->getId(); ?>" class="external_link" target="_self"><?php echo  __('Usage') ?></a>
-        <a href="<?php echo url_for('company/paymenthistory').'?company_id='.$company->getId().'&filter=filter' ?>" class="external_link" target="_self"><?php echo  __('Payment History') ?></a>
+        <a href="<?php echo url_for('company/paymenthistory').'?company_id='.$company->getId().'&filter=filter' ?>" class="external_link" target="_self"><?php echo  __('Receipts') ?></a>
         <a href="<?php echo url_for('company/invoices') . '?company_id=' . $company->getId()?>" class="external_link" target="_self"><?php echo __('Invoices') ?></a>
 	<!--
 	<a onclick="companyShow();" style="cursor:pointer;">Company Info</a>
