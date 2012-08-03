@@ -71,7 +71,7 @@
                   <th>To be paid</th>
                <th>Status</th>-->
 <!--                  <th>Download PDF</th>-->
-                  <th>View HTML</th>
+                  <th  style="text-align: center;">View HTML</th>
 <!--                  <th>Action</th>-->
               </tr>
               <?php
