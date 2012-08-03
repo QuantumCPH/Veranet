@@ -3938,8 +3938,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cpay->add(OdrsPeer::COMPANY_ID,$company->getId());
         $cpay->addAnd(OdrsPeer::I_SERVICE,2);
         //$cpay->setLimit(10);
-        $cpay->addAnd(OdrsPeer::BILL_START,$this->billing_start_date, Criteria::GREATER_EQUAL);
-        $cpay->addAnd(OdrsPeer::BILL_END,$this->billing_end_date, Criteria::LESS_EQUAL);
+        $cpay->addAnd(OdrsPeer::CONNECT_TIME,$this->billing_start_date, Criteria::GREATER_EQUAL);
+        $cpay->addAnd(OdrsPeer::DISCONNECT_TIME,$this->billing_end_date, Criteria::LESS_EQUAL);
         $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_TIME);
         $paycount = OdrsPeer::doCount($cpay);
         if($paycount > 0){
