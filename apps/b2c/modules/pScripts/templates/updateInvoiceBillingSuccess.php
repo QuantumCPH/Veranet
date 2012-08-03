@@ -387,8 +387,8 @@
                    <td><?php echo $payment->getConnectTime();?></td>
 				   <td><?php echo $payment->getDescription();?></td>
 				   <td align="right"><?php echo number_format($chargedAmount = $payment->getChargedAmount(),2);echo sfConfig::get('app_currency_code');
-				         $totalPayments += $payment->getVatIncludedAmount();?>                   </td>
-				   <td align="right"><?php echo number_format($vat += $payment->getVatIncludedAmount()-$chargedAmount,2);echo sfConfig::get('app_currency_code');?></td>
+				         $totalPayments += $chargedAmount;?>                   </td>
+				   <td align="right"><?php echo number_format($vat += $payment->getChargedVatValue(),2);echo sfConfig::get('app_currency_code');?></td>
 				   <td align="right" style="padding-right:10px"><?php echo number_format($vatIncluded+=$payment->getVatIncludedAmount(),2);echo sfConfig::get('app_currency_code');?></td>
 				</tr>				
 				<?php }?>
