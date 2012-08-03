@@ -2,7 +2,7 @@
 <?php use_helper('Number') ?>
 
 
-<div id="sf_admin_container"><h1><?php echo __('Payment History') ?></h1>
+<div id="sf_admin_container"><h1><?php echo __('Receipts') ?></h1>
 <?php if ($sf_user->hasFlash('message')): ?>
 <div class="save-ok">
   <h2><?php echo __($sf_user->getFlash('message')) ?></h2>

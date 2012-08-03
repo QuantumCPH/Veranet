@@ -93,7 +93,16 @@ class companyActions extends sfActions {
 
     public function executePaymentHistory(sfWebRequest $request) {
         $this->forward404Unless($this->getUser()->getAttribute('companyname', '', 'companysession'));
+        
+        $ct = new Criteria();
+        $ct->add(TransactionDescriptionPeer::ID, 10);
+        $description = TransactionDescriptionPeer::doSelectOne($ct);
+        
         $c = new Criteria();
+        if($description){
+           $c->add(CompanyTransactionPeer::DESCRIPTION, '%'.$description->getTitle().'%', Criteria::LIKE);
+        }   
+        $c->add(CompanyTransactionPeer::DESCRIPTION, '%Company Refill%', Criteria::LIKE);
         $c->add(CompanyTransactionPeer::TRANSACTION_STATUS_ID, 3);
         $c->addAnd(CompanyTransactionPeer::COMPANY_ID, $this->getUser()->getAttribute('company_id', '', 'companysession'));
         $c->addDescendingOrderByColumn(CompanyTransactionPeer::CREATED_AT);

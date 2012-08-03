@@ -74,11 +74,11 @@
                         <?php
                         if ($modulName == "company" && $actionName == 'paymentHistory') {
                         ?>
-                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/paymentHistory" class="current"><?php echo  __('Payment History');?></a>
+                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/paymentHistory" class="current"><?php echo  __('Receipts');?></a>
                         <?php     
                         } else {
                         ?>
-                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/paymentHistory"><?php echo  __('Payment History');?></a>
+                            <a href="<?php echo sfConfig::get('app_b2b_url');?>company/paymentHistory"><?php echo  __('Receipts');?></a>
                         <?php  
                         }
                         ?>
