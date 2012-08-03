@@ -63,7 +63,7 @@ if (isset($empl)) {
             <th width="10%"   align="left"><?php echo __('Duration') ?></th>
             <th  width="25%"  align="left"><?php echo __('Country') ?></th>
             <th  width="10%"  align="left"><?php echo __('Description') ?></th>
-            <th width="10%"   align="right"><?php echo __('Cost') ?></th>
+            <th width="10%"   align="left" style="text-align: right;"><?php echo __('Cost') ?></th>
             
         </tr>
         <?php
