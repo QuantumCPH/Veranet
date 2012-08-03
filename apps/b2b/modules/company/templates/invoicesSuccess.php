@@ -92,8 +92,8 @@
                   <td><?php echo date('M Y',strtotime($invoice->getBillingStartingDate()));?> - <?php echo date('M Y',strtotime($invoice->getBillingEndingDate()));?></td>
                   <td><?php echo $invoice->getCompany()->getName();?></td>
                   <td align="right"><?php
-                             echo number_format($invoice->getTotalPayment(),2); 
-                             $total += $invoice->getTotalPayment();
+                             echo number_format($invoice->getTotalPayableBalance(),2); 
+                             $total += $invoice->getTotalPayableBalance();
                       ?><?php echo sfConfig::get('app_currency_code'); ?>
                   </td>
 <!--                  <td>

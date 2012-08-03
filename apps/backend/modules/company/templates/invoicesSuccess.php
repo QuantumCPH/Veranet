@@ -67,8 +67,8 @@
             <td><?php echo date('M Y',strtotime($invoice->getBillingStartingDate()));?> - <?php echo date('M Y',strtotime($invoice->getBillingEndingDate()));?></td>
             <td><?php echo $invoice->getCompany()->getName();?></td>
             <td><?php
-                    echo number_format($invoice->getTotalPayment(),2);
-                    $total += $invoice->getTotalPayment();
+                    echo number_format($invoice->getTotalPayableBalance(),2);
+                    $total += $invoice->getTotalPayableBalance();
                 ?>
             </td>
 <!--            <td>
@@ -102,10 +102,10 @@
         <tr>
             <td colspan="3"></td>
             <td><strong>Total</strong></td>
-            <!-- <td><strong><?php echo number_format($total,2);?></strong></td>
-           <td></td>-->
-            <td><strong><?php echo number_format($totalNet,2);?></strong></td>
-            <td colspan="4"></td>
+            <td><strong><?php echo number_format($total,2);?></strong></td>
+           <td></td>
+          <!--   <td><strong><?php echo number_format($totalNet,2);?></strong></td>
+            <td colspan="4"></td>-->
         </tr>
     </table>
 </div>
