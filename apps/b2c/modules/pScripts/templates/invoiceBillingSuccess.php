@@ -299,7 +299,7 @@
 	</tr>
 	<tr>
 		<td class="padding"><strong>Total Payable Balance</strong></td>
-		<td><?php echo number_format($net_cost + $netbalance , 2);  ?></td>
+		<td><?php echo number_format($net_payment = $net_cost + $netbalance , 2);  ?></td>
 	</tr>
 	<tr height="30px">
 		<td colspan="2" class="border borderleft borderright" style="background-color:#CCCCCC;">&nbsp;</td>
@@ -376,7 +376,8 @@
 	$in->setTotalusage($totalcost);
 	$in->setCurrentBill($net_cost);
 	$in->setInvoiceCost($invoice_cost);
-	$in->setNetPayment($net_cost);
+	$in->setNetPayment($net_cost); 
+        $in->setTotalPayableBalance($net_payment); /// previous balance and current invoice payment
 	$in->setInvoiceStatusId(1);
 	$in->save();
 

@@ -92,8 +92,8 @@
                   <td><?php echo date('M Y',strtotime($invoice->getBillingStartingDate()));?> - <?php echo date('M Y',strtotime($invoice->getBillingEndingDate()));?></td>
                   <td><?php echo $invoice->getCompany()->getName();?></td>
                   <td><?php 
-                             echo number_format($invoice->getTotalPayment(),2); 
-                             $total += $invoice->getTotalPayment();
+                             echo number_format($invoice->getTotalPayableBalance(),2); 
+                             $total += $invoice->getTotalPayableBalance();
                       ?>
                   </td>
 <!--                  <td>
