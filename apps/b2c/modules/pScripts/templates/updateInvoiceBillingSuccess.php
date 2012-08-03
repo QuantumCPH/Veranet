@@ -373,17 +373,21 @@
 			<table width="100%" cellpadding="0" cellspacing="0" class="table">
 				<tr><td colspan="2" class="padbot"><h2>Payment History</h2></td></tr>
 				<tr class="trbg" height="40px">
-					<td class="border borderleft">Description</td>
-					<td class="border">Airtime (<?php echo sfConfig::get('app_currency_code')?>)</td>
-					<td class="border">Vat (<?php echo sfConfig::get('app_currency_code')?>)</td>
-					<td  class="border borderright">Total (<?php echo sfConfig::get('app_currency_code')?>)</td>
+                    <td class="border borderleft">Date & Time</td>
+					<td class="border">Description</td>
+					<td class="border" align="right">Airtime</td>
+					<td class="border" align="right">Vat</td>
+					<td  class="border borderright" align="right" style="padding-right:10px">Total </td>
 				</tr>
 				<?php foreach($payments as $payment){?>
 				<tr>
+                   <td><?php echo $payment->getConnectTime();?></td>
 				   <td><?php echo $payment->getDescription();?></td>
-				   <td><?php echo number_format($chargedAmount = $payment->getChargedAmount(),2);$totalPayments += $payment->getVatIncludedAmount();?></td>
-				   <td><?php echo number_format($vat = $payment->getVatIncludedAmount()-$chargedAmount,2);?></td>
-				   <td><?php echo number_format($payment->getVatIncludedAmount(),2);?></td>
+				   <td align="right"><?php echo number_format($chargedAmount = $payment->getChargedAmount(),2);echo sfConfig::get('app_currency_code');
+				         $totalPayments += $payment->getVatIncludedAmount();?>
+                   </td>
+				   <td align="right"><?php echo number_format($vat = $payment->getVatIncludedAmount()-$chargedAmount,2);echo sfConfig::get('app_currency_code');?></td>
+				   <td align="right" style="padding-right:10px"><?php echo number_format($payment->getVatIncludedAmount(),2);echo sfConfig::get('app_currency_code');?></td>
 				</tr>
 				<?php }?>
 			</table>
