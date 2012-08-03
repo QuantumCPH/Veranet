@@ -102,10 +102,10 @@
         <tr>
             <td colspan="3"></td>
             <td><strong>Total</strong></td>
-            <!-- <td><strong><?php echo number_format($total,2);?></strong></td>
-           <td></td>-->
-            <td><strong><?php echo number_format($totalNet,2);?></strong></td>
-            <td colspan="4"></td>
+            <td><strong><?php echo number_format($total,2);?></strong></td>
+           <td></td>
+          <!--   <td><strong><?php echo number_format($totalNet,2);?></strong></td>
+            <td colspan="4"></td>-->
         </tr>
     </table>
 </div>
