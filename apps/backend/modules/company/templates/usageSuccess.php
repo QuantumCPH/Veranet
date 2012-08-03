@@ -116,7 +116,7 @@
         ?>        <?php if ($callRecords == 0) {
  ?>
                 <tr>
-                    <td colspan="6"><p><?php echo __('There are currently no call records to show.') ?></p></td>
+                    <td colspan="7"><p><?php echo __('There are currently no call records to show.') ?></p></td>
                 </tr>
 <?php } else { ?>
                 <tr>

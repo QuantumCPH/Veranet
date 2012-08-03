@@ -140,10 +140,11 @@ class companyActions extends sfActions {
            // $tomorrow1 = mktime(0, 0, 0, date("m"), date("1") , date("Y"));
             $this->fromdate = date("Y-m-1");
             //$tomorrow = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
-            $this->todate = date("Y-m-t");
+           $this->todate = date("Y-m-t");
         }
         $this->iaccount = $request->getParameter('iaccount');
         $fromdate = $this->fromdate . " 21:00:00";
+        $fromdate = date('Y-m-d 21:00:00',  strtotime('-1 day',strtotime($fromdate)));
         $todate = $this->todate. " 21:59:59" ;
         
         if (isset($this->iaccount) && $this->iaccount != '') {
@@ -159,7 +160,7 @@ class companyActions extends sfActions {
 
             $this->callHistory = CompanyEmployeActivation::callHistory($this->company, $fromdate, $todate);            
         }
-          
+         
         $c = new Criteria();
         $c->add(TelintaAccountsPeer::I_CUSTOMER, $this->company->getICustomer());
         $c->addAnd(TelintaAccountsPeer::STATUS, 3);
