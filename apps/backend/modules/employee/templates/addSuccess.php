@@ -63,7 +63,11 @@
        </tr>
       <tr>
         <td style="padding: 5px;">Mobile number:</td>
-        <td style="padding: 5px;"> <input type="text" name="mobile_number" id="employee_mobile_number"  size="25"   class="required digits"  minlength="8" /><span id="msgbox" style="display:none"></span> </td>
+        <td style="padding: 5px;"> 
+            <input type="text" name="mobile_number" id="employee_mobile_number"  size="25"   class="required digits"  minlength="8" />
+            <br><small>Enter Mobile Number without country code and not starting with 0</small>
+            <span id="msgbox" style="display:none"></span>
+       </td>
       </tr>
                  <tr>
         <td style="padding: 5px;">Email:</td>

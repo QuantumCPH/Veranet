@@ -136,12 +136,12 @@
 				  </div>
 				</div>
 
-				<div class="form-row">
+<!--				<div class="form-row">
 				  <label class="required"><?php echo  __('Customer Type:') ?></label>
 				  <div class="content">
 				  	<?php echo $company->getCustomerType();?>
 				  </div>
-				</div>
+				</div>-->
 				
 <!--				<div class="form-row">
 				  <label class="required">Account Manager:</label>

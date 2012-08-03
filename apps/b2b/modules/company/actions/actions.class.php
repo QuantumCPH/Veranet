@@ -102,7 +102,7 @@ class companyActions extends sfActions {
         if($description){
            $c->add(CompanyTransactionPeer::DESCRIPTION, '%'.$description->getTitle().'%', Criteria::LIKE);
         }   
-        $c->add(CompanyTransactionPeer::DESCRIPTION, '%Company Refill%', Criteria::LIKE);
+        //$c->add(CompanyTransactionPeer::DESCRIPTION, '%Company Refill%', Criteria::LIKE);
         $c->add(CompanyTransactionPeer::TRANSACTION_STATUS_ID, 3);
         $c->addAnd(CompanyTransactionPeer::COMPANY_ID, $this->getUser()->getAttribute('company_id', '', 'companysession'));
         $c->addDescendingOrderByColumn(CompanyTransactionPeer::CREATED_AT);

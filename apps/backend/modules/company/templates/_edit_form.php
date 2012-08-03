@@ -258,7 +258,7 @@
     </div>
 </div>
 
-<div class="form-row">
+<!--<div class="form-row">
   <?php echo label_for('company[customer_type_id]', __($labels['company{customer_type_id}']), '') ?>
   <div class="content<?php if ($sf_request->hasError('company{customer_type_id}')): ?> form-error<?php endif; ?>">
   <?php if ($sf_request->hasError('company{customer_type_id}')): ?>
@@ -271,7 +271,7 @@
     'include_custom' => ' ',
 )); echo $value ? $value : '&nbsp;' ?>
     </div>
-</div>
+</div>-->
 
 <div class="form-row">
   <?php echo label_for('company[invoice_method_id]', __($labels['company{invoice_method_id}']), 'class="required" ') ?>
@@ -319,7 +319,7 @@
     </div>
 </div>
 
-<div class="form-row">
+<!--<div class="form-row">
   <?php echo label_for('company[created_at]', __($labels['company{created_at}']), 'class="required" ') ?>
   <div class="content<?php if ($sf_request->hasError('company{created_at}')): ?> form-error<?php endif; ?>">
   <?php if ($sf_request->hasError('company{created_at}')): ?>
@@ -334,7 +334,7 @@
   'readonly' => 'true',
 )); echo $value ? $value : '&nbsp;' ?>
     </div>
-</div>
+</div>-->
 
 <div class="form-row">
   <?php echo label_for('company[file_path]', __($labels['company{file_path}']), '') ?>

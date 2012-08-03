@@ -91,10 +91,10 @@
                   <td><?php echo $records;?></td><td><?php echo $invoice->getId();?></td>
                   <td><?php echo date('M Y',strtotime($invoice->getBillingStartingDate()));?> - <?php echo date('M Y',strtotime($invoice->getBillingEndingDate()));?></td>
                   <td><?php echo $invoice->getCompany()->getName();?></td>
-                  <td><?php 
+                  <td align="right"><?php
                              echo number_format($invoice->getTotalPayment(),2); 
                              $total += $invoice->getTotalPayment();
-                      ?>
+                      ?><?php echo sfConfig::get('app_currency_code'); ?>
                   </td>
 <!--                  <td>
                       <?php 
@@ -130,7 +130,7 @@
                 $increment += 1;                
                 }
               ?>
-              <tr><td colspan="3"></td><td><strong>Total</strong></td><td><strong><?php echo number_format($total,2);?></strong></td>
+              <tr><td colspan="3"></td><td><strong>Total</strong></td><td align="right"><strong><?php echo number_format($total,2);?><?php echo sfConfig::get('app_currency_code'); ?></strong></td>
 <!--                  <td></td>
                  <td><strong><?php echo number_format($totalNet,2);?></strong></td>-->
                   <td colspan="4"></td></tr>

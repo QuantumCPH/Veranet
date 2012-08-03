@@ -252,7 +252,7 @@ class companyActions extends sfActions {
                 $this->company->setRegistrationDate(null);
             }
         }
-        if (isset($company['created_at'])) {
+        /*if (isset($company['created_at'])) {
             if ($company['created_at']) {
                 try {
                     $dateFormat = new sfDateFormat($this->getUser()->getCulture());
@@ -269,7 +269,7 @@ class companyActions extends sfActions {
             } else {
                 $this->company->setCreatedAt(null);
             }
-        }
+        }*/
         $currentFile = sfConfig::get('sf_upload_dir') . "//" . $this->company->getFilePath();
         if (!$this->getRequest()->hasErrors() && isset($company['file_path_remove'])) {
             $this->company->setFilePath('');
@@ -499,7 +499,7 @@ class companyActions extends sfActions {
         $this->companyval = $companyid;
         $c->add(CompanyTransactionPeer::TRANSACTION_STATUS_ID, 3);
         $c->add(CompanyTransactionPeer::DESCRIPTION, '%'.$description->getTitle().'%', Criteria::LIKE);
-        $c->add(CompanyTransactionPeer::DESCRIPTION, '%Company Refill%', Criteria::LIKE);
+        //$c->add(CompanyTransactionPeer::DESCRIPTION, '%Company Refill%', Criteria::LIKE);
 
 
         if (isset($companyid) && $companyid != '') {

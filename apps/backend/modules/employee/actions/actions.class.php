@@ -424,7 +424,7 @@ class employeeActions extends sfActions {
         $employee->setIsAppRegistered($request->getParameter('is_app_registered'));
         $employee->setPassword($request->getParameter('password'));*/
         //$employee->setRegistrationType($rtype);
-        $employee->setProductId($request->getParameter('productid'));
+        //$employee->setProductId($request->getParameter('productid'));
         
       //  $employee->setProductPrice($request->getParameter('price'));
            $employee->setComments($request->getParameter('comments'));
