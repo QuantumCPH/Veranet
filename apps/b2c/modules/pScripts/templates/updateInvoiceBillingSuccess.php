@@ -400,8 +400,8 @@
 			<table width="100%" cellpadding="0" cellspacing="0" class="table" style="padding-bottom:30px">
 				<tr><td colspan="2" class="padbot"><h2>Previous Invoices</h2></td></tr>
 				<tr height="40px" class="trbg">
-					<td width="29%" class="border borderleft">Bill Duration</td>
-				  <td width="71%" class="border borderright">Invoice Total (<?php echo sfConfig::get('app_currency_code')?>)</td>
+					<td width="28%" class="border borderleft">Bill Duration</td>
+				  <td width="72%" class="border borderright">Invoice Total (<?php echo sfConfig::get('app_currency_code')?>)</td>
 			  </tr>
                 <?php foreach($preInvoices as $preInvoice){ ?>
 				<tr>
