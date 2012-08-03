@@ -11,6 +11,14 @@
     <head>
         <title><?php echo date('dmy') . $invoice_meta->getId() ?>- <?php echo $company_meta->getName() ?></title>
         <style>
+		    body{
+			  font-family:Verdana, Arial, Helvetica, sans-serif;
+			  font-size:11px;
+			}
+			h2{
+			   font-size:17px;
+			   color:#000!important;
+			 }
             fieldset {
                  -moz-border-radius:10px;
                  border-radius: 10px;
@@ -49,11 +57,10 @@
              table td{
                     border:none!important;
              }
-             h2{ color:#000!important;}
         </style>
     </head>
     <body>
-		<table width="80%" cellpadding="0" cellspacing="0" border="0" style="padding:30px">
+		<table width="90%" cellpadding="0" cellspacing="0" border="0" style="padding:30px;margin:0 auto;">
 	<tr>
 		<td colspan="2">
 			<fieldset>
@@ -122,11 +129,12 @@
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table">
 				<tr><td colspan="3" class="padbot"><h2>Invoice Call</h2></td></tr>
-				<tr height="40px" class="trbg">
-				  <td width="28%" class="border borderleft">Calls</td>
-				  <td width="23%" class="border">Destination</td>
-				  <td width="23%" class="border">Duration</td>
-				  <td width="26%" class="border borderright" align="right" style="padding-right:10px">Charged Amount</td>
+				<tr height="40px" class="trbg" bgcolor="#CCCCCC" style="background:#CCCCCC">
+                  <td width="21%" class="border borderleft">Date &amp; Time</td>
+				  <td width="17%" class="border ">Calls</td>
+				  <td width="22%" class="border">Destination</td>
+				  <td width="16%" class="border">Duration</td>
+				  <td width="24%" class="border borderright" align="right" style="padding-right:10px">Charged Amount</td>
 			  </tr>
 			<?php
 				$billings = array();
@@ -157,31 +165,18 @@
 					if ($billingFlag) {
 			?>
 				<tr>
-					<td colspan="4" class="padding"><strong><?php echo 'From Number: ' . $employee->getMobileNumber() ?></strong></td>
+					<td colspan="5" class="padding"><strong><?php echo 'From Number: ' . $employee->getMobileNumber() ?></strong></td>
 				</tr>
 			<?php
 				$invoiceFlag = true;
 				$billings = EmployeeCustomerCallhistoryPeer::doSelect($bc);
 				foreach ($billings as $billing) {?>
 				<tr>
+                    <td><?php echo $billing->getConnectTime();?></td>
 					<td><?php echo $billing->getCountry()->getName()//.'-'.$billing->getCountryId(); ?></td>
 					<td><?php echo $billing->getPhoneNumber(); ?></td>
 						<td>
 							<?php
-								/*$dc = new Criteria();
-								$dc->add(EmployeeCustomerCallhistoryPeer::PARENT_TABLE, "employee");
-								$dc->add(EmployeeCustomerCallhistoryPeer::PARENT_ID, $employee->getId());
-								//$dc->add(EmployeeCustomerCallhistoryPeer::COUNTRY_ID,$billing->getCountryId());
-								$dc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $invoice_meta->getBillingStartingDate('Y-m-d 00:00:00') . "' ", Criteria::CUSTOM);
-								$dc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  < '" . $invoice_meta->getBillingEndingDate('Y-m-d 23:59:59') . "' ", Criteria::CUSTOM);
-							  //  $dc->addGroupByColumn(EmployeeCallhistoryPeer::COUNTRY_ID);
-								$temp = EmployeeCustomerCallhistoryPeer::doSelect($dc);
-								$minutes_count = 0;
-								$calculated_cost = 0;
-								foreach ($temp as $t) {
-									$calculated_cost = $t->getChargedAmount();
-									$call_duration = EmployeeCustomerCallhistoryPeer::getTotalCallDuration($employee, $billing->getCountryId());
-								}*/
 								$calculated_cost = $billing->getChargedAmount();
 								$call_duration = EmployeeCustomerCallhistoryPeer::getTotalCallDuration($employee, $billing->getCountryId());
 							?>
@@ -195,22 +190,27 @@
 			}
 		 }
 	}
-	$invoice_cost = ($invoiceFlag) ? $invoice_cost : '0.00'; ?>
+	?>
                  <tr>
-				  <td colspan="4">
+				  <td colspan="5">
                     <hr />
                   </td>
 			   </tr>
                <tr>
-				  <td colspan="4">
+				  <td colspan="5">
                      <table cellpadding="3" cellspacing="0" width="100%">
                          <tr>
-                              <td width="90%" align="right"><strong>Total Calls:</strong></td>
+                              <td width="90%" align="right"><strong>Total :</strong></td>
                               <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalcost,2);?><?php echo sfConfig::get('app_currency_code')?></td>
                          </tr>
                      </table>
                   </td>
 			   </tr>
+              <tr>
+				  <td colspan="5">
+                    <hr />
+                  </td>
+			   </tr> 
 	</table>
 	  </td>
 	</tr>
@@ -219,9 +219,10 @@
 			<table width="100%" cellpadding="0" cellspacing="0" class="table">
 				<tr><td colspan="3" class="padbot"><h2>Subscriptions</h2></td></tr>
 				<tr  class="trbg" height="40px">
-					<td width="28%" class="border borderleft">Mobile Number</td>
-				  <td width="50%" class="border">Description</td>
-				  <td width="22%" class="border borderright" align="right" style="padding-right:10px">Amount</td>
+                <td width="21%" class="border borderleft">Date & Time</td>
+				  <td width="21%" class="border">Mobile Number</td>
+				  <td width="39%" class="border">Description</td>
+				  <td width="19%" class="border borderright" align="right" style="padding-right:10px">Amount</td>
 			  </tr>
 			   <?php
 				 foreach ($employees as $emps) {
@@ -233,10 +234,12 @@
                                   $cSub->addAnd(OdrsPeer::BILL_END,$billing_end_date, Criteria::LESS_EQUAL);
 				  $scount = OdrsPeer::doCount($cSub);
 				  if($scount > 0){
+                                      $invoiceFlag = true;
 				   	$subscriptions =  OdrsPeer::doSelect($cSub);
     				foreach($subscriptions as $subs){
 				?>
 				<tr>
+                   <td><?php echo $subs->getConnectTime();?></td>
 				   <td><?php echo $emps->getMobileNumber();?></td>
 				   <td><?php echo $subs->getDescription();?></td>
 				   <td align="right" style="padding-right:10px"><?php echo number_format($subs->getChargedAmount(),2);$totalSubFee += $subs->getChargedAmount();?><?php echo sfConfig::get('app_currency_code')?></td>
@@ -247,41 +250,49 @@
 				 } //end employee second foreach loop
 			    ?>
                 <tr>
-				  <td colspan="3">
+				  <td colspan="4">
                     <hr />
                   </td>
 			   </tr>
                 <tr>
-                  <td colspan="3">
+                  <td colspan="4">
                     <table cellpadding="3" cellspacing="0" width="100%">
                        <tr>
-                         <td colspan="2" align="right"><strong>Total Subscriptions:</strong></td>
+                         <td colspan="2" align="right"><strong>Total :</strong></td>
                           <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalSubFee,2);?><?php echo sfConfig::get('app_currency_code')?></td>
                       </tr>
                     </table>
                   </td>
                 </tr>
+                <tr>
+				  <td colspan="4">
+                    <hr />
+                  </td>
+			   </tr>
 			</table>
 	  </td>
 	</tr>
-	<?php  if(isset ($otherevents) && $otherevents !=""){ ?>
+	<?php  if(isset ($otherevents) && $otherevents !=""){ 
+            $invoiceFlag = true; ?>
 	<tr>
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table" style="padding-bottom:30px;">
 				<tr><td colspan="2" class="padbot"><h2>Other Events</h2></td></tr>
 				<tr class="trbg" height="40px">
-					<td width="71%" class="border borderleft">Description</td>
-				  <td width="29%" class="border borderright" align="right" style="padding-right:10px">Amount</td>
+                <td width="41%" class="border borderleft">Date & Time</td>
+				  <td width="41%" class="border">Description</td>
+				  <td width="18%" class="border borderright" align="right" style="padding-right:10px">Amount</td>
 			  </tr>
                 <?php foreach($otherevents as $event){?>
 				<tr>
+                    <td><?php echo $event->getConnectTime();?></td>
                     <td><?php echo $event->getDescription();?></td>
                     <td align="right" style="padding-right:10px"><?php echo number_format($event->getChargedAmount(),2);$totalEventFee += $event->getChargedAmount();?>
 					<?php echo sfConfig::get('app_currency_code')?></td>
                 </tr>
 				<?php }?>
                 <tr>
-				  <td colspan="2">
+				  <td colspan="3">
                     <hr />
                   </td>
 			   </tr>
@@ -289,7 +300,7 @@
                   <td colspan="3">
                     <table cellpadding="3" cellspacing="0" width="100%">
                       <tr>
-                         <td width="90%" align="right"><strong>Total Events:</strong></td>
+                         <td width="90%" align="right"><strong>Total :</strong></td>
                         <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalEventFee,2);?><?php echo sfConfig::get('app_currency_code')?></td>
                       </tr>
                     </table>
@@ -300,6 +311,8 @@
 	</tr>
    <?php
 	  }
+          $invoice_cost = ($invoiceFlag) ? $invoice_cost : '0.00'; 
+          
 	   $totalcost = $totalcost + $totalSubFee + $totalEventFee;
    ?>
    <tr height="30px">
@@ -307,10 +320,10 @@
 	</tr>
 	<tr>
       <td colspan="2" align="right">
-         <table cellpadding="3" cellspacing="0" width="100%">
+         <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
-            <td width="90%" align="right" class="padding" style="padding-right:10px"><strong>Total cost:</strong></td>
-            <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalcost, 2);echo sfConfig::get('app_currency_code'); ?></td>
+            <td width="91%" align="right" class="padding" style="padding-right:10px"><strong>Total cost:</strong></td>
+            <td width="9%" align="right" style="padding-right:10px"><?php echo number_format($totalcost, 2);echo sfConfig::get('app_currency_code'); ?></td>
            </tr>
             <tr>
             <td class="padding" align="right" style="padding-right:10px"><strong>Invoice Cost:</strong></td>

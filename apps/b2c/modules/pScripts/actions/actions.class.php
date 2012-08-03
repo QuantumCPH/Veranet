@@ -3910,8 +3910,17 @@ if(($caltype!="IC") && ($caltype!="hc")){
 
         $billing_details = array();
         $this->details = $billing_details;
-
-        $this->invoice_cost = $invoice->getInvoiceCost();
+        
+        if($invoice->getInvoiceCost()==0){
+            $inid = $company->getInvoiceMethodId();
+            $im = new Criteria();
+            $im->add(InvoiceMethodPeer::ID, $inid);
+            $in = InvoiceMethodPeer::doSelectOne($im);
+            $this->invoice_cost = $in->getCost();
+        }else{
+            $this->invoice_cost = $invoice->getInvoiceCost();
+        }
+        
         $this->invoice_meta = $invoice;
         $this->company_meta = $company;
         
