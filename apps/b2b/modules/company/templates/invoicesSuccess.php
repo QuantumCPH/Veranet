@@ -66,8 +66,8 @@
 		    <h1>Company Invoices</h1> </div>
           <table cellpadding="3" cellspacing="0" class="tblAlign" width="100%">              
               <tr class="headings">
-                  <th>&nbsp;</th><th>Invoice Number</th><th>Billing Duration</th><th>Company Name</th><th align="right">Invoice Total</th>
-            <th align="right">Total Payable</th>
+                  <th>&nbsp;</th><th>Invoice Number</th><th>Billing Duration</th><th>Company Name</th><th style="text-align: right!important;" >Invoice Total</th>
+            <th style="text-align: right!important;">Total Payable</th>
 <!--                  <th>Paid Amount</th>
                   <th>To be paid</th>
                <th>Status</th>-->
