@@ -369,6 +369,7 @@
 	</tr>
 	<?php if(isset ($payments) && $payments !=""){ 
 	$vat=0.00;
+        $vatIncluded=0.00;
 	?>
   	<tr>
 		<td colspan="2">
@@ -388,7 +389,7 @@
 				   <td align="right"><?php echo number_format($chargedAmount = $payment->getChargedAmount(),2);echo sfConfig::get('app_currency_code');
 				         $totalPayments += $payment->getVatIncludedAmount();?>                   </td>
 				   <td align="right"><?php echo number_format($vat += $payment->getVatIncludedAmount()-$chargedAmount,2);echo sfConfig::get('app_currency_code');?></td>
-				   <td align="right" style="padding-right:10px"><?php echo number_format($vatIncluded=$payment->getVatIncludedAmount(),2);echo sfConfig::get('app_currency_code');?></td>
+				   <td align="right" style="padding-right:10px"><?php echo number_format($vatIncluded+=$payment->getVatIncludedAmount(),2);echo sfConfig::get('app_currency_code');?></td>
 				</tr>				
 				<?php }?>
                 <tr>
