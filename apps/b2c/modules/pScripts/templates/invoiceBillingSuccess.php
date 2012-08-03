@@ -368,7 +368,9 @@
 		<td colspan="2" class="border borderleft borderright" style="background-color:#CCCCCC;">&nbsp;</td>
 	</tr>
 	<?php if(isset ($payments) && $payments !=""){ 
-	$vat=0.00;
+	$vat_in=0.00;
+        $vatIncluded=0.00;
+        $vatinc=0.00;
 	?>
   	<tr>
 		<td colspan="2">
@@ -386,16 +388,20 @@
                    <td><?php echo $payment->getConnectTime();?></td>
 				   <td><?php echo $payment->getDescription();?></td>
 				   <td align="right"><?php echo number_format($chargedAmount = $payment->getChargedAmount(),2);echo sfConfig::get('app_currency_code');
-				         $totalPayments += $payment->getVatIncludedAmount();?>                   </td>
-				   <td align="right"><?php echo number_format($vat += $payment->getVatIncludedAmount()-$chargedAmount,2);echo sfConfig::get('app_currency_code');?></td>
-				   <td align="right" style="padding-right:10px"><?php echo number_format($vatIncluded=$payment->getVatIncludedAmount(),2);echo sfConfig::get('app_currency_code');?></td>
+				         $totalPayments += $chargedAmount;?>                   </td>
+				   <td align="right"><?php echo number_format($payment->getChargedVatValue(),2);
+                                   $vat_in += $payment->getChargedVatValue();
+                                   echo sfConfig::get('app_currency_code');?></td>
+				   <td align="right" style="padding-right:10px"><?php echo number_format($vatIncluded =$payment->getVatIncludedAmount(),2);
+                                   $vatinc +=$vatIncluded ;
+                                   echo sfConfig::get('app_currency_code');?></td>
 				</tr>				
 				<?php }?>
-                <tr>
+                            <tr>
 				  <td colspan="2" align="right"><strong>Total:</strong></td>
 				  <td align="right"><strong><?php echo number_format($totalPayments,2);echo sfConfig::get('app_currency_code');?></strong></td>
-				  <td align="right"><strong><?php echo number_format($vat,2);echo sfConfig::get('app_currency_code');?></strong></td>
-				  <td align="right" style="padding-right:10px"><strong><?php echo number_format($vatIncluded,2);echo sfConfig::get('app_currency_code');?></strong></td>
+				  <td align="right"><strong><?php echo number_format($vat_in,2);echo sfConfig::get('app_currency_code');?></strong></td>
+				  <td align="right" style="padding-right:10px"><strong><?php echo number_format($vatinc,2);echo sfConfig::get('app_currency_code');?></strong></td>
 			    </tr>
 			</table>
 	  </td>
@@ -428,7 +434,7 @@
 					<td>Tel: XXXXXXXXXXXXXXXX</td>
 					<td>Fax: XXXXXXXXXXXXXXX</td>
 					<td>Email: veranet@zerocall.com</td>
-					<td>Web: www,veranet.com</td>
+					<td>Web: www.veranet.com</td>
 				</tr>
 			</table>
 			</fieldset>
