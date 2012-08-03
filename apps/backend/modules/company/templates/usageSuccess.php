@@ -122,7 +122,7 @@
                 <tr>
                     <td colspan="6" align="right"><strong><?php echo __('Subtotal') ?></strong></td>
 
-                    <td><?php echo number_format($amount_total, 2) ?><?php echo sfConfig::get('app_currency_code')?></td>
+                    <td align="right"><?php echo number_format($amount_total, 2) ?><?php echo sfConfig::get('app_currency_code')?></td>
 <!--                    <td>&nbsp;</td>-->
                 </tr>
 <?php } ?>
