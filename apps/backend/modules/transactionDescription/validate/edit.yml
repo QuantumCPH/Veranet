@@ -5,8 +5,8 @@ fields:
     sfStringValidator:
       min:       2
       min_error: This name is too short (2 characters minimum)
-      max:       32
-      max_error: This name is too long. (32 characters maximum)
+      max:       22
+      max_error: This name is too long. (22 characters maximum)
   transaction_description{transaction_type_id}:
     required:
       msg:              The transaction type cannot be left blank.

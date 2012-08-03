@@ -35,9 +35,9 @@ class employeeActions extends sfActions {
         $this->companys = CompanyPeer::doSelect($c);
 
         $pr = new Criteria();
-         $pr->add(ProductPeer::ID, 4);
+        $pr->add(ProductPeer::ID, $this->employee->getProductId());
         //$pr->add(ProductPeer::IS_IN_ZAPNA, 1);
-        $this->products = ProductPeer::doSelect($pr);
+        $this->products = ProductPeer::doSelectOne($pr);
     }
 
     protected function addFiltersCriteria($c) {

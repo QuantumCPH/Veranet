@@ -92,17 +92,17 @@
             <td>Password:</td>
             <td>  <input type="text" name="password" id="employee_password"  value="<?php // echo $employee->getPassword(); ?>"  size="25" /></td>
         </tr>-->
-<!--        <tr>
+        <tr>
             <td style="padding: 5px;">Product:</td>
-            <td style="padding: 5px;"> <select name="productid" id="employee_product_id"   class="required" >
-
-<?php foreach ($products as $product) { ?>
+           <td style="padding: 5px;"> 
+           <?php echo $products->getName(); ?>
+<!-- <select name="productid" id="employee_product_id"   class="required" ><?php foreach ($products as $product) { ?>
                     <option value="<?php echo $pid = $product->getId(); ?>"   <?php $varp = $employee->getProductId();
                     if (isset($varp) && $varp == $pid) { ?>  selected="selected" <?php } ?>><?php echo $product->getName() ?></option>
 <?php } ?>
 
-                </select></td>
-        </tr>-->
+                </select>--></td>
+        </tr>
 
  <tr>
             <td>Comments:</td>

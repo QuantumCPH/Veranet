@@ -498,7 +498,8 @@ class companyActions extends sfActions {
         $companyid = $request->getParameter('company_id');
         $this->companyval = $companyid;
         $c->add(CompanyTransactionPeer::TRANSACTION_STATUS_ID, 3);
-        $c->add(CompanyTransactionPeer::DESCRIPTION, '%'.$description->getTitle().'%', Criteria::LIKE);
+        $c->add(CompanyTransactionPeer::PAYMENTTYPE,10);
+        //$c->add(CompanyTransactionPeer::DESCRIPTION, '%'.$description->getTitle().'%', Criteria::LIKE);
         //$c->add(CompanyTransactionPeer::DESCRIPTION, '%Company Refill%', Criteria::LIKE);
 
 
@@ -682,17 +683,17 @@ class companyActions extends sfActions {
              $invoice_id = $request->getParameter('invoice_id');
              $recharge = $request->getParameter('refill');
              $start_date= $request->getParameter('startdate');
-
              $refill=$recharge+($recharge* sfConfig::get('app_vat_percentage'));
 
              //$recharge=($invoice_id!='')?$recharge:$refill;
              $company = CompanyPeer::retrieveByPk($company_id);
 
              $ct = new Criteria();
-             ($invoice_id!='')?$ct->add(TransactionDescriptionPeer::ID, 9):$ct->add(TransactionDescriptionPeer::ID, 10);
+             //($invoice_id!='')?$ct->add(TransactionDescriptionPeer::ID, 9):$ct->add(TransactionDescriptionPeer::ID, 10);
+             $ct->add(TransactionDescriptionPeer::ID, 10);
              $description = TransactionDescriptionPeer::doSelectOne($ct);
 
-             if(CompanyEmployeActivation::recharge($company, $recharge, $description->getTitle())){
+             if(CompanyEmployeActivation::recharge($company, $recharge, $description->getTitle()."(Airtime)")){
                  /*if($invoice_id!=''){
                      $ci = new Criteria();
                      $ci->add(InvoicePeer::ID, $invoice_id);
@@ -720,7 +721,7 @@ class companyActions extends sfActions {
                     $cc->setAmount($refill);
                     $cc->setExtraRefill($recharge);
                     //$cc->setInvoiceNo($invoice_no);
-                    $cc->setPaymentType('1');
+                    $cc->setPaymentType($description->getId());//Refill Transaction Description id
                     $cc->setDescription($description->getTitle());
                     $cc->setTransactionStatusId('3');
                     //$cc->setPaidDate($start_date);

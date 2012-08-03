@@ -100,7 +100,8 @@ class companyActions extends sfActions {
         
         $c = new Criteria();
         if($description){
-           $c->add(CompanyTransactionPeer::DESCRIPTION, '%'.$description->getTitle().'%', Criteria::LIKE);
+            $c->add(CompanyTransactionPeer::PAYMENTTYPE,10);
+           //$c->add(CompanyTransactionPeer::DESCRIPTION, '%'.$description->getTitle().'%', Criteria::LIKE);
         }   
         //$c->add(CompanyTransactionPeer::DESCRIPTION, '%Company Refill%', Criteria::LIKE);
         $c->add(CompanyTransactionPeer::TRANSACTION_STATUS_ID, 3);
