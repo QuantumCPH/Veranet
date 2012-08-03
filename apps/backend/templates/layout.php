@@ -101,7 +101,14 @@
                       }else{
                           echo link_to(__('Employee lists'), 'employee/index');
                       }
-                    ?>                    
+                    ?>  
+                    <?php 
+                      if($actionName=='invoices' && $modulName=="company"){
+                          echo link_to(__('Invoices'), 'company/invoices', array('class'=>'subSelect'));
+                      }else{
+                          echo link_to(__('Invoices'), 'company/invoices');
+                      }
+                    ?>  
                     <?php 
                       if($actionName=='paymenthistory' && $modulName=="company"){
                          echo link_to(__('Receipts'), 'company/paymenthistory', array('class'=>'subSelect'));

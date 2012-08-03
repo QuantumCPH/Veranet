@@ -12,8 +12,11 @@
                 <div class="form-row">
                     <label>Company Name:</label>
                     <div class="content">
-                        <select name="companyid">
-                            <option value="<?php echo $company->getId();?>" ><?php echo $company->getName();?></option>
+                        <select name="company_id">
+                            <option value="">All</option>  
+                          <?php foreach($companies as $company){?>  
+                              <option value="<?php echo $company->getId();?>" <?php echo ($company->getId()==$company_id)?'selected="selected"':'';?> ><?php echo $company->getName();?></option>
+                          <?php }?>    
                         </select>
                     </div>
                 </div>
@@ -43,6 +46,7 @@
             <th>Billing Duration</th>
             <th>Company Name</th>
             <th>Invoice Total</th>
+            <th>Total Payable</th>
 <!--        <th>Paid Amount</th>
             <th>To be paid</th>
             <th>Status</th>-->
@@ -53,6 +57,7 @@
     $increment = 1;
     $total = 0.00;
     $totalNet = 0.00;
+    $totalpayable = 0.00;
     $records = count($invoices);
     foreach($invoices as $invoice){
         if($increment%2==0){
@@ -67,8 +72,13 @@
             <td><?php echo date('M Y',strtotime($invoice->getBillingStartingDate()));?> - <?php echo date('M Y',strtotime($invoice->getBillingEndingDate()));?></td>
             <td><?php echo $invoice->getCompany()->getName();?></td>
             <td><?php
+                    echo number_format($invoice->getTotalPayment(),2);
+                    $total += $invoice->getTotalPayment();
+                ?>
+            </td>
+            <td><?php
                     echo number_format($invoice->getTotalPayableBalance(),2);
-                    $total += $invoice->getTotalPayableBalance();
+                    $totalpayable += $invoice->getTotalPayableBalance();
                 ?>
             </td>
 <!--            <td>
@@ -103,6 +113,7 @@
             <td colspan="3"></td>
             <td><strong>Total</strong></td>
             <td><strong><?php echo number_format($total,2);?></strong></td>
+            <td><strong><?php echo number_format($totalpayable,2);?></strong></td>
            <td></td>
           <!--   <td><strong><?php echo number_format($totalNet,2);?></strong></td>
             <td colspan="4"></td>-->
