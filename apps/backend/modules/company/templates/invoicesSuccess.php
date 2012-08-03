@@ -45,8 +45,8 @@
             <th>Invoice Number</th>
             <th>Billing Duration</th>
             <th>Company Name</th>
-            <th align="right">Invoice Total</th>
-            <th align="right">Total Payable</th>
+            <th style="text-align:right">Invoice Total</th>
+            <th style="text-align:right">Total Payable</th>
 <!--        <th>Paid Amount</th>
             <th>To be paid</th>
             <th>Status</th>-->
@@ -112,8 +112,8 @@
         <tr>
             <td colspan="3"></td>
             <td><strong>Total</strong></td>
-            <td><strong><?php echo number_format($total,2);?></strong></td>
-            <td><strong><?php echo number_format($totalpayable,2);?></strong></td>
+            <td align="right"><strong><?php echo number_format($total,2);?><?php echo sfConfig::get('app_currency_code');?></strong></td>
+            <td align="right"><strong><?php echo number_format($totalpayable,2);?><?php echo sfConfig::get('app_currency_code');?></strong></td>
            <td></td>
           <!--   <td><strong><?php echo number_format($totalNet,2);?></strong></td>
             <td colspan="4"></td>-->
