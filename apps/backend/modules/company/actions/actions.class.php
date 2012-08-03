@@ -415,6 +415,7 @@ class companyActions extends sfActions {
                
         $this->iaccount = $request->getParameter('iaccount');
         $fromdate = $this->fromdate . " 21:00:00";
+        $fromdate = date('Y-m-d 21:00:00',  strtotime('-1 day',strtotime($fromdate)));
         $todate = $this->todate. " 21:59:59" ;
         if (isset($this->iaccount) && $this->iaccount != '') {
             $ce = new Criteria();
