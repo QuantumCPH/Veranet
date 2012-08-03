@@ -1,6 +1,6 @@
 <div id="sf_admin_container" style="clear: both;">
-    <h2>Available Balance: <?php echo number_format($balance,2); ?><?php echo sfConfig::get('app_currency_code');?></h2>
-    <h2>Credit Limit:  <?php echo  number_format($company->getCreditLimit(),2);  ?><?php echo sfConfig::get('app_currency_code');?></h2><br/>
+    <h2>Available Balance: <?php echo number_format($balance,2); ?><?php echo sfConfig::get('app_currency_code');?></h2><small>(excluding vat)</small>
+    <h2>Credit Limit:  <?php echo  number_format($company->getCreditLimit(),2);  ?><?php echo sfConfig::get('app_currency_code');?></h2><small>(excluding vat)</small><br/>
     <h1><?php echo __('Employees') ?></h1>
 </div>
 <table class="tblAlign" width="100%" cellspacing="0" cellpadding="3">
