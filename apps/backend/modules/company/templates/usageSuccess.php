@@ -68,6 +68,7 @@
             <th width="10%"   align="left"><?php echo __('Duration') ?></th>
             <th  width="10%"  align="left"><?php echo __('Country') ?></th>
 <!--            <th  width="10%"  align="left"><?php echo __('VAT') ?></th>-->
+            <th  width="10%"  align="left"><?php echo __('Description') ?></th>
             <th width="20%"   align="left" style="text-align: right;"><?php echo __('Cost') ?></th>
             
 <!--            <th width="20%"   align="left"><?php echo __('Samtalstyp') ?></th>-->
@@ -87,6 +88,7 @@
                 <td><?php echo $xdr->CLD; ?></td>
                 <td><?php  echo  date('i:s',$xdr->charged_quantity); ?></td>
                 <td><?php echo $xdr->country; ?></td>
+                <td><?php echo $xdr->description; ?></td>
 <!--                <td><?php echo number_format($xdr->charged_amount / 4, 2); ?></td>-->
                 <td align="right"><?php echo number_format($xdr->charged_amount, 2);
             $amount_total+= $xdr->charged_amount; ?><?php echo sfConfig::get('app_currency_code');?></td>
@@ -121,7 +123,7 @@
                     <td colspan="4" align="right"><strong><?php echo __('Subtotal') ?></strong></td>
 
                     <td><?php echo number_format($amount_total, 2) ?><?php echo sfConfig::get('app_currency_code')?></td>
-                    <td>&nbsp;</td>
+<!--                    <td>&nbsp;</td>-->
                 </tr>
 <?php } ?>
 
@@ -244,7 +246,7 @@
             <tr>
                 <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->bill_time)); ?></td>
                 <td><?php echo __($xdr->CLD); ?></td>
-                <td align="right"><?php echo -1 * number_format($xdr->charged_amount,2); $paymenttotal +=$xdr->charged_amount;?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
+                <td align="right"><?php echo number_format(-1 * $xdr->charged_amount,2); $paymenttotal +=$xdr->charged_amount;?>&nbsp;<?php echo sfConfig::get('app_currency_code')?></td>
             </tr>
             <?php } 
             
@@ -260,7 +262,7 @@
             }
       ?>
         <tr align="right">
-                <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><?php echo -1 * number_format($paymenttotal,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+                <td colspan="2"><strong><?php echo __('Total');?></strong></td><td><?php echo number_format(-1 * $paymenttotal,2);?><?php echo sfConfig::get('app_currency_code')?></td>
         </tr>
        
         </table><br/><br/>
