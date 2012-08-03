@@ -3937,7 +3937,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cpay = new Criteria();
         $cpay->add(OdrsPeer::COMPANY_ID,$company->getId());
         $cpay->addAnd(OdrsPeer::I_SERVICE,2);
-        $cpay->setLimit(10);
+        //$cpay->setLimit(10);
         $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_TIME);
         $paycount = OdrsPeer::doCount($cpay);
         if($paycount > 0){

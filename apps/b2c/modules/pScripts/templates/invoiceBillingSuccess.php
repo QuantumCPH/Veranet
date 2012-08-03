@@ -128,7 +128,7 @@
 	<tr>
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table">
-				<tr><td colspan="3" class="padbot"><h2>Invoice Call</h2></td></tr>
+				<tr><td colspan="3" class="padbot"><h2>Voice Calls</h2></td></tr>
 				<tr height="40px" class="trbg" bgcolor="#CCCCCC" style="background:#CCCCCC">
                   <td width="21%" class="border borderleft">Date &amp; Time</td>
 				  <td width="21%" class="border ">Calls</td>
@@ -200,9 +200,9 @@
 				  <td colspan="5">
                      <table cellpadding="3" cellspacing="0" width="100%">
                          <tr>
-                              <td width="90%" align="right"><strong>Total :</strong></td>
-                              <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalcost,2);?><?php echo sfConfig::get('app_currency_code')?></td>
-                         </tr>
+                              <td width="87%" align="right"><strong>Subtotal :</strong></td>
+                           <td width="13%" align="right" style="padding-right:10px"><?php echo number_format($totalcost,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+                       </tr>
                      </table>
                   </td>
 			   </tr>
@@ -258,8 +258,8 @@
                   <td colspan="4">
                     <table cellpadding="3" cellspacing="0" width="100%">
                        <tr>
-                         <td colspan="2" align="right"><strong>Total :</strong></td>
-                          <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalSubFee,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+                         <td colspan="2" align="right"><strong>Subtotal :</strong></td>
+                          <td width="13%" align="right" style="padding-right:10px"><?php echo number_format($totalSubFee,2);?><?php echo sfConfig::get('app_currency_code')?></td>
                       </tr>
                     </table>
                   </td>
@@ -300,8 +300,8 @@
                   <td colspan="3">
                     <table cellpadding="3" cellspacing="0" width="100%">
                       <tr>
-                         <td width="90%" align="right"><strong>Total :</strong></td>
-                        <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalEventFee,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+                         <td width="88%" align="right"><strong>Subtotal :</strong></td>
+                        <td width="12%" align="right" style="padding-right:10px"><?php echo number_format($totalEventFee,2);?><?php echo sfConfig::get('app_currency_code')?></td>
                       </tr>
                     </table>
                   </td>
@@ -322,11 +322,11 @@
       <td colspan="2" align="right">
          <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
-            <td width="91%" align="right" class="padding" style="padding-right:10px"><strong>Total cost:</strong></td>
-            <td width="9%" align="right" style="padding-right:10px"><?php echo number_format($totalcost, 2);echo sfConfig::get('app_currency_code'); ?></td>
+            <td width="88%" align="right" class="padding" style="padding-right:10px"><strong>Total cost:</strong></td>
+            <td width="12%" align="right" style="padding-right:10px"><?php echo number_format($totalcost, 2);echo sfConfig::get('app_currency_code'); ?></td>
            </tr>
             <tr>
-            <td class="padding" align="right" style="padding-right:10px"><strong>Invoice Cost:</strong></td>
+            <td class="padding" align="right" style="padding-right:10px"><strong>Invoice Fees:</strong></td>
             <td align="right" style="padding-right:10px"><?php echo number_format($invoice_cost, 2);echo sfConfig::get('app_currency_code'); ?></td>
             </tr>
             <tr>
@@ -367,7 +367,9 @@
 	<tr height="30px">
 		<td colspan="2" class="border borderleft borderright" style="background-color:#CCCCCC;">&nbsp;</td>
 	</tr>
-	<?php if(isset ($payments) && $payments !=""){ ?>
+	<?php if(isset ($payments) && $payments !=""){ 
+	$vat=0.00;
+	?>
   	<tr>
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table">
@@ -384,14 +386,19 @@
                    <td><?php echo $payment->getConnectTime();?></td>
 				   <td><?php echo $payment->getDescription();?></td>
 				   <td align="right"><?php echo number_format($chargedAmount = $payment->getChargedAmount(),2);echo sfConfig::get('app_currency_code');
-				         $totalPayments += $payment->getVatIncludedAmount();?>
-                   </td>
-				   <td align="right"><?php echo number_format($vat = $payment->getVatIncludedAmount()-$chargedAmount,2);echo sfConfig::get('app_currency_code');?></td>
-				   <td align="right" style="padding-right:10px"><?php echo number_format($payment->getVatIncludedAmount(),2);echo sfConfig::get('app_currency_code');?></td>
-				</tr>
+				         $totalPayments += $payment->getVatIncludedAmount();?>                   </td>
+				   <td align="right"><?php echo number_format($vat += $payment->getVatIncludedAmount()-$chargedAmount,2);echo sfConfig::get('app_currency_code');?></td>
+				   <td align="right" style="padding-right:10px"><?php echo number_format($vatIncluded=$payment->getVatIncludedAmount(),2);echo sfConfig::get('app_currency_code');?></td>
+				</tr>				
 				<?php }?>
+                <tr>
+				  <td colspan="2" align="right"><strong>Total:</strong></td>
+				  <td align="right"><strong><?php echo number_format($totalPayments,2);echo sfConfig::get('app_currency_code');?></strong></td>
+				  <td align="right"><strong><?php echo number_format($vat,2);echo sfConfig::get('app_currency_code');?></strong></td>
+				  <td align="right" style="padding-right:10px"><strong><?php echo number_format($vatIncluded,2);echo sfConfig::get('app_currency_code');?></strong></td>
+			    </tr>
 			</table>
-		</td>
+	  </td>
 	</tr>
 	<?php } ?>
 	<?php if(isset ($preInvoices) && $preInvoices !=""){?>
@@ -400,9 +407,9 @@
 			<table width="100%" cellpadding="0" cellspacing="0" class="table" style="padding-bottom:30px">
 				<tr><td colspan="2" class="padbot"><h2>Previous Invoices</h2></td></tr>
 				<tr height="40px" class="trbg">
-					<td class="border borderleft">Bill Duration</td>
-					<td class="border borderright">Invoice Total (<?php echo sfConfig::get('app_currency_code')?>)</td>
-				</tr>
+					<td width="28%" class="border borderleft">Bill Duration</td>
+				  <td width="72%" class="border borderright">Invoice Total (<?php echo sfConfig::get('app_currency_code')?>)</td>
+			  </tr>
                 <?php foreach($preInvoices as $preInvoice){ ?>
 				<tr>
 				   <td><?php echo $preInvoice->getBillingStartingDate("M d");?> - <?php echo $preInvoice->getBillingEndingDate("M d");?></td>
