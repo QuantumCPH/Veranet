@@ -12,8 +12,11 @@
                 <div class="form-row">
                     <label>Company Name:</label>
                     <div class="content">
-                        <select name="companyid">
-                            <option value="<?php echo $company->getId();?>" ><?php echo $company->getName();?></option>
+                        <select name="company_id">
+                            <option value="">All</option>  
+                          <?php foreach($companies as $company){?>  
+                              <option value="<?php echo $company->getId();?>" <?php echo ($company->getId()==$company_id)?'selected="selected"':'';?> ><?php echo $company->getName();?></option>
+                          <?php }?>    
                         </select>
                     </div>
                 </div>

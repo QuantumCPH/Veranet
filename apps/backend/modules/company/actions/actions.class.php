@@ -608,21 +608,27 @@ class companyActions extends sfActions {
 
    public function executeInvoices(sfWebRequest $request)
     {
-
+       $company_id = $request->getParameter('company_id');
+       $this->company_id = $company_id;
        
-       $this->company = CompanyPeer::retrieveByPK($request->getParameter('company_id'));
-
        $billingduration = $request->getParameter('billingduration');
        $this->statusid = $request->getParameter('statusid');
 
-
-
+       $cco = new Criteria();
+       $cco->add(CompanyPeer::STATUS_ID,1);
+       
+       $ci = new Criteria();
        $ic = new Criteria();
-       $ic->add(InvoicePeer::COMPANY_ID,$this->company->getId());
+       if($company_id){
+          $ic->add(InvoicePeer::COMPANY_ID,$company_id);
+          $ci->addAnd(InvoicePeer::COMPANY_ID,$company_id);
+       }
+       $companies = CompanyPeer::doSelect($cco);
+       $this->companies = $companies;
        $ic->addGroupByColumn(InvoicePeer::BILLING_STARTING_DATE);
        $ic->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
 
-       $ci = new Criteria();
+       
 
        $cis = new Criteria();
        $cis->add(InvoiceStatusPeer::ID,4 ,CRITERIA::NOT_EQUAL);
@@ -639,7 +645,7 @@ class companyActions extends sfActions {
          $ci->addAnd(InvoicePeer::BILLING_STARTING_DATE, " billing_starting_date >= '" . $starting . "' ", Criteria::CUSTOM);
          $ci->addAnd(InvoicePeer::BILLING_ENDING_DATE, " billing_ending_date  <= '" . $ending . "' ", Criteria::CUSTOM);
        }
-       $ci->addAnd(InvoicePeer::COMPANY_ID,$this->company->getId());
+     
        $ci->add(InvoicePeer::TOTALPAYMENT,1,CRITERIA::GREATER_EQUAL);
 
        $ci->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
