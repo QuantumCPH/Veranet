@@ -3941,8 +3941,10 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cip->addAnd(InvoicePeer::COMPANY_ID,$company->getId());
         $cip->setLimit(10);
         $cip->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
-        $preInvoices = InvoicePeer::doSelect($cip);
-        $this->preInvoices = $preInvoices;
+        if(InvoicePeer::doCount($cip)>0){
+           $preInvoices = InvoicePeer::doSelect($cip);
+           $this->preInvoices = $preInvoices;
+        }   
         $this->setLayout(false);
     }
     
