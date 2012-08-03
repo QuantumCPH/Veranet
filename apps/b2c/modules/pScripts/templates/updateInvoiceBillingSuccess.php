@@ -429,7 +429,7 @@
 					<td>Tel: XXXXXXXXXXXXXXXX</td>
 					<td>Fax: XXXXXXXXXXXXXXX</td>
 					<td>Email: veranet@zerocall.com</td>
-					<td>Web: www,veranet.com</td>
+					<td>Web: www.veranet.com</td>
 				</tr>
 			</table>
 			</fieldset>
