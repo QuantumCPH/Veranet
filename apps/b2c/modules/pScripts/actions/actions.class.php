@@ -3910,8 +3910,17 @@ if(($caltype!="IC") && ($caltype!="hc")){
 
         $billing_details = array();
         $this->details = $billing_details;
-
-        $this->invoice_cost = $invoice->getInvoiceCost();
+        
+        if($invoice->getInvoiceCost()==0){
+            $inid = $company->getInvoiceMethodId();
+            $im = new Criteria();
+            $im->add(InvoiceMethodPeer::ID, $inid);
+            $in = InvoiceMethodPeer::doSelectOne($im);
+            $this->invoice_cost = $in->getCost();
+        }else{
+            $this->invoice_cost = $invoice->getInvoiceCost();
+        }
+        
         $this->invoice_meta = $invoice;
         $this->company_meta = $company;
         
@@ -3941,8 +3950,10 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cip->addAnd(InvoicePeer::COMPANY_ID,$company->getId());
         $cip->setLimit(10);
         $cip->addDescendingOrderByColumn(InvoicePeer::BILLING_STARTING_DATE);
-        $preInvoices = InvoicePeer::doSelect($cip);
-        $this->preInvoices = $preInvoices;
+        if(InvoicePeer::doCount($cip)>0){
+           $preInvoices = InvoicePeer::doSelect($cip);
+           $this->preInvoices = $preInvoices;
+        }   
         $this->setLayout(false);
     }
     

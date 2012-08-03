@@ -28,7 +28,7 @@
                             <?php
                             foreach($invoiceTimings as $invoiceTiming){
                             $duration_value = $invoiceTiming->getBillingStartingDate()."_".$invoiceTiming->getBillingEndingDate(); ?>
-                            <option value="<?php echo $duration_value;?>" <?php echo ($duration_value==$billingduration)?'selected="selected"':''; ?>><?php echo $invoiceTiming->getBillingStartingDate("M y")." - ".$invoiceTiming->getBillingEndingDate("M y");?></option>
+                            <option value="<?php echo $duration_value;?>" <?php echo ($duration_value==$billingduration)?'selected="selected"':''; ?>><?php echo $invoiceTiming->getBillingStartingDate("j M y")." - ".$invoiceTiming->getBillingEndingDate("j M y");?></option>
                             <?php   }?>
                         </select>
                     </div>
@@ -69,7 +69,7 @@
         <tr <?php echo $class;   ?>>
             <td><?php echo $records;?></td>
             <td><?php echo $invoice->getId();?></td>
-            <td><?php echo date('M Y',strtotime($invoice->getBillingStartingDate()));?> - <?php echo date('M Y',strtotime($invoice->getBillingEndingDate()));?></td>
+            <td><?php echo date('j M Y',strtotime($invoice->getBillingStartingDate()));?> - <?php echo date('j M Y',strtotime($invoice->getBillingEndingDate()));?></td>
             <td><?php echo $invoice->getCompany()->getName();?></td>
             <td><?php
                     echo number_format($invoice->getTotalPayment(),2);

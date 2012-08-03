@@ -11,6 +11,14 @@
     <head>
         <title><?php echo date('dmy') . $invoice_meta->getId() ?>- <?php echo $company_meta->getName() ?></title>
         <style>
+		    body{
+			  font-family:Verdana, Arial, Helvetica, sans-serif;
+			  font-size:11px;
+			}
+			h2{
+			   font-size:17px;
+			   color:#000!important;
+			 }
             fieldset {
                  -moz-border-radius:10px;
                  border-radius: 10px;
@@ -49,11 +57,10 @@
              table td{
                     border:none!important;
              }
-             h2{ color:#000!important;}
         </style>
     </head>
     <body>
-		<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding:30px">
+		<table width="90%" cellpadding="0" cellspacing="0" border="0" style="padding:30px;margin:0 auto;">
 	<tr>
 		<td colspan="2">
 			<fieldset>
@@ -79,8 +86,8 @@
 	</tr>
 
 	<tr>
-		<td width="50%">
-			<table width="60%" border="0" style="padding-top:30px">
+		<td width="61%">
+	  <table width="60%" border="0" style="padding-top:30px">
 				<tr>
 					<td>Invoice Number:</td>
 					<td><?php echo $invoice_meta->getId(); ?></td>
@@ -104,8 +111,8 @@
 
 			</table>
 		</td>
-		<td width="50%" align="right">
-			<table width="50%" border="0" cellpadding="0" cellspacing="0">
+  <td width="39%" align="right">
+<table width="50%" border="0" cellpadding="0" cellspacing="0">
 				<tr style="background-color:#CCCCCC;">
 					<td colspan="2" style="padding:5px">
 						<?php echo $company_meta->getName() ?><br />
@@ -122,12 +129,13 @@
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table">
 				<tr><td colspan="3" class="padbot"><h2>Invoice Call</h2></td></tr>
-				<tr height="40px" class="trbg">
-					<td class="border borderleft">Calls</td>
-					<td class="border">Destination</td>
-					<td class="border">Duration</td>
-					<td class="border borderright" >Charged Amount (<?php echo sfConfig::get('app_currency_code')?>)</td>
-				</tr>
+				<tr height="40px" class="trbg" bgcolor="#CCCCCC" style="background:#CCCCCC">
+                  <td width="21%" class="border borderleft">Date &amp; Time</td>
+				  <td width="17%" class="border ">Calls</td>
+				  <td width="22%" class="border">Destination</td>
+				  <td width="16%" class="border">Duration</td>
+				  <td width="24%" class="border borderright" align="right" style="padding-right:10px">Charged Amount</td>
+			  </tr>
 			<?php
 				$billings = array();
 				$ratings = array();
@@ -157,59 +165,65 @@
 					if ($billingFlag) {
 			?>
 				<tr>
-					<td colspan="4" class="padding"><strong><?php echo 'From Number: ' . $employee->getMobileNumber() ?></strong></td>
+					<td colspan="5" class="padding"><strong><?php echo 'From Number: ' . $employee->getMobileNumber() ?></strong></td>
 				</tr>
 			<?php
 				$invoiceFlag = true;
 				$billings = EmployeeCustomerCallhistoryPeer::doSelect($bc);
 				foreach ($billings as $billing) {?>
 				<tr>
+                    <td><?php echo $billing->getConnectTime();?></td>
 					<td><?php echo $billing->getCountry()->getName()//.'-'.$billing->getCountryId(); ?></td>
 					<td><?php echo $billing->getPhoneNumber(); ?></td>
 						<td>
 							<?php
-								/*$dc = new Criteria();
-								$dc->add(EmployeeCustomerCallhistoryPeer::PARENT_TABLE, "employee");
-								$dc->add(EmployeeCustomerCallhistoryPeer::PARENT_ID, $employee->getId());
-								//$dc->add(EmployeeCustomerCallhistoryPeer::COUNTRY_ID,$billing->getCountryId());
-								$dc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $invoice_meta->getBillingStartingDate('Y-m-d 00:00:00') . "' ", Criteria::CUSTOM);
-								$dc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time  < '" . $invoice_meta->getBillingEndingDate('Y-m-d 23:59:59') . "' ", Criteria::CUSTOM);
-							  //  $dc->addGroupByColumn(EmployeeCallhistoryPeer::COUNTRY_ID);
-								$temp = EmployeeCustomerCallhistoryPeer::doSelect($dc);
-								$minutes_count = 0;
-								$calculated_cost = 0;
-								foreach ($temp as $t) {
-									$calculated_cost = $t->getChargedAmount();
-									$call_duration = EmployeeCustomerCallhistoryPeer::getTotalCallDuration($employee, $billing->getCountryId());
-								}*/
 								$calculated_cost = $billing->getChargedAmount();
 								$call_duration = EmployeeCustomerCallhistoryPeer::getTotalCallDuration($employee, $billing->getCountryId());
 							?>
-							<?php echo $call_duration ?>
-						</td>
-						<td>
+							<?php echo $call_duration ?>						</td>
+						<td align="right" style="padding-right:10px">
 							<?php echo  number_format($calculated_cost, 2) ;
 							$temp_cost = $calculated_cost;
-							?>
-						</td>
-					</tr>
+							?><?php echo sfConfig::get('app_currency_code')?>						</td>
+					</tr>				
 					<?php  $totalcost += $temp_cost;
 			}
 		 }
 	}
-	$invoice_cost = ($invoiceFlag) ? $invoice_cost : '0.00'; ?>
+	?>
+                 <tr>
+				  <td colspan="5">
+                    <hr />
+                  </td>
+			   </tr>
+               <tr>
+				  <td colspan="5">
+                     <table cellpadding="3" cellspacing="0" width="100%">
+                         <tr>
+                              <td width="90%" align="right"><strong>Total :</strong></td>
+                              <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalcost,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+                         </tr>
+                     </table>
+                  </td>
+			   </tr>
+              <tr>
+				  <td colspan="5">
+                    <hr />
+                  </td>
+			   </tr> 
 	</table>
-		</td>
+	  </td>
 	</tr>
 	<tr>
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table">
 				<tr><td colspan="3" class="padbot"><h2>Subscriptions</h2></td></tr>
 				<tr  class="trbg" height="40px">
-					<td class="border borderleft">Mobile Number</td>
-					<td class="border">Description</td>
-					<td class="border borderright">Amount (<?php echo sfConfig::get('app_currency_code')?>)</td>
-				</tr>
+                <td width="21%" class="border borderleft">Date & Time</td>
+				  <td width="21%" class="border">Mobile Number</td>
+				  <td width="39%" class="border">Description</td>
+				  <td width="19%" class="border borderright" align="right" style="padding-right:10px">Amount</td>
+			  </tr>
 			   <?php
 				 foreach ($employees as $emps) {
 				  $cSub = new Criteria();
@@ -220,87 +234,136 @@
                                   $cSub->addAnd(OdrsPeer::BILL_END,$billing_end_date, Criteria::LESS_EQUAL);
 				  $scount = OdrsPeer::doCount($cSub);
 				  if($scount > 0){
+                                      $invoiceFlag = true;
 				   	$subscriptions =  OdrsPeer::doSelect($cSub);
     				foreach($subscriptions as $subs){
 				?>
 				<tr>
+                   <td><?php echo $subs->getConnectTime();?></td>
 				   <td><?php echo $emps->getMobileNumber();?></td>
 				   <td><?php echo $subs->getDescription();?></td>
-				   <td><?php echo number_format($subs->getChargedAmount(),2);$totalSubFee += $subs->getChargedAmount();?></td>
+				   <td align="right" style="padding-right:10px"><?php echo number_format($subs->getChargedAmount(),2);$totalSubFee += $subs->getChargedAmount();?><?php echo sfConfig::get('app_currency_code')?></td>
 				</tr>
 				<?php
 					}
 				  }
 				 } //end employee second foreach loop
 			    ?>
+                <tr>
+				  <td colspan="4">
+                    <hr />
+                  </td>
+			   </tr>
+                <tr>
+                  <td colspan="4">
+                    <table cellpadding="3" cellspacing="0" width="100%">
+                       <tr>
+                         <td colspan="2" align="right"><strong>Total :</strong></td>
+                          <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalSubFee,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+				  <td colspan="4">
+                    <hr />
+                  </td>
+			   </tr>
 			</table>
-		</td>
+	  </td>
 	</tr>
-	<?php  if(isset ($otherevents) && $otherevents !=""){ ?>
+	<?php  if(isset ($otherevents) && $otherevents !=""){ 
+            $invoiceFlag = true; ?>
 	<tr>
 		<td colspan="2">
 			<table width="100%" cellpadding="0" cellspacing="0" class="table" style="padding-bottom:30px;">
 				<tr><td colspan="2" class="padbot"><h2>Other Events</h2></td></tr>
 				<tr class="trbg" height="40px">
-					<td class="border borderleft">Description</td>
-					<td class="border borderright">Amount (<?php echo sfConfig::get('app_currency_code')?>)</td>
-				</tr>
+                <td width="41%" class="border borderleft">Date & Time</td>
+				  <td width="41%" class="border">Description</td>
+				  <td width="18%" class="border borderright" align="right" style="padding-right:10px">Amount</td>
+			  </tr>
                 <?php foreach($otherevents as $event){?>
 				<tr>
+                    <td><?php echo $event->getConnectTime();?></td>
                     <td><?php echo $event->getDescription();?></td>
-                    <td><?php echo number_format($event->getChargedAmount(),2);$totalEventFee += $event->getChargedAmount();?></td>
+                    <td align="right" style="padding-right:10px"><?php echo number_format($event->getChargedAmount(),2);$totalEventFee += $event->getChargedAmount();?>
+					<?php echo sfConfig::get('app_currency_code')?></td>
                 </tr>
 				<?php }?>
+                <tr>
+				  <td colspan="3">
+                    <hr />
+                  </td>
+			   </tr>
+                 <tr>
+                  <td colspan="3">
+                    <table cellpadding="3" cellspacing="0" width="100%">
+                      <tr>
+                         <td width="90%" align="right"><strong>Total :</strong></td>
+                        <td width="10%" align="right" style="padding-right:10px"><?php echo number_format($totalEventFee,2);?><?php echo sfConfig::get('app_currency_code')?></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
 			</table>
-		</td>
+	  </td>
 	</tr>
    <?php
 	  }
+          $invoice_cost = ($invoiceFlag) ? $invoice_cost : '0.00'; 
+          
 	   $totalcost = $totalcost + $totalSubFee + $totalEventFee;
    ?>
    <tr height="30px">
-		<td colspan="2" class="border borderleft borderright" style="background-color:#CCCCCC;">&nbsp;</td>
+		<td colspan="2"><hr /></td>
 	</tr>
 	<tr>
-		<td class="padding"><strong>Total cost</strong></td>
-		<td><?php echo number_format($totalcost, 2) ?></td>
-	</tr>
-	<tr>
-		<td class="padding"><strong>Invoice Cost</strong></td>
-		<td><?php echo number_format($invoice_cost, 2) ?></td>
-	</tr>
-	<tr>
-		<td colspan="2" ><hr /></td>
-	</tr>
-	<tr>
-		<td class="padding"><strong>Total Inc. invoice cost</strong></td>
-		<td><?php echo number_format($net_cost = $totalcost + $invoice_cost, 2); ?></td>
-	</tr>
-	<tr>
-		<td class="padding"><strong>Vat</strong></td>
-		<td><?php echo number_format($moms = $net_cost * sfConfig::get("app_vat_percentage"), 2); ?></td>
-	</tr>
-	<tr>
-		<td colspan="2" ><hr /></td>
-	</tr>
-	<tr>
-		<td class="padding"><strong>Total Inc. Vat</strong></td>
-		<td>
-			<?php echo number_format($net_cost = $net_cost + $moms, 2);echo "&nbsp;".sfConfig::get('app_currency_code');
+      <td colspan="2" align="right">
+         <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+            <td width="91%" align="right" class="padding" style="padding-right:10px"><strong>Total cost:</strong></td>
+            <td width="9%" align="right" style="padding-right:10px"><?php echo number_format($totalcost, 2);echo sfConfig::get('app_currency_code'); ?></td>
+           </tr>
+            <tr>
+            <td class="padding" align="right" style="padding-right:10px"><strong>Invoice Cost:</strong></td>
+            <td align="right" style="padding-right:10px"><?php echo number_format($invoice_cost, 2);echo sfConfig::get('app_currency_code'); ?></td>
+            </tr>
+            <tr>
+            <td colspan="2" ><hr /></td>
+            </tr>
+            <tr>
+            <td class="padding" align="right" style="padding-right:10px"><strong>Total Inc. invoice cost:</strong></td>
+            <td align="right" style="padding-right:10px"><?php echo number_format($net_cost = $totalcost + $invoice_cost, 2);echo sfConfig::get('app_currency_code'); ?></td>
+            </tr>
+            <tr>
+            <td class="padding" align="right" style="padding-right:10px"><strong>Vat:</strong></td>
+            <td align="right" style="padding-right:10px"><?php echo number_format($moms = $net_cost * sfConfig::get("app_vat_percentage"), 2);echo sfConfig::get('app_currency_code'); ?></td>
+            </tr>
+            <tr>
+            <td colspan="2" ><hr /></td>
+            </tr>
+            <tr>
+            <td class="padding" align="right" style="padding-right:10px"><strong>Total Inc. Vat:</strong></td>
+            <td align="right" style="padding-right:10px">
+            <?php echo number_format($net_cost = $net_cost + $moms, 2);echo sfConfig::get('app_currency_code');
                   util::saveTotalPayment($invoice_meta->getId(),$net_cost); ?>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2" ><hr /></td>
-	</tr>
-	<tr>
-		<td class="padding"><strong>Previous Balance</strong></td>
-		<td><?php echo number_format($netbalance , 2);  ?></td>
-	</tr>
-	<tr>
-		<td class="padding"><strong>Total Payable Balance</strong></td>
-		<td><?php echo number_format($net_payment = $net_cost + $netbalance , 2);  ?></td>
-	</tr>
+            </td>
+            </tr>
+            <tr>
+            <td colspan="2" ><hr /></td>
+            </tr>
+            <tr>
+            <td class="padding" align="right" style="padding-right:10px"><strong>Previous Balance:</strong></td>
+            <td align="right" style="padding-right:10px"><?php echo number_format($netbalance , 2);echo sfConfig::get('app_currency_code');  ?></td>
+            </tr>
+            <tr>
+            <td class="padding" align="right" style="padding-right:10px"><strong>Total Payable Balance:</strong></td>
+            <td align="right" style="padding-right:10px"><?php echo number_format($net_payment = $net_cost + $netbalance , 2);echo sfConfig::get('app_currency_code');  ?></td>
+            </tr>
+         </table>
+      </td>
+    </tr>
 	<tr height="30px">
 		<td colspan="2" class="border borderleft borderright" style="background-color:#CCCCCC;">&nbsp;</td>
 	</tr>
@@ -347,7 +410,7 @@
 	</tr>
 	 <?php }?>
 	 <tr>
-		<td colspan="2">
+		<td colspan="2"><br />
 			<fieldset>
 			<table width="100%">
 				<tr>
