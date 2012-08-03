@@ -66,12 +66,12 @@
 		    <h1>Company Invoices</h1> </div>
           <table cellpadding="3" cellspacing="0" class="tblAlign" width="100%">              
               <tr class="headings">
-                  <th>&nbsp;</th><th>Invoice Number</th><th>Billing Duration</th><th>Company Name</th><th>Invoice Total</th>
+                  <th>&nbsp;</th><th>Invoice Number</th><th>Billing Duration</th><th>Company Name</th><th style="text-align: right;">Invoice Total</th>
 <!--                  <th>Paid Amount</th>
                   <th>To be paid</th>
                <th>Status</th>-->
 <!--                  <th>Download PDF</th>-->
-                  <th>View HTML</th>
+                  <th  style="text-align: center;">View HTML</th>
 <!--                  <th>Action</th>-->
               </tr>
               <?php
@@ -91,10 +91,10 @@
                   <td><?php echo $records;?></td><td><?php echo $invoice->getId();?></td>
                   <td><?php echo date('M Y',strtotime($invoice->getBillingStartingDate()));?> - <?php echo date('M Y',strtotime($invoice->getBillingEndingDate()));?></td>
                   <td><?php echo $invoice->getCompany()->getName();?></td>
-                  <td><?php 
+                  <td align="right"><?php
                              echo number_format($invoice->getTotalPayableBalance(),2); 
                              $total += $invoice->getTotalPayableBalance();
-                      ?>
+                      ?><?php echo sfConfig::get('app_currency_code'); ?>
                   </td>
 <!--                  <td>
                       <?php 
@@ -130,7 +130,7 @@
                 $increment += 1;                
                 }
               ?>
-              <tr><td colspan="3"></td><td><strong>Total</strong></td><td><strong><?php echo number_format($total,2);?></strong></td>
+              <tr><td colspan="3"></td><td><strong>Total</strong></td><td align="right"><strong><?php echo number_format($total,2);?><?php echo sfConfig::get('app_currency_code'); ?></strong></td>
 <!--                  <td></td>
                  <td><strong><?php echo number_format($totalNet,2);?></strong></td>-->
                   <td colspan="4"></td></tr>

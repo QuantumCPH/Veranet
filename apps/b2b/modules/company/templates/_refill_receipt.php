@@ -67,11 +67,11 @@ use_helper('Number');
         <td><?php echo $transaction->getCreatedAt('m-d-Y') ?></td>
         <td>
             <?php
-            echo $transaction->getDescription();
+            echo $transaction->getDescription()."(Airtime)";
             ?>
         </td>
         <td><?php echo "1"; ?></td>
-        <td><?php echo number_format($subtotal = $transaction->getAmount(),2)?><?php echo sfConfig::get('app_currency_code');?></td>
+        <td><?php echo number_format($subtotal = $transaction->getExtraRefill(), 2)?><?php echo sfConfig::get('app_currency_code');?></td>
     </tr>
     <tr>
         <td colspan="4" style="border-bottom: 2px solid #c0c0c0;">&nbsp;</td>
@@ -86,7 +86,7 @@ use_helper('Number');
         <td>&nbsp;</td>
         <td><?php echo __('VAT') ?> <!--(<?php echo $vat == 0 ? '0%' : '25%' ?>)--></td>
         <td>&nbsp;</td>
-        <td><?php echo number_format($vat, 2) ?></td>
+        <td><?php echo number_format($transaction->getAmount() - $transaction->getExtraRefill(), 2) ?></td>
     </tr>
     <tr class="footer">
         <td>&nbsp;</td>
@@ -97,8 +97,8 @@ use_helper('Number');
     <tr>
         <td colspan="4" style="border-bottom: 2px solid #c0c0c0;">&nbsp;</td>
     </tr>
-    <tr class="footer">
+<!--    <tr class="footer">
     <td class="payer_summary" colspan="4" style="font-weight:normal; white-space: nowrap;">
     <?php echo __('%1%',array('%1%'=>sfConfig::get('app_postal_address_bottom')))?> </td>
-  </tr>
+  </tr>-->
 </table>

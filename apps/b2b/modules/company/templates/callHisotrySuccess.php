@@ -58,13 +58,13 @@ if (isset($empl)) {
 
         <tr class="headings">
             <th width="10%"   align="left"><?php echo __('Date & Time') ?></th>
-
+            <th  width="10%"   align="left"><?php echo __('Emp Mobile') ?></th>
             <th  width="10%"  align="left"><?php echo __('Phone Number') ?></th>
             <th width="10%"   align="left"><?php echo __('Duration') ?></th>
             <th  width="25%"  align="left"><?php echo __('Country') ?></th>
             <th  width="10%"  align="left"><?php echo __('Description') ?></th>
-            <th width="10%"   align="left"><?php echo __('Cost') ?></th>
-            <th  width="10%"   align="left"><?php echo __('Emp Mobile') ?></th>
+            <th width="10%"   align="left" style="text-align: right;"><?php echo __('Cost') ?></th>
+            
         </tr>
         <?php
         $callRecords = 0;
@@ -77,6 +77,7 @@ if (isset($empl)) {
 
             <tr>
                 <td><?php echo date("Y-m-d H:i:s", strtotime($xdr->connect_time)); ?></td>
+                <td><?php echo substr($xdr->account_id,4); ?></td>
                 <td><?php echo $xdr->CLD; ?></td>
                 <td><?php
                 $callval = $xdr->charged_quantity;
@@ -100,10 +101,10 @@ if (isset($empl)) {
                 ?></td>
                 <td><?php echo $xdr->country; ?></td>
                 <td><?php echo $xdr->description; ?></td>
-                <td><?php echo number_format($xdr->charged_amount, 2);
+                <td align="right"><?php echo number_format($xdr->charged_amount, 2);
                 $amount_total+= $xdr->charged_amount; ?><?php echo sfConfig::get('app_currency_code'); ?></td>
 
-                <td><?php echo substr($xdr->account_id,4); ?></td>
+                
             </tr>
 
             <?php
@@ -115,10 +116,10 @@ if (isset($empl)) {
             </tr>
 <?php } else { ?>
             <tr>
-                <td colspan="5" align="right"><strong><?php echo __('Total') ?></strong></td>
+                <td colspan="6" align="right"><strong><?php echo __('Total') ?></strong></td>
 
-                <td><?php echo number_format($amount_total, 2) ?><?php echo sfConfig::get('app_currency_code'); ?></td>
-                <td>&nbsp;</td>
+                <td align="right"><?php echo number_format($amount_total, 2) ?><?php echo sfConfig::get('app_currency_code'); ?></td>
+<!--                <td>&nbsp;</td>-->
             </tr>
         <?php } ?>
 
