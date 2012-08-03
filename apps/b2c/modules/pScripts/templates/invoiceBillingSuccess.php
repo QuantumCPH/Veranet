@@ -131,10 +131,10 @@
 				<tr><td colspan="3" class="padbot"><h2>Invoice Call</h2></td></tr>
 				<tr height="40px" class="trbg" bgcolor="#CCCCCC" style="background:#CCCCCC">
                   <td width="21%" class="border borderleft">Date &amp; Time</td>
-				  <td width="17%" class="border ">Calls</td>
-				  <td width="22%" class="border">Destination</td>
+				  <td width="21%" class="border ">Calls</td>
+				  <td width="21%" class="border">Destination</td>
 				  <td width="16%" class="border">Duration</td>
-				  <td width="24%" class="border borderright" align="right" style="padding-right:10px">Charged Amount</td>
+				  <td width="21%" class="border borderright" align="right" style="padding-right:10px">Charged Amount</td>
 			  </tr>
 			<?php
 				$billings = array();
