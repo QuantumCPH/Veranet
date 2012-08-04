@@ -5,7 +5,11 @@
 <div id="sf_admin_container">
 
 
-
+ <?php if ($sf_user->hasFlash('chargemessage')): ?>
+    <div class="save-ok">
+      <h2><?php echo __($sf_user->getFlash('chargemessage')) ?></h2>
+    </div>
+    <?php endif; ?>
 <div id="sf_admin_header">
 <?php include_partial('company/list_header', array('pager' => $pager)) ?>
 <?php include_partial('company/list_messages', array('pager' => $pager)) ?>
