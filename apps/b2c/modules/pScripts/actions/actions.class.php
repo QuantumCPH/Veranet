@@ -3563,9 +3563,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
 
             
             $empProduct = ProductPeer::retrieveByPK($employee->getProductId());
-            $employee_creation_at = strtotime($employee->getCreatedAt());
-                         
-            if ($employee_creation_at >= $start_strtotime && $employee_creation_at <= $end_strototime){
+            
                 
             $tilentaSubscriptionResult = CompanyEmployeActivation::getSubscription($employee, $startdate, $enddate);
                if($tilentaSubscriptionResult){
@@ -3601,7 +3599,6 @@ if(($caltype!="IC") && ($caltype!="hc")){
             
             }
           }
-        }
         return sfView::NONE;
     }
         
@@ -3961,82 +3958,4 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $this->setLayout(false);
     }
     
-    public function executeFetchSub(sfWebRequest $request) {
-        
-//        echo $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
-//        echo "<hr/>";
-//        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
-//        echo "<hr/>";
-        
-        $bill_start_date = date('Y-m-1 00:00:00');
-      //  $bill_start_date = date('Y-m-1 00:00:00');
-        echo $startdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($bill_start_date)));
-        echo "<hr/>";
-        echo $bill_enddate = date('Y-m-t 23:59:59');
-        //echo $bill_enddate = date('Y-m-t 21:59:59');
-        
-        echo $enddate = date('Y-m-2 21:59:59');
-       // echo $enddate = date('Y-m-t 21:59:59');
-        
-        echo "<hr/>";
-        $start_strtotime = strtotime($startdate);
-        $end_strototime = strtotime($enddate);
-//        
-//        $co = new Criteria();
-//        $companies = CompanyPeer::doSelect($co);
-//        
-        $em = new Criteria();
-        $em->addAnd(EmployeePeer::STATUS_ID,3);
-        $employees = EmployeePeer::doSelect($em);
-        foreach($employees as $employee){
-            $prdPrice = 0;
-            
-            $c2 = new Criteria();
-            $c2->add(OdrsPeer::PARENT_TABLE, "employee");
-            $c2->add(OdrsPeer::BILL_START, $bill_start_date);
-            $c2->addAnd(OdrsPeer::BILL_END, $bill_enddate);
-            $c2->addAnd(OdrsPeer::PARENT_ID, $employee->getId());
-           // if(OdrsPeer::doCount($c2)==0){
-
-            
-            $empProduct = ProductPeer::retrieveByPK($employee->getProductId());
-            $employee_creation_at = strtotime($employee->getCreatedAt());
-                
-            $tilentaSubscriptionResult = CompanyEmployeActivation::getSubscription($employee, $startdate, $enddate);
-               if($tilentaSubscriptionResult){
-                   foreach ($tilentaSubscriptionResult->xdr_list as $xdr) {
-                       $empSub = new Odrs();
-                       $empSub->setChargedAmount($xdr->charged_amount);
-                       $empSub->setIXdr($xdr->i_xdr);
-                       $empSub->setAccountId($xdr->account_id);
-                       $empSub->setConnectTime($xdr->connect_time);
-                       $empSub->setDisconnectTime($xdr->disconnect_time);
-                       $empSub->setBillTime($xdr->bill_time);
-                       $empSub->setDescription($xdr->CLD);
-                       $empSub->setBillStart($bill_start_date);
-                       $empSub->setBillEnd($bill_enddate);
-                       $empSub->setParentTable('employee');
-                       $empSub->setParentId($employee->getId());
-                       $empSub->setCompanyId($employee->getCompanyId());
-                       $empSub->setVatIncludedAmount($xdr->charged_amount + $xdr->charged_amount * sfConfig::get('app_vat_percentage'));
-                       $empSub->setChargedVatValue(sfConfig::get('app_vat_percentage'));
-                       $empSub->setIService(4);
-                       $empSub->save();
-                   }
-               }else{
-                       $odrSubLog = new CallhistoryCallsLog();
-                       $odrSubLog->setParent('employee');
-                       $odrSubLog->setParentId($employee->getId());
-                       $odrSubLog->setTodate($bill_start_date);
-                       $odrSubLog->setFromdate($bill_enddate);
-                       $odrSubLog->setIService(4);
-                       $odrSubLog->save();
-               } 
-            // 
-            
-            }
-          //}
-        
-        return sfView::NONE;
-    }
 }
