@@ -598,7 +598,7 @@ class companyActions extends sfActions {
                 $transaction->setTransactionStatusId(3);
                 $transaction->save();
                 $this->getUser()->setFlash('message', 'B2B Company Charged Successfully');
-                $this->redirect('company/paymenthistory');
+                $this->redirect('company/paymenthistory?company_id='.$company_id);
             } else {
 
                 $this->getUser()->setFlash('message', 'Please Select B2B Company');
