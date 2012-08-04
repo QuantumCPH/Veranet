@@ -3759,7 +3759,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         foreach($companies as $company){
            $ci = new Criteria();
            $ci->add(InvoicePeer::COMPANY_ID,$company->getId());
-           $ci->add(InvoicePeer::BILLING_ENDING_DATE,$end_date,Criteria::LESS_EQUAL);
+           $ci->add(InvoicePeer::BILLING_ENDING_DATE,$end_date,Criteria::LESS_THAN);
            $ci->addSelectColumn('sum(' . InvoicePeer::TOTALPAYMENT. ') AS total_payment');
            $sum = InvoicePeer::doSelectStmt($ci);
            $resultset = $sum->fetch(PDO::FETCH_OBJ);
@@ -3767,7 +3767,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
            
            $co = new Criteria();
            $co->add(OdrsPeer::COMPANY_ID,$company->getId());
-           $co->addAnd(OdrsPeer::BILL_END,$end_date,Criteria::LESS_EQUAL);
+           $co->addAnd(OdrsPeer::BILL_END,$end_date,Criteria::LESS_THAN);
            $co->addAnd(OdrsPeer::I_SERVICE,2);
            $co->addSelectColumn('sum(' . OdrsPeer::VAT_INCLUDED_AMOUNT. ') AS total_charged_amount');
            $sum_camount = OdrsPeer::doSelectStmt($co);
@@ -3863,8 +3863,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         //$cpay->setLimit(10);
         $cpay->addAnd(OdrsPeer::BILL_START,$this->billing_start_date, Criteria::GREATER_EQUAL);
         $cpay->addAnd(OdrsPeer::BILL_END,$this->billing_end_date, Criteria::LESS_EQUAL);
-        $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_TIME);
-        $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_TIME);
+        $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_START);
         $paycount = OdrsPeer::doCount($cpay);
         if($paycount > 0){
            $this->payments = OdrsPeer::doSelect($cpay); 
@@ -3962,4 +3961,82 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $this->setLayout(false);
     }
     
+    public function executeFetchSub(sfWebRequest $request) {
+        
+//        echo $start_date = date('Y-m-1 00:00:00', strtotime("last month"));
+//        echo "<hr/>";
+//        echo $end_date = date('Y-m-t 23:59:59', strtotime("last month"));
+//        echo "<hr/>";
+        
+        $bill_start_date = date('Y-m-1 00:00:00');
+      //  $bill_start_date = date('Y-m-1 00:00:00');
+        echo $startdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($bill_start_date)));
+        echo "<hr/>";
+        echo $bill_enddate = date('Y-m-t 23:59:59');
+        //echo $bill_enddate = date('Y-m-t 21:59:59');
+        
+        echo $enddate = date('Y-m-t 21:59:59');
+       // echo $enddate = date('Y-m-t 21:59:59');
+        
+        echo "<hr/>";
+        $start_strtotime = strtotime($startdate);
+        $end_strototime = strtotime($enddate);
+//        
+//        $co = new Criteria();
+//        $companies = CompanyPeer::doSelect($co);
+//        
+        $em = new Criteria();
+        $em->addAnd(EmployeePeer::STATUS_ID,3);
+        $employees = EmployeePeer::doSelect($em);
+        foreach($employees as $employee){
+            $prdPrice = 0;
+            
+            $c2 = new Criteria();
+            $c2->add(OdrsPeer::PARENT_TABLE, "employee");
+            $c2->add(OdrsPeer::BILL_START, $bill_start_date);
+            $c2->addAnd(OdrsPeer::BILL_END, $bill_enddate);
+            $c2->addAnd(OdrsPeer::PARENT_ID, $employee->getId());
+            if(OdrsPeer::doCount($c2)==0){
+
+            
+            $empProduct = ProductPeer::retrieveByPK($employee->getProductId());
+            $employee_creation_at = strtotime($employee->getCreatedAt());
+                
+            $tilentaSubscriptionResult = CompanyEmployeActivation::getSubscription($employee, $startdate, $enddate);
+               if($tilentaSubscriptionResult){
+                   foreach ($tilentaSubscriptionResult->xdr_list as $xdr) {
+                       $empSub = new Odrs();
+                       $empSub->setChargedAmount($xdr->charged_amount);
+                       $empSub->setIXdr($xdr->i_xdr);
+                       $empSub->setAccountId($xdr->account_id);
+                       $empSub->setConnectTime($xdr->connect_time);
+                       $empSub->setDisconnectTime($xdr->disconnect_time);
+                       $empSub->setBillTime($xdr->bill_time);
+                       $empSub->setDescription($xdr->CLD);
+                       $empSub->setBillStart($bill_start_date);
+                       $empSub->setBillEnd($bill_enddate);
+                       $empSub->setParentTable('employee');
+                       $empSub->setParentId($employee->getId());
+                       $empSub->setCompanyId($employee->getCompanyId());
+                       $empSub->setVatIncludedAmount($xdr->charged_amount + $xdr->charged_amount * sfConfig::get('app_vat_percentage'));
+                       $empSub->setChargedVatValue(sfConfig::get('app_vat_percentage'));
+                       $empSub->setIService(4);
+                       $empSub->save();
+                   }
+               }else{
+                       $odrSubLog = new CallhistoryCallsLog();
+                       $odrSubLog->setParent('employee');
+                       $odrSubLog->setParentId($employee->getId());
+                       $odrSubLog->setTodate($bill_start_date);
+                       $odrSubLog->setFromdate($bill_enddate);
+                       $odrSubLog->setIService(4);
+                       $odrSubLog->save();
+               } 
+            // 
+            
+            }
+          }
+        
+        return sfView::NONE;
+    }
 }

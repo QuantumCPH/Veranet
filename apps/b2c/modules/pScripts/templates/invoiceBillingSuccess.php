@@ -155,8 +155,8 @@
 					$bc = new Criteria();
 					$bc->add(EmployeeCustomerCallhistoryPeer::PARENT_TABLE, "employee");
 					$bc->addAnd(EmployeeCustomerCallhistoryPeer::PARENT_ID, $employee->getId());
-					$bc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time > '" . $billing_start_date . "' ", Criteria::CUSTOM);
-					$bc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time < '" . $billing_end_date . "' ", Criteria::CUSTOM);
+					$bc->addAnd(EmployeeCustomerCallhistoryPeer::CONNECT_TIME, " connect_time >= '" . $billing_start_date . "' ", Criteria::CUSTOM);
+					$bc->addAnd(EmployeeCustomerCallhistoryPeer::DISCONNECT_TIME, " disconnect_time <= '" . $billing_end_date . "' ", Criteria::CUSTOM);
 					//$bc->addGroupByColumn(EmployeeCustomerCallhistoryPeer::PHONE_NUMBER);
 //					$bc->addGroupByColumn(EmployeeCustomerCallhistoryPeer::COUNTRY_ID);
 					if (EmployeeCustomerCallhistoryPeer::doCount($bc) > 0) {
@@ -236,17 +236,17 @@
 				  if($scount > 0){
                                       $invoiceFlag = true;
 				   	$subscriptions =  OdrsPeer::doSelect($cSub);
-    				foreach($subscriptions as $subs){
-				?>
+    				   foreach($subscriptions as $subs){
+			   ?>
 				<tr>
-                   <td><?php echo $subs->getConnectTime();?></td>
+                                   <td><?php echo $subs->getConnectTime();?></td>
 				   <td><?php echo $emps->getMobileNumber();?></td>
 				   <td><?php echo $subs->getDescription();?></td>
 				   <td align="right" style="padding-right:10px"><?php echo number_format($subs->getChargedAmount(),2);$totalSubFee += $subs->getChargedAmount();?><?php echo sfConfig::get('app_currency_code')?></td>
 				</tr>
 				<?php
-					}
-				  }
+				    }
+				   }
 				 } //end employee second foreach loop
 			    ?>
                 <tr>
