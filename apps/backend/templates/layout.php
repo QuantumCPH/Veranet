@@ -522,9 +522,9 @@
 
 
     <script type="text/javascript">
-  jQuery('#sddm li a').click(function() {
-    $('li:last').addClass('current') ;
-   });
+//  jQuery('#sddm li a').click(function() {
+//    $('li:last').addClass('current') ;
+//   });
  
 jQuery(function(){
 

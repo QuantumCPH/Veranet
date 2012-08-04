@@ -181,6 +181,7 @@ class employeeActions extends sfActions {
       $employee->setSimTypeId($request->getParameter('sim_type_id'));
       $employee->setProductPrice($request->getParameter('price'));
       $employee->setUniqueId($request->getParameter('uniqueid'));
+      $employee->setComments($request->getParameter('comments'));
     //  $employee->setStatusId(sfConfig::get('app_status_new'));   //// new status is 1 defined in backend/config/app.yml
       $employee->save();
         
