@@ -3975,7 +3975,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         echo $bill_enddate = date('Y-m-t 23:59:59');
         //echo $bill_enddate = date('Y-m-t 21:59:59');
         
-        echo $enddate = date('Y-m-t 21:59:59');
+        echo $enddate = date('Y-m-2 21:59:59');
        // echo $enddate = date('Y-m-t 21:59:59');
         
         echo "<hr/>";
@@ -3996,7 +3996,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
             $c2->add(OdrsPeer::BILL_START, $bill_start_date);
             $c2->addAnd(OdrsPeer::BILL_END, $bill_enddate);
             $c2->addAnd(OdrsPeer::PARENT_ID, $employee->getId());
-            if(OdrsPeer::doCount($c2)==0){
+           // if(OdrsPeer::doCount($c2)==0){
 
             
             $empProduct = ProductPeer::retrieveByPK($employee->getProductId());
@@ -4035,7 +4035,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
             // 
             
             }
-          }
+          //}
         
         return sfView::NONE;
     }
