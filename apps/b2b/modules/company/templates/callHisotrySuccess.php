@@ -146,9 +146,9 @@ if (isset($empl)) {
         $total_sub = 0;
         $fromdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($fromdate)));
         $todate = date('Y-m-d 21:59:59', strtotime($todate));  
-        echo    $fromdate;
-        echo '<br />';
-        echo    $todate;
+//        echo    $fromdate;
+//        echo '<br />';
+//        echo    $todate;
          if(isset($empl)){           
            $tilentaSubResult = CompanyEmployeActivation::getSubscription($empl, $fromdate, $todate);
             if (count($tilentaSubResult) > 0) {
@@ -198,9 +198,9 @@ if (isset($empl)) {
         $othertotal = 0;
 
       //  foreach ($ems as $emp) {
-       echo  $fromdate ;
-       echo '<br />';
-       echo  $todate;
+//       echo  $fromdate ;
+//       echo '<br />';
+//       echo  $todate;
         $otherEvents = CompanyEmployeActivation::callHistory($company, $fromdate , $todate, false, 1);
         if(count($otherEvents)>0){
         foreach ($otherEvents->xdr_list as $xdr) {
@@ -235,9 +235,9 @@ if (isset($empl)) {
         <?php
         $paymenttotal = 0;
 
-       echo  $fromdate ;
-       echo '<br />';
-       echo  $todate;
+//       echo  $fromdate ;
+//       echo '<br />';
+//       echo  $todate;
         $otherEvent = CompanyEmployeActivation::callHistory($company, $fromdate, $todate, false, 2);
        // var_dump($otherEvents);
         if(count($otherEvent)>0){
