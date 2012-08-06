@@ -100,13 +100,13 @@
                       'related_class' => 'Country',
                       'control_name' => 'company[country_id]',
                       'peer_method'=>'getSortedCountries',
-                      'include_blank' => true,
+                   //   'include_blank' => true,
                       'onchange'=> remote_function(array(
                                 'update'  => 'citySelectList',
                                 'url'     => 'company/countrycity',
                                         'with' => "'country_id=' + this.options[this.selectedIndex].value"
                                 ))
-                    ),182); echo $value ? $value : '&nbsp;' ?>
+                    ),155); echo $value ? $value : '&nbsp;' ?>
           </div>
 </div>
     

@@ -6,7 +6,7 @@ class CityPeer extends BaseCityPeer
 
     static public function getSortedSweedishCities() {
         $c = new Criteria();
-        $c->add(CityPeer::COUNTRY_ID,185);
+        $c->add(CityPeer::COUNTRY_ID,155);
         $c->addAscendingOrderByColumn(CityPeer::NAME);
         $rs = CityPeer::doSelect($c);
         return $rs;
