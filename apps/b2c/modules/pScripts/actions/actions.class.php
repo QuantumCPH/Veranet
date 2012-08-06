@@ -3756,7 +3756,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         foreach($companies as $company){
            $ci = new Criteria();
            $ci->add(InvoicePeer::COMPANY_ID,$company->getId());
-           $ci->add(InvoicePeer::BILLING_ENDING_DATE,$end_date,Criteria::LESS_THAN);
+           $ci->add(InvoicePeer::BILLING_ENDING_DATE,$end_date,Criteria::LESS_EQUAL);
            $ci->addSelectColumn('sum(' . InvoicePeer::TOTALPAYMENT. ') AS total_payment');
            $sum = InvoicePeer::doSelectStmt($ci);
            $resultset = $sum->fetch(PDO::FETCH_OBJ);
@@ -3764,7 +3764,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
            
            $co = new Criteria();
            $co->add(OdrsPeer::COMPANY_ID,$company->getId());
-           $co->addAnd(OdrsPeer::BILL_END,$end_date,Criteria::LESS_THAN);
+           $co->addAnd(OdrsPeer::BILL_END,$end_date,Criteria::LESS_EQUAL);
            $co->addAnd(OdrsPeer::I_SERVICE,2);
            $co->addSelectColumn('sum(' . OdrsPeer::VAT_INCLUDED_AMOUNT. ') AS total_charged_amount');
            $sum_camount = OdrsPeer::doSelectStmt($co);
@@ -3779,7 +3779,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
            $cnb->setBillEnd($end_date);
            $cnb->setCompanyId($company->getId());
            $cnb->setNetBalance($net_balance);
-           $cnb->save();
+         //  $cnb->save();
         }
        return sfView::NONE;
     }     

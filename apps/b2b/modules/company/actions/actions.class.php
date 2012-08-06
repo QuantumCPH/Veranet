@@ -172,17 +172,7 @@ class companyActions extends sfActions {
         if(EmployeePeer::doCount($ces)>0)  {
              $this->ems = EmployeePeer::doSelect($ces);
         }
-//        
-//        $im = new Criteria();
-//        $im->add(InvoicePeer::BILLING_STARTING_DATE, $starting);
-//        $im->addAnd(InvoicePeer::BILLING_ENDING_DATE, $ending);
-//        $im->addAnd(InvoicePeer::COMPANY_ID,$companyId);
-//        $im->addSelectColumn('sum(' . InvoicePeer::INVOICE_COST. ') AS invoice_cost');
-//        $im->addSelectColumn('sum(' . InvoicePeer::MOMS. ') AS MOMS');
-//        $sum = InvoicePeer::doSelectStmt($im);
-//        $resultset = $sum->fetch(PDO::FETCH_OBJ);
-//        $this->total_invoice_cost =$resultset->invoice_cost;
-//        $this->total_mom = $resultset->MOMS;
+
     }
     public function executeCallHistory($request){
             

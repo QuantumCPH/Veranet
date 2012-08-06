@@ -385,7 +385,7 @@
 				</tr>
 				<?php foreach($payments as $payment){?>
 				<tr>
-                   <td><?php echo $payment->getConnectTime();?></td>
+                                   <td><?php echo $payment->getConnectTime();?></td>
 				   <td><?php echo $payment->getDescription();?></td>
 				   <td align="right"><?php echo number_format($chargedAmount = $payment->getChargedAmount(),2);echo sfConfig::get('app_currency_code');
 				         $totalPayments += $chargedAmount;?>                   </td>
