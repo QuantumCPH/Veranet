@@ -70,7 +70,7 @@
 
                 <input type="hidden" name="cancel_url" value="<?php echo $cancel_url;?>" />
                 <input type="hidden" name="return_url" value="<?php echo $return_url;?>" />
-                <input type="hidden" name="status_url" value="rs@zapna.com" />
+                <input type="hidden" name="status_url" value="fu@zerocall.com" />
                 <?php if($customerBalance+$order->getExtraRefill() < 250){ ?>
                 <div style="margin-top:40px;">
                     <input type="submit" class="butonsigninsmall" name="button" style="width:101px;cursor: pointer;float: left; margin-left: 1px !important; margin-top: -5px;"  value="<?php echo __('Pay') ?>" />
