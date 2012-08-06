@@ -91,7 +91,7 @@
 
 
 <div class="form-row">
-   <?php echo label_for('company[country_id]', __($labels['company{country_id}']), '') ?>
+   <?php echo label_for('company[country_id]', __($labels['company{country_id}']), 'class="required"') ?>
           <div class="content<?php if ($sf_request->hasError('company{country_id}')): ?> form-error<?php endif; ?>">
               <?php if ($sf_request->hasError('company{country_id}')): ?>
                 <?php echo form_error('company{country_id}', array('class' => 'form-error-msg')) ?>
@@ -100,7 +100,7 @@
                       'related_class' => 'Country',
                       'control_name' => 'company[country_id]',
                       'peer_method'=>'getSortedCountries',
-                      //'include_blank' => true,
+                      'include_blank' => true,
                       'onchange'=> remote_function(array(
                                 'update'  => 'citySelectList',
                                 'url'     => 'company/countrycity',

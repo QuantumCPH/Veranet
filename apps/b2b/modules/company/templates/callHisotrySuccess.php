@@ -193,8 +193,8 @@ if (isset($empl)) {
        </tr>
         <?php
         $othertotal = 0;
-        $fromdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($fromdate)));
-        $todate = date('Y-m-d 21:59:59', strtotime($todate));  
+//        $fromdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($fromdate)));
+//        $todate = date('Y-m-d 21:59:59', strtotime($todate));  
       //  foreach ($ems as $emp) {
         $otherEvents = CompanyEmployeActivation::callHistory($company, $fromdate , $todate, false, 1);
        // var_dump($otherEvents);
@@ -230,8 +230,8 @@ if (isset($empl)) {
        </tr>
         <?php
         $paymenttotal = 0;
-        $fromdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($fromdate)));
-        $todate = date('Y-m-d 21:59:59', strtotime($todate));  
+//        $fromdate = date('Y-m-d 21:00:00', strtotime("-1 day",strtotime($fromdate)));
+//        $todate = date('Y-m-d 21:59:59', strtotime($todate));  
         $otherEvent = CompanyEmployeActivation::callHistory($company, $fromdate, $todate, false, 2);
        // var_dump($otherEvents);
         if(count($otherEvent)>0){

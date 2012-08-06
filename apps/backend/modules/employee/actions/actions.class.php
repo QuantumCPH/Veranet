@@ -181,6 +181,7 @@ class employeeActions extends sfActions {
       $employee->setSimTypeId($request->getParameter('sim_type_id'));
       $employee->setProductPrice($request->getParameter('price'));
       $employee->setUniqueId($request->getParameter('uniqueid'));
+      $employee->setComments($request->getParameter('comments'));
     //  $employee->setStatusId(sfConfig::get('app_status_new'));   //// new status is 1 defined in backend/config/app.yml
       $employee->save();
         
@@ -459,19 +460,19 @@ class employeeActions extends sfActions {
             }
             return false;
         }
-        $cb = new Criteria();
-        $cb->add(TelintaAccountsPeer::ACCOUNT_TITLE, 'cb' . $contrymobilenumber);
-        $cb->addAnd(TelintaAccountsPeer::STATUS, 3);
-        $telintaAccountcb = TelintaAccountsPeer::doSelectOne($cb);
-        if (!CompanyEmployeActivation::terminateAccount($telintaAccountcb)) {
-            $this->getUser()->setFlash('messageEdit', 'Employee has not been deleted Sucessfully Error in Call Back Account');
-            if (isset($companyid) && $companyid != "") {
-                $this->redirect('employee/index?company_id=' . $companyid . '&filter=filter');
-            } else {
-                $this->redirect('employee/index?message=edit');
-            }
-            return false;
-        }
+//        $cb = new Criteria();
+//        $cb->add(TelintaAccountsPeer::ACCOUNT_TITLE, 'cb' . $contrymobilenumber);
+//        $cb->addAnd(TelintaAccountsPeer::STATUS, 3);
+//        $telintaAccountcb = TelintaAccountsPeer::doSelectOne($cb);
+//        if (!CompanyEmployeActivation::terminateAccount($telintaAccountcb)) {
+//            $this->getUser()->setFlash('messageEdit', 'Employee has not been deleted Sucessfully Error in Call Back Account');
+//            if (isset($companyid) && $companyid != "") {
+//                $this->redirect('employee/index?company_id=' . $companyid . '&filter=filter');
+//            } else {
+//                $this->redirect('employee/index?message=edit');
+//            }
+//            return false;
+//        }
         
         $this->forward404Unless($employee = EmployeePeer::retrieveByPk($request->getParameter('id')), sprintf('Object employee does not exist (%s).', $request->getParameter('id')));
 
@@ -507,6 +508,7 @@ class employeeActions extends sfActions {
                 
         //$employee->delete();
         $employee->setStatusId('app_status_delete'); //// delete status is 6 defined in backend/config/app.yml
+        $employee->save();
         $this->getUser()->setFlash('message', 'Employee has been deleted Sucessfully');
         if(isset($companyid) && $companyid!=""){$this->redirect('employee/index?company_id='.$companyid.'&filter=filter');}
         else{$this->redirect('employee/index');}

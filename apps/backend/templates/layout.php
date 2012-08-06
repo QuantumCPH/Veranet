@@ -522,9 +522,9 @@
 
 
     <script type="text/javascript">
-  jQuery('#sddm li a').click(function() {
-    $('li:last').addClass('current') ;
-   });
+//  jQuery('#sddm li a').click(function() {
+//    $('li:last').addClass('current') ;
+//   });
  
 jQuery(function(){
 
@@ -542,6 +542,7 @@ jQuery('#sf_admin_edit_form').validate({
         "company[email]": "required email",
         "company[invoice_method_id]": "required",
         "company[password]": "required",
+        "company[country_id]": "required",
         "company[status_id]": "required"
   }
 	});

@@ -3563,9 +3563,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
 
             
             $empProduct = ProductPeer::retrieveByPK($employee->getProductId());
-            $employee_creation_at = strtotime($employee->getCreatedAt());
-                         
-            if ($employee_creation_at >= $start_strtotime && $employee_creation_at <= $end_strototime){
+            
                 
             $tilentaSubscriptionResult = CompanyEmployeActivation::getSubscription($employee, $startdate, $enddate);
                if($tilentaSubscriptionResult){
@@ -3601,7 +3599,6 @@ if(($caltype!="IC") && ($caltype!="hc")){
             
             }
           }
-        }
         return sfView::NONE;
     }
         
@@ -3759,7 +3756,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         foreach($companies as $company){
            $ci = new Criteria();
            $ci->add(InvoicePeer::COMPANY_ID,$company->getId());
-           $ci->add(InvoicePeer::BILLING_ENDING_DATE,$end_date,Criteria::LESS_EQUAL);
+           $ci->add(InvoicePeer::BILLING_ENDING_DATE,$end_date,Criteria::LESS_THAN);
            $ci->addSelectColumn('sum(' . InvoicePeer::TOTALPAYMENT. ') AS total_payment');
            $sum = InvoicePeer::doSelectStmt($ci);
            $resultset = $sum->fetch(PDO::FETCH_OBJ);
@@ -3767,7 +3764,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
            
            $co = new Criteria();
            $co->add(OdrsPeer::COMPANY_ID,$company->getId());
-           $co->addAnd(OdrsPeer::BILL_END,$end_date,Criteria::LESS_EQUAL);
+           $co->addAnd(OdrsPeer::BILL_END,$end_date,Criteria::LESS_THAN);
            $co->addAnd(OdrsPeer::I_SERVICE,2);
            $co->addSelectColumn('sum(' . OdrsPeer::VAT_INCLUDED_AMOUNT. ') AS total_charged_amount');
            $sum_camount = OdrsPeer::doSelectStmt($co);
@@ -3776,7 +3773,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
            
            echo 'companyid-'.$company->getId().' - '.$total_payment.' - '.$total_charged_amount;
            echo '<br />';
-           $net_balance = $total_payment - $total_charged_amount;
+       echo    $net_balance = $total_payment - $total_charged_amount;
            $cnb = new CompanyNetBalance();
            $cnb->setBillStart($start_date);
            $cnb->setBillEnd($end_date);
@@ -3860,8 +3857,10 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cpay = new Criteria();
         $cpay->add(OdrsPeer::COMPANY_ID,$company_id);
         $cpay->addAnd(OdrsPeer::I_SERVICE,2);
-        $cpay->setLimit(10);
-        $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_TIME);
+        //$cpay->setLimit(10);
+        $cpay->addAnd(OdrsPeer::BILL_START,$this->billing_start_date, Criteria::GREATER_EQUAL);
+        $cpay->addAnd(OdrsPeer::BILL_END,$this->billing_end_date, Criteria::LESS_EQUAL);
+        $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_START);
         $paycount = OdrsPeer::doCount($cpay);
         if($paycount > 0){
            $this->payments = OdrsPeer::doSelect($cpay); 
@@ -3938,8 +3937,8 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $cpay->add(OdrsPeer::COMPANY_ID,$company->getId());
         $cpay->addAnd(OdrsPeer::I_SERVICE,2);
         //$cpay->setLimit(10);
-        $cpay->addAnd(OdrsPeer::CONNECT_TIME,$this->billing_start_date, Criteria::GREATER_EQUAL);
-        $cpay->addAnd(OdrsPeer::DISCONNECT_TIME,$this->billing_end_date, Criteria::LESS_EQUAL);
+        $cpay->addAnd(OdrsPeer::BILL_START,$this->billing_start_date, Criteria::GREATER_EQUAL);
+        $cpay->addAnd(OdrsPeer::BILL_END,$this->billing_end_date, Criteria::LESS_EQUAL);
         $cpay->addDescendingOrderByColumn(OdrsPeer::BILL_TIME);
         $paycount = OdrsPeer::doCount($cpay);
         if($paycount > 0){

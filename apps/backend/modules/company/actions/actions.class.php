@@ -597,8 +597,8 @@ class companyActions extends sfActions {
                 CompanyEmployeActivation::charge($this->company, $charge_amount,$description->getTitle());
                 $transaction->setTransactionStatusId(3);
                 $transaction->save();
-                $this->getUser()->setFlash('message', 'B2B Company Charged Successfully');
-                $this->redirect('company/paymenthistory');
+                $this->getUser()->setFlash('chargemessage', 'B2B Company Charged Successfully');
+                $this->redirect('company/index');
             } else {
 
                 $this->getUser()->setFlash('message', 'Please Select B2B Company');

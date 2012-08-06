@@ -134,6 +134,12 @@
 				  	<?php echo $employee->getCreatedAt('d-m-Y') ?>
 				  </div>
 				</div>
+<div class="form-row">
+				  <label class="required">Comments:</label>
+				  <div class="content">
+				  	<?php echo $employee->getComments(); ?>
+				  </div>
+				</div>
                 	<!--<div class="form-row">
 				  <label class="required">App Code:</label>
 				  <div class="content">
