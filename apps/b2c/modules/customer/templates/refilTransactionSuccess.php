@@ -67,7 +67,7 @@
                 <input type="hidden" name="currency" value="<?php echo sfConfig::get('app_currency_symbol')?>" />
                 <input type="hidden" name="detail1_description" value="Order Id"  />
                 <input type="hidden" name="detail1_text" value="<?php echo $order->getId();?>" />
-                <input type="hidden" name="return_url" value="http://veranet.zerocall.com/" />
+<!--                <input type="hidden" name="return_url" value="http://veranet.zerocall.com/" />-->
                 <input type="hidden" name="cancel_url" value="http://veranet.zerocall.com/b2c.php">
 <!--                <input type="hidden" name="cancel_url" value="<?php echo $cancel_url;?>" />
                 <input type="hidden" name="return_url" value="<?php echo $return_url;?>" />-->
