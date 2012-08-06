@@ -460,4 +460,7 @@ tr.thheading{
 tr.thheading th,tr.thheading th a{
     color:#B0232A !important;
 }
-    
+label#validation_result{
+    float:right;
+    margin-right: 350px;
+}

@@ -1,5 +1,28 @@
 <?php use_helper('I18N') ?>
-<?php use_helper('Number') ?><?php /*if($sf_user->hasFlash('message')){ ?>
+<?php use_helper('Number') ?>
+<script type="text/javascript">
+    jQuery(function() {
+        
+       jQuery("#validation_result").hide();
+        jQuery("#sf_admin_form").submit(function(){
+          var valu = jQuery("#charge").val();
+          var t =  /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(valu);   
+          
+         // alert(t);
+          if(t==false){  
+              jQuery("#validation_result").show();
+              jQuery("#validation_result").html('Please enter valid amount');
+              
+              return false;
+          }else if(t==true){
+              jQuery("#validation_result").html('');
+              jQuery("#validation_result").hide();
+              return true;
+          } 
+      });
+    });
+</script>
+<?php /*if($sf_user->hasFlash('message')){ ?>
 
 
 <div class="save-ok">
@@ -38,7 +61,8 @@
         <tr>
         <td style="padding: 5px;"><?php echo __('Charge:') ?></td>
         <td style="padding: 5px;">
-            <input type="text" id="charge" name="charge" class="required digits" style="width:180px;"> <?php echo sfConfig::get('app_currency_code');?>
+            <input type="text" id="charge" name="charge" class="" style="width:180px;" /> <?php echo sfConfig::get('app_currency_code');?>
+            <label id="validation_result"></label>
         </td>
     </tr>
     </table>
