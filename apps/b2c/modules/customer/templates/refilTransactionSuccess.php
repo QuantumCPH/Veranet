@@ -48,7 +48,7 @@
             </p>
             
             <br/>
-            <form method="post" action="https://www.moneybookers.com/app/test_payment.pl">
+            <form method="post" action="https://www.moneybookers.com/app/payment.pl">
       <!--  <form method="post" action="<?php echo $target; ?>customer/sendRefilToPaypal">
             <input type="hidden" value="<?php echo $queryString; ?>" name="qstr" />-->
             <!-- hidden fields -->
