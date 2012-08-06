@@ -1839,41 +1839,44 @@ class customerActions extends sfActions {
         $transaction->setDescription( $product->getDescription());
         $transaction->save();
 
-
+        $part2 = rand (99,99999);
+        $part3 = date("s");
+        $transaction_id = $order_id.$part2.$part3;
         $lang = $this->getUser()->getCulture();
-        $return_url = $this->getTargetUrl() . 'customer/refillAccept';
-        $cancel_url = $this->getTargetUrl() . 'customer/refillReject';
+        //$return_url = $this->getTargetUrl() . 'customer/refillAccept';
+        $this->cancel_url = $this->getTargetUrl() . 'customer/refillReject';
         //   $notify_url = $this->getTargetUrl().'pScripts/calbackrefill?lang='.$lang.'&order_id='.$order_id.'&amountval='.$item_amount;
 
         $callbackparameters = $lang . '-' . $order_id . '-' . $item_amount;
-        $notify_url = $this->getTargetUrl() . 'pScripts/calbackrefill?p=' . $callbackparameters;
+        $this->return_url = $this->getTargetUrl() . 'pScripts/calbackrefill?p=' . $callbackparameters.'&transaction_id='.$transaction_id;
 
         $email2 = new DibsCall();
-        $email2->setCallurl($notify_url);
+        $email2->setCallurl($this->return_url);
 
         $email2->save();
 
         $querystring = '';
-        $_POST["amount"] = $item_amount;
-        if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
+        //$_POST["amount"] = $item_amount;
+        //if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 
             $order = CustomerOrderPeer::retrieveByPK($order_id);
-            $item_name = "Refill";
+            //$item_name = "Refill";
 
             //loop for posted values and append to querystring
-            foreach ($_POST as $key => $value) {
-                $value = urlencode(stripslashes($value));
-                $querystring .= "$key=$value&";
-            }
+            //foreach ($_POST as $key => $value) {
+                //$value = urlencode(stripslashes($value));
+                //$querystring .= "$key=$value&";
+            //}
 
-            $querystring .= "item_name=" . urlencode($item_name) . "&";
-            $querystring .= "return=" . urldecode($return_url) . "&";
-            $querystring .= "cancel_return=" . urldecode($cancel_url) . "&";
-            $querystring .= "notify_url=" . urldecode($notify_url);
-            $this->queryString=$querystring;
+            //$querystring .= "item_name=" . urlencode($item_name) . "&";
+            //$querystring .= "return_url=" . urldecode($return_url) . "&";
+            //$querystring .= "cancel_url=" . urldecode($cancel_url) . "&";
+            //$querystring .= "status_url=" . urldecode($notify_url);
+            //$this->queryString=$querystring;
             $this->customer = $order->getCustomer();
             $this->order = $order;
-            $this->customerBalance = Telienta::getBalance($this->customer);
+            $this->amount = $item_amount;
+            //$this->customerBalance = Telienta::getBalance($this->customer);
             $this->product = $product;
 
             //   $environment = "sandbox";
@@ -1883,9 +1886,9 @@ class customerActions extends sfActions {
             } else {
                 echo 'error';
             }
-            return sfView::NONE;*/
+            return sfView::NONE;
             //exit();
-        }
+        }*/
     }
 
     private function setPreferredCulture(Customer $customer) {

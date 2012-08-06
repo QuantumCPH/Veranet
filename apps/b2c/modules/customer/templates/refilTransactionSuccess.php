@@ -48,8 +48,30 @@
             </p>
             
             <br/>
-            <form method="post" action="<?php echo $target; ?>customer/sendRefilToPaypal">
-                <input type="hidden" value="<?php echo $queryString; ?>" name="qstr" />
+            <form method="post" action="https://www.moneybookers.com/app/payment.pl">
+      <!--  <form method="post" action="<?php echo $target; ?>customer/sendRefilToPaypal">
+            <input type="hidden" value="<?php echo $queryString; ?>" name="qstr" />-->
+            <!-- hidden fields -->
+                <input type="hidden" name="firstname" value="<?php echo $order->getCustomer()->getFirstName();?>"  />
+                <input type="hidden" name="lastname" value="<?php echo $order->getCustomer()->getLastName();?>"  />
+                <input type="hidden" name="pay_from_email" value="<?php echo $order->getCustomer()->getEmail();?>"  />
+                <input type="hidden" name="date_of_birth" value="<?php echo date("dmY", strtotime($order->getCustomer()->getDateOfBirth()));?>"  />
+                <input type="hidden" name="address" value="<?php echo $order->getCustomer()->getAddress();?>"  />
+                <input type="hidden" name="city" value="<?php echo $order->getCustomer()->getCity();?>"  />
+                <input type="hidden" name="postal_code" value="<?php echo $order->getCustomer()->getPoBoxNumber();?>"  />
+<!--                    <input type="hidden" name="country" value="<?php echo $order->getCustomer()->getCountry();?>"  />-->
+
+                <input type="hidden" name="pay_to_email" value="rs@zapna.com" />
+                <input type="hidden" name="language" value="<?php echo sfConfig::get('app_language_symbol')?>" />
+                <input type="hidden" name="amount" id="total" value="<?php echo $amount;?>" />
+                <input type="hidden" name="currency" value="<?php echo sfConfig::get('app_currency_symbol')?>" />
+                <input type="hidden" name="detail1_description" value="Order Id"  />
+                <input type="hidden" name="detail1_text" value="<?php echo $order->getId();?>" />
+<!--                <input type="hidden" name="return_url" value="http://veranet.zerocall.com/" />-->
+                <input type="hidden" name="cancel_url" value="http://veranet.zerocall.com/b2c.php">
+<!--                <input type="hidden" name="cancel_url" value="<?php echo $cancel_url;?>" />
+                <input type="hidden" name="return_url" value="<?php echo $return_url;?>" />
+                <input type="hidden" name="status_url" value="fu@zerocall.com" />-->
                 <?php if($customerBalance+$order->getExtraRefill() < 250){ ?>
                 <div style="margin-top:40px;">
                     <input type="submit" class="butonsigninsmall" name="button" style="width:101px;cursor: pointer;float: left; margin-left: 1px !important; margin-top: -5px;"  value="<?php echo __('Pay') ?>" />
