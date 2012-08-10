@@ -25,7 +25,7 @@ class emailLib {
         $createddate = $agent_order->getCreatedAt('d-m-Y');
         $agentid = $agent_order->getAgentOrderId();
         sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
-        $message_body = get_partial('affiliate/agent_order_receipt', array(
+        $message_body = get_partial('pScripts/agent_order_receipt', array(
                     'order' => $agentid,
                     'transaction' => $agentamount,
                     'createddate' => $createddate,

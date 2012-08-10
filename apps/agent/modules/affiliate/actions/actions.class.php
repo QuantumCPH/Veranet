@@ -1155,7 +1155,7 @@ class affiliateActions extends sfActions {
             $aph->setRemainingBalance($remainingbalance);
             $aph->save();
 
-            $this->getUser()->setFlash('message', $this->getContext()->getI18N()->__('Your Credit Card recharge of %1%%2% is approved ', array("%1%" => $amount, "%2%" => sfConfig::get('app_currency_code'))));
+            $this->getUser()->setFlash('message', $this->getContext()->getI18N()->__('FatimaYour Credit Card recharge of %1%%2% is approved ', array("%1%" => $amount, "%2%" => sfConfig::get('app_currency_code'))));
             emailLib::sendAgentRefilEmail($this->agent, $agent_order);
             $this->redirect('affiliate/agentOrder');
         }
