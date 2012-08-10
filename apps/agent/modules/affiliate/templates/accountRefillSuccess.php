@@ -8,7 +8,7 @@
 
         var amounts = document.getElementById("amount").value;
         var orderids = document.getElementById("orderid").value;
-        var callbackurlstr = "<?echo sfConfig::get('app_customer_url'); ?>pScripts/agentRefillThankyou?p="+orderids+"-"+amounts;
+        var callbackurlstr = "http://veranet.zerocall.com/pScripts/agentRefillThankyou?p="+orderids+"-"+amounts;
         document.getElementById("callbackurl").value = callbackurlstr;
                 
        /* if(isNaN(objForm.amount.value) || objForm.amount.value < <?php echo 0//$amount  ?>)

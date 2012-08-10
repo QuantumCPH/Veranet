@@ -2590,7 +2590,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
         $Parameters=$request->getURI();
 
         $email2 = new DibsCall();
-        $email2->setCallurl($Parameters);
+        $email2->setCallurl("Agent Refill Parameter ".$Parameters);
         $email2->save();
         
         //$order_id = $request->getParameter('orderid');
@@ -2608,7 +2608,7 @@ if(($caltype!="IC") && ($caltype!="hc")){
             $c->add(AgentOrderPeer::STATUS, 1);
             $agent_order = AgentOrderPeer::doSelectOne($c);
 
-           // $agent_order->setAmount($amount);
+            $agent_order->setAmount($order_amount);
             $agent_order->setStatus(3);
             $agent_order->save();
 
