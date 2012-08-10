@@ -1092,7 +1092,7 @@ class affiliateActions extends sfActions {
         $this->forward404Unless($agent);
 
 
-        if (isset($_REQUEST['error'])) {
+        if ($request->getParameter('accept')=='no') {
 
 
             $agent_order_id = $request->getParameter('orderid');
@@ -1122,13 +1122,16 @@ class affiliateActions extends sfActions {
 
     public function executeThankyou(sfWebRequest $request) {
 
-        $Parameters = $request->getURI();
+        /*$Parameters = $request->getURI();
 
         $email2 = new DibsCall();
         $email2->setCallurl($Parameters);
-        $email2->save();
-
-        $order_id = $request->getParameter('orderid');
+        $email2->save();*/
+        
+        $this->getUser()->setFlash('message', $this->getContext()->getI18N()->__('Your Credit Card recharge of %1%%2% is approved ', array("%1%" => $request->getParameter("amount"), "%2%" => sfConfig::get('app_currency_code'))));
+        $this->redirect('affiliate/agentOrder');
+        
+        /*$order_id = $request->getParameter('orderid');
         $amount = $request->getParameter('amount');
 
         if ($order_id and $amount) {
@@ -1155,11 +1158,11 @@ class affiliateActions extends sfActions {
             $aph->setRemainingBalance($remainingbalance);
             $aph->save();
 
-            $this->getUser()->setFlash('message', $this->getContext()->getI18N()->__('FatimaYour Credit Card recharge of %1%%2% is approved ', array("%1%" => $amount, "%2%" => sfConfig::get('app_currency_code'))));
+            $this->getUser()->setFlash('message', $this->getContext()->getI18N()->__('Your Credit Card recharge of %1%%2% is approved ', array("%1%" => $amount, "%2%" => sfConfig::get('app_currency_code'))));
             emailLib::sendAgentRefilEmail($this->agent, $agent_order);
             $this->redirect('affiliate/agentOrder');
-        }
-        $this->redirect('affiliate/agentOrder');
+        }*/
+        
     }
 
     public function executeAgentOrder(sfRequest $request) {
