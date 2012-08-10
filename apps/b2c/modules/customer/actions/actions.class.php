@@ -1841,17 +1841,17 @@ class customerActions extends sfActions {
 
         $part2 = rand (99,99999);
         $part3 = date("s");
-        $transaction_id = $order_id.$part2.$part3;
+        $this->randomOrderId = $order_id.$part2.$part3;
         $lang = $this->getUser()->getCulture();
-        //$return_url = $this->getTargetUrl() . 'customer/refillAccept';
-        $this->cancel_url = $this->getTargetUrl() . 'customer/refillReject';
+        $this->accept_url = $this->getTargetUrl() . 'customer/refillAccept';
+        $this->cancel_url = $this->getTargetUrl() . 'customer/refillReject?orderid='.$order_id;
         //   $notify_url = $this->getTargetUrl().'pScripts/calbackrefill?lang='.$lang.'&order_id='.$order_id.'&amountval='.$item_amount;
 
         $callbackparameters = $lang . '-' . $order_id . '-' . $item_amount;
-        $this->return_url = $this->getTargetUrl() . 'pScripts/calbackrefill?p=' . $callbackparameters.'&transaction_id='.$transaction_id;
+        $this->callback_url = $this->getTargetUrl() . 'pScripts/calbackrefill?p=' . $callbackparameters.'&transaction_id='.$transaction_id;
 
         $email2 = new DibsCall();
-        $email2->setCallurl($this->return_url);
+        $email2->setCallurl($this->callback_url);
 
         $email2->save();
 
@@ -1876,7 +1876,7 @@ class customerActions extends sfActions {
             $this->customer = $order->getCustomer();
             $this->order = $order;
             $this->amount = $item_amount;
-            //$this->customerBalance = Telienta::getBalance($this->customer);
+            $this->customerBalance = Telienta::getBalance($this->customer);
             $this->product = $product;
 
             //   $environment = "sandbox";

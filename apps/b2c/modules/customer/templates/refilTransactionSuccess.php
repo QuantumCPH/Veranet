@@ -49,6 +49,18 @@
             
             <br/>
             <form method="post" action="https://www.moneybookers.com/app/payment.pl">
+                <input type="hidden" name="merchant" value="90049676" />
+                <input type="hidden" name="currency" value="941" />
+                <input type="hidden" name="orderid" value="<?php echo $randomOrderId; ?>" />
+                <input type="hidden" name="amount" value="<?php echo $amount*100 ?>" />
+                <input type="hidden" name="calcfee" value="yes" />
+                <input type="hidden" name="account" value="YTIP" />
+                <input type="hidden" name="status" value="" />
+                <input type="hidden" name="lang" value="en_US" />   
+                <input type="hidden" name="test" value="yes" />
+                <input type="hidden" name="cancelurl" value="<?php echo $cancel_url?>" />
+                <input type="hidden" name="callbackurl" value="<?php echo $callback_url?>" />
+                <input type="hidden" name="accepturl" value="<?php echo $accept_url?>" >
       <!--  <form method="post" action="<?php echo $target; ?>customer/sendRefilToPaypal">
             <input type="hidden" value="<?php echo $queryString; ?>" name="qstr" />-->
             <!-- hidden fields -->
