@@ -621,9 +621,9 @@ class customerActions extends sfActions {
     public function executeRefillReject(sfWebRequest $request) {
         //call Culture Method For Get Current Set Culture - Against Feature# 6.1 --- 02/28/11
 
+        $this->target = $this->getTargetUrl();
 
-
-        $order_id = $request->getParameter('orderid');
+        $order_id = $request->getParameter('orderId');
         //$error_text = substr($request->getParameter('errortext'), 0, strpos($request->getParameter('errortext'), '!'));
         $error_text = $this->getContext()->getI18N()->__('Payment is unfortunately not accepted because your information is incorrect, please try again by entering correct credit card information');
 
@@ -650,6 +650,11 @@ class customerActions extends sfActions {
         $this->amount = $transaction->getAmount();
         $this->form = new ManualRefillForm($this->order->getCustomerId());
         $this->setTemplate('refill');
+        
+        $c = new Criteria();
+        $c->add(ProductPeer::PRODUCT_TYPE_ID, 2);
+
+        $this->refillProducts = ProductPeer::doSelect($c);
     }
 
     public function executeCallhistory(sfWebRequest $request) {
@@ -1844,11 +1849,11 @@ class customerActions extends sfActions {
         $this->randomOrderId = $order_id.$part2.$part3;
         $lang = $this->getUser()->getCulture();
         $this->accept_url = $this->getTargetUrl() . 'customer/refillAccept';
-        $this->cancel_url = $this->getTargetUrl() . 'customer/refillReject?orderid='.$order_id;
+        $this->cancel_url = $this->getTargetUrl() . 'customer/refillReject?orderId='.$order_id;
         //   $notify_url = $this->getTargetUrl().'pScripts/calbackrefill?lang='.$lang.'&order_id='.$order_id.'&amountval='.$item_amount;
 
         $callbackparameters = $lang . '-' . $order_id . '-' . $item_amount;
-        $this->callback_url = $this->getTargetUrl() . 'pScripts/calbackrefill?p=' . $callbackparameters.'&transaction_id='.$transaction_id;
+        $this->callback_url = $this->getTargetUrl() . 'pScripts/calbackrefill?p=' . $callbackparameters;
 
         $email2 = new DibsCall();
         $email2->setCallurl($this->callback_url);
