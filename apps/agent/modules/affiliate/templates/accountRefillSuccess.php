@@ -8,7 +8,7 @@
 
         var amounts = document.getElementById("amount").value;
         var orderids = document.getElementById("orderid").value;
-        var callbackurlstr = "<?echo sfConfig::get('app_customer_url'); ?>pScripts/agentRefillThankyou?p="+orderids+"-"+amounts;;
+        var callbackurlstr = "<?echo sfConfig::get('app_customer_url'); ?>pScripts/agentRefillThankyou?p="+orderids+"-"+amounts;
         document.getElementById("callbackurl").value = callbackurlstr;
                 
        /* if(isNaN(objForm.amount.value) || objForm.amount.value < <?php echo 0//$amount  ?>)
@@ -114,7 +114,7 @@
                 <input type="hidden" name="lang" value="en_US" />   
                 <input type="hidden" name="test" value="yes" />
 		<input type="hidden" name="cancelurl" value="<?echo sfConfig::get('app_agent_url'); ?>affiliate/thankyou/?accept=cancel" />
-		<input type="hidden" name="callbackurl" value="" id="callbackurl" />
+		<input type="hidden" name="callbackurl" value="<?echo sfConfig::get('app_customer_url'); ?>pScripts/agentRefillThankyou?p=<?php echo $agent_order->getAgentOrderId() ?>-50000" id="callbackurl" />
 		<input type="hidden" name="accepturl" value="<?echo sfConfig::get('app_agent_url'); ?>affiliate/accountRefill">
     
                 <input type="submit" value="<?php echo __('Recharge');?>" style="margin-left:26px !important;margin-top:10px;" />
