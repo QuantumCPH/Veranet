@@ -79,6 +79,20 @@ class paymentsActions extends sfActions {
         $this->form = new PaymentForm();
 
         $this->setTemplate('signup');
+        
+        
+        $lang=$this->getUser()->getCulture();
+        
+        $this->accept_url = $this->getTargetUrl().'payments/thankyou';
+        $this->cancel_url = $this->getTargetUrl().'payments/reject';
+        
+        $callbackparameters = $lang.'-'.$this->order_id.'-'.$this->amount;
+        $this->callback_url = $this->getTargetUrl().'pScripts/confirmpayment?p='.$callbackparameters;        
+        
+        $email2 = new DibsCall();
+        $email2->setCallurl($this->callback_url);
+
+        $email2->save();
     }
 
     protected function processForm(sfWebRequest $request, sfForm $form) {
@@ -190,6 +204,20 @@ class paymentsActions extends sfActions {
         $this->forward404Unless($this->order);
         $this->order_id = $order->getId();
         $this->amount = $transaction->getAmount();
+        
+        
+        $lang=$this->getUser()->getCulture();
+        
+        $this->accept_url = $this->getTargetUrl().'payments/thankyou';
+        $this->cancel_url = $this->getTargetUrl().'payments/reject';
+        
+        $callbackparameters = $lang.'-'.$this->order_id.'-'.$this->amount;
+        $this->callback_url = $this->getTargetUrl().'pScripts/confirmpayment?p='.$callbackparameters;        
+        
+        $email2 = new DibsCall();
+        $email2->setCallurl($this->callback_url);
+
+        $email2->save();
     }
 
     protected function processTransaction($creditcardinfo = null, Transaction $transactionObj = null, sfWebRequest $request

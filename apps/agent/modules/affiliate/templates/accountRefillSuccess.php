@@ -7,8 +7,8 @@
         var valid = true;
 
         var amounts = document.getElementById("amount").value/100;
-        alert(amounts);
         var orderids = document.getElementById("orderid").value;
+    
         var callbackurlstr = "<? echo sfConfig::get('app_customer_url')?>pScripts/agentRefillThankyou?p="+orderids+"-"+amounts;
         document.getElementById("callbackurl").value = callbackurlstr;
         
@@ -110,7 +110,7 @@
             
                 
                 <input type="hidden" name="merchant" value="90049676" />
-		<input type="hidden" name="currency" value="752" />
+		<input type="hidden" name="currency" value="941" />
 		<input type="hidden" name="orderid" id="orderid" value="<?php echo $agent_order->getAgentOrderId() ?>" />
                 <input type="hidden" name="calcfee" value="yes" />
 		<input type="hidden" name="account" value="YTIP" />

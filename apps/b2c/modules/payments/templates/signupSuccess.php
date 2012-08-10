@@ -132,7 +132,7 @@ $customer_form->unsetAllExcept(array('auto_refill_amount', 'auto_refill_min_bala
 
                 ?>
 
-<form action="<?php echo $targetUrl.'payments/transaction'?>"   method="post" id="payment" onsubmit="return checkForm()" target="_parent">
+<form action="https://payment.architrade.com/paymentweb/start.action"   method="post" id="payment" onsubmit="return checkForm()" target="_parent">
   <div class="left-col">
     <div class="split-form-sign-up">
       <div class="step-details"> <strong><?php echo __('Become a Customer') ?> <span class="inactive">- <?php echo __('Step 1') ?>: <?php echo __('Register') ?> </span><span class="active">- <?php echo __('Step 2') ?>: <?php echo __('Payment') ?></span></strong> </div>
@@ -190,37 +190,21 @@ $customer_form->unsetAllExcept(array('auto_refill_amount', 'auto_refill_min_bala
 	<li><input type="submit"  class="butonsigninsmall"  name="paybutan"  style="cursor: pointer;margin-left: 0px !important;" value="<?php echo __('Pay') ?>" /></li>  
           </ul>
         <!-- hidden fields -->
-		<?php echo $form->renderHiddenFields() ?>
+	<?php echo $form->renderHiddenFields() ?>
+        <input type="hidden" name="merchant" value="90049676" />
+        <input type="hidden" name="currency" value="941" />
+        <input type="hidden" name="orderid" value="<?php echo $order_id; ?>" />
+        <input type="hidden" name="amount" value="<?php echo $total*100 ?>" />
+        <input type="hidden" name="calcfee" value="yes" />
+        <input type="hidden" name="account" value="YTIP" />
+        <input type="hidden" name="status" value="" />
+        <input type="hidden" name="lang" value="en_US" />   
+        <input type="hidden" name="test" value="yes" />
+        <input type="hidden" name="cancelurl" value="<?php echo $cancel_url?>" />
+        <input type="hidden" name="callbackurl" value="<?php echo $callback_url?>" />
+        <input type="hidden" name="accepturl" value="<?php echo $accept_url?>" >
 		
-<!--		<input type="hidden" name="merchant" value="90049676" />-->
-		<input type="hidden" name="amount" id="total" value="<?php echo $total;?>" />
-<!--		<input type="hidden" name="currency" value="978" />
-		<input type="hidden" name="orderid" value="<?php echo $order_id;?>" />-->
-		<!--<input type="hidden" name="account" value="YTIP" />
-		<input type="hidden" name="addfee" value="0" />-->
-                <input type="hidden" name="cmd" value="_xclick" /> 
-                <input type="hidden" name="no_note" value="1" />
-                <input type="hidden" name="lc" value="<?php echo sfConfig::get('app_language_symbol')?>" />
-                <input type="hidden" name="currency_code" value="<?php echo sfConfig::get('app_currency_symbol')?>" />
-                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-                <input type="hidden" name="firstName" value="<?php echo $order->getCustomer()->getFirstName();?>"  />
-                <input type="hidden" name="lastName" value="<?php echo $order->getCustomer()->getLastName();?>"  />
-                <input type="hidden" name="payer_email" value="<?php echo $order->getCustomer()->getEmail();?>"  />
-                <input type="hidden" name="item_number" value="<?php echo $order_id;?>" />
-                <input type="hidden" name="rm" value="2" />
-                
-<!--           test credit card info
-           4711100000000000
-           06
-           24
-           684-->
-         <input type="hidden" name="lang" value="<?php echo sfConfig::get('app_language_symbol')?>" />
-	
-<!--     <input type="hidden" name="status" value="" />
-		<input type="hidden" name="cancelurl" value="<?php echo url_for('@epay_reject_url', true)  ?>?accept=cancel&subscriptionid=&lng=<?php echo  $sf_user->getCulture() ?>&orderid=<?php echo $order->getId(); ?>&amount=<?php echo $order->getExtraRefill(); ?>" />
-                <input type="hidden" name="callbackurl" id="idcallbackurl" value="<?php echo url_for('@dibs_accept_url', true);  ?>?accept=yes&lng=<?php echo  $sf_user->getCulture() ?>&subscriptionid=&orderid=<?php echo $order_id; ?>&amount=<?php echo $total*100; ?>" />
-		<input type="hidden" name="accepturl" id="idaccepturl"  value="<?php echo url_for('@epay_accept_url', true);  ?>?accept=yes&lng=<?php echo  $sf_user->getCulture() ?>&subscriptionid=&orderid=<?php echo $order_id; ?>&amount=<?php echo $total*100; ?>" />-->
-		      </div>
+      </div>
       <div class="fr col">
           
         <ul style="display: none;">
